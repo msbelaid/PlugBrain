@@ -24,22 +24,22 @@ class AppsSelectionActivity : ComponentActivity() {
     setContent {
       val installedApps by installedAppsViewModel.getInstalledApps().collectAsState(emptyList())
       val selectedApps by installedAppsViewModel.blockedApps.collectAsState(emptySet())
-        MathlockAppTheme {
-            Scaffold(modifier = Modifier.Companion.fillMaxSize()) { innerPadding ->
-                AppsSelectionScreen(
-                    modifier = Modifier.Companion.padding(innerPadding),
-                    installedApps = installedApps,
-                    selectedApps = selectedApps,
-                    onItemClicked = { clickedPackage ->
-                        if (clickedPackage in selectedApps) {
-                            installedAppsViewModel.unblockApp(clickedPackage)
-                        } else {
-                            installedAppsViewModel.blockApp(clickedPackage)
-                        }
-                    },
-                )
-            }
+      MathlockAppTheme {
+        Scaffold(modifier = Modifier.Companion.fillMaxSize()) { innerPadding ->
+          AppsSelectionScreen(
+            modifier = Modifier.Companion.padding(innerPadding),
+            installedApps = installedApps,
+            selectedApps = selectedApps,
+            onItemClicked = { clickedPackage ->
+              if (clickedPackage in selectedApps) {
+                installedAppsViewModel.unblockApp(clickedPackage)
+              } else {
+                installedAppsViewModel.blockApp(clickedPackage)
+              }
+            },
+          )
         }
+      }
     }
   }
 }

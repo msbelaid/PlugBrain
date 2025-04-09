@@ -27,7 +27,7 @@ class SettingsActivity : ComponentActivity() {
           blockedApps = blockedApps,
           onBlockApplicationsClicked = {
             startActivity(Intent(this@SettingsActivity, AppsSelectionActivity::class.java))
-          }
+          },
         )
       }
     }

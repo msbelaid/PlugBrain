@@ -36,8 +36,10 @@ fun SettingsScreen(
   blockedApps: Set<String>,
   onBlockApplicationsClicked: () -> Unit,
 ) {
-  Scaffold(modifier = Modifier.fillMaxSize().statusBarsPadding(),
-    topBar = { }) { innerPadding ->
+  Scaffold(
+    modifier = Modifier.fillMaxSize().statusBarsPadding(),
+    topBar = { },
+  ) { innerPadding ->
     LazyColumn(modifier.padding(innerPadding)) {
       item { SettingsTitle() }
       item { Authorizations() }
@@ -59,7 +61,7 @@ fun SettingsTitle() {
     textAlign = TextAlign.Center,
     modifier = Modifier
       .fillMaxWidth()
-      .padding(8.dp)
+      .padding(8.dp),
   )
 }
 
@@ -75,32 +77,32 @@ fun Exercises() {
 fun BlockedApplications(
   installedApps: List<InstalledApp>,
   blockedApps: Set<String>,
-  onBlockApplicationsClicked: () -> Unit
+  onBlockApplicationsClicked: () -> Unit,
 ) {
   Column(
-    modifier = Modifier.clickable() {
+    modifier = Modifier.clickable {
       onBlockApplicationsClicked()
-    }
+    },
   ) {
     if (blockedApps.isEmpty()) {
       Text(
         text = "No application is blocked!",
         fontSize = 32.sp,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp),
       )
     } else {
       Text(
         text = pluralStringResource(
           R.plurals.applications_blocked,
           blockedApps.size,
-          blockedApps.size
+          blockedApps.size,
         ),
         fontSize = 32.sp,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp),
       )
       LazyRow(
         modifier = Modifier.padding(start = 16.dp, bottom = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
       ) {
         items(blockedApps.toList()) { packageName ->
           val app = installedApps.firstOrNull { it.packageName == packageName }
@@ -121,7 +123,7 @@ fun Authorizations() {
   Text(
     text = "Authorizations",
     fontSize = 32.sp,
-    modifier = Modifier.padding(16.dp)
+    modifier = Modifier.padding(16.dp),
   )
 }
 
@@ -135,7 +137,7 @@ private fun SettingsScreenPreview() {
         packageName = "com.google.youtube",
         icon = AppCompatResources.getDrawable(
           LocalContext.current,
-          R.drawable.ic_launcher_background
+          R.drawable.ic_launcher_background,
         )!!,
         selected = true,
       ),
@@ -144,12 +146,12 @@ private fun SettingsScreenPreview() {
         packageName = "com.mathlock.android",
         icon = AppCompatResources.getDrawable(
           LocalContext.current,
-          R.drawable.ic_launcher_background
+          R.drawable.ic_launcher_background,
         )!!,
         selected = true,
       ),
     ),
     blockedApps = setOf("com.google.youtube", "com.mathlock.android"),
-    onBlockApplicationsClicked = { }
+    onBlockApplicationsClicked = { },
   )
 }
