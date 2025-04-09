@@ -4,9 +4,17 @@ import android.app.Application
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import app.matholck.android.ui.selectapps.model.InstalledApp
+import dz.univ.usto.mathlock.datastore.DataStoreManager
+import kotlinx.coroutines.launch
 
-class AppsSelectionViewModel(private val app: Application) : ViewModel() {
+class AppsSelectionViewModel(
+  private val app: Application,
+  private val dataStoreManager: DataStoreManager
+) : ViewModel() {
+
+  val blockedApps = dataStoreManager.getBlockedApps
 
   fun getInstalledApps() : List<InstalledApp> {
     val pm = app.packageManager
@@ -22,6 +30,19 @@ class AppsSelectionViewModel(private val app: Application) : ViewModel() {
           icon = appInfo.loadIcon(pm)
         )
       }.sortedBy { it.name }
+  }
+
+
+  fun blockApp(packageName: String) {
+    viewModelScope.launch {
+      dataStoreManager.blockApp(packageName)
+    }
+  }
+
+  fun unblockApp(packageName: String) {
+    viewModelScope.launch {
+      dataStoreManager.unblockApp(packageName)
+    }
   }
 
   companion object {

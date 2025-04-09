@@ -1,6 +1,7 @@
 package app.matholck.android
 
 import android.app.Application
+import app.matholck.android.di.dataStoreModule
 import app.matholck.android.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -13,7 +14,7 @@ class MainApplication : Application(){
         startKoin{
             androidLogger()
             androidContext(this@MainApplication)
-            modules(viewModelModule)
+            modules(dataStoreModule, viewModelModule)
         }
     }
 }

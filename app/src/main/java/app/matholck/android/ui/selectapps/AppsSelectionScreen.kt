@@ -1,6 +1,8 @@
 package app.matholck.android.ui.selectapps
 
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -34,7 +36,7 @@ fun AppsSelectionScreen(
         value = searchQuery,
         onValueChange = { searchQuery = it },
         label = { Text("Search") },
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().statusBarsPadding(),
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search Icon") }
       )
     }
@@ -50,7 +52,10 @@ fun AppsSelectionScreen(
   }
 }
 
-@Preview
+@Preview(
+  showBackground = true,
+  showSystemUi = true
+)
 @Composable
 private fun AppsSelectionScreenPreview() {
   AppsSelectionScreen(
@@ -58,13 +63,13 @@ private fun AppsSelectionScreenPreview() {
       InstalledApp(
         name = "Youtube",
         packageName = "com.google.youtube",
-        icon = LocalContext.current.getDrawable(R.drawable.ic_launcher_background)!!,
+        icon = AppCompatResources.getDrawable(LocalContext.current, R.drawable.ic_launcher_background)!!,
         selected = true
       ),
       InstalledApp(
         name = "MathLock",
         packageName = "com.mathlock.android",
-        icon = LocalContext.current.getDrawable(R.drawable.ic_launcher_background)!!,
+        icon = AppCompatResources.getDrawable(LocalContext.current, R.drawable.ic_launcher_background)!!,
         selected = true
       )
     ),

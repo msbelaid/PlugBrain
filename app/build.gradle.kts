@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore.core.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

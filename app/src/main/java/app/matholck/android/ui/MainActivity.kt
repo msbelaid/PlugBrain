@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import app.matholck.android.ui.selectapps.AppsSelectionScreen
 import app.matholck.android.ui.selectapps.presentation.AppsSelectionViewModel
@@ -23,13 +25,20 @@ class MainActivity : ComponentActivity() {
     val installedApps = installedAppsViewModel.getInstalledApps()
 
     setContent {
+      val selectedApps by installedAppsViewModel.blockedApps.collectAsState(emptySet())
       MathlockAppTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
           AppsSelectionScreen(
             modifier = Modifier.padding(innerPadding),
             installedApps = installedApps,
             selectedApps = setOf(""),
-            onItemClicked = { }
+            onItemClicked = { clickedPackage ->
+              if (clickedPackage in selectedApps) {
+                installedAppsViewModel.unblockApp(clickedPackage)
+              } else {
+                installedAppsViewModel.blockApp(clickedPackage)
+              }
+            }
           )
         }
       }
