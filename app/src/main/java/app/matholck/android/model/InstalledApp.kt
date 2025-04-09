@@ -1,4 +1,4 @@
-package app.matholck.android.ui.selectapps.model
+package app.matholck.android.model
 
 import android.graphics.drawable.Drawable
 
