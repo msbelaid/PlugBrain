@@ -11,12 +11,12 @@ import kotlinx.coroutines.launch
 
 class AppsSelectionViewModel(
   private val app: Application,
-  private val dataStoreManager: DataStoreManager
+  private val dataStoreManager: DataStoreManager,
 ) : ViewModel() {
 
   val blockedApps = dataStoreManager.getBlockedApps
 
-  fun getInstalledApps() : List<InstalledApp> {
+  fun getInstalledApps(): List<InstalledApp> {
     val pm = app.packageManager
     return pm
       .getInstalledApplications(PackageManager.GET_META_DATA)
@@ -27,11 +27,10 @@ class AppsSelectionViewModel(
         InstalledApp(
           name = pm.getApplicationLabel(appInfo).toString(),
           packageName = appInfo.packageName,
-          icon = appInfo.loadIcon(pm)
+          icon = appInfo.loadIcon(pm),
         )
       }.sortedBy { it.name }
   }
-
 
   fun blockApp(packageName: String) {
     viewModelScope.launch {
@@ -76,8 +75,7 @@ class AppsSelectionViewModel(
       "com.android.mms", // Android Messages
       "com.android.documentsui", // Android Files
       "com.android.inputmethod.latin", // Android Keyboard (AOSP)
-      "com.google.android.apps.wallpaper" // Wallpapers
+      "com.google.android.apps.wallpaper", // Wallpapers
     )
-
   }
 }

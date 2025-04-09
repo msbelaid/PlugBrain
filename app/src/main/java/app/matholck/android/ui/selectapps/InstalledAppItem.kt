@@ -19,55 +19,54 @@ import coil3.compose.rememberAsyncImagePainter
 
 @Composable
 fun InstalledAppItem(
-    modifier: Modifier = Modifier,
-    installedApp: InstalledApp,
-    onClicked: () -> Unit,
+  modifier: Modifier = Modifier,
+  installedApp: InstalledApp,
+  onClicked: () -> Unit,
 ) {
-    ListItem(
-        headlineContent = {
-            Text(text = installedApp.name)
-        },
-        supportingContent = {
-            Text(text = installedApp.packageName)
-        },
-        leadingContent = {
-            Image(
-                modifier = Modifier.width(56.dp),
-                painter = rememberAsyncImagePainter(installedApp.icon.toBitmap()),
-                contentDescription = ""
-            )
-        },
-        trailingContent = {
-            Checkbox(
-                checked = installedApp.selected,
-                onCheckedChange = { onClicked() }
-            )
-        },
-        modifier = modifier.clickable { onClicked() }
-    )
+  ListItem(
+    headlineContent = {
+      Text(text = installedApp.name)
+    },
+    supportingContent = {
+      Text(text = installedApp.packageName)
+    },
+    leadingContent = {
+      Image(
+        modifier = Modifier.width(56.dp),
+        painter = rememberAsyncImagePainter(installedApp.icon.toBitmap()),
+        contentDescription = "",
+      )
+    },
+    trailingContent = {
+      Checkbox(
+        checked = installedApp.selected,
+        onCheckedChange = { onClicked() },
+      )
+    },
+    modifier = modifier.clickable { onClicked() },
+  )
 }
 
 @Preview
 @Composable
 private fun InstalledAppPreview() {
-    Column {
-        InstalledAppItem(
-            installedApp = InstalledApp(
-                name = "Youtube",
-                packageName = "com.google.youtube",
-                icon = LocalContext.current.getDrawable(R.drawable.ic_launcher_background)!!,
-                selected = true
-            ),
-            onClicked = { }
-        )
-        InstalledAppItem(
-            installedApp = InstalledApp(
-                name = "MathLock",
-                packageName = "app.mathlock.android",
-                icon = LocalContext.current.getDrawable(R.drawable.ic_launcher_background)!!
-            ),
-            onClicked = { }
-        )
-
-    }
+  Column {
+    InstalledAppItem(
+      installedApp = InstalledApp(
+        name = "Youtube",
+        packageName = "com.google.youtube",
+        icon = LocalContext.current.getDrawable(R.drawable.ic_launcher_background)!!,
+        selected = true,
+      ),
+      onClicked = { },
+    )
+    InstalledAppItem(
+      installedApp = InstalledApp(
+        name = "MathLock",
+        packageName = "app.mathlock.android",
+        icon = LocalContext.current.getDrawable(R.drawable.ic_launcher_background)!!,
+      ),
+      onClicked = { },
+    )
+  }
 }

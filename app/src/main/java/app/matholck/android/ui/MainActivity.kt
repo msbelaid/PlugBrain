@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
               } else {
                 installedAppsViewModel.blockApp(clickedPackage)
               }
-            }
+            },
           )
         }
       }
