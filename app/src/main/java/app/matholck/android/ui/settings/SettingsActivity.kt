@@ -8,23 +8,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import app.matholck.android.ui.selectapps.AppsSelectionActivity
-import app.matholck.android.ui.selectapps.presentation.AppsSelectionViewModel
+import app.matholck.android.ui.settings.presentation.SettingsViewModel
 import app.matholck.android.ui.theme.MathlockAppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsActivity : ComponentActivity() {
-  private val installedAppsViewModel: AppsSelectionViewModel by viewModel()
+  private val settingsViewModel: SettingsViewModel by viewModel()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContent {
-      val installedApps by installedAppsViewModel.getInstalledApps().collectAsState(emptyList())
-      val blockedApps by installedAppsViewModel.blockedApps.collectAsState(emptySet())
+      val lockedApps by settingsViewModel.getLockedApps().collectAsState(emptyList())
       MathlockAppTheme {
         SettingsScreen(
-          installedApps = installedApps,
-          blockedApps = blockedApps,
+          lockedApps = lockedApps,
           onBlockApplicationsClicked = {
             startActivity(Intent(this@SettingsActivity, AppsSelectionActivity::class.java))
           },

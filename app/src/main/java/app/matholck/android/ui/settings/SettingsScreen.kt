@@ -32,19 +32,20 @@ import coil3.compose.rememberAsyncImagePainter
 @Composable
 fun SettingsScreen(
   modifier: Modifier = Modifier,
-  installedApps: List<InstalledApp>,
-  blockedApps: Set<String>,
+  lockedApps: List<InstalledApp>,
   onBlockApplicationsClicked: () -> Unit,
 ) {
   Scaffold(
-    modifier = Modifier.fillMaxSize().statusBarsPadding(),
+    modifier = Modifier
+      .fillMaxSize()
+      .statusBarsPadding(),
     topBar = { },
   ) { innerPadding ->
     LazyColumn(modifier.padding(innerPadding)) {
       item { SettingsTitle() }
       item { Authorizations() }
       item { HorizontalDivider(thickness = 1.dp) }
-      item { BlockedApplications(installedApps, blockedApps, onBlockApplicationsClicked) }
+      item { BlockedApplications(lockedApps, onBlockApplicationsClicked) }
       item { HorizontalDivider(thickness = 1.dp) }
       item { Exercises() }
       item { HorizontalDivider(thickness = 1.dp) }
@@ -75,8 +76,7 @@ fun Exercises() {
 
 @Composable
 fun BlockedApplications(
-  installedApps: List<InstalledApp>,
-  blockedApps: Set<String>,
+  lockedApps: List<InstalledApp>,
   onBlockApplicationsClicked: () -> Unit,
 ) {
   Column(
@@ -84,35 +84,26 @@ fun BlockedApplications(
       onBlockApplicationsClicked()
     },
   ) {
-    if (blockedApps.isEmpty()) {
-      Text(
-        text = "No application is blocked!",
-        fontSize = 32.sp,
-        modifier = Modifier.padding(16.dp),
-      )
-    } else {
-      Text(
-        text = pluralStringResource(
-          R.plurals.applications_blocked,
-          blockedApps.size,
-          blockedApps.size,
-        ),
-        fontSize = 32.sp,
-        modifier = Modifier.padding(16.dp),
-      )
-      LazyRow(
-        modifier = Modifier.padding(start = 16.dp, bottom = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-      ) {
-        items(blockedApps.toList()) { packageName ->
-          val app = installedApps.firstOrNull { it.packageName == packageName }
-          Image(
-            modifier = Modifier
-              .width(24.dp),
-            painter = rememberAsyncImagePainter(app?.icon?.toBitmap()),
-            contentDescription = app?.name,
-          )
-        }
+    Text(
+      text = pluralStringResource(
+        R.plurals.applications_blocked,
+        lockedApps.size,
+        lockedApps.size,
+      ),
+      fontSize = 32.sp,
+      modifier = Modifier.padding(16.dp),
+    )
+    LazyRow(
+      modifier = Modifier.padding(start = 16.dp, bottom = 16.dp),
+      horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+      items(lockedApps.toList()) { app ->
+        Image(
+          modifier = Modifier
+            .width(24.dp),
+          painter = rememberAsyncImagePainter(app.icon.toBitmap()),
+          contentDescription = app.name,
+        )
       }
     }
   }
@@ -131,7 +122,7 @@ fun Authorizations() {
 @Composable
 private fun SettingsScreenPreview() {
   SettingsScreen(
-    installedApps = listOf(
+    lockedApps = listOf(
       InstalledApp(
         name = "Youtube",
         packageName = "com.google.youtube",
@@ -151,7 +142,6 @@ private fun SettingsScreenPreview() {
         selected = true,
       ),
     ),
-    blockedApps = setOf("com.google.youtube", "com.mathlock.android"),
     onBlockApplicationsClicked = { },
   )
 }
