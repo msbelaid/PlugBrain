@@ -21,13 +21,14 @@ import app.matholck.android.ui.selectapps.model.InstalledApp
 
 @Composable
 fun AppsSelectionScreen(
+  modifier: Modifier = Modifier,
   installedApps: List<InstalledApp>,
   selectedApps: Set<String>,
   onItemClicked: (String) -> Unit
 ) {
   var searchQuery by remember { mutableStateOf("") }
 
-  LazyColumn {
+  LazyColumn (modifier){
     item {
       TextField(
         value = searchQuery,
