@@ -37,8 +37,8 @@ class SettingsActivity : ComponentActivity() {
             startActivity(
               Intent(
                 this@SettingsActivity,
-                AppsSelectionActivity::class.java
-              )
+                AppsSelectionActivity::class.java,
+              ),
             )
           },
           onAccessibilityClicked = {
@@ -49,16 +49,18 @@ class SettingsActivity : ComponentActivity() {
           },
           batteryOptimizationClicked = {
             openBatteryOptimizationExemptionSettings()
-          }
+          },
         )
       }
     }
   }
 
   private fun openAccessibilitySettings() {
-    startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
-      flags = Intent.FLAG_ACTIVITY_NEW_TASK
-    })
+    startActivity(
+      Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+      },
+    )
   }
 
   private fun openUsageStatsPermissionSettings() {

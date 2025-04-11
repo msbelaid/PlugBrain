@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 class SettingsViewModel(
   private val installedAppsRepository: InstalledAppsRepository,
   private val dataStoreManager: DataStoreManager,
-  private val context: Context
+  private val context: Context,
 ) : ViewModel() {
 
   private val blockedApps = dataStoreManager.getBlockedApps
@@ -41,8 +41,9 @@ class SettingsViewModel(
 
   private fun checkAccessibilityServiceEnabled(): Boolean {
     Log.e(
-      "SettingsViewMode", "Test --> " + Secure
-        .getString(context.contentResolver, ENABLED_ACCESSIBILITY_SERVICES)
+      "SettingsViewMode",
+      "Test --> " + Secure
+        .getString(context.contentResolver, ENABLED_ACCESSIBILITY_SERVICES),
     )
     return Secure
       .getString(context.contentResolver, ENABLED_ACCESSIBILITY_SERVICES)
@@ -55,7 +56,7 @@ class SettingsViewModel(
     val mode = appOps.checkOpNoThrow(
       AppOpsManager.OPSTR_GET_USAGE_STATS,
       android.os.Process.myUid(),
-      context.packageName
+      context.packageName,
     )
     return mode == AppOpsManager.MODE_ALLOWED
   }
@@ -77,7 +78,7 @@ class SettingsViewModel(
     val state = PermissionsState(
       checkAccessibilityServiceEnabled(),
       isUsageStatsPermissionGranted(),
-      isBatteryOptimizationExempted()
+      isBatteryOptimizationExempted(),
     )
     emit(state)
   }.flowOn(Dispatchers.IO)

@@ -67,7 +67,7 @@ fun SettingsScreen(
           permissionsState,
           onAccessibilityClicked,
           onUsageStatsClicked,
-          batteryOptimizationClicked
+          batteryOptimizationClicked,
         )
       }
       item { HorizontalDivider(thickness = 1.dp) }
@@ -97,7 +97,7 @@ fun Timing() {
   var fequency by remember { mutableIntStateOf(15) }
 
   Column(
-    modifier = Modifier.padding(horizontal = 32.dp)
+    modifier = Modifier.padding(horizontal = 32.dp),
 
   ) {
     Text("Block Applications every: $fequency minutes")
@@ -109,7 +109,7 @@ fun Timing() {
         fequency = newValue
       },
       valueRange = 5f..60f,
-      steps = 12
+      steps = 12,
     )
   }
 }
@@ -209,21 +209,21 @@ fun Authorizations(
       subtitle = "More details about it",
       granted = permissionsState.accessibilityPermission,
       icon = R.drawable.baseline_accessibility_new_24,
-      onClick = onAccessibilityClicked
+      onClick = onAccessibilityClicked,
     )
     PermissionItem(
       title = "Usage stats",
       subtitle = "More details about it",
       granted = permissionsState.usageStatsPermission,
       icon = R.drawable.baseline_query_stats_24,
-      onClick = onUsageStatsClicked
+      onClick = onUsageStatsClicked,
     )
     PermissionItem(
       title = "Battery Optimization Exemption",
       subtitle = "More details about it",
       granted = permissionsState.batteryOptimizationExemption,
       icon = R.drawable.baseline_battery_2_bar_24,
-      onClick = batteryOptimizationClicked
+      onClick = batteryOptimizationClicked,
     )
   }
 }
@@ -256,6 +256,6 @@ private fun SettingsScreenPreview() {
     onBlockApplicationsClicked = { },
     onAccessibilityClicked = { },
     onUsageStatsClicked = { },
-    batteryOptimizationClicked = { }
+    batteryOptimizationClicked = { },
   )
 }
