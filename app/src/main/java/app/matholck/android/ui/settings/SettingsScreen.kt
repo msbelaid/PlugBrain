@@ -1,5 +1,6 @@
 package app.matholck.android.ui.settings
 
+import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -13,12 +14,24 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,13 +40,19 @@ import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import app.matholck.android.R
 import app.matholck.android.model.InstalledApp
+import app.matholck.android.ui.settings.presentation.PermissionsState
 import coil3.compose.rememberAsyncImagePainter
+import kotlin.math.roundToInt
 
 @Composable
 fun SettingsScreen(
   modifier: Modifier = Modifier,
   lockedApps: List<InstalledApp>,
+  permissionsState: PermissionsState,
   onBlockApplicationsClicked: () -> Unit,
+  onAccessibilityClicked: () -> Unit,
+  onUsageStatsClicked: () -> Unit,
+  batteryOptimizationClicked: () -> Unit,
 ) {
   Scaffold(
     modifier = Modifier
@@ -43,11 +62,18 @@ fun SettingsScreen(
   ) { innerPadding ->
     LazyColumn(modifier.padding(innerPadding)) {
       item { SettingsTitle() }
-      item { Authorizations() }
+      item {
+        Authorizations(
+          permissionsState,
+          onAccessibilityClicked,
+          onUsageStatsClicked,
+          batteryOptimizationClicked
+        )
+      }
       item { HorizontalDivider(thickness = 1.dp) }
       item { BlockedApplications(lockedApps, onBlockApplicationsClicked) }
       item { HorizontalDivider(thickness = 1.dp) }
-      item { Exercises() }
+      item { Challenges() }
       item { HorizontalDivider(thickness = 1.dp) }
       item { Timing() }
     }
@@ -68,10 +94,33 @@ fun SettingsTitle() {
 
 @Composable
 fun Timing() {
+  var fequency by remember { mutableIntStateOf(15) }
+
+  Column(
+    modifier = Modifier.padding(horizontal = 32.dp)
+
+  ) {
+    Text("Block Applications every: $fequency minutes")
+
+    Slider(
+      value = fequency.toFloat(),
+      onValueChange = {
+        val newValue = ((it / 5).roundToInt() * 5)
+        fequency = newValue
+      },
+      valueRange = 5f..60f,
+      steps = 12
+    )
+  }
 }
 
 @Composable
-fun Exercises() {
+fun Challenges() {
+  Text(
+    text = "Challenge",
+    style = MaterialTheme.typography.titleLarge,
+    modifier = Modifier.padding(start = 32.dp),
+  )
 }
 
 @Composable
@@ -80,7 +129,7 @@ fun BlockedApplications(
   onBlockApplicationsClicked: () -> Unit,
 ) {
   Column(
-    modifier = Modifier.clickable {
+    modifier = Modifier.fillMaxWidth().clickable {
       onBlockApplicationsClicked()
     },
   ) {
@@ -90,11 +139,11 @@ fun BlockedApplications(
         lockedApps.size,
         lockedApps.size,
       ),
-      fontSize = 32.sp,
-      modifier = Modifier.padding(16.dp),
+      style = MaterialTheme.typography.titleLarge,
+      modifier = Modifier.padding(start = 32.dp, top = 16.dp, bottom = 8.dp),
     )
     LazyRow(
-      modifier = Modifier.padding(start = 16.dp, bottom = 16.dp),
+      modifier = Modifier.padding(start = 32.dp, bottom = 16.dp),
       horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
       items(lockedApps.toList()) { app ->
@@ -110,12 +159,73 @@ fun BlockedApplications(
 }
 
 @Composable
-fun Authorizations() {
-  Text(
-    text = "Authorizations",
-    fontSize = 32.sp,
-    modifier = Modifier.padding(16.dp),
+fun PermissionItem(
+  title: String,
+  subtitle: String,
+  granted: Boolean,
+  @DrawableRes icon: Int,
+  onClick: () -> Unit,
+) {
+  ListItem(
+    headlineContent = {
+      Text(text = title)
+    },
+    supportingContent = {
+      Text(text = subtitle)
+    },
+    leadingContent = {
+      Image(
+        modifier = Modifier.width(56.dp),
+        painter = painterResource(icon),
+        contentDescription = "",
+      )
+    },
+    trailingContent = {
+      if (granted) {
+        Icon(Icons.Outlined.Check, "")
+      } else {
+        Icon(Icons.Outlined.Clear, "")
+      }
+    },
+    modifier = Modifier.clickable(enabled = granted.not()) { onClick() },
   )
+}
+
+@Composable
+fun Authorizations(
+  permissionsState: PermissionsState,
+  onAccessibilityClicked: () -> Unit,
+  onUsageStatsClicked: () -> Unit,
+  batteryOptimizationClicked: () -> Unit,
+) {
+  Column {
+    Text(
+      text = "Authorizations",
+      style = MaterialTheme.typography.titleLarge,
+      modifier = Modifier.padding(start = 32.dp),
+    )
+    PermissionItem(
+      title = "Accessibility permission",
+      subtitle = "More details about it",
+      granted = permissionsState.accessibilityPermission,
+      icon = R.drawable.baseline_accessibility_new_24,
+      onClick = onAccessibilityClicked
+    )
+    PermissionItem(
+      title = "Usage stats",
+      subtitle = "More details about it",
+      granted = permissionsState.usageStatsPermission,
+      icon = R.drawable.baseline_query_stats_24,
+      onClick = onUsageStatsClicked
+    )
+    PermissionItem(
+      title = "Battery Optimization Exemption",
+      subtitle = "More details about it",
+      granted = permissionsState.batteryOptimizationExemption,
+      icon = R.drawable.baseline_battery_2_bar_24,
+      onClick = batteryOptimizationClicked
+    )
+  }
 }
 
 @Preview(showSystemUi = true)
@@ -142,6 +252,10 @@ private fun SettingsScreenPreview() {
         selected = true,
       ),
     ),
+    permissionsState = PermissionsState(true, true, false),
     onBlockApplicationsClicked = { },
+    onAccessibilityClicked = { },
+    onUsageStatsClicked = { },
+    batteryOptimizationClicked = { }
   )
 }
