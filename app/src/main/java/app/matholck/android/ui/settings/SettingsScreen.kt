@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Clear
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
@@ -33,10 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import app.matholck.android.R
 import app.matholck.android.model.InstalledApp
@@ -49,10 +48,13 @@ fun SettingsScreen(
   modifier: Modifier = Modifier,
   lockedApps: List<InstalledApp>,
   permissionsState: PermissionsState,
+  blockInterval: Int,
   onBlockApplicationsClicked: () -> Unit,
   onAccessibilityClicked: () -> Unit,
   onUsageStatsClicked: () -> Unit,
   batteryOptimizationClicked: () -> Unit,
+  onSystemAlertWindow: () -> Unit,
+  onUpdateBlockInterval: (Int) -> Unit,
 ) {
   Scaffold(
     modifier = Modifier
@@ -62,20 +64,22 @@ fun SettingsScreen(
   ) { innerPadding ->
     LazyColumn(modifier.padding(innerPadding)) {
       item { SettingsTitle() }
+      item { HorizontalDivider(thickness = 8.dp, modifier = Modifier.padding(bottom = 16.dp)) }
       item {
         Authorizations(
-          permissionsState,
-          onAccessibilityClicked,
-          onUsageStatsClicked,
-          batteryOptimizationClicked,
+          permissionsState = permissionsState,
+          onAccessibilityClicked = onAccessibilityClicked,
+          onUsageStatsClicked = onUsageStatsClicked,
+          batteryOptimizationClicked = batteryOptimizationClicked,
+          onSystemAlertWindow = onSystemAlertWindow
         )
       }
-      item { HorizontalDivider(thickness = 1.dp) }
+      item { HorizontalDivider(thickness = 8.dp) }
       item { BlockedApplications(lockedApps, onBlockApplicationsClicked) }
-      item { HorizontalDivider(thickness = 1.dp) }
+      item { HorizontalDivider(thickness = 8.dp) }
       item { Challenges() }
-      item { HorizontalDivider(thickness = 1.dp) }
-      item { Timing() }
+      item { HorizontalDivider(thickness = 8.dp, modifier = Modifier.padding(bottom = 16.dp)) }
+      item { Timing(blockInterval, onUpdateBlockInterval) }
     }
   }
 }
@@ -84,29 +88,34 @@ fun SettingsScreen(
 fun SettingsTitle() {
   Text(
     text = "MathLock",
-    fontSize = 57.sp,
-    textAlign = TextAlign.Center,
+    style = MaterialTheme.typography.displayMedium,
     modifier = Modifier
       .fillMaxWidth()
-      .padding(8.dp),
+      .padding(top = 16.dp, start = 32.dp, bottom = 16.dp),
   )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Timing() {
-  var fequency by remember { mutableIntStateOf(15) }
-
+fun Timing(
+  blockInterval: Int,
+  onUpdateBlockInterval: (Int) -> Unit
+) {
   Column(
     modifier = Modifier.padding(horizontal = 32.dp),
 
-  ) {
-    Text("Block Applications every: $fequency minutes")
+    ) {
+    Text(
+      text = "Block Applications every: $blockInterval mins",
+      style = MaterialTheme.typography.titleLarge,
+      modifier = Modifier.padding(bottom = 16.dp)
+    )
 
     Slider(
-      value = fequency.toFloat(),
+      value = blockInterval.toFloat(),
       onValueChange = {
         val newValue = ((it / 5).roundToInt() * 5)
-        fequency = newValue
+        onUpdateBlockInterval(newValue)
       },
       valueRange = 5f..60f,
       steps = 12,
@@ -119,7 +128,7 @@ fun Challenges() {
   Text(
     text = "Challenge",
     style = MaterialTheme.typography.titleLarge,
-    modifier = Modifier.padding(start = 32.dp),
+    modifier = Modifier.padding(start = 32.dp, top = 16.dp, bottom = 16.dp),
   )
 }
 
@@ -129,9 +138,11 @@ fun BlockedApplications(
   onBlockApplicationsClicked: () -> Unit,
 ) {
   Column(
-    modifier = Modifier.fillMaxWidth().clickable {
-      onBlockApplicationsClicked()
-    },
+    modifier = Modifier
+      .fillMaxWidth()
+      .clickable {
+        onBlockApplicationsClicked()
+      },
   ) {
     Text(
       text = pluralStringResource(
@@ -197,6 +208,7 @@ fun Authorizations(
   onAccessibilityClicked: () -> Unit,
   onUsageStatsClicked: () -> Unit,
   batteryOptimizationClicked: () -> Unit,
+  onSystemAlertWindow: () -> Unit,
 ) {
   Column {
     Text(
@@ -217,6 +229,13 @@ fun Authorizations(
       granted = permissionsState.usageStatsPermission,
       icon = R.drawable.baseline_query_stats_24,
       onClick = onUsageStatsClicked,
+    )
+    PermissionItem(
+      title = "System Alert Window",
+      subtitle = "More details about it",
+      granted = permissionsState.systemAlertWindow,
+      icon = R.drawable.baseline_apps_outage_24,
+      onClick = onSystemAlertWindow,
     )
     PermissionItem(
       title = "Battery Optimization Exemption",
@@ -252,10 +271,13 @@ private fun SettingsScreenPreview() {
         selected = true,
       ),
     ),
-    permissionsState = PermissionsState(true, true, false),
+    permissionsState = PermissionsState(true, true, false, false),
+    blockInterval = 25,
     onBlockApplicationsClicked = { },
     onAccessibilityClicked = { },
     onUsageStatsClicked = { },
     batteryOptimizationClicked = { },
+    onSystemAlertWindow = { },
+    onUpdateBlockInterval = { }
   )
 }

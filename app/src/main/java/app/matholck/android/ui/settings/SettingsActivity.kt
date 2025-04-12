@@ -1,6 +1,7 @@
 package app.matholck.android.ui.settings
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.ComponentActivity
@@ -21,6 +22,7 @@ class SettingsActivity : ComponentActivity() {
   override fun onResume() {
     super.onResume()
     settingsViewModel.fetchPermission()
+    settingsViewModel.getBlockInterval()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,10 +31,12 @@ class SettingsActivity : ComponentActivity() {
     setContent {
       val lockedApps by settingsViewModel.getLockedApps().collectAsState(emptyList())
       val permissions by settingsViewModel.permissionsState.collectAsState(PermissionsState())
+      val blockInterval by settingsViewModel.blockIntervalState.collectAsState(30)
       MathlockAppTheme {
         SettingsScreen(
           lockedApps = lockedApps,
           permissionsState = permissions,
+          blockInterval = blockInterval,
           onBlockApplicationsClicked = {
             startActivity(
               Intent(
@@ -50,9 +54,24 @@ class SettingsActivity : ComponentActivity() {
           batteryOptimizationClicked = {
             openBatteryOptimizationExemptionSettings()
           },
+          onSystemAlertWindow = {
+            openManageAlertPermission()
+          },
+          onUpdateBlockInterval = {
+            settingsViewModel.updateBlockInterval(it)
+          },
         )
       }
     }
+  }
+
+  private fun openManageAlertPermission() {
+    val intent = Intent(
+      Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+      Uri.parse("package:${packageName}")
+    )
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    startActivity(intent)
   }
 
   private fun openAccessibilitySettings() {
