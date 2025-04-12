@@ -90,11 +90,13 @@ class MathLockService : AccessibilityService() {
             UsageEvents.Event.ACTIVITY_RESUMED, UsageEvents.Event.MOVE_TO_FOREGROUND -> EventType.APP_STARTED
             else -> EventType.APP_STOPPED
           },
-          event.timeStamp
+          event.timeStamp,
         )
-        if (eventsPerApp[event.packageName] == null)
+        if (eventsPerApp[event.packageName] == null) {
           eventsPerApp[event.packageName] = mutableListOf(appEvent)
-        else eventsPerApp[event.packageName]?.add(appEvent)
+        } else {
+          eventsPerApp[event.packageName]?.add(appEvent)
+        }
       }
     }
     return eventsPerApp
@@ -144,7 +146,7 @@ class MathLockService : AccessibilityService() {
     if (getBlockedAppUsageDuration() >= blockInterval) {
       serviceScope.launch {
         lastBlockTime = System.currentTimeMillis()
-        //TODO not here, when challenge resolved
+        // TODO not here, when challenge resolved
         dataStoreManager.updateLastBlockTime(System.currentTimeMillis())
       }
       launchMathChallenge()

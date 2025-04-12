@@ -27,8 +27,6 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -71,7 +69,7 @@ fun SettingsScreen(
           onAccessibilityClicked = onAccessibilityClicked,
           onUsageStatsClicked = onUsageStatsClicked,
           batteryOptimizationClicked = batteryOptimizationClicked,
-          onSystemAlertWindow = onSystemAlertWindow
+          onSystemAlertWindow = onSystemAlertWindow,
         )
       }
       item { HorizontalDivider(thickness = 8.dp) }
@@ -99,16 +97,16 @@ fun SettingsTitle() {
 @Composable
 fun Timing(
   blockInterval: Int,
-  onUpdateBlockInterval: (Int) -> Unit
+  onUpdateBlockInterval: (Int) -> Unit,
 ) {
   Column(
     modifier = Modifier.padding(horizontal = 32.dp),
 
-    ) {
+  ) {
     Text(
       text = "Block Applications every: $blockInterval mins",
       style = MaterialTheme.typography.titleLarge,
-      modifier = Modifier.padding(bottom = 16.dp)
+      modifier = Modifier.padding(bottom = 16.dp),
     )
 
     Slider(
@@ -278,6 +276,6 @@ private fun SettingsScreenPreview() {
     onUsageStatsClicked = { },
     batteryOptimizationClicked = { },
     onSystemAlertWindow = { },
-    onUpdateBlockInterval = { }
+    onUpdateBlockInterval = { },
   )
 }

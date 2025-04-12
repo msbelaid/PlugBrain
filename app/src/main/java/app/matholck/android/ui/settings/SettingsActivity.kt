@@ -68,7 +68,7 @@ class SettingsActivity : ComponentActivity() {
   private fun openManageAlertPermission() {
     val intent = Intent(
       Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-      Uri.parse("package:${packageName}")
+      Uri.parse("package:$packageName"),
     )
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     startActivity(intent)

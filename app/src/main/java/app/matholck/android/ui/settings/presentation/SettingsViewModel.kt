@@ -89,7 +89,6 @@ class SettingsViewModel(
     }
   }
 
-
   fun getBlockInterval() {
     viewModelScope.launch {
       dataStoreManager.getBlockInterval.collect { state ->
@@ -97,5 +96,4 @@ class SettingsViewModel(
       }
     }
   }
-
 }

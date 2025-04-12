@@ -14,31 +14,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import app.matholck.android.ui.theme.MathlockAppTheme
 
 class ChallengeActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            MathlockAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(Modifier.padding(innerPadding))
-                }
-            }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
+    setContent {
+      MathlockAppTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+          Greeting(Modifier.padding(innerPadding))
         }
+      }
     }
+  }
 }
 
 @Composable
 fun Greeting(modifier: Modifier = Modifier) {
-    Text(
-        text = "Here goes the Challenge!",
-        modifier = modifier
-    )
+  Text(
+    text = "Here goes the Challenge!",
+    modifier = modifier,
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    MathlockAppTheme {
-        Greeting()
-    }
+  MathlockAppTheme {
+    Greeting()
+  }
 }
