@@ -2,8 +2,8 @@ package app.matholck.android.ui.challenges.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.matholck.android.repository.QuestionsRepository
-import app.matholck.android.repository.model.Question
+import app.matholck.android.repository.MathChallengeRepository
+import app.matholck.android.repository.model.MathChallenge
 import dz.univ.usto.mathlock.datastore.DataStoreManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,19 +11,19 @@ import kotlinx.coroutines.launch
 
 class ArithChallengeViewModel(
   private val dataStoreManager: DataStoreManager,
-  private val questionsRepository: QuestionsRepository,
+  private val mathChallengeRepository: MathChallengeRepository,
 ) : ViewModel() {
-  private val _question: MutableStateFlow<Question?> = MutableStateFlow(null)
-  val question: StateFlow<Question?> = _question
+  private val _mathChallenge: MutableStateFlow<MathChallenge?> = MutableStateFlow(null)
+  val mathChallenge: StateFlow<MathChallenge?> = _mathChallenge
 
   init {
-    generateQuestion()
+    generateChallenge()
   }
 
-  private fun generateQuestion() {
+  private fun generateChallenge() {
     viewModelScope.launch {
-      questionsRepository.generateQuestion().collect {
-        _question.value = it
+      mathChallengeRepository.generateChallenge().collect {
+        _mathChallenge.value = it
       }
     }
   }

@@ -23,13 +23,13 @@ class ChallengeActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       MathlockAppTheme {
-        val question by challengeViewModel.question.collectAsState()
+        val challenge by challengeViewModel.mathChallenge.collectAsState()
 
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-          question?.let {
+          challenge?.let {
             ArithChallengeScreen(
               modifier = Modifier.padding(innerPadding),
-              question = it,
+              mathChallenge = it,
             ) { response ->
               if (it.checkAnswer(response)) {
                 challengeViewModel.unblockApps()

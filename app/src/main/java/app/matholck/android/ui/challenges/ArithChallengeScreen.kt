@@ -30,14 +30,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.matholck.android.repository.model.Operator
-import app.matholck.android.repository.model.Question
+import app.matholck.android.repository.model.MathChallenge
 import app.matholck.android.ui.isPortrait
-import kotlin.toString
 
 @Composable
 fun ArithChallengeScreen(
   modifier: Modifier = Modifier,
-  question: Question,
+  mathChallenge: MathChallenge,
   checkAnswer: (Int) -> Unit,
 ) {
   Column(
@@ -47,7 +46,7 @@ fun ArithChallengeScreen(
   ) {
     BlockAppsMessage()
     if (isPortrait()) {
-      OperationView(question)
+      OperationView(mathChallenge)
       ResponseInputView(checkAnswer)
     } else {
       Row(
@@ -55,7 +54,7 @@ fun ArithChallengeScreen(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
       ) {
         Spacer(Modifier.width(32.dp))
-        OperationView(question)
+        OperationView(mathChallenge)
         Text("=", style = MaterialTheme.typography.displayLarge)
         ResponseInputView(checkAnswer)
       }
@@ -106,14 +105,14 @@ private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
 }
 
 @Composable
-private fun OperationView(question: Question) {
+private fun OperationView(mathChallenge: MathChallenge) {
   Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
     Text(
-      text = question.num1.toString(),
+      text = mathChallenge.num1.toString(),
       style = MaterialTheme.typography.displayLarge,
     )
-    Text(text = question.operator.value, style = MaterialTheme.typography.displayLarge)
-    Text(text = question.num2.toString(), style = MaterialTheme.typography.displayLarge)
+    Text(text = mathChallenge.operator.symbol, style = MaterialTheme.typography.displayLarge)
+    Text(text = mathChallenge.num2.toString(), style = MaterialTheme.typography.displayLarge)
   }
 }
 
@@ -121,7 +120,7 @@ private fun OperationView(question: Question) {
 @Composable
 private fun ArithChallengePortraitScreenPreview() {
   ArithChallengeScreen(
-    question = Question(
+    mathChallenge = MathChallenge(
       num1 = 999,
       num2 = 999,
       operator = Operator.ADDITION,
@@ -134,7 +133,7 @@ private fun ArithChallengePortraitScreenPreview() {
 @Composable
 private fun ArithChallengeLandscapeScreenPreview() {
   ArithChallengeScreen(
-    question = Question(
+    mathChallenge = MathChallenge(
       num1 = 999,
       num2 = 999,
       operator = Operator.ADDITION,

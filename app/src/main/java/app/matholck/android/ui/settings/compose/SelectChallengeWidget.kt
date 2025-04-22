@@ -59,7 +59,7 @@ private fun DifficultySelection(
   onDifficultySelected: (Difficulty) -> Unit,
 ) {
   val difficultyLevels = Difficulty.entries.toList()
-
+  // TODO Allow multiselect
   Row(
     horizontalArrangement = Arrangement.spacedBy(8.dp),
     modifier = Modifier.horizontalScroll(rememberScrollState()),
@@ -102,7 +102,7 @@ private fun OperationSelection(
       FilterChip(
         selected = challengeSettings.operator == operation,
         onClick = { onOperationSelected(operation) },
-        label = { Text("${operation.name} (${operation.value})") },
+        label = { Text("${operation.name} (${operation.symbol})") },
         leadingIcon =
         {
           if ((challengeSettings.operator == operation)) {

@@ -1,6 +1,6 @@
 package app.matholck.android.repository.model
 
-data class Question(
+data class MathChallenge(
   val num1: Int,
   val num2: Int,
   val operator: Operator,
