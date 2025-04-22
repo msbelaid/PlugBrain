@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.core.net.toUri
+import app.matholck.android.repository.model.ChallengeSettings
 import app.matholck.android.ui.selectapps.AppsSelectionActivity
 import app.matholck.android.ui.settings.presentation.PermissionsState
 import app.matholck.android.ui.settings.presentation.SettingsViewModel
@@ -23,6 +24,7 @@ class SettingsActivity : ComponentActivity() {
     super.onResume()
     settingsViewModel.fetchPermission()
     settingsViewModel.getBlockInterval()
+    settingsViewModel.getChallengeSettings()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,11 +33,13 @@ class SettingsActivity : ComponentActivity() {
     setContent {
       val lockedApps by settingsViewModel.getLockedApps().collectAsState(emptyList())
       val permissions by settingsViewModel.permissionsState.collectAsState(PermissionsState())
-      val blockInterval by settingsViewModel.blockIntervalState.collectAsState(30)
+      val blockInterval by settingsViewModel.blockIntervalState.collectAsState(5)
+      val challengeSettings by settingsViewModel.challengeSettingsState.collectAsState(ChallengeSettings())
       MathlockAppTheme {
         SettingsScreen(
           lockedApps = lockedApps,
           permissionsState = permissions,
+          challengeSettings = challengeSettings,
           blockInterval = blockInterval,
           onBlockApplicationsClicked = {
             startActivity(
@@ -59,6 +63,12 @@ class SettingsActivity : ComponentActivity() {
           },
           onUpdateBlockInterval = {
             settingsViewModel.updateBlockInterval(it)
+          },
+          onOperationSelected = {
+            settingsViewModel.updateChallengeSettings(challengeSettings.copy(operator = it))
+          },
+          onDifficultySelected = {
+            settingsViewModel.updateChallengeSettings(challengeSettings.copy(difficulty = it))
           },
         )
       }

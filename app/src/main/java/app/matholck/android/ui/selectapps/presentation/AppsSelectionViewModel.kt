@@ -2,8 +2,8 @@ package app.matholck.android.ui.selectapps.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.matholck.android.model.InstalledApp
 import app.matholck.android.repository.InstalledAppsRepository
+import app.matholck.android.repository.model.InstalledApp
 import dz.univ.usto.mathlock.datastore.DataStoreManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -13,7 +13,7 @@ class AppsSelectionViewModel(
   private val dataStoreManager: DataStoreManager,
 ) : ViewModel() {
 
-  val blockedApps = dataStoreManager.getBlockedApps
+  val blockedApps = dataStoreManager.getBlockedApps()
 
   fun getInstalledApps(): Flow<List<InstalledApp>> =
     installedAppsRepository.getInstalledApps()

@@ -3,7 +3,7 @@ package app.matholck.android.repository
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import app.matholck.android.model.InstalledApp
+import app.matholck.android.repository.model.InstalledApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

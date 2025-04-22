@@ -4,30 +4,38 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -36,16 +44,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import app.matholck.android.R
-import app.matholck.android.model.InstalledApp
+import app.matholck.android.repository.model.ChallengeSettings
+import app.matholck.android.repository.model.Difficulty
+import app.matholck.android.repository.model.InstalledApp
+import app.matholck.android.repository.model.Operator
+import app.matholck.android.ui.settings.compose.SelectChallengesWidget
 import app.matholck.android.ui.settings.presentation.PermissionsState
 import coil3.compose.rememberAsyncImagePainter
-import kotlin.math.roundToInt
 
 @Composable
 fun SettingsScreen(
   modifier: Modifier = Modifier,
   lockedApps: List<InstalledApp>,
   permissionsState: PermissionsState,
+  challengeSettings: ChallengeSettings,
   blockInterval: Int,
   onBlockApplicationsClicked: () -> Unit,
   onAccessibilityClicked: () -> Unit,
@@ -53,6 +65,8 @@ fun SettingsScreen(
   batteryOptimizationClicked: () -> Unit,
   onSystemAlertWindow: () -> Unit,
   onUpdateBlockInterval: (Int) -> Unit,
+  onDifficultySelected: (Difficulty) -> Unit,
+  onOperationSelected: (Operator) -> Unit,
 ) {
   Scaffold(
     modifier = Modifier
@@ -75,7 +89,14 @@ fun SettingsScreen(
       item { HorizontalDivider(thickness = 8.dp) }
       item { BlockedApplications(lockedApps, onBlockApplicationsClicked) }
       item { HorizontalDivider(thickness = 8.dp) }
-      item { Challenges() }
+      item {
+        SelectChallengesWidget(
+          modifier = Modifier.padding(vertical = 16.dp),
+          challengeSettings = challengeSettings,
+          onDifficultySelected = { onDifficultySelected(it) },
+          onOperationSelected = { onOperationSelected(it) },
+        )
+      }
       item { HorizontalDivider(thickness = 8.dp, modifier = Modifier.padding(bottom = 16.dp)) }
       item { Timing(blockInterval, onUpdateBlockInterval) }
     }
@@ -99,35 +120,38 @@ fun Timing(
   blockInterval: Int,
   onUpdateBlockInterval: (Int) -> Unit,
 ) {
-  Column(
-    modifier = Modifier.padding(horizontal = 32.dp),
+  val options = listOf(1, 2, 5, 10, 15, 20, 30)
 
-  ) {
+  Column {
     Text(
       text = "Block Applications every: $blockInterval mins",
       style = MaterialTheme.typography.titleLarge,
-      modifier = Modifier.padding(bottom = 16.dp),
+      modifier = Modifier.padding(start = 32.dp, bottom = 16.dp, end = 16.dp),
     )
-
-    Slider(
-      value = blockInterval.toFloat(),
-      onValueChange = {
-        val newValue = ((it / 5).roundToInt() * 5)
-        onUpdateBlockInterval(newValue)
-      },
-      valueRange = 5f..60f,
-      steps = 12,
-    )
+    Row(
+      horizontalArrangement = Arrangement.spacedBy(8.dp),
+      modifier = Modifier.horizontalScroll(rememberScrollState()),
+    ) {
+      Spacer(Modifier.width(24.dp))
+      options.forEach { value ->
+        FilterChip(
+          selected = blockInterval == value,
+          onClick = { onUpdateBlockInterval(value) },
+          label = { Text("$value min") },
+          leadingIcon =
+          {
+            if (blockInterval == value) {
+              Icon(
+                imageVector = Icons.Filled.Done,
+                contentDescription = "Done icon",
+                modifier = Modifier.size(FilterChipDefaults.IconSize),
+              )
+            }
+          },
+        )
+      }
+    }
   }
-}
-
-@Composable
-fun Challenges() {
-  Text(
-    text = "Challenge",
-    style = MaterialTheme.typography.titleLarge,
-    modifier = Modifier.padding(start = 32.dp, top = 16.dp, bottom = 16.dp),
-  )
 }
 
 @Composable
@@ -135,35 +159,44 @@ fun BlockedApplications(
   lockedApps: List<InstalledApp>,
   onBlockApplicationsClicked: () -> Unit,
 ) {
-  Column(
-    modifier = Modifier
-      .fillMaxWidth()
-      .clickable {
-        onBlockApplicationsClicked()
-      },
+  Row(
+    verticalAlignment = Alignment.CenterVertically,
   ) {
-    Text(
-      text = pluralStringResource(
-        R.plurals.applications_blocked,
-        lockedApps.size,
-        lockedApps.size,
-      ),
-      style = MaterialTheme.typography.titleLarge,
-      modifier = Modifier.padding(start = 32.dp, top = 16.dp, bottom = 8.dp),
-    )
-    LazyRow(
-      modifier = Modifier.padding(start = 32.dp, bottom = 16.dp),
-      horizontalArrangement = Arrangement.spacedBy(8.dp),
+    Column(
+      modifier = Modifier
+        .weight(1f)
+        .clickable {
+          onBlockApplicationsClicked()
+        },
     ) {
-      items(lockedApps.toList()) { app ->
-        Image(
-          modifier = Modifier
-            .width(24.dp),
-          painter = rememberAsyncImagePainter(app.icon.toBitmap()),
-          contentDescription = app.name,
-        )
+      Text(
+        text = pluralStringResource(
+          R.plurals.applications_blocked,
+          lockedApps.size,
+          lockedApps.size,
+        ),
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(start = 32.dp, top = 16.dp, bottom = 8.dp),
+      )
+      LazyRow(
+        modifier = Modifier.padding(start = 32.dp, bottom = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+      ) {
+        items(lockedApps.toList()) { app ->
+          Image(
+            modifier = Modifier
+              .width(24.dp),
+            painter = rememberAsyncImagePainter(app.icon.toBitmap()),
+            contentDescription = app.name,
+          )
+        }
       }
     }
+    Icon(
+      imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+      contentDescription = "Open",
+      modifier = Modifier.padding(end = 16.dp),
+    )
   }
 }
 
@@ -270,12 +303,15 @@ private fun SettingsScreenPreview() {
       ),
     ),
     permissionsState = PermissionsState(true, true, false, false),
-    blockInterval = 25,
+    challengeSettings = ChallengeSettings(),
+    blockInterval = 10,
     onBlockApplicationsClicked = { },
     onAccessibilityClicked = { },
     onUsageStatsClicked = { },
     batteryOptimizationClicked = { },
     onSystemAlertWindow = { },
     onUpdateBlockInterval = { },
+    onOperationSelected = { },
+    onDifficultySelected = { },
   )
 }

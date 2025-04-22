@@ -1,4 +1,4 @@
-package app.matholck.android.model
+package app.matholck.android.repository.model
 
 import android.graphics.drawable.Drawable
 

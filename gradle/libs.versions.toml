@@ -12,6 +12,10 @@ composeBom = "2025.03.01"
 ktlint = "12.2.0"
 koin = "4.0.3"
 datastoreCoreAndroid = "1.1.4"
+timber = "5.0.1"
+mockitoVersion = "5.17.0"
+mockitoKotlinVersion = "5.4.0"
+mockkVersion = "1.14.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,6 +45,14 @@ koin_compose = { module = "io.insert-koin:koin-compose-viewmodel", version.ref =
 #DataStore
 androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastoreCoreAndroid" }
+
+#Timber
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+#Mockito - Mockk
+mockito = {module ="org.mockito:mockito-core", version.ref ="mockitoVersion"}
+mockito-kotlin = {module ="org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlinVersion" }
+mockk = {module ="io.mockk:mockk", version.ref = "mockkVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

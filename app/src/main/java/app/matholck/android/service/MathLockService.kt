@@ -1,165 +1,127 @@
 package app.matholck.android.service
 
 import android.accessibilityservice.AccessibilityService
-import android.app.usage.UsageEvents
-import android.app.usage.UsageStatsManager
 import android.content.Intent
-import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import app.matholck.android.appsusage.AppsUsageStats
 import app.matholck.android.ui.challenges.ChallengeActivity
 import dz.univ.usto.mathlock.datastore.DataStoreManager
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import timber.log.Timber
+
+const val TAG = "MathLockService"
+
+private const val ONE_MINUTE = 60_000L
+private const val ONE_HOUR = 60 * ONE_MINUTE
 
 class MathLockService : AccessibilityService() {
   private val dataStoreManager: DataStoreManager by inject()
+  private val appsUsageStats: AppsUsageStats by inject()
   private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
   private var blockedPackages: Set<String> = emptySet()
-  private var blockInterval = 5
+  private var blockInterval = 1
   private var lastBlockTime: Long? = null
+  private var isBlocked: Boolean? = null
 
   override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-    Log.e("MathLockService", "service started")
+    Timber.tag(TAG).i("onStart")
     return super.onStartCommand(intent, flags, startId)
   }
 
   override fun onServiceConnected() {
-    Log.e("MathLockService", "service connected")
-    serviceScope.launch {
-      dataStoreManager.getBlockedApps.collect { blockedPackages = it }
-      dataStoreManager.getBlockInterval.collect { blockInterval = it }
-      dataStoreManager.getLastBlockTime.collect { lastBlockTime = it }
-    }
+    Timber.tag(TAG).i("onServiceConnected")
+    getData()
     startRepeatingUsageCheck()
     super.onServiceConnected()
   }
 
-  override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-    if (event?.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-      val packageName = event.packageName?.toString() ?: return
-      Log.e("MathLockService", "Current Package $packageName")
-      Log.e("MathLockService", "BlockedPackages $blockedPackages")
-      if (packageName in blockedPackages) checkAppUsage()
+  private fun getData() {
+    serviceScope.launch {
+      combine(
+        dataStoreManager.getBlockedApps(),
+        dataStoreManager.getBlockInterval(),
+        dataStoreManager.getLastBlockTime(),
+        dataStoreManager.getBlockAppsToggle(),
+      ) { blockedPackages, interval, lastTime, toggle ->
+        ((blockedPackages to interval) to (lastTime to toggle))
+      }.collect {
+        blockedPackages = it.first.first
+        blockInterval = it.first.second
+        lastBlockTime = it.second.first
+        isBlocked = it.second.second
+      }
     }
   }
 
-  private fun launchMathChallenge() {
-    Log.e("MathLockService", "launchMathChallenge")
+  override fun onAccessibilityEvent(event: AccessibilityEvent?) {
+    if (event?.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+      val eventPackageName = event.packageName?.toString() ?: return
+      Timber.tag(TAG).i("Event: $eventPackageName state changed")
+      if (eventPackageName in blockedPackages) {
+        if (isBlocked == true) launchChallenge() else checkAppUsage()
+      }
+    }
+  }
+
+  private fun launchChallenge() {
+    Timber.tag(TAG).i("Launch Challenge ...")
     val intent = Intent(this, ChallengeActivity::class.java)
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    intent.addFlags(
+      Intent.FLAG_ACTIVITY_NEW_TASK or
+        Intent.FLAG_ACTIVITY_CLEAR_TOP or
+        Intent.FLAG_ACTIVITY_SINGLE_TOP,
+    )
     startActivity(intent)
   }
 
   override fun onInterrupt() {}
 
-  fun getBlockedAppUsageDuration(): Long {
-    val usageStatsManager =
-      this.getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
-    val endTime = System.currentTimeMillis()
-    val startTime = lastBlockTime ?: (endTime - 2 * 60 * 60 * 1000)
-    val eventsPerPackage = usageStatsManager.queryEvents(startTime, endTime).groupTimeByPackage()
-    Log.e("MathLockService", eventsPerPackage.toString())
-
-    return eventsPerPackage.totalTime()
-  }
-
-  private fun UsageEvents.groupTimeByPackage(): MutableMap<String, MutableList<AppEvent>> {
-    val event = UsageEvents.Event()
-    val eventsPerApp: MutableMap<String, MutableList<AppEvent>> = HashMap()
-
-    while (this.hasNextEvent()) {
-      this.getNextEvent(event)
-
-      if (event.packageName in blockedPackages &&
-        event.eventType in setOf(
-          UsageEvents.Event.ACTIVITY_RESUMED,
-          UsageEvents.Event.ACTIVITY_STOPPED,
-          UsageEvents.Event.ACTIVITY_PAUSED,
-          UsageEvents.Event.MOVE_TO_FOREGROUND,
-          UsageEvents.Event.MOVE_TO_BACKGROUND,
-        )
-      ) {
-        val appEvent = AppEvent(
-          when (event.eventType) {
-            UsageEvents.Event.ACTIVITY_RESUMED, UsageEvents.Event.MOVE_TO_FOREGROUND -> EventType.APP_STARTED
-            else -> EventType.APP_STOPPED
-          },
-          event.timeStamp,
-        )
-        if (eventsPerApp[event.packageName] == null) {
-          eventsPerApp[event.packageName] = mutableListOf(appEvent)
-        } else {
-          eventsPerApp[event.packageName]?.add(appEvent)
-        }
-      }
-    }
-    return eventsPerApp
-  }
-
-  private fun MutableMap<String, MutableList<AppEvent>>.totalTime(): Long {
-    val now = System.currentTimeMillis()
-    val timePerApp = this.map { app ->
-      var start = lastBlockTime ?: (now - 2 * 60 * 60 * 1000)
-      var inForeground = (app.value.first().type == EventType.APP_STOPPED)
-      var totalTime = 0L
-      app.value.add(AppEvent(EventType.APP_STOPPED, now))
-      app.value.forEach { event ->
-        when (event.type) {
-          EventType.APP_STARTED -> {
-            start = event.timestamp
-            inForeground = true
-          }
-
-          EventType.APP_STOPPED -> {
-            if (inForeground) {
-              totalTime += (event.timestamp - start)
-              inForeground = false
-            }
-          }
-        }
-      }
-      app.key to totalTime
-    }
-    Log.e("MathLockService", timePerApp.toString())
-
-    return timePerApp.sumOf { it.second } / 60000L
-  }
-
   private fun startRepeatingUsageCheck() {
     serviceScope.launch {
       while (isActive) {
         checkAppUsage()
-        delay(blockInterval * 60_000L + 1000)
+        delay(blockInterval * ONE_MINUTE)
       }
     }
   }
 
   private fun checkAppUsage() {
-    Log.e("MathLockService", "using events for  ${getBlockedAppUsageDuration()} mins")
-
-    if (getBlockedAppUsageDuration() >= blockInterval) {
+    Timber.tag(TAG).i("* Check blocked app usage started")
+    Timber.tag(TAG).i("   Interval: $blockInterval min")
+    Timber.tag(TAG).i("   Blocked packages: $blockedPackages")
+    Timber.tag(TAG).i("   Blocked?: $isBlocked")
+    Timber.tag(TAG).i(
+      "   Last check : ${
+        SimpleDateFormat(
+          "yyyy-MM-dd HH:mm:ss",
+          Locale.getDefault(),
+        ).format(Date(lastBlockTime ?: 0))
+      }",
+    )
+    if (isBlocked == true) return
+    if (appsUsageStats.getTotalAppsUsageDuration(
+        startTime = lastBlockTime ?: (System.currentTimeMillis() - ONE_HOUR),
+        endTime = System.currentTimeMillis(),
+        filterPackages = blockedPackages,
+      ) >= blockInterval
+    ) {
       serviceScope.launch {
+        dataStoreManager.updateBlockAppsToggle(true)
         lastBlockTime = System.currentTimeMillis()
-        // TODO not here, when challenge resolved
         dataStoreManager.updateLastBlockTime(System.currentTimeMillis())
       }
-      launchMathChallenge()
+      launchChallenge()
     }
-  }
-
-  data class AppEvent(
-    val type: EventType,
-    val timestamp: Long,
-  )
-
-  enum class EventType {
-    APP_STARTED,
-    APP_STOPPED,
   }
 }

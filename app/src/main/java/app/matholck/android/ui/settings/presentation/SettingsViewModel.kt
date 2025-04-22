@@ -9,8 +9,9 @@ import android.provider.Settings.Secure
 import android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.matholck.android.model.InstalledApp
 import app.matholck.android.repository.InstalledAppsRepository
+import app.matholck.android.repository.model.ChallengeSettings
+import app.matholck.android.repository.model.InstalledApp
 import app.matholck.android.service.MathLockService
 import dz.univ.usto.mathlock.datastore.DataStoreManager
 import kotlinx.coroutines.Dispatchers
@@ -28,13 +29,16 @@ class SettingsViewModel(
   private val context: Context,
 ) : ViewModel() {
 
-  private val blockedApps = dataStoreManager.getBlockedApps
+  private val blockedApps = dataStoreManager.getBlockedApps()
 
   private val _permissionsState = MutableStateFlow<PermissionsState>(PermissionsState())
   val permissionsState: StateFlow<PermissionsState> = _permissionsState
 
   private val _blockIntervalState = MutableStateFlow<Int>(0)
   val blockIntervalState: StateFlow<Int> = _blockIntervalState
+
+  private val _challengeSettingsState = MutableStateFlow<ChallengeSettings>(ChallengeSettings())
+  val challengeSettingsState: StateFlow<ChallengeSettings> = _challengeSettingsState
 
   private fun getInstalledApps(): Flow<List<InstalledApp>> =
     installedAppsRepository.getInstalledApps()
@@ -91,9 +95,24 @@ class SettingsViewModel(
 
   fun getBlockInterval() {
     viewModelScope.launch {
-      dataStoreManager.getBlockInterval.collect { state ->
+      dataStoreManager.getBlockInterval().collect { state ->
         _blockIntervalState.value = state
       }
+    }
+  }
+
+  fun getChallengeSettings() {
+    viewModelScope.launch {
+      dataStoreManager.getChallengeSettings().collect { state ->
+        _challengeSettingsState.value = state
+      }
+    }
+  }
+
+  fun updateChallengeSettings(challengeSettings: ChallengeSettings) {
+    viewModelScope.launch {
+      dataStoreManager.updateDifficulty(challengeSettings.difficulty)
+      dataStoreManager.updateOperator(challengeSettings.operator)
     }
   }
 }
