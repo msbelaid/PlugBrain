@@ -87,7 +87,7 @@ enum class Operator(val symbol: String) {
       }
       return MathChallenge(ranges.first.random(), ranges.second.random(), this)
     }
-  };
+  }, ;
 
   abstract fun generateChallenge(difficulty: Difficulty): MathChallenge
 }

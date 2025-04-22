@@ -29,8 +29,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.matholck.android.repository.model.Operator
 import app.matholck.android.repository.model.MathChallenge
+import app.matholck.android.repository.model.Operator
 import app.matholck.android.ui.isPortrait
 
 @Composable
