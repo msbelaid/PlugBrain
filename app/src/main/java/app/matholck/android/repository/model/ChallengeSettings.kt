@@ -4,7 +4,29 @@ data class ChallengeSettings(
   val operator: Operator = Operator.ADDITION,
   val difficulty: Difficulty = Difficulty.EASY,
   val operationsNumber: Int = 1,
-)
+) {
+  fun generate(): MathChallenge = operator.generateChallenge(difficulty)
+
+  companion object {
+    val challengeProgressionList = listOf(
+      ChallengeSettings(Operator.ADDITION, Difficulty.BEGINNER),
+      ChallengeSettings(Operator.ADDITION, Difficulty.EASY),
+      ChallengeSettings(Operator.SUBTRACTION, Difficulty.BEGINNER),
+      ChallengeSettings(Operator.ADDITION, Difficulty.MEDIUM),
+      ChallengeSettings(Operator.SUBTRACTION, Difficulty.EASY),
+      ChallengeSettings(Operator.MULTIPLICATION, Difficulty.BEGINNER),
+      ChallengeSettings(Operator.SUBTRACTION, Difficulty.MEDIUM),
+      ChallengeSettings(Operator.MULTIPLICATION, Difficulty.EASY),
+      ChallengeSettings(Operator.ADDITION, Difficulty.HARD),
+      ChallengeSettings(Operator.MULTIPLICATION, Difficulty.MEDIUM),
+      ChallengeSettings(Operator.SUBTRACTION, Difficulty.HARD),
+      ChallengeSettings(Operator.ADDITION, Difficulty.EXPERT),
+      ChallengeSettings(Operator.SUBTRACTION, Difficulty.EXPERT),
+      ChallengeSettings(Operator.MULTIPLICATION, Difficulty.HARD),
+      ChallengeSettings(Operator.MULTIPLICATION, Difficulty.EXPERT),
+    )
+  }
+}
 
 enum class Operator(val symbol: String) {
   ADDITION("+") {
@@ -17,16 +39,16 @@ enum class Operator(val symbol: String) {
       Difficulty.EASY -> {
         val units1 = (1..9).random()
         val units2 = (0..(9 - units1)).random()
-        val tens1 = (1..10).random()
-        val tens2 = (1..10).random()
+        val tens1 = (1..8).random()
+        val tens2 = (1..9 - tens1).random()
         MathChallenge(tens1 * 10 + units1, tens2 * 10 + units2, this)
       }
 
       Difficulty.MEDIUM -> {
         val units1 = (1..9).random()
         val units2 = ((10 - units1)..9).random()
-        val tens1 = (1..10).random()
-        val tens2 = (1..10).random()
+        val tens1 = (1..9).random()
+        val tens2 = (1..9).random()
         MathChallenge(tens1 * 10 + units1, tens2 * 10 + units2, this)
       }
 
@@ -87,7 +109,8 @@ enum class Operator(val symbol: String) {
       }
       return MathChallenge(ranges.first.random(), ranges.second.random(), this)
     }
-  }, ;
+  },
+  ;
 
   abstract fun generateChallenge(difficulty: Difficulty): MathChallenge
 }

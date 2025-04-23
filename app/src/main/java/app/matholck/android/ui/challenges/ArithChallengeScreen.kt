@@ -91,7 +91,7 @@ private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
     singleLine = true,
     trailingIcon = {
       Button(
-        onClick = { checkAnswer(responseText.toString().toInt()) },
+        onClick = { if (responseText.isNotEmpty()) checkAnswer(responseText.toString().toInt()) },
       ) { Text(">", style = MaterialTheme.typography.displayLarge) }
     },
     keyboardActions = KeyboardActions(
