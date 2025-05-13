@@ -26,7 +26,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun TimerScreen(
   startTime: Int,
-  onTimeFinished: () -> Unit
+  onTimeFinished: () -> Unit,
 ) {
   var timeLeft by remember { mutableIntStateOf(startTime) }
 
@@ -41,22 +41,22 @@ fun TimerScreen(
   Box(Modifier.fillMaxSize()) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier.align(Alignment.Center)
+      modifier = Modifier.align(Alignment.Center),
     ) {
       //
       Text(
         text = "Are you sure you want to waste your precious time on something that adds nothing to your life?",
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.titleLarge,
-        modifier = Modifier.padding(32.dp)
+        modifier = Modifier.padding(32.dp),
       )
       Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
         Button(
           onClick = { },
           colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary
-          )
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+          ),
         ) {
           Text("No,\n take me out", textAlign = TextAlign.Center)
         }
@@ -64,9 +64,9 @@ fun TimerScreen(
           enabled = timeLeft == 0,
           colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.error,
-            contentColor = MaterialTheme.colorScheme.onError
+            contentColor = MaterialTheme.colorScheme.onError,
           ),
-          onClick = { }
+          onClick = { },
         ) {
           Text("Yes, In understand\nwait $timeLeft", textAlign = TextAlign.Center)
         }

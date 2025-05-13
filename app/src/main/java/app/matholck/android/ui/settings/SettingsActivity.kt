@@ -74,7 +74,7 @@ class SettingsActivity : ComponentActivity() {
           },
           onRefreshClicked = {
             startActivity(Intent(this, TimerActivity::class.java))
-          }
+          },
         )
       }
     }
@@ -116,7 +116,7 @@ class SettingsActivity : ComponentActivity() {
       val intent = Intent("miui.intent.action.APP_PERM_EDITOR").apply {
         setClassName(
           "com.miui.securitycenter",
-          "com.miui.permcenter.permissions.PermissionsEditorActivity"
+          "com.miui.permcenter.permissions.PermissionsEditorActivity",
         )
         putExtra("extra_pkgname", packageName)
       }

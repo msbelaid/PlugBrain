@@ -7,7 +7,7 @@ import android.widget.Toast
 import app.matholck.android.R
 import app.matholck.android.appsusage.AppsUsageStats
 import app.matholck.android.ui.challenges.ChallengeActivity
-import dz.univ.usto.mathlock.datastore.DataStoreManager
+import app.matholck.android.datastore.DataStoreManager
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -73,8 +73,9 @@ class MathLockService : AccessibilityService() {
       if (eventPackageName in blockedPackages) {
         if (isBlocked == true) launchChallenge() else checkAppUsage()
       }
-      if ((eventPackageName in resources.getStringArray(R.array.calculator_packages) || "calculator" in eventPackageName) && (isBlocked == true))
+      if ((eventPackageName in resources.getStringArray(R.array.calculator_packages) || "calculator" in eventPackageName) && (isBlocked == true)) {
         Toast.makeText(this, "Please, don't use the calculator!", Toast.LENGTH_LONG).show()
+      }
     }
   }
 

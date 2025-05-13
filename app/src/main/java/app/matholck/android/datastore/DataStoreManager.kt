@@ -1,4 +1,4 @@
-package dz.univ.usto.mathlock.datastore
+package app.matholck.android.datastore
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -79,8 +79,9 @@ class DataStoreManager(private val context: Context) {
 
   suspend fun incrementProgressiveDifficulty() {
     context.dataStore.edit { prefs ->
-      if ((prefs[progressiveDifficulty] ?: 0) < challengeProgressionList.count() - 1)
-        prefs[progressiveDifficulty]= (prefs[progressiveDifficulty] ?: 0) + 1
+      if ((prefs[progressiveDifficulty] ?: 0) < challengeProgressionList.count() - 1) {
+        prefs[progressiveDifficulty] = (prefs[progressiveDifficulty] ?: 0) + 1
+      }
     }
   }
 
@@ -100,9 +101,9 @@ class DataStoreManager(private val context: Context) {
     }
 
   fun getBlockAppsToggle() = context.dataStore.data
-      .map { preferences ->
-        preferences[blockAppsToggle]
-      }
+    .map { preferences ->
+      preferences[blockAppsToggle]
+    }
 
   fun getChallengeSettings(): Flow<ChallengeSettings> = context.dataStore.data
     .map { preferences ->
@@ -114,6 +115,5 @@ class DataStoreManager(private val context: Context) {
 
   fun getProgressiveDifficulty(): Flow<Int> =
     context.dataStore.data
-      .map { preferences -> preferences[progressiveDifficulty] ?: 0}
-
+      .map { preferences -> preferences[progressiveDifficulty] ?: 0 }
 }

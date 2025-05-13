@@ -12,15 +12,15 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class TimerActivity : ComponentActivity() {
   private val viewModel: TimerViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            MathlockAppTheme {
-              TimerScreen(30){
-                viewModel.refreshProgressiveDifficulty()
-              }
-            }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
+    setContent {
+      MathlockAppTheme {
+        TimerScreen(30) {
+          viewModel.refreshProgressiveDifficulty()
         }
+      }
     }
+  }
 }

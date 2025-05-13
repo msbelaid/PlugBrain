@@ -2,10 +2,7 @@ package app.matholck.android.ui.timer.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.matholck.android.repository.InstalledAppsRepository
-import app.matholck.android.repository.model.InstalledApp
-import dz.univ.usto.mathlock.datastore.DataStoreManager
-import kotlinx.coroutines.flow.Flow
+import app.matholck.android.datastore.DataStoreManager
 import kotlinx.coroutines.launch
 
 class TimerViewModel(

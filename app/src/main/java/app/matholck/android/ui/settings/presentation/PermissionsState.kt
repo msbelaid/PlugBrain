@@ -7,8 +7,8 @@ data class PermissionsState(
   val systemAlertWindow: Boolean = false,
 ) {
   fun areAllPermissionsGranted(): Boolean =
-    accessibilityPermission
-      && usageStatsPermission
-      && batteryOptimizationExemption
-      && systemAlertWindow
+    accessibilityPermission &&
+      usageStatsPermission &&
+      batteryOptimizationExemption &&
+      systemAlertWindow
 }

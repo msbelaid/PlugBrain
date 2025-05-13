@@ -69,7 +69,7 @@ fun SettingsScreen(
   onUpdateBlockInterval: (Int) -> Unit,
   onDifficultySelected: (Difficulty) -> Unit,
   onOperationSelected: (Operator) -> Unit,
-  onRefreshClicked: () -> Unit
+  onRefreshClicked: () -> Unit,
 ) {
   Scaffold(
     modifier = Modifier
@@ -102,12 +102,12 @@ fun SettingsScreen(
 @Composable
 fun ProgressiveDifficulty(
   modifier: Modifier = Modifier,
-  onRefreshClicked: () -> Unit
+  onRefreshClicked: () -> Unit,
 ) {
   Box(modifier.fillMaxWidth()) {
     Button(onClick = onRefreshClicked, Modifier.align(Alignment.Center)) {
       Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
       ) {
         Icon(
           imageVector = Icons.Filled.Refresh,
@@ -156,15 +156,15 @@ fun Timing(
           onClick = { onUpdateBlockInterval(value) },
           label = { Text("$value min") },
           leadingIcon =
-            {
-              if (blockInterval == value) {
-                Icon(
-                  imageVector = Icons.Filled.Done,
-                  contentDescription = "Done icon",
-                  modifier = Modifier.size(FilterChipDefaults.IconSize),
-                )
-              }
-            },
+          {
+            if (blockInterval == value) {
+              Icon(
+                imageVector = Icons.Filled.Done,
+                contentDescription = "Done icon",
+                modifier = Modifier.size(FilterChipDefaults.IconSize),
+              )
+            }
+          },
         )
       }
     }
