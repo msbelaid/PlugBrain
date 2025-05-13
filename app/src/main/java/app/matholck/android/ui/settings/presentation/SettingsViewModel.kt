@@ -9,11 +9,11 @@ import android.provider.Settings.Secure
 import android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.matholck.android.datastore.DataStoreManager
 import app.matholck.android.repository.InstalledAppsRepository
 import app.matholck.android.repository.model.ChallengeSettings
 import app.matholck.android.repository.model.InstalledApp
 import app.matholck.android.service.MathLockService
-import app.matholck.android.datastore.DataStoreManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

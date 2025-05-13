@@ -2,9 +2,9 @@ package app.matholck.android.ui.selectapps.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.matholck.android.datastore.DataStoreManager
 import app.matholck.android.repository.InstalledAppsRepository
 import app.matholck.android.repository.model.InstalledApp
-import app.matholck.android.datastore.DataStoreManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

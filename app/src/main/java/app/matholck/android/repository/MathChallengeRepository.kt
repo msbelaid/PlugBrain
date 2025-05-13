@@ -1,10 +1,10 @@
 package app.matholck.android.repository
 
+import app.matholck.android.datastore.DataStoreManager
 import app.matholck.android.repository.model.ChallengeSettings
 import app.matholck.android.repository.model.Difficulty
 import app.matholck.android.repository.model.MathChallenge
 import app.matholck.android.repository.model.Operator
-import app.matholck.android.datastore.DataStoreManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

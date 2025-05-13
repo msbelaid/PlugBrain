@@ -2,9 +2,9 @@ package app.matholck.android.ui.challenges.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.matholck.android.datastore.DataStoreManager
 import app.matholck.android.repository.MathChallengeRepository
 import app.matholck.android.repository.model.MathChallenge
-import app.matholck.android.datastore.DataStoreManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

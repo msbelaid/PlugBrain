@@ -6,8 +6,8 @@ import android.view.accessibility.AccessibilityEvent
 import android.widget.Toast
 import app.matholck.android.R
 import app.matholck.android.appsusage.AppsUsageStats
-import app.matholck.android.ui.challenges.ChallengeActivity
 import app.matholck.android.datastore.DataStoreManager
+import app.matholck.android.ui.challenges.ChallengeActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
