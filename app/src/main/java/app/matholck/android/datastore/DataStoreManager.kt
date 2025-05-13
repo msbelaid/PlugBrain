@@ -9,11 +9,11 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import app.matholck.android.repository.model.ChallengeSettings
+import app.matholck.android.repository.model.ChallengeSettings.Companion.challengeProgressionList
 import app.matholck.android.repository.model.Difficulty
 import app.matholck.android.repository.model.Operator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import timber.log.Timber
 
 private const val DEFAULT_BLOCK_INTERVAL = 15
 
@@ -27,6 +27,7 @@ class DataStoreManager(private val context: Context) {
   private val blockAppsToggle = booleanPreferencesKey("block_apps_toggle")
   private val difficultyLevel = stringPreferencesKey("difficulty_level")
   private val challengeOperator = stringPreferencesKey("operator")
+  private val progressiveDifficulty = intPreferencesKey("progressive_difficulty")
 
   suspend fun blockApp(packageName: String) {
     context.dataStore.edit { preferences ->
@@ -55,7 +56,6 @@ class DataStoreManager(private val context: Context) {
   suspend fun updateBlockAppsToggle(isBlocked: Boolean) {
     context.dataStore.edit { prefs ->
       prefs[blockAppsToggle] = isBlocked
-      Timber.e("Write %s", prefs[blockAppsToggle])
     }
   }
 
@@ -68,6 +68,19 @@ class DataStoreManager(private val context: Context) {
   suspend fun updateDifficulty(difficulty: Difficulty) {
     context.dataStore.edit { prefs ->
       prefs[difficultyLevel] = difficulty.name
+    }
+  }
+
+  suspend fun updateProgressiveDifficulty(difficultyLevel: Int) {
+    context.dataStore.edit { prefs ->
+      prefs[progressiveDifficulty] = difficultyLevel
+    }
+  }
+
+  suspend fun incrementProgressiveDifficulty() {
+    context.dataStore.edit { prefs ->
+      if ((prefs[progressiveDifficulty] ?: 0) < challengeProgressionList.count() - 1)
+        prefs[progressiveDifficulty]= (prefs[progressiveDifficulty] ?: 0) + 1
     }
   }
 
@@ -86,15 +99,10 @@ class DataStoreManager(private val context: Context) {
       preferences[lastBlockTime]
     }
 
-  fun getBlockAppsToggle(): Flow<Boolean?> {
-    Timber.e("DataStoreManager.getBlockAppsToggle called")
-
-    return context.dataStore.data
+  fun getBlockAppsToggle() = context.dataStore.data
       .map { preferences ->
-        Timber.e("DataStoreManager.getBlockAppsToggle: " + preferences[blockAppsToggle])
         preferences[blockAppsToggle]
       }
-  }
 
   fun getChallengeSettings(): Flow<ChallengeSettings> = context.dataStore.data
     .map { preferences ->
@@ -103,4 +111,9 @@ class DataStoreManager(private val context: Context) {
         difficulty = Difficulty.valueOf(preferences[difficultyLevel] ?: Difficulty.EASY.name),
       )
     }
+
+  fun getProgressiveDifficulty(): Flow<Int> =
+    context.dataStore.data
+      .map { preferences -> preferences[progressiveDifficulty] ?: 0}
+
 }

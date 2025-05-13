@@ -22,7 +22,7 @@ class ArithChallengeViewModel(
 
   private fun generateChallenge() {
     viewModelScope.launch {
-      mathChallengeRepository.generateChallenge().collect {
+      mathChallengeRepository.generateProgressiveChallenge().collect {
         _mathChallenge.value = it
       }
     }
@@ -31,6 +31,7 @@ class ArithChallengeViewModel(
   fun unblockApps() {
     viewModelScope.launch {
       dataStoreManager.updateBlockAppsToggle(false)
+      dataStoreManager.incrementProgressiveDifficulty()
     }
   }
 }
