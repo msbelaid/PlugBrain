@@ -22,9 +22,13 @@
         android:theme="@style/Theme.MathlockApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.timer.TimerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MathlockApp" />
+        <activity
             android:name=".ui.challenges.ChallengeActivity"
-            android:launchMode="singleTask"
             android:exported="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.MathlockApp" />
         <activity
             android:name=".ui.settings.SettingsActivity"
@@ -41,7 +45,8 @@
             android:exported="false"
             android:theme="@style/Theme.MathlockApp" />
 
-        <service
+        <service            android:label="@string/title_activity_timer"
+
             android:name=".service.MathLockService"
             android:exported="true"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
