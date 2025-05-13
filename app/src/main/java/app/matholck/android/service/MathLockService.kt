@@ -3,6 +3,8 @@ package app.matholck.android.service
 import android.accessibilityservice.AccessibilityService
 import android.content.Intent
 import android.view.accessibility.AccessibilityEvent
+import android.widget.Toast
+import app.matholck.android.R
 import app.matholck.android.appsusage.AppsUsageStats
 import app.matholck.android.ui.challenges.ChallengeActivity
 import dz.univ.usto.mathlock.datastore.DataStoreManager
@@ -71,12 +73,14 @@ class MathLockService : AccessibilityService() {
       if (eventPackageName in blockedPackages) {
         if (isBlocked == true) launchChallenge() else checkAppUsage()
       }
+      if ((eventPackageName in resources.getStringArray(R.array.calculator_packages) || "calculator" in eventPackageName) && (isBlocked == true))
+        Toast.makeText(this, "Please, don't use the calculator!", Toast.LENGTH_LONG).show()
     }
   }
 
   private fun launchChallenge() {
     Timber.tag(TAG).i("Launch Challenge ...")
-    val intent = Intent(this, ChallengeActivity::class.java)
+    val intent = Intent(this@MathLockService, ChallengeActivity::class.java)
     intent.addFlags(
       Intent.FLAG_ACTIVITY_NEW_TASK or
         Intent.FLAG_ACTIVITY_CLEAR_TOP or
@@ -91,7 +95,7 @@ class MathLockService : AccessibilityService() {
     serviceScope.launch {
       while (isActive) {
         checkAppUsage()
-        delay(blockInterval * ONE_MINUTE)
+        delay(blockInterval * ONE_MINUTE / 10)
       }
     }
   }
