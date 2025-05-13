@@ -1,11 +1,13 @@
-package app.matholck.android.ui.settings
+package app.matholck.android.ui.settings.compose
 
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,9 +24,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Clear
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
@@ -48,7 +51,6 @@ import app.matholck.android.repository.model.ChallengeSettings
 import app.matholck.android.repository.model.Difficulty
 import app.matholck.android.repository.model.InstalledApp
 import app.matholck.android.repository.model.Operator
-import app.matholck.android.ui.settings.compose.SelectChallengesWidget
 import app.matholck.android.ui.settings.presentation.PermissionsState
 import coil3.compose.rememberAsyncImagePainter
 
@@ -67,6 +69,7 @@ fun SettingsScreen(
   onUpdateBlockInterval: (Int) -> Unit,
   onDifficultySelected: (Difficulty) -> Unit,
   onOperationSelected: (Operator) -> Unit,
+  onRefreshClicked: () -> Unit
 ) {
   Scaffold(
     modifier = Modifier
@@ -89,16 +92,30 @@ fun SettingsScreen(
       item { HorizontalDivider(thickness = 8.dp) }
       item { BlockedApplications(lockedApps, onBlockApplicationsClicked) }
       item { HorizontalDivider(thickness = 8.dp) }
-      item {
-        SelectChallengesWidget(
-          modifier = Modifier.padding(vertical = 16.dp),
-          challengeSettings = challengeSettings,
-          onDifficultySelected = { onDifficultySelected(it) },
-          onOperationSelected = { onOperationSelected(it) },
-        )
-      }
-      item { HorizontalDivider(thickness = 8.dp, modifier = Modifier.padding(bottom = 16.dp)) }
+      item { ProgressiveDifficulty { onRefreshClicked() } }
+      item { HorizontalDivider(thickness = 8.dp) }
       item { Timing(blockInterval, onUpdateBlockInterval) }
+    }
+  }
+}
+
+@Composable
+fun ProgressiveDifficulty(
+  modifier: Modifier = Modifier,
+  onRefreshClicked: () -> Unit
+) {
+  Box(modifier.fillMaxWidth()) {
+    Button(onClick = onRefreshClicked, Modifier.align(Alignment.Center)) {
+      Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+      ) {
+        Icon(
+          imageVector = Icons.Filled.Refresh,
+          contentDescription = "Refresh",
+          modifier = Modifier.size(FilterChipDefaults.IconSize),
+        )
+        Text("Refresh")
+      }
     }
   }
 }
@@ -139,15 +156,15 @@ fun Timing(
           onClick = { onUpdateBlockInterval(value) },
           label = { Text("$value min") },
           leadingIcon =
-          {
-            if (blockInterval == value) {
-              Icon(
-                imageVector = Icons.Filled.Done,
-                contentDescription = "Done icon",
-                modifier = Modifier.size(FilterChipDefaults.IconSize),
-              )
-            }
-          },
+            {
+              if (blockInterval == value) {
+                Icon(
+                  imageVector = Icons.Filled.Done,
+                  contentDescription = "Done icon",
+                  modifier = Modifier.size(FilterChipDefaults.IconSize),
+                )
+              }
+            },
         )
       }
     }
@@ -208,29 +225,34 @@ fun PermissionItem(
   @DrawableRes icon: Int,
   onClick: () -> Unit,
 ) {
-  ListItem(
-    headlineContent = {
-      Text(text = title)
-    },
-    supportingContent = {
-      Text(text = subtitle)
-    },
-    leadingContent = {
-      Image(
-        modifier = Modifier.width(56.dp),
-        painter = painterResource(icon),
-        contentDescription = "",
-      )
-    },
-    trailingContent = {
-      if (granted) {
-        Icon(Icons.Outlined.Check, "")
-      } else {
-        Icon(Icons.Outlined.Clear, "")
-      }
-    },
-    modifier = Modifier.clickable(enabled = granted.not()) { onClick() },
-  )
+  AnimatedVisibility(
+    visible = granted.not(),
+  ) {
+    ListItem(
+      headlineContent = {
+        Text(text = title)
+      },
+      supportingContent = {
+        Text(text = subtitle)
+      },
+      leadingContent = {
+        Icon(
+          modifier = Modifier.width(56.dp),
+          painter = painterResource(icon),
+          tint = MaterialTheme.colorScheme.onBackground,
+          contentDescription = "",
+        )
+      },
+      trailingContent = {
+        if (granted) {
+          Icon(Icons.Outlined.Check, "")
+        } else {
+          Icon(Icons.Outlined.Clear, "")
+        }
+      },
+      modifier = Modifier.clickable(enabled = granted.not()) { onClick() },
+    )
+  }
 }
 
 @Composable
@@ -241,6 +263,8 @@ fun Authorizations(
   batteryOptimizationClicked: () -> Unit,
   onSystemAlertWindow: () -> Unit,
 ) {
+  if (permissionsState.areAllPermissionsGranted()) return
+
   Column {
     Text(
       text = "Authorizations",
@@ -313,5 +337,6 @@ private fun SettingsScreenPreview() {
     onUpdateBlockInterval = { },
     onOperationSelected = { },
     onDifficultySelected = { },
+    onRefreshClicked = { },
   )
 }

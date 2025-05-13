@@ -12,9 +12,11 @@ import androidx.compose.runtime.getValue
 import androidx.core.net.toUri
 import app.matholck.android.repository.model.ChallengeSettings
 import app.matholck.android.ui.selectapps.AppsSelectionActivity
+import app.matholck.android.ui.settings.compose.SettingsScreen
 import app.matholck.android.ui.settings.presentation.PermissionsState
 import app.matholck.android.ui.settings.presentation.SettingsViewModel
 import app.matholck.android.ui.theme.MathlockAppTheme
+import app.matholck.android.ui.timer.TimerActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsActivity : ComponentActivity() {
@@ -70,6 +72,9 @@ class SettingsActivity : ComponentActivity() {
           onDifficultySelected = {
             settingsViewModel.updateChallengeSettings(challengeSettings.copy(difficulty = it))
           },
+          onRefreshClicked = {
+            startActivity(Intent(this, TimerActivity::class.java))
+          }
         )
       }
     }
@@ -103,5 +108,24 @@ class SettingsActivity : ComponentActivity() {
     intent.data = "package:$packageName".toUri()
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     startActivity(intent)
+  }
+
+  // TODO add this for Me phones
+  fun openMiuiPermissions() {
+    try {
+      val intent = Intent("miui.intent.action.APP_PERM_EDITOR").apply {
+        setClassName(
+          "com.miui.securitycenter",
+          "com.miui.permcenter.permissions.PermissionsEditorActivity"
+        )
+        putExtra("extra_pkgname", packageName)
+      }
+      startActivity(intent)
+    } catch (e: Exception) {
+      val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+        data = Uri.fromParts("package", packageName, null)
+      }
+      startActivity(intent)
+    }
   }
 }
