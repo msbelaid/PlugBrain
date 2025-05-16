@@ -44,7 +44,6 @@ class MathLockService : AccessibilityService() {
   override fun onServiceConnected() {
     Timber.tag(TAG).i("onServiceConnected")
     getData()
-    startRepeatingUsageCheck()
     super.onServiceConnected()
   }
 
@@ -73,7 +72,7 @@ class MathLockService : AccessibilityService() {
       if (eventPackageName in blockedPackages) {
         if (isBlocked == true) launchChallenge() else checkAppUsage()
       }
-      if ((eventPackageName in resources.getStringArray(R.array.calculator_packages) || "calculator" in eventPackageName) && (isBlocked == true)) {
+      if ((eventPackageName in resources.getStringArray(R.array.calculator_packages) || "calc" in eventPackageName) && (isBlocked == true)) {
         Toast.makeText(this, "Please, don't use the calculator!", Toast.LENGTH_LONG).show()
       }
     }
@@ -92,15 +91,6 @@ class MathLockService : AccessibilityService() {
 
   override fun onInterrupt() {}
 
-  private fun startRepeatingUsageCheck() {
-    serviceScope.launch {
-      while (isActive) {
-        checkAppUsage()
-        delay(blockInterval * ONE_MINUTE / 10)
-      }
-    }
-  }
-
   private fun checkAppUsage() {
     Timber.tag(TAG).i("* Check blocked app usage started")
     Timber.tag(TAG).i("   Interval: $blockInterval min")
@@ -115,18 +105,31 @@ class MathLockService : AccessibilityService() {
       }",
     )
     if (isBlocked == true) return
-    if (appsUsageStats.getTotalAppsUsageDuration(
-        startTime = lastBlockTime ?: (System.currentTimeMillis() - ONE_HOUR),
-        endTime = System.currentTimeMillis(),
-        filterPackages = blockedPackages,
-      ) >= blockInterval
-    ) {
+    val blockedAppsUsageTime = appsUsageStats.getTotalAppsUsageDuration(
+      startTime = lastBlockTime ?: (System.currentTimeMillis() - ONE_HOUR),
+      endTime = System.currentTimeMillis(),
+      filterPackages = blockedPackages,
+    )
+    if (blockedAppsUsageTime >= blockInterval) {
       serviceScope.launch {
         dataStoreManager.updateBlockAppsToggle(true)
         lastBlockTime = System.currentTimeMillis()
         dataStoreManager.updateLastBlockTime(System.currentTimeMillis())
       }
       launchChallenge()
+    } else {
+      scheduleAppUsageCheck(blockInterval - blockedAppsUsageTime)
+    }
+  }
+
+  private fun scheduleAppUsageCheck(delayCheckBy: Long) {
+    serviceScope.launch {
+      val targetTime = System.currentTimeMillis() + delayCheckBy * 60 * 1000L
+      while (isActive && System.currentTimeMillis() < targetTime) {
+        delay(1000) // delay(delayCheckBy ...) was not working for recent Android versions!
+        // TODO find a cleaner solution
+      }
+      checkAppUsage()
     }
   }
 }

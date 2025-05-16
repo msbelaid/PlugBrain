@@ -45,8 +45,7 @@
             android:exported="false"
             android:theme="@style/Theme.MathlockApp" />
 
-        <service            android:label="@string/title_activity_timer"
-
+        <service
             android:name=".service.MathLockService"
             android:exported="true"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
