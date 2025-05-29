@@ -25,7 +25,7 @@ class TimerActivity : ComponentActivity() {
           onYesClicked = {
             viewModel.refreshProgressiveDifficulty()
             finish()
-          }
+          },
         )
       }
     }

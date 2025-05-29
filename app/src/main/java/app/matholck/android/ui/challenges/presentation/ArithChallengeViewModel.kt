@@ -44,12 +44,16 @@ class ArithChallengeViewModel(
     viewModelScope.launch {
       combine(
         dataStoreManager.getLastUsageTime(),
-        dataStoreManager.getBlockInterval()
+        dataStoreManager.getBlockInterval(),
       ) { lastUsageTime, blockInterval ->
         (lastUsageTime to blockInterval)
       }.collect {
-        val durationSinceLastUsage = (System.currentTimeMillis() - (it.first
-          ?: 0)).milliseconds.inWholeMinutes.toInt()
+        val durationSinceLastUsage = (
+          System.currentTimeMillis() - (
+            it.first
+              ?: 0
+            )
+          ).milliseconds.inWholeMinutes.toInt()
         Timber.tag(TAG).e(durationSinceLastUsage.toString())
         if (durationSinceLastUsage >= it.second * 2) {
           dataStoreManager.decrementProgressiveDifficulty(durationSinceLastUsage / (it.second * 2))

@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChallengeTopBar(
-  onRefreshClicked: () -> Unit
+  onRefreshClicked: () -> Unit,
 ) {
   TopAppBar(
     title = { Text("My App") },
@@ -22,9 +22,9 @@ fun ChallengeTopBar(
       }) {
         Icon(
           imageVector = Icons.Default.Refresh,
-          contentDescription = "Refresh"
+          contentDescription = "Refresh",
         )
       }
-    }
+    },
   )
 }

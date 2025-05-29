@@ -1,6 +1,5 @@
 package app.matholck.android.ui.timer.compose
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -62,7 +61,7 @@ fun TimerScreen(
         )
         Row(
           horizontalArrangement = Arrangement.spacedBy(16.dp),
-          verticalAlignment = Alignment.CenterVertically
+          verticalAlignment = Alignment.CenterVertically,
         ) {
           Button(
             onClick = { onNoClicked() },
@@ -83,7 +82,7 @@ fun TimerScreen(
           ) {
             Text(
               if (timeLeft == 0) "Yes, I understand" else "Wait ${timeLeft}s",
-              textAlign = TextAlign.Center
+              textAlign = TextAlign.Center,
             )
           }
         }
@@ -98,7 +97,7 @@ private fun TimerScreenPreviewStartTime() {
   TimerScreen(
     60,
     onYesClicked = { },
-    onNoClicked = {}
+    onNoClicked = {},
   )
 }
 
@@ -108,6 +107,6 @@ private fun TimerScreenPreviewEndTime() {
   TimerScreen(
     0,
     onYesClicked = { },
-    onNoClicked = {}
+    onNoClicked = {},
   )
 }

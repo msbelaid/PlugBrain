@@ -56,14 +56,14 @@ fun MainScreen(
           }) {
             Icon(
               imageVector = Icons.Default.Settings,
-              contentDescription = "Settings"
+              contentDescription = "Settings",
             )
           }
-        }
+        },
       )
     },
   ) { innerPadding ->
-    if (state != null)
+    if (state != null) {
       Column(Modifier.padding(innerPadding)) {
         // CARD 1: Recap Number of blocked apps every X minutes.
         Card(
@@ -72,7 +72,7 @@ fun MainScreen(
           colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
           modifier = Modifier
             .padding(16.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
         ) {
           Column(Modifier.padding(16.dp)) {
             Text(
@@ -84,11 +84,11 @@ fun MainScreen(
               text = LocalContext.current.resources.getQuantityString(
                 R.plurals.applications_blocked,
                 state.blockedApps.count(),
-                state.blockedApps.count()
+                state.blockedApps.count(),
               ) + " " + LocalContext.current.resources.getQuantityString(
                 R.plurals.blocked_every_x_minutes,
                 state.blockInterval,
-                state.blockInterval
+                state.blockInterval,
               ),
               style = MaterialTheme.typography.titleMedium,
             )
@@ -109,9 +109,7 @@ fun MainScreen(
               text = "Unlock distraction apps with math\nThe less you use them -> the easier the challenges.",
               style = MaterialTheme.typography.bodyLarge,
             )
-
           }
-
         }
         // TODO CARD 2: Recap Usage stats
         //         - Example 1: You have used distracting apps for more than X hours today!
@@ -123,18 +121,18 @@ fun MainScreen(
           colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
           modifier = Modifier
             .padding(16.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
         ) {
           Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.padding(16.dp),
-            ) {
+          ) {
             Text(
               text = "Nice! You've stayed away from distracting apps for over ${state.usageFreeDuration}. Keep it up!",
               style = MaterialTheme.typography.titleMedium,
             )
-            val usageDurationMinutes = state.lastUsageDuration?.inWholeMinutes?:0
-            Text("Usage Time / Interval: ${usageDurationMinutes}/${state.blockInterval}")
+            val usageDurationMinutes = state.lastUsageDuration?.inWholeMinutes ?: 0
+            Text("Usage Time / Interval: $usageDurationMinutes/${state.blockInterval}")
             LinearProgressIndicator(
               progress = {
                 usageDurationMinutes.toFloat() / state.blockInterval
@@ -146,7 +144,6 @@ fun MainScreen(
                 .padding(horizontal = 24.dp),
             )
           }
-
         }
         // CARD 3: Difficulty progress, stay away from these apps to decrease difficulty.
 /*
@@ -166,6 +163,7 @@ fun MainScreen(
         )
 */
       }
+    }
   }
 }
 
@@ -196,9 +194,9 @@ private fun MainScreenPreview() {
       ),
       lastUsageDuration = 100_000L.milliseconds,
       usageFreeDuration = 100_000L.milliseconds,
-      blockInterval = 15
+      blockInterval = 15,
     ),
     onSettingsClicked = {},
 
-    )
+  )
 }

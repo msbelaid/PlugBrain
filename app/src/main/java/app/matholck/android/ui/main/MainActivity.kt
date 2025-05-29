@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
           state = state,
           onSettingsClicked = {
             startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
-          }
+          },
         )
       }
     }

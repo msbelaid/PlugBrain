@@ -11,7 +11,6 @@ import app.matholck.android.ui.challenges.ChallengeActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -145,6 +144,6 @@ class MathLockService : AccessibilityService() {
     val interval: Int,
     val lastTime: Long?,
     val usageTime: Long?,
-    val toggle: Boolean?
+    val toggle: Boolean?,
   )
 }

@@ -37,7 +37,7 @@ class ChallengeActivity : ComponentActivity() {
               })
             }
           },
-          modifier = Modifier.fillMaxSize()
+          modifier = Modifier.fillMaxSize(),
         ) { innerPadding ->
           challenge?.let {
             ArithChallengeScreen(

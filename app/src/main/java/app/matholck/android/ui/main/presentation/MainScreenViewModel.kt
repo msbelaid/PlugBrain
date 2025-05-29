@@ -19,7 +19,7 @@ private const val ONE_HOUR = 60 * 60_000
 class MainScreenViewModel(
   private val installedAppsRepository: InstalledAppsRepository,
   private val dataStoreManager: DataStoreManager,
-  private val appsUsageStats: AppsUsageStats
+  private val appsUsageStats: AppsUsageStats,
 ) : ViewModel() {
   private val _mainScreenState: MutableStateFlow<MainScreenState?> = MutableStateFlow(null)
   val mainScreenState: StateFlow<MainScreenState?> = _mainScreenState
@@ -33,22 +33,22 @@ class MainScreenViewModel(
         dataStoreManager.getLastBlockTime(),
         dataStoreManager.getLastUsageTime(),
         dataStoreManager.getBlockInterval(),
-        installedAppsRepository.getInstalledApps()
+        installedAppsRepository.getInstalledApps(),
       ) { blockedApps, lastBlockTime, lastUsageTime, blockInterval, installedApps ->
         Timber.e("getAppsUsageStats launched")
         val blockedAppsUsage = appsUsageStats.getTotalAppsUsageDuration(
           startTime = lastBlockTime ?: (System.currentTimeMillis() - ONE_HOUR),
           endTime = System.currentTimeMillis(),
-          filterPackages = blockedApps
+          filterPackages = blockedApps,
         )
         MainScreenState(
           usageFreeDuration =
-            if (lastUsageTime != null) (System.currentTimeMillis() - lastUsageTime).milliseconds else null,
+          if (lastUsageTime != null) (System.currentTimeMillis() - lastUsageTime).milliseconds else null,
           lastUsageDuration = blockedAppsUsage.minutes,
           blockedApps = installedApps.filter {
             it.packageName in blockedApps
           }.toSet(),
-          blockInterval = blockInterval
+          blockInterval = blockInterval,
         )
       }.collect {
         _mainScreenState.value = it
