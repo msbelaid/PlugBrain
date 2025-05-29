@@ -12,6 +12,9 @@ private const val ONE_MINUTE = 60_000L
 class AppsUsageStats(
   private val context: Context,
 ) {
+  /**
+   * @return usage time(in minutes) of all app in filterPackages between startTime and endTime.
+   */
   fun getTotalAppsUsageDuration(
     startTime: Long,
     endTime: Long,

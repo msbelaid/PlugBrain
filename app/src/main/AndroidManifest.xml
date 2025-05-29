@@ -22,6 +22,15 @@
         android:theme="@style/Theme.MathlockApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.main.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MathlockApp">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.timer.TimerActivity"
             android:exported="false"
             android:theme="@style/Theme.MathlockApp" />
@@ -33,13 +42,7 @@
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="true"
-            android:theme="@style/Theme.MathlockApp">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.MathlockApp" />
         <activity
             android:name=".ui.selectapps.AppsSelectionActivity"
             android:exported="false"

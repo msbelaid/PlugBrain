@@ -1,9 +1,12 @@
 <resources>
-    <string name="app_name">MathlockApp</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="app_name" translatable="false">MathlockApp</string>
     <plurals name="applications_blocked">
-        <item quantity="zero">No application locked</item>
-        <item quantity="one">One application locked</item>
-        <item quantity="other">%d applications locked</item>
+        <item quantity="zero">No application blocked</item>
+        <item quantity="one">One application blocked</item>
+        <item quantity="other">%d applications blocked</item>
+    </plurals>
+    <plurals name="blocked_every_x_minutes">
+        <item quantity="one"> every one minute</item>
+        <item quantity="other"> every %d minutes</item>
     </plurals>
 </resources>

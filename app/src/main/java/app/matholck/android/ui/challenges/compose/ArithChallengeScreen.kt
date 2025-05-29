@@ -1,5 +1,6 @@
-package app.matholck.android.ui.challenges
+package app.matholck.android.ui.challenges.compose
 
+import android.content.res.Configuration
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -130,6 +131,7 @@ private fun ArithChallengePortraitScreenPreview() {
 }
 
 @Preview(name = "Landscape", widthDp = 640, heightDp = 360)
+@Preview(name = "Landscape Dark", widthDp = 640, heightDp = 360, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun ArithChallengeLandscapeScreenPreview() {
   ArithChallengeScreen(

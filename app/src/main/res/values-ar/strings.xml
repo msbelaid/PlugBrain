@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="applications_blocked">
+        <item quantity="zero">لا توجد تطبيقات محجوبة</item>
+        <item quantity="one">تطبيق واحد محجوب</item>
+        <item quantity="two">تطبيقان محجوبان</item>
+        <item quantity="few">%d تطبيقات محجوبة</item>
+        <item quantity="many">%d تطبيقًا محجوبًا</item>
+        <item quantity="other">%d تطبيق محجوب</item>
+    </plurals>
+    <plurals name="blocked_every_x_minutes">
+        <item quantity="zero">0</item>
+        <item quantity="one"> كل دقيقة</item>
+        <item quantity="two"> كل دقيقتان</item>
+        <item quantity="few"> كل %d دقائق</item>
+        <item quantity="many"> كل %d دقيقة</item>
+        <item quantity="other"> كل %d دقيقة</item>
+    </plurals>
+</resources>

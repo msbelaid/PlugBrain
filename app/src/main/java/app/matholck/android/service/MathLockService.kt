@@ -11,6 +11,7 @@ import app.matholck.android.ui.challenges.ChallengeActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -34,6 +35,7 @@ class MathLockService : AccessibilityService() {
   private var blockedPackages: Set<String> = emptySet()
   private var blockInterval = 1
   private var lastBlockTime: Long? = null
+  private var lastUsageTime: Long? = null
   private var isBlocked: Boolean? = null
 
   override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -53,14 +55,16 @@ class MathLockService : AccessibilityService() {
         dataStoreManager.getBlockedApps(),
         dataStoreManager.getBlockInterval(),
         dataStoreManager.getLastBlockTime(),
+        dataStoreManager.getLastUsageTime(),
         dataStoreManager.getBlockAppsToggle(),
-      ) { blockedPackages, interval, lastTime, toggle ->
-        ((blockedPackages to interval) to (lastTime to toggle))
+      ) { blockedPackages, interval, lastTime, usageTime, toggle ->
+        State(blockedPackages, interval, lastTime, usageTime, toggle)
       }.collect {
-        blockedPackages = it.first.first
-        blockInterval = it.first.second
-        lastBlockTime = it.second.first
-        isBlocked = it.second.second
+        blockedPackages = it.blockedPackages
+        blockInterval = it.interval
+        lastBlockTime = it.lastTime
+        lastUsageTime = it.usageTime
+        isBlocked = it.toggle
       }
     }
   }
@@ -70,6 +74,9 @@ class MathLockService : AccessibilityService() {
       val eventPackageName = event.packageName?.toString() ?: return
       Timber.tag(TAG).i("Event: $eventPackageName state changed")
       if (eventPackageName in blockedPackages) {
+        serviceScope.launch {
+          dataStoreManager.updateLastUsageTime(System.currentTimeMillis())
+        }
         if (isBlocked == true) launchChallenge() else checkAppUsage()
       }
       if ((eventPackageName in resources.getStringArray(R.array.calculator_packages) || "calc" in eventPackageName) && (isBlocked == true)) {
@@ -132,4 +139,12 @@ class MathLockService : AccessibilityService() {
       checkAppUsage()
     }
   }
+
+  data class State(
+    val blockedPackages: Set<String>,
+    val interval: Int,
+    val lastTime: Long?,
+    val usageTime: Long?,
+    val toggle: Boolean?
+  )
 }

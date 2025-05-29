@@ -5,8 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import app.matholck.android.ui.theme.MathlockAppTheme
+import app.matholck.android.ui.timer.compose.TimerScreen
 import app.matholck.android.ui.timer.presentation.TimerViewModel
-import kotlin.getValue
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TimerActivity : ComponentActivity() {
@@ -17,9 +17,16 @@ class TimerActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       MathlockAppTheme {
-        TimerScreen(30) {
-          viewModel.refreshProgressiveDifficulty()
-        }
+        TimerScreen(
+          30,
+          onNoClicked = {
+            finish()
+          },
+          onYesClicked = {
+            viewModel.refreshProgressiveDifficulty()
+            finish()
+          }
+        )
       }
     }
   }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="applications_blocked">
+        <item quantity="zero">Aucune application bloquée</item>
+        <item quantity="one">Une application bloquée</item>
+        <item quantity="other">%d applications bloquées</item>
+    </plurals>
+    <plurals name="blocked_every_x_minutes">
+        <item quantity="one"> une minute</item>
+        <item quantity="other"> %d minutes</item>
+    </plurals>
+</resources>

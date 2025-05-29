@@ -24,6 +24,7 @@ class DataStoreManager(private val context: Context) {
   private val blockedApps = stringSetPreferencesKey("blocked_apps")
   private val blockInterval = intPreferencesKey("block_interval")
   private val lastBlockTime = longPreferencesKey("last_block_time")
+  private val lastUsageTime = longPreferencesKey("last_usage_time")
   private val blockAppsToggle = booleanPreferencesKey("block_apps_toggle")
   private val difficultyLevel = stringPreferencesKey("difficulty_level")
   private val challengeOperator = stringPreferencesKey("operator")
@@ -50,6 +51,12 @@ class DataStoreManager(private val context: Context) {
   suspend fun updateLastBlockTime(millis: Long) {
     context.dataStore.edit { prefs ->
       prefs[lastBlockTime] = millis
+    }
+  }
+
+  suspend fun updateLastUsageTime(millis: Long) {
+    context.dataStore.edit { prefs ->
+      prefs[lastUsageTime] = millis
     }
   }
 
@@ -85,6 +92,15 @@ class DataStoreManager(private val context: Context) {
     }
   }
 
+  suspend fun decrementProgressiveDifficulty(steps: Int = 1) {
+    context.dataStore.edit { prefs ->
+      if ((prefs[progressiveDifficulty] ?: 0) > 0) {
+        val newValue = (prefs[progressiveDifficulty] ?: 0) - steps
+        prefs[progressiveDifficulty] = if (newValue >= 0) newValue else 0
+      }
+    }
+  }
+
   fun getBlockInterval(): Flow<Int> = context.dataStore.data
     .map { preferences ->
       preferences[blockInterval] ?: DEFAULT_BLOCK_INTERVAL
@@ -98,6 +114,11 @@ class DataStoreManager(private val context: Context) {
   fun getLastBlockTime(): Flow<Long?> = context.dataStore.data
     .map { preferences ->
       preferences[lastBlockTime]
+    }
+
+  fun getLastUsageTime(): Flow<Long?> = context.dataStore.data
+    .map { preferences ->
+      preferences[lastUsageTime]
     }
 
   fun getBlockAppsToggle() = context.dataStore.data

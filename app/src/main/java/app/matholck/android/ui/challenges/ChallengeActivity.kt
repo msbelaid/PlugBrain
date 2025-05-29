@@ -1,5 +1,6 @@
 package app.matholck.android.ui.challenges
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -11,8 +12,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import app.matholck.android.BuildConfig
+import app.matholck.android.ui.challenges.compose.ArithChallengeScreen
+import app.matholck.android.ui.challenges.compose.ChallengeTopBar
 import app.matholck.android.ui.challenges.presentation.ArithChallengeViewModel
 import app.matholck.android.ui.theme.MathlockAppTheme
+import app.matholck.android.ui.timer.TimerActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChallengeActivity : ComponentActivity() {
@@ -24,8 +29,16 @@ class ChallengeActivity : ComponentActivity() {
     setContent {
       MathlockAppTheme {
         val challenge by challengeViewModel.mathChallenge.collectAsState()
-
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+        Scaffold(
+          topBar = {
+            if (BuildConfig.DEBUG) { // The refresh button works only on DEBUG mode!
+              ChallengeTopBar(onRefreshClicked = {
+                startActivity(Intent(this@ChallengeActivity, TimerActivity::class.java))
+              })
+            }
+          },
+          modifier = Modifier.fillMaxSize()
+        ) { innerPadding ->
           challenge?.let {
             ArithChallengeScreen(
               modifier = Modifier.padding(innerPadding),
