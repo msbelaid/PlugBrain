@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import app.matholck.android.R
+import app.matholck.android.repository.model.ChallengeSettings.Companion.challengeProgressionList
 import app.matholck.android.repository.model.InstalledApp
 import app.matholck.android.ui.main.presentation.MainScreenState
 import coil3.compose.rememberAsyncImagePainter
@@ -132,7 +133,7 @@ fun MainScreen(
               style = MaterialTheme.typography.titleMedium,
             )
             val usageDurationMinutes = state.lastUsageDuration?.inWholeMinutes ?: 0
-            Text("Usage Time / Interval: $usageDurationMinutes/${state.blockInterval}")
+            Text("Last usage Time: $usageDurationMinutes/${state.blockInterval}")
             LinearProgressIndicator(
               progress = {
                 usageDurationMinutes.toFloat() / state.blockInterval
@@ -143,25 +144,19 @@ fun MainScreen(
                 .height(8.dp)
                 .padding(horizontal = 24.dp),
             )
+            Text("Hardness: ${state.difficultyLevel}/${challengeProgressionList.count()}")
+            LinearProgressIndicator(
+              progress = {
+                state.difficultyLevel.toFloat() / challengeProgressionList.count()
+              },
+              gapSize = 0.dp,
+              modifier = Modifier
+                .fillMaxWidth()
+                .height(8.dp)
+                .padding(horizontal = 24.dp),
+            )
           }
         }
-        // CARD 3: Difficulty progress, stay away from these apps to decrease difficulty.
-/*
-        Text("Nice! You've stayed away from distracting apps for over an hour. Keep it up!")
-        Text("Blocked Apps Screen Time")
-        Text("Blocked Apps and interval")
-        Text("You have used the distracting apps for more than ${state.lastUsageDuration}")
-        Text("You have used the distracting apps for more than ${state.lastUsageDuration} today(TODO)")
-        Text("Hardness Level")
-        LinearProgressIndicator(
-          progress = { 0.7f },
-          gapSize = 0.dp,
-          modifier = Modifier
-            .fillMaxWidth()
-            .height(8.dp)
-            .padding(horizontal = 24.dp),
-        )
-*/
       }
     }
   }

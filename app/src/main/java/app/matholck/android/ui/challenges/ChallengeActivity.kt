@@ -23,6 +23,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ChallengeActivity : ComponentActivity() {
   private val challengeViewModel: ArithChallengeViewModel by viewModel()
 
+  override fun onResume() {
+    super.onResume()
+    challengeViewModel.generateChallenge()
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()

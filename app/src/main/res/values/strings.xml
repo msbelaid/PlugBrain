@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">MathlockApp</string>
+    <string name="app_name" translatable="false">BrainPlug</string>
     <plurals name="applications_blocked">
         <item quantity="zero">No application blocked</item>
         <item quantity="one">One application blocked</item>

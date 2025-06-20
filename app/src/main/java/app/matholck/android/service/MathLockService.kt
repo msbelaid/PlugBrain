@@ -73,10 +73,14 @@ class MathLockService : AccessibilityService() {
       val eventPackageName = event.packageName?.toString() ?: return
       Timber.tag(TAG).i("Event: $eventPackageName state changed")
       if (eventPackageName in blockedPackages) {
-        serviceScope.launch {
-          dataStoreManager.updateLastUsageTime(System.currentTimeMillis())
+        if (isBlocked == true) {
+          launchChallenge()
+        } else {
+          serviceScope.launch {
+            dataStoreManager.updateLastUsageTime(System.currentTimeMillis())
+          }
+          checkAppUsage()
         }
-        if (isBlocked == true) launchChallenge() else checkAppUsage()
       }
       if ((eventPackageName in resources.getStringArray(R.array.calculator_packages) || "calc" in eventPackageName) && (isBlocked == true)) {
         Toast.makeText(this, "Please, don't use the calculator!", Toast.LENGTH_LONG).show()

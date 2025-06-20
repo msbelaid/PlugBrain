@@ -8,4 +8,5 @@ data class MainScreenState(
   val lastUsageDuration: Duration? = null,
   val blockedApps: Set<InstalledApp> = emptySet(),
   val blockInterval: Int = 15,
+  val difficultyLevel: Int = 0,
 )

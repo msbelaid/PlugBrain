@@ -30,25 +30,25 @@ class MainScreenViewModel(
     viewModelScope.launch {
       combine(
         dataStoreManager.getBlockedApps(),
-        dataStoreManager.getLastBlockTime(),
-        dataStoreManager.getLastUsageTime(),
-        dataStoreManager.getBlockInterval(),
+        dataStoreManager.getTimeStats(),
+        dataStoreManager.getProgressiveDifficulty(),
         installedAppsRepository.getInstalledApps(),
-      ) { blockedApps, lastBlockTime, lastUsageTime, blockInterval, installedApps ->
+      ) { blockedApps, timeStats, difficultyLevel, installedApps ->
         Timber.e("getAppsUsageStats launched")
         val blockedAppsUsage = appsUsageStats.getTotalAppsUsageDuration(
-          startTime = lastBlockTime ?: (System.currentTimeMillis() - ONE_HOUR),
+          startTime = timeStats.lastBlockTime ?: (System.currentTimeMillis() - ONE_HOUR),
           endTime = System.currentTimeMillis(),
           filterPackages = blockedApps,
         )
         MainScreenState(
           usageFreeDuration =
-          if (lastUsageTime != null) (System.currentTimeMillis() - lastUsageTime).milliseconds else null,
+          if (timeStats.lastUsageTime != null) (System.currentTimeMillis() - timeStats.lastUsageTime).milliseconds else null,
           lastUsageDuration = blockedAppsUsage.minutes,
           blockedApps = installedApps.filter {
             it.packageName in blockedApps
           }.toSet(),
-          blockInterval = blockInterval,
+          blockInterval = timeStats.blockInterval,
+          difficultyLevel = difficultyLevel
         )
       }.collect {
         _mainScreenState.value = it
