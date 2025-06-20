@@ -25,9 +25,9 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
-    private val installedAppsRepository: InstalledAppsRepository,
-    private val dataStoreManager: DataStoreManager,
-    private val context: Context,
+  private val installedAppsRepository: InstalledAppsRepository,
+  private val dataStoreManager: DataStoreManager,
+  private val context: Context,
 ) : ViewModel() {
 
   private val blockedApps = dataStoreManager.getBlockedApps()

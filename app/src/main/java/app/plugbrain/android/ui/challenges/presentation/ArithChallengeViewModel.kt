@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ArithChallengeViewModel(
-    private val dataStoreManager: DataStoreManager,
-    private val mathChallengeRepository: MathChallengeRepository,
+  private val dataStoreManager: DataStoreManager,
+  private val mathChallengeRepository: MathChallengeRepository,
 ) : ViewModel() {
   private val _mathChallenge: MutableStateFlow<MathChallenge?> = MutableStateFlow(null)
   val mathChallenge: StateFlow<MathChallenge?> = _mathChallenge

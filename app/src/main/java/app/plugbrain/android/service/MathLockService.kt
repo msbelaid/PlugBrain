@@ -4,7 +4,7 @@ import android.accessibilityservice.AccessibilityService
 import android.content.Intent
 import android.view.accessibility.AccessibilityEvent
 import android.widget.Toast
-import app.matholck.android.R
+import app.plugbrain.android.R
 import app.plugbrain.android.appsusage.AppsUsageStats
 import app.plugbrain.android.datastore.DataStoreManager
 import app.plugbrain.android.ui.challenges.ChallengeActivity

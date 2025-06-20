@@ -3,7 +3,7 @@ package app.plugbrain.android.repository
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import app.matholck.android.R
+import app.plugbrain.android.R
 import app.plugbrain.android.repository.model.InstalledApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

@@ -18,7 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import app.matholck.android.R
+import app.plugbrain.android.R
 import app.plugbrain.android.repository.model.InstalledApp
 
 @Composable
@@ -65,7 +65,7 @@ private fun AppsSelectionScreenPreview() {
         packageName = "com.google.youtube",
         icon = AppCompatResources.getDrawable(
           LocalContext.current,
-          R.drawable.ic_launcher_background
+          R.drawable.ic_launcher_background,
         )!!,
         selected = true,
       ),
@@ -74,7 +74,7 @@ private fun AppsSelectionScreenPreview() {
         packageName = "com.mathlock.android",
         icon = AppCompatResources.getDrawable(
           LocalContext.current,
-          R.drawable.ic_launcher_background
+          R.drawable.ic_launcher_background,
         )!!,
         selected = true,
       ),

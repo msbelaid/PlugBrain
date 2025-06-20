@@ -46,7 +46,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
-import app.matholck.android.R
+import app.plugbrain.android.R
 import app.plugbrain.android.repository.model.ChallengeSettings
 import app.plugbrain.android.repository.model.Difficulty
 import app.plugbrain.android.repository.model.InstalledApp

@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
-import app.matholck.android.R
+import app.plugbrain.android.R
 import app.plugbrain.android.repository.model.InstalledApp
 import coil3.compose.rememberAsyncImagePainter
 

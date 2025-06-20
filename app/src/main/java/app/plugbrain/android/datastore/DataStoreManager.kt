@@ -144,10 +144,10 @@ class DataStoreManager(private val context: Context) {
 
   fun getChallengeSettings(): Flow<ChallengeSettings> = context.dataStore.data
     .map { preferences ->
-        ChallengeSettings(
-            operator = Operator.valueOf(preferences[challengeOperator] ?: Operator.ADDITION.name),
-            difficulty = Difficulty.valueOf(preferences[difficultyLevel] ?: Difficulty.EASY.name),
-        )
+      ChallengeSettings(
+        operator = Operator.valueOf(preferences[challengeOperator] ?: Operator.ADDITION.name),
+        difficulty = Difficulty.valueOf(preferences[difficultyLevel] ?: Difficulty.EASY.name),
+      )
     }
 
   fun getProgressiveDifficulty(): Flow<Int> =

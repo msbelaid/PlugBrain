@@ -3,7 +3,6 @@ package app.plugbrain.android.appsusage
 import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager
 import android.content.Context
-import app.plugbrain.android.appsusage.AppsUsageStats
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

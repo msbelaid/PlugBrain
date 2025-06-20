@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class MathChallengeRepository(
-    private val dataStoreManager: DataStoreManager,
+  private val dataStoreManager: DataStoreManager,
 ) {
   fun generateProgressiveChallenge(): Flow<MathChallenge> {
     // TODO pass filtering as parameter, useful if we want to bypass some levels, for example start from medium level, or just use additions.

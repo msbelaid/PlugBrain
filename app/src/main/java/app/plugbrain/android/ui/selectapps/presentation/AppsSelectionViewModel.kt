@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class AppsSelectionViewModel(
-    private val installedAppsRepository: InstalledAppsRepository,
-    private val dataStoreManager: DataStoreManager,
+  private val installedAppsRepository: InstalledAppsRepository,
+  private val dataStoreManager: DataStoreManager,
 ) : ViewModel() {
 
   val blockedApps = dataStoreManager.getBlockedApps()

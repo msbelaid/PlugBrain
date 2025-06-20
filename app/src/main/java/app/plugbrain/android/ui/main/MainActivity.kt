@@ -27,14 +27,14 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       val state by mainScreenViewModel.mainScreenState.collectAsState(MainScreenState())
-        MathlockAppTheme {
-            MainScreen(
-                state = state,
-                onSettingsClicked = {
-                    startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
-                },
-            )
-        }
+      MathlockAppTheme {
+        MainScreen(
+          state = state,
+          onSettingsClicked = {
+            startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+          },
+        )
+      }
     }
   }
 }

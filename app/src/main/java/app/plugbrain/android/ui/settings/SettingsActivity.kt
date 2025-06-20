@@ -37,48 +37,48 @@ class SettingsActivity : ComponentActivity() {
       val permissions by settingsViewModel.permissionsState.collectAsState(PermissionsState())
       val blockInterval by settingsViewModel.blockIntervalState.collectAsState(5)
       val challengeSettings by settingsViewModel.challengeSettingsState.collectAsState(
-          ChallengeSettings()
+        ChallengeSettings(),
       )
-        MathlockAppTheme {
-            SettingsScreen(
-                lockedApps = lockedApps,
-                permissionsState = permissions,
-                challengeSettings = challengeSettings,
-                blockInterval = blockInterval,
-                onBlockApplicationsClicked = {
-                    startActivity(
-                        Intent(
-                            this@SettingsActivity,
-                            AppsSelectionActivity::class.java,
-                        ),
-                    )
-                },
-                onAccessibilityClicked = {
-                    openAccessibilitySettings()
-                },
-                onUsageStatsClicked = {
-                    openUsageStatsPermissionSettings()
-                },
-                batteryOptimizationClicked = {
-                    openBatteryOptimizationExemptionSettings()
-                },
-                onSystemAlertWindow = {
-                    openManageAlertPermission()
-                },
-                onUpdateBlockInterval = {
-                    settingsViewModel.updateBlockInterval(it)
-                },
-                onOperationSelected = {
-                    settingsViewModel.updateChallengeSettings(challengeSettings.copy(operator = it))
-                },
-                onDifficultySelected = {
-                    settingsViewModel.updateChallengeSettings(challengeSettings.copy(difficulty = it))
-                },
-                onRefreshClicked = {
-                    startActivity(Intent(this, TimerActivity::class.java))
-                },
+      MathlockAppTheme {
+        SettingsScreen(
+          lockedApps = lockedApps,
+          permissionsState = permissions,
+          challengeSettings = challengeSettings,
+          blockInterval = blockInterval,
+          onBlockApplicationsClicked = {
+            startActivity(
+              Intent(
+                this@SettingsActivity,
+                AppsSelectionActivity::class.java,
+              ),
             )
-        }
+          },
+          onAccessibilityClicked = {
+            openAccessibilitySettings()
+          },
+          onUsageStatsClicked = {
+            openUsageStatsPermissionSettings()
+          },
+          batteryOptimizationClicked = {
+            openBatteryOptimizationExemptionSettings()
+          },
+          onSystemAlertWindow = {
+            openManageAlertPermission()
+          },
+          onUpdateBlockInterval = {
+            settingsViewModel.updateBlockInterval(it)
+          },
+          onOperationSelected = {
+            settingsViewModel.updateChallengeSettings(challengeSettings.copy(operator = it))
+          },
+          onDifficultySelected = {
+            settingsViewModel.updateChallengeSettings(challengeSettings.copy(difficulty = it))
+          },
+          onRefreshClicked = {
+            startActivity(Intent(this, TimerActivity::class.java))
+          },
+        )
+      }
     }
   }
 
@@ -94,7 +94,7 @@ class SettingsActivity : ComponentActivity() {
   private fun openAccessibilitySettings() {
     startActivity(
       Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
-          flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK
       },
     )
   }
@@ -125,7 +125,7 @@ class SettingsActivity : ComponentActivity() {
       startActivity(intent)
     } catch (e: Exception) {
       val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-        Intent.setData = Uri.fromParts("package", packageName, null)
+        data = Uri.fromParts("package", packageName, null)
       }
       startActivity(intent)
     }

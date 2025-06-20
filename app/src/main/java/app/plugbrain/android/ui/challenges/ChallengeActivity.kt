@@ -12,7 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import app.matholck.android.BuildConfig
+import app.plugbrain.android.BuildConfig
 import app.plugbrain.android.ui.challenges.compose.ArithChallengeScreen
 import app.plugbrain.android.ui.challenges.compose.ChallengeTopBar
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
@@ -32,37 +32,37 @@ class ChallengeActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContent {
-        MathlockAppTheme {
-            val challenge by challengeViewModel.mathChallenge.collectAsState()
-            Scaffold(
-                topBar = {
-                    if (BuildConfig.DEBUG) { // The refresh button works only on DEBUG mode!
-                        ChallengeTopBar(onRefreshClicked = {
-                            startActivity(Intent(this@ChallengeActivity, TimerActivity::class.java))
-                        })
-                    }
-                },
-                modifier = Modifier.fillMaxSize(),
-            ) { innerPadding ->
-                challenge?.let {
-                    ArithChallengeScreen(
-                        modifier = Modifier.padding(innerPadding),
-                        mathChallenge = it,
-                    ) { response ->
-                        if (it.checkAnswer(response)) {
-                            challengeViewModel.unblockApps()
-                            finish()
-                        } else {
-                            Toast.makeText(
-                                this@ChallengeActivity,
-                                "Wrong Answer, try again!",
-                                Toast.LENGTH_LONG,
-                            ).show()
-                        }
-                    }
-                }
+      MathlockAppTheme {
+        val challenge by challengeViewModel.mathChallenge.collectAsState()
+        Scaffold(
+          topBar = {
+            if (BuildConfig.DEBUG) { // The refresh button works only on DEBUG mode!
+              ChallengeTopBar(onRefreshClicked = {
+                startActivity(Intent(this@ChallengeActivity, TimerActivity::class.java))
+              })
             }
+          },
+          modifier = Modifier.fillMaxSize(),
+        ) { innerPadding ->
+          challenge?.let {
+            ArithChallengeScreen(
+              modifier = Modifier.padding(innerPadding),
+              mathChallenge = it,
+            ) { response ->
+              if (it.checkAnswer(response)) {
+                challengeViewModel.unblockApps()
+                finish()
+              } else {
+                Toast.makeText(
+                  this@ChallengeActivity,
+                  "Wrong Answer, try again!",
+                  Toast.LENGTH_LONG,
+                ).show()
+              }
+            }
+          }
         }
+      }
     }
   }
 }
