@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "app.matholck.android"
+    namespace = "app.plugbrain.android"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "app.matholck.android"
+        applicationId = "app.plugbrain.android"
         minSdk = 28
         targetSdk = 35
         versionCode = 1
