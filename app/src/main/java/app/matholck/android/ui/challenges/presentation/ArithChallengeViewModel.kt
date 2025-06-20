@@ -46,5 +46,4 @@ class ArithChallengeViewModel(
       dataStoreManager.incrementProgressiveDifficulty()
     }
   }
-
 }

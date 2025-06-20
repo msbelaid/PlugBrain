@@ -48,7 +48,7 @@ class MainScreenViewModel(
             it.packageName in blockedApps
           }.toSet(),
           blockInterval = timeStats.blockInterval,
-          difficultyLevel = difficultyLevel
+          difficultyLevel = difficultyLevel,
         )
       }.collect {
         _mainScreenState.value = it
