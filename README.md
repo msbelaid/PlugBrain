@@ -1,6 +1,6 @@
 # PlugBrain
 > [!NOTE]  
-> This is a temporary name, will change in later interations.
+> This is a beta vesrion.
 
 PlugBrain is an app that encourages regular breaks from distracting apps by blocking access at scheduled intervals.
 To regain access, you’ll need to solve a math challenge that adjusts in difficulty: 
