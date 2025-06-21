@@ -7,11 +7,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.lifecycleScope
+import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.main.compose.MainScreen
 import app.plugbrain.android.ui.main.presentation.MainScreenState
 import app.plugbrain.android.ui.main.presentation.MainScreenViewModel
 import app.plugbrain.android.ui.settings.SettingsActivity
 import app.plugbrain.android.ui.theme.MathlockAppTheme
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +22,15 @@ class MainActivity : ComponentActivity() {
 
   override fun onResume() {
     super.onResume()
+    mainScreenViewModel.getPermissions()
     mainScreenViewModel.getAppsUsageStats()
+    lifecycleScope.launch {
+      mainScreenViewModel.permissionsState.collect { permissions ->
+        if (permissions.areAllImportantPermissionsGranted().not()) {
+          navigateToSettings()
+        }
+      }
+    }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,14 +38,18 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       val state by mainScreenViewModel.mainScreenState.collectAsState(MainScreenState())
+      val permissionsState by mainScreenViewModel.permissionsState.collectAsState(PermissionsState())
       MathlockAppTheme {
         MainScreen(
           state = state,
-          onSettingsClicked = {
-            startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
-          },
+          permissionsState = permissionsState,
+          onSettingsClicked = { navigateToSettings() },
         )
       }
     }
+  }
+
+  private fun navigateToSettings() {
+    startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
   }
 }

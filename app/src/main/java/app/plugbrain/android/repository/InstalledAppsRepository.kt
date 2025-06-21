@@ -19,11 +19,11 @@ class InstalledAppsRepository(private val context: Context) {
         (it.flags and ApplicationInfo.FLAG_SYSTEM == 0) || (it.packageName in context.resources.getStringArray(R.array.default_system_apps))
       }
       .map { appInfo ->
-          InstalledApp(
-              name = pm.getApplicationLabel(appInfo).toString(),
-              packageName = appInfo.packageName,
-              icon = appInfo.loadIcon(pm),
-          )
+        InstalledApp(
+          name = pm.getApplicationLabel(appInfo).toString(),
+          packageName = appInfo.packageName,
+          icon = appInfo.loadIcon(pm),
+        )
       }.sortedBy { it.name }
     emit(apps)
   }.flowOn(Dispatchers.IO)

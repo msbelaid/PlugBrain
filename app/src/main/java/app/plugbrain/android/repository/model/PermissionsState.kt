@@ -1,4 +1,4 @@
-package app.plugbrain.android.ui.settings.presentation
+package app.plugbrain.android.repository.model
 
 data class PermissionsState(
   val accessibilityPermission: Boolean = false,
@@ -10,5 +10,10 @@ data class PermissionsState(
     accessibilityPermission &&
       usageStatsPermission &&
       batteryOptimizationExemption &&
+      systemAlertWindow
+
+  fun areAllImportantPermissionsGranted(): Boolean =
+    accessibilityPermission &&
+      usageStatsPermission &&
       systemAlertWindow
 }

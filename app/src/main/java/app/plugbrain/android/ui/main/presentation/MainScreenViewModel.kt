@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.appsusage.AppsUsageStats
 import app.plugbrain.android.datastore.DataStoreManager
 import app.plugbrain.android.repository.InstalledAppsRepository
+import app.plugbrain.android.repository.PermissionsRepository
+import app.plugbrain.android.repository.model.PermissionsState
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,11 +20,15 @@ private const val ONE_HOUR = 60 * 60_000
 
 class MainScreenViewModel(
   private val installedAppsRepository: InstalledAppsRepository,
+  private val permissionsRepository: PermissionsRepository,
   private val dataStoreManager: DataStoreManager,
   private val appsUsageStats: AppsUsageStats,
 ) : ViewModel() {
   private val _mainScreenState: MutableStateFlow<MainScreenState?> = MutableStateFlow(null)
   val mainScreenState: StateFlow<MainScreenState?> = _mainScreenState
+
+  private val _permissionsState = MutableStateFlow<PermissionsState>(PermissionsState())
+  val permissionsState: StateFlow<PermissionsState> = _permissionsState
 
   fun getAppsUsageStats() {
     Timber.e("getAppsUsageStats called")
@@ -52,6 +58,14 @@ class MainScreenViewModel(
         )
       }.collect {
         _mainScreenState.value = it
+      }
+    }
+  }
+
+  fun getPermissions() {
+    viewModelScope.launch {
+      permissionsRepository.getPermissions().collect { state ->
+        _permissionsState.value = state
       }
     }
   }

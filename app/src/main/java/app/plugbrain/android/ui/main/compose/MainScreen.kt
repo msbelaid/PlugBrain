@@ -26,14 +26,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
 import app.plugbrain.android.repository.model.ChallengeSettings
 import app.plugbrain.android.repository.model.InstalledApp
+import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.main.presentation.MainScreenState
 import coil3.compose.rememberAsyncImagePainter
 import kotlin.time.Duration.Companion.milliseconds
@@ -42,6 +45,7 @@ import kotlin.time.Duration.Companion.milliseconds
 @Composable
 fun MainScreen(
   state: MainScreenState?,
+  permissionsState: PermissionsState,
   onSettingsClicked: () -> Unit,
 ) {
   Scaffold(
@@ -50,7 +54,7 @@ fun MainScreen(
       .statusBarsPadding(),
     topBar = {
       TopAppBar(
-        title = { Text("My App") },
+        title = { Text(stringResource(R.string.app_name)) },
         actions = {
           IconButton(onClick = {
             onSettingsClicked()
@@ -64,101 +68,115 @@ fun MainScreen(
       )
     },
   ) { innerPadding ->
-    if (state != null) {
-      Column(Modifier.padding(innerPadding)) {
-        // CARD 1: Recap Number of blocked apps every X minutes.
-        Card(
-          shape = RoundedCornerShape(16.dp),
-          elevation = CardDefaults.cardElevation(8.dp),
-          colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-          modifier = Modifier
-            .padding(16.dp)
-            .fillMaxWidth(),
+    // TODO Display the missing permissions
+    if (state != null && permissionsState.areAllImportantPermissionsGranted()) {
+      MainContent(Modifier.padding(innerPadding), state)
+    }
+  }
+}
+
+@Composable
+private fun MainContent(
+  modifier: Modifier,
+  state: MainScreenState
+) {
+  Column(modifier) {
+    // CARD 1: Recap Number of blocked apps every X minutes.
+    Card(
+      shape = RoundedCornerShape(16.dp),
+      elevation = CardDefaults.cardElevation(8.dp),
+      colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+      modifier = Modifier
+        .padding(16.dp)
+        .fillMaxWidth(),
+    ) {
+      Column(Modifier.padding(16.dp)) {
+        Text(
+          text = "Blocked Apps",
+          style = MaterialTheme.typography.titleLarge,
+        )
+        Text(
+          // TODO add utils function for plural.
+          text = LocalContext.current.resources.getQuantityString(
+            R.plurals.applications_blocked,
+            state.blockedApps.count(),
+            state.blockedApps.count(),
+          ) + " " + LocalContext.current.resources.getQuantityString(
+            R.plurals.blocked_every_x_minutes,
+            state.blockInterval,
+            state.blockInterval,
+          ),
+          style = MaterialTheme.typography.titleMedium,
+        )
+        LazyRow(
+          modifier = Modifier.padding(16.dp),
+          horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-          Column(Modifier.padding(16.dp)) {
-            Text(
-              text = "Blocked Apps",
-              style = MaterialTheme.typography.titleLarge,
-            )
-            Text(
-              // TODO add utils function for plural.
-              text = LocalContext.current.resources.getQuantityString(
-                R.plurals.applications_blocked,
-                state.blockedApps.count(),
-                state.blockedApps.count(),
-              ) + " " + LocalContext.current.resources.getQuantityString(
-                R.plurals.blocked_every_x_minutes,
-                state.blockInterval,
-                state.blockInterval,
-              ),
-              style = MaterialTheme.typography.titleMedium,
-            )
-            LazyRow(
-              modifier = Modifier.padding(16.dp),
-              horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-              items(state.blockedApps.toList()) { app ->
-                Image(
-                  modifier = Modifier
-                    .width(48.dp),
-                  painter = rememberAsyncImagePainter(app.icon.toBitmap()),
-                  contentDescription = app.name,
-                )
-              }
-            }
-            Text(
-              text = "Unlock distraction apps with math\nThe less you use them -> the easier the challenges.",
-              style = MaterialTheme.typography.bodyLarge,
+          items(state.blockedApps.toList()) { app ->
+            Image(
+              modifier = Modifier
+                .width(48.dp),
+              painter = rememberAsyncImagePainter(app.icon.toBitmap()),
+              contentDescription = app.name,
             )
           }
         }
-        // TODO CARD 2: Recap Usage stats
-        //         - Example 1: You have used distracting apps for more than X hours today!
-        //         - Example 2: You stayed away from distracting for more than one day and 3 hours
-        //         - Example 3: You have used distracting apps for 15min in the last session
-        Card(
-          shape = RoundedCornerShape(16.dp),
-          elevation = CardDefaults.cardElevation(8.dp),
-          colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-          modifier = Modifier
-            .padding(16.dp)
-            .fillMaxWidth(),
-        ) {
-          Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.padding(16.dp),
-          ) {
-            Text(
-              text = "Nice! You've stayed away from distracting apps for over ${state.usageFreeDuration}. Keep it up!",
-              style = MaterialTheme.typography.titleMedium,
-            )
-            val usageDurationMinutes = state.lastUsageDuration?.inWholeMinutes ?: 0
-            Text("Last usage Time: $usageDurationMinutes/${state.blockInterval}")
-            LinearProgressIndicator(
-              progress = {
-                usageDurationMinutes.toFloat() / state.blockInterval
-              },
-              gapSize = 0.dp,
-              modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-                .padding(horizontal = 24.dp),
-            )
-            Text("Hardness: ${state.difficultyLevel}/${ChallengeSettings.Companion.challengeProgressionList.count()}")
-            LinearProgressIndicator(
-              progress = {
-                state.difficultyLevel.toFloat() / ChallengeSettings.Companion.challengeProgressionList.count()
-              },
-              gapSize = 0.dp,
-              modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-                .padding(horizontal = 24.dp),
-            )
-          }
-        }
+        Text(
+          text = "Unlock distraction apps with math\nThe less you use them -> the easier the challenges.",
+          style = MaterialTheme.typography.bodyLarge,
+        )
       }
     }
+    // TODO CARD 2: Recap Usage stats
+    //         - Example 1: You have used distracting apps for more than X hours today!
+    //         - Example 2: You stayed away from distracting for more than one day and 3 hours
+    //         - Example 3: You have used distracting apps for 15min in the last session
+    Card(
+      shape = RoundedCornerShape(16.dp),
+      elevation = CardDefaults.cardElevation(8.dp),
+      colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+      modifier = Modifier
+        .padding(16.dp)
+        .fillMaxWidth(),
+    ) {
+      Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier.padding(16.dp),
+      ) {
+        Text(
+          text = "Nice! You've stayed away from distracting apps for over ${state.usageFreeDuration}. Keep it up!",
+          style = MaterialTheme.typography.titleMedium,
+        )
+        val usageDurationMinutes = state.lastUsageDuration?.inWholeMinutes ?: 0
+        Text("Last usage Time: $usageDurationMinutes/${state.blockInterval}")
+        LinearProgressIndicator(
+          progress = {
+            usageDurationMinutes.toFloat() / state.blockInterval
+          },
+          gapSize = 0.dp,
+          modifier = Modifier
+            .fillMaxWidth()
+            .height(8.dp)
+            .padding(horizontal = 24.dp),
+        )
+        Text("Hardness: ${state.difficultyLevel}/${ChallengeSettings.Companion.challengeProgressionList.count()}")
+        LinearProgressIndicator(
+          progress = {
+            state.difficultyLevel.toFloat() / ChallengeSettings.Companion.challengeProgressionList.count()
+          },
+          gapSize = 0.dp,
+          modifier = Modifier
+            .fillMaxWidth()
+            .height(8.dp)
+            .padding(horizontal = 24.dp),
+        )
+      }
+    }
+    Text(
+      text = "This is a placeholder screen and will be redesigned later.",
+      style = MaterialTheme.typography.labelSmall,
+      modifier = Modifier.align(Alignment.CenterHorizontally)
+    )
   }
 }
 
@@ -191,7 +209,8 @@ private fun MainScreenPreview() {
       usageFreeDuration = 100_000L.milliseconds,
       blockInterval = 15,
     ),
+    permissionsState = PermissionsState(true, true, true, true),
     onSettingsClicked = {},
 
-  )
+    )
 }

@@ -51,7 +51,7 @@ import app.plugbrain.android.repository.model.ChallengeSettings
 import app.plugbrain.android.repository.model.Difficulty
 import app.plugbrain.android.repository.model.InstalledApp
 import app.plugbrain.android.repository.model.Operator
-import app.plugbrain.android.ui.settings.presentation.PermissionsState
+import app.plugbrain.android.repository.model.PermissionsState
 import coil3.compose.rememberAsyncImagePainter
 
 @Composable

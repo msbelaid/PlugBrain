@@ -13,7 +13,7 @@ import androidx.core.net.toUri
 import app.plugbrain.android.repository.model.ChallengeSettings
 import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
 import app.plugbrain.android.ui.settings.compose.SettingsScreen
-import app.plugbrain.android.ui.settings.presentation.PermissionsState
+import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.settings.presentation.SettingsViewModel
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import app.plugbrain.android.ui.timer.TimerActivity
@@ -24,7 +24,7 @@ class SettingsActivity : ComponentActivity() {
 
   override fun onResume() {
     super.onResume()
-    settingsViewModel.fetchPermission()
+    settingsViewModel.getPermissions()
     settingsViewModel.getBlockInterval()
     settingsViewModel.getChallengeSettings()
   }
