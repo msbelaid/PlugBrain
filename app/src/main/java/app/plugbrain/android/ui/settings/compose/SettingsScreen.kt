@@ -43,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
@@ -92,30 +93,7 @@ fun SettingsScreen(
       item { HorizontalDivider(thickness = 8.dp) }
       item { BlockedApplications(lockedApps, onBlockApplicationsClicked) }
       item { HorizontalDivider(thickness = 8.dp) }
-      item { ProgressiveDifficulty { onRefreshClicked() } }
-      item { HorizontalDivider(thickness = 8.dp) }
       item { Timing(blockInterval, onUpdateBlockInterval) }
-    }
-  }
-}
-
-@Composable
-fun ProgressiveDifficulty(
-  modifier: Modifier = Modifier,
-  onRefreshClicked: () -> Unit,
-) {
-  Box(modifier.fillMaxWidth()) {
-    Button(onClick = onRefreshClicked, Modifier.align(Alignment.Center)) {
-      Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-      ) {
-        Icon(
-          imageVector = Icons.Filled.Refresh,
-          contentDescription = "Refresh",
-          modifier = Modifier.size(FilterChipDefaults.IconSize),
-        )
-        Text("Refresh")
-      }
     }
   }
 }
@@ -123,7 +101,7 @@ fun ProgressiveDifficulty(
 @Composable
 fun SettingsTitle() {
   Text(
-    text = "MathLock",
+    text = stringResource(R.string.app_name),
     style = MaterialTheme.typography.displayMedium,
     modifier = Modifier
       .fillMaxWidth()
@@ -141,9 +119,9 @@ fun Timing(
 
   Column {
     Text(
-      text = "Block Applications every: $blockInterval mins",
+      text = stringResource(R.string.blocking_interval),
       style = MaterialTheme.typography.titleLarge,
-      modifier = Modifier.padding(start = 32.dp, bottom = 16.dp, end = 16.dp),
+      modifier = Modifier.padding(start = 32.dp, bottom = 16.dp, top = 16.dp, end = 16.dp),
     )
     Row(
       horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -154,7 +132,7 @@ fun Timing(
         FilterChip(
           selected = blockInterval == value,
           onClick = { onUpdateBlockInterval(value) },
-          label = { Text("$value min") },
+          label = { Text(value.toString() + " " +stringResource(R.string.minutes_short)) },
           leadingIcon =
           {
             if (blockInterval == value) {
@@ -197,12 +175,11 @@ fun BlockedApplications(
       )
       LazyRow(
         modifier = Modifier.padding(start = 32.dp, bottom = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
       ) {
         items(lockedApps.toList()) { app ->
           Image(
-            modifier = Modifier
-              .width(24.dp),
+            modifier = Modifier.width(48.dp),
             painter = rememberAsyncImagePainter(app.icon.toBitmap()),
             contentDescription = app.name,
           )
@@ -263,38 +240,45 @@ fun Authorizations(
   batteryOptimizationClicked: () -> Unit,
   onSystemAlertWindow: () -> Unit,
 ) {
-  if (permissionsState.areAllPermissionsGranted()) return
+  if (permissionsState.areAllPermissionsGranted()) {
+    Text(
+      text = stringResource(R.string.all_permissions_granted),
+      style = MaterialTheme.typography.titleLarge,
+      modifier = Modifier.padding(start = 32.dp, bottom = 16.dp),
+    )
+    return
+  }
 
   Column {
     Text(
-      text = "Authorizations",
+      text = stringResource(R.string.permissions_title),
       style = MaterialTheme.typography.titleLarge,
       modifier = Modifier.padding(start = 32.dp),
     )
     PermissionItem(
-      title = "Accessibility permission",
-      subtitle = "More details about it",
+      title = stringResource(R.string.accessibility_permission),
+      subtitle = stringResource(R.string.accessibility_permission_description),
       granted = permissionsState.accessibilityPermission,
       icon = R.drawable.baseline_accessibility_new_24,
       onClick = onAccessibilityClicked,
     )
     PermissionItem(
-      title = "Usage stats",
-      subtitle = "More details about it",
+      title = stringResource(R.string.usage_access_permission),
+      subtitle = stringResource(R.string.usage_access_permission_description),
       granted = permissionsState.usageStatsPermission,
       icon = R.drawable.baseline_query_stats_24,
       onClick = onUsageStatsClicked,
     )
     PermissionItem(
-      title = "System Alert Window",
-      subtitle = "More details about it",
+      title = stringResource(R.string.display_over_apps_permission),
+      subtitle = stringResource(R.string.display_over_apps_permission_description),
       granted = permissionsState.systemAlertWindow,
       icon = R.drawable.baseline_apps_outage_24,
       onClick = onSystemAlertWindow,
     )
     PermissionItem(
-      title = "Battery Optimization Exemption",
-      subtitle = "More details about it",
+      title = stringResource(R.string.battery_optimization_exemption_permission),
+      subtitle = stringResource(R.string.battery_optimization_exemption_permission_description),
       granted = permissionsState.batteryOptimizationExemption,
       icon = R.drawable.baseline_battery_2_bar_24,
       onClick = batteryOptimizationClicked,
@@ -317,8 +301,8 @@ private fun SettingsScreenPreview() {
         selected = true,
       ),
       InstalledApp(
-        name = "MathLock",
-        packageName = "com.mathlock.android",
+        name = stringResource(R.string.app_name),
+        packageName = "app.plugbrain.android",
         icon = AppCompatResources.getDrawable(
           LocalContext.current,
           R.drawable.ic_launcher_background,

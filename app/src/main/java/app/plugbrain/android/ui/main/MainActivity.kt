@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
     mainScreenViewModel.getAppsUsageStats()
     lifecycleScope.launch {
       mainScreenViewModel.permissionsState.collect { permissions ->
-        if (permissions.areAllImportantPermissionsGranted().not()) {
+        if (permissions !=null && permissions.areAllImportantPermissionsGranted().not()) {
           navigateToSettings()
         }
       }

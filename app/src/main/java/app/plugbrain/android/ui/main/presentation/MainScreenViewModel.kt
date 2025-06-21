@@ -27,8 +27,8 @@ class MainScreenViewModel(
   private val _mainScreenState: MutableStateFlow<MainScreenState?> = MutableStateFlow(null)
   val mainScreenState: StateFlow<MainScreenState?> = _mainScreenState
 
-  private val _permissionsState = MutableStateFlow<PermissionsState>(PermissionsState())
-  val permissionsState: StateFlow<PermissionsState> = _permissionsState
+  private val _permissionsState = MutableStateFlow<PermissionsState?>(null)
+  val permissionsState: StateFlow<PermissionsState?> = _permissionsState
 
   fun getAppsUsageStats() {
     Timber.e("getAppsUsageStats called")

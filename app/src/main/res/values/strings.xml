@@ -1,7 +1,19 @@
 <resources>
     <string name="app_name" translatable="false">PlugBrain</string>
+    <string name="app_name_with_brain_icon" translatable="false">PlugBrain 🧠</string>
+    <string name="permissions_title">Permissions</string>
+    <string name="all_permissions_granted">All permissions have been granted!</string>
+    <string name="accessibility_permission">Accessibility Permission</string>
+    <string name="accessibility_permission_description">Allows To detect when apps are opened.</string>
+    <string name="usage_access_permission">App Usage Access</string>
+    <string name="usage_access_permission_description">Grants the app access to app usage data</string>
+    <string name="display_over_apps_permission">Display Over Other Apps</string>
+    <string name="display_over_apps_permission_description">Allows the app to display over other apps</string>
+    <string name="battery_optimization_exemption_permission">Battery Optimization Exemption</string>
+    <string name="battery_optimization_exemption_permission_description">Prevents the system from killing the app.</string>
+    <string name="refresh">Refresh</string>
     <plurals name="applications_blocked">
-        <item quantity="zero">No application blocked</item>
+        <item quantity="zero">No application blocked, tap to select apps</item>
         <item quantity="one">One application blocked</item>
         <item quantity="other">%d applications blocked</item>
     </plurals>
@@ -9,4 +21,9 @@
         <item quantity="one"> every one minute</item>
         <item quantity="other"> every %d minutes</item>
     </plurals>
+    <string name="blocking_interval">Blocking Frequency</string>
+    <string name="minutes_short">min</string>
+    <string name="settings_title">Settings</string>
+    <string name="usage_free_duration_message">Nice! You\'ve stayed away from distracting apps for over %1$s minutes. Keep it up!</string>
+    <string name="apps_usage_duration_message">You\'ve used distracting apps for over %1$s minutes in the last %2$s.</string>
 </resources>

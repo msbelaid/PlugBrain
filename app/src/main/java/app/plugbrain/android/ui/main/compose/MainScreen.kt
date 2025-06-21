@@ -45,7 +45,7 @@ import kotlin.time.Duration.Companion.milliseconds
 @Composable
 fun MainScreen(
   state: MainScreenState?,
-  permissionsState: PermissionsState,
+  permissionsState: PermissionsState?,
   onSettingsClicked: () -> Unit,
 ) {
   Scaffold(
@@ -61,7 +61,7 @@ fun MainScreen(
           }) {
             Icon(
               imageVector = Icons.Default.Settings,
-              contentDescription = "Settings",
+              contentDescription = stringResource(R.string.settings_title),
             )
           }
         },
@@ -69,7 +69,7 @@ fun MainScreen(
     },
   ) { innerPadding ->
     // TODO Display the missing permissions
-    if (state != null && permissionsState.areAllImportantPermissionsGranted()) {
+    if (state != null && permissionsState?.areAllImportantPermissionsGranted() == true) {
       MainContent(Modifier.padding(innerPadding), state)
     }
   }
@@ -81,6 +81,12 @@ private fun MainContent(
   state: MainScreenState,
 ) {
   Column(modifier) {
+    Text(
+      text = "Unlock distraction apps with math\nThe less you use them -> the easier the challenges.",
+      style = MaterialTheme.typography.bodyMedium,
+      modifier = Modifier.padding(horizontal = 16.dp)
+    )
+
     // CARD 1: Recap Number of blocked apps every X minutes.
     Card(
       shape = RoundedCornerShape(16.dp),
@@ -92,7 +98,7 @@ private fun MainContent(
     ) {
       Column(Modifier.padding(16.dp)) {
         Text(
-          text = "Blocked Apps",
+          text = stringResource(R.string.settings_title),
           style = MaterialTheme.typography.titleLarge,
         )
         Text(
@@ -114,23 +120,14 @@ private fun MainContent(
         ) {
           items(state.blockedApps.toList()) { app ->
             Image(
-              modifier = Modifier
-                .width(48.dp),
+              modifier = Modifier.width(48.dp),
               painter = rememberAsyncImagePainter(app.icon.toBitmap()),
               contentDescription = app.name,
             )
           }
         }
-        Text(
-          text = "Unlock distraction apps with math\nThe less you use them -> the easier the challenges.",
-          style = MaterialTheme.typography.bodyLarge,
-        )
       }
     }
-    // TODO CARD 2: Recap Usage stats
-    //         - Example 1: You have used distracting apps for more than X hours today!
-    //         - Example 2: You stayed away from distracting for more than one day and 3 hours
-    //         - Example 3: You have used distracting apps for 15min in the last session
     Card(
       shape = RoundedCornerShape(16.dp),
       elevation = CardDefaults.cardElevation(8.dp),
@@ -144,7 +141,7 @@ private fun MainContent(
         modifier = Modifier.padding(16.dp),
       ) {
         Text(
-          text = "Nice! You've stayed away from distracting apps for over ${state.usageFreeDuration}. Keep it up!",
+          text = recapMessage(state),
           style = MaterialTheme.typography.titleMedium,
         )
         val usageDurationMinutes = state.lastUsageDuration?.inWholeMinutes ?: 0
@@ -175,7 +172,9 @@ private fun MainContent(
     Text(
       text = "This is a placeholder screen and will be redesigned later.",
       style = MaterialTheme.typography.labelSmall,
-      modifier = Modifier.align(Alignment.CenterHorizontally),
+      modifier = Modifier
+        .padding(top = 16.dp)
+        .align(Alignment.CenterHorizontally),
     )
   }
 }
@@ -197,7 +196,7 @@ private fun MainScreenPreview() {
         ),
         InstalledApp(
           name = "MathLock",
-          packageName = "com.mathlock.android",
+          packageName = "com.plugbrain.android",
           icon = AppCompatResources.getDrawable(
             LocalContext.current,
             R.drawable.ic_launcher_background,
@@ -206,11 +205,29 @@ private fun MainScreenPreview() {
         ),
       ),
       lastUsageDuration = 100_000L.milliseconds,
-      usageFreeDuration = 100_000L.milliseconds,
-      blockInterval = 15,
+      usageFreeDuration = 900_000L.milliseconds,
+      blockInterval = 5,
     ),
     permissionsState = PermissionsState(true, true, true, true),
     onSettingsClicked = {},
 
   )
 }
+
+// TODO : Recap Usage stats
+//         - Example 1: You have used distracting apps for more than X hours today!
+//         - Example 2: You stayed away from distracting for more than one day and 3 hours
+//         - Example 3: You have used distracting apps for 15min in the last session
+//         - Example 4: Distracting Apps are blocked, hard challenge, stay away for easier challenges
+
+
+@Composable
+private fun recapMessage(state: MainScreenState) =
+  when {
+    (state.usageFreeDuration?.inWholeMinutes ?: 0) > state.blockInterval * 2 ->
+      stringResource(R.string.usage_free_duration_message, state.usageFreeDuration?.inWholeMinutes?:0)
+    (state.lastUsageDuration?.inWholeMinutes ?: 0) > 0 ->
+      stringResource(R.string.apps_usage_duration_message, state.lastUsageDuration?.inWholeMinutes?:0, state.blockInterval)
+    else -> ""
+  }
+
