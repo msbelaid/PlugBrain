@@ -78,7 +78,7 @@ fun MainScreen(
 @Composable
 private fun MainContent(
   modifier: Modifier,
-  state: MainScreenState
+  state: MainScreenState,
 ) {
   Column(modifier) {
     // CARD 1: Recap Number of blocked apps every X minutes.
@@ -175,7 +175,7 @@ private fun MainContent(
     Text(
       text = "This is a placeholder screen and will be redesigned later.",
       style = MaterialTheme.typography.labelSmall,
-      modifier = Modifier.align(Alignment.CenterHorizontally)
+      modifier = Modifier.align(Alignment.CenterHorizontally),
     )
   }
 }
@@ -212,5 +212,5 @@ private fun MainScreenPreview() {
     permissionsState = PermissionsState(true, true, true, true),
     onSettingsClicked = {},
 
-    )
+  )
 }

@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class PermissionsRepository(private val context: Context)  {
+class PermissionsRepository(private val context: Context) {
 
   fun getPermissions(): Flow<PermissionsState> = flow {
     val state = PermissionsState(
