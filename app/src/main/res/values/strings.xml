@@ -14,8 +14,8 @@
     <string name="refresh">Refresh</string>
     <plurals name="applications_blocked">
         <item quantity="zero">No application blocked, tap to select apps</item>
-        <item quantity="one">One application blocked</item>
-        <item quantity="other">%d applications blocked</item>
+        <item quantity="one">Blocks one application</item>
+        <item quantity="other">Blocks %d applications</item>
     </plurals>
     <plurals name="blocked_every_x_minutes">
         <item quantity="one"> every one minute</item>

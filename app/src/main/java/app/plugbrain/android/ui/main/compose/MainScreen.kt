@@ -84,7 +84,7 @@ private fun MainContent(
     Text(
       text = "Unlock distraction apps with math\nThe less you use them -> the easier the challenges.",
       style = MaterialTheme.typography.bodyMedium,
-      modifier = Modifier.padding(horizontal = 16.dp)
+      modifier = Modifier.padding(horizontal = 16.dp),
     )
 
     // CARD 1: Recap Number of blocked apps every X minutes.
@@ -220,14 +220,12 @@ private fun MainScreenPreview() {
 //         - Example 3: You have used distracting apps for 15min in the last session
 //         - Example 4: Distracting Apps are blocked, hard challenge, stay away for easier challenges
 
-
 @Composable
 private fun recapMessage(state: MainScreenState) =
   when {
     (state.usageFreeDuration?.inWholeMinutes ?: 0) > state.blockInterval * 2 ->
-      stringResource(R.string.usage_free_duration_message, state.usageFreeDuration?.inWholeMinutes?:0)
+      stringResource(R.string.usage_free_duration_message, state.usageFreeDuration?.inWholeMinutes ?: 0)
     (state.lastUsageDuration?.inWholeMinutes ?: 0) > 0 ->
-      stringResource(R.string.apps_usage_duration_message, state.lastUsageDuration?.inWholeMinutes?:0, state.blockInterval)
+      stringResource(R.string.apps_usage_duration_message, state.lastUsageDuration?.inWholeMinutes ?: 0, state.blockInterval)
     else -> ""
   }
-
