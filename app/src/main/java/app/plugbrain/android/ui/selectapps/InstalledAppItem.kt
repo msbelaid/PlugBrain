@@ -55,7 +55,7 @@ private fun InstalledAppPreview() {
       installedApp = InstalledApp(
         name = "Youtube",
         packageName = "com.google.youtube",
-        icon = LocalContext.current.getDrawable(R.drawable.ic_launcher_background)!!,
+        icon = LocalContext.current.getDrawable(R.mipmap.ic_launcher)!!,
         selected = true,
       ),
       onClicked = { },
@@ -64,7 +64,7 @@ private fun InstalledAppPreview() {
       installedApp = InstalledApp(
         name = "MathLock",
         packageName = "app.mathlock.android",
-        icon = LocalContext.current.getDrawable(R.drawable.ic_launcher_background)!!,
+        icon = LocalContext.current.getDrawable(R.mipmap.ic_launcher)!!,
       ),
       onClicked = { },
     )

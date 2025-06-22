@@ -293,7 +293,7 @@ private fun SettingsScreenPreview() {
         packageName = "com.google.youtube",
         icon = AppCompatResources.getDrawable(
           LocalContext.current,
-          R.drawable.ic_launcher_background,
+          R.mipmap.ic_launcher,
         )!!,
         selected = true,
       ),
@@ -302,7 +302,7 @@ private fun SettingsScreenPreview() {
         packageName = "app.plugbrain.android",
         icon = AppCompatResources.getDrawable(
           LocalContext.current,
-          R.drawable.ic_launcher_background,
+          R.mipmap.ic_launcher,
         )!!,
         selected = true,
       ),
