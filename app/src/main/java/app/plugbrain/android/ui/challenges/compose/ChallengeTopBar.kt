@@ -8,6 +8,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import app.plugbrain.android.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -15,7 +17,7 @@ fun ChallengeTopBar(
   onRefreshClicked: () -> Unit,
 ) {
   TopAppBar(
-    title = { Text("My App") },
+    title = { Text(stringResource(R.string.app_name)) },
     actions = {
       IconButton(onClick = {
         onRefreshClicked()

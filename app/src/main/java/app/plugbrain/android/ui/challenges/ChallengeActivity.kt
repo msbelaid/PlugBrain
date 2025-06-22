@@ -51,7 +51,7 @@ class ChallengeActivity : ComponentActivity() {
             ) { response ->
               if (it.checkAnswer(response)) {
                 challengeViewModel.unblockApps()
-                finish()
+                finishAffinity()
               } else {
                 Toast.makeText(
                   this@ChallengeActivity,
