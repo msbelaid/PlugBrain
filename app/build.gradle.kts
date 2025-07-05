@@ -27,6 +27,12 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // Disables dependency metadata when building APKs.
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+
     signingConfigs {
         create("release") {
             if (keystorePropertiesFile.exists()) {
