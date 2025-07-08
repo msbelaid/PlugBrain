@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="fastlane/metadata/android/en-US/Images/icon.png" alt="Screenshot" width="150"/>
+  <img src="fastlane/metadata/android/en-US/images/icon.png" alt="Screenshot" width="150"/>
 </p>
 
 # PlugBrain
