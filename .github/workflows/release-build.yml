@@ -25,6 +25,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Run ktlint check
+        run: ./gradlew ktlintCheck
+
       - name: Decode and configure keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > plugbrain-release.keystore
