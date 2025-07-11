@@ -5,6 +5,8 @@ on:
   push:
     tags:
       - 'v*'
+  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -42,6 +44,7 @@ jobs:
           path: app/build/outputs/apk/release/app-release.apk
 
       - name: Upload to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v1
         with:
           files: app/build/outputs/apk/release/app-release.apk
