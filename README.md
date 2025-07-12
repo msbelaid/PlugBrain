@@ -2,6 +2,13 @@
   <img src="fastlane/metadata/android/en-US/images/icon.png" alt="Screenshot" width="150"/>
 </p>
 
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![GitHub release](https://img.shields.io/github/v/release/msbelaid/PlugBrain)
+![Build Status](https://github.com/msbelaid/PlugBrain/actions/workflows/release-build.yml/badge.svg)
+[![F-Droid](https://img.shields.io/f-droid/v/app.plugbrain.android?label=Download%20on%20F-Droid&color=green&logo=f-droid)](https://f-droid.org/en/packages/app.plugbrain.android)
+![GitHub stars](https://img.shields.io/github/stars/msbelaid/PlugBrain?style=social)
+
 # PlugBrain
 PlugBrain is an app that encourages regular breaks from distracting apps by blocking access at scheduled intervals.
 To regain access, you’ll need to solve a math challenge that adjusts in difficulty: 
