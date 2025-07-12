@@ -1,6 +1,5 @@
 <p align="center">
-  <img src="fastlane/metadata/android/en-US/images/icon.png" alt="Screenshot" width="150"/>
-</p>
+  <img src="fastlane/metadata/android/en-US/images/featureGraphic.png" alt="feature graphic plug brain"/>
 
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
