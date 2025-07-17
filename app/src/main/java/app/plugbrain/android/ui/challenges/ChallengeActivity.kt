@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import app.plugbrain.android.BuildConfig
 import app.plugbrain.android.ui.challenges.compose.ArithChallengeScreen
 import app.plugbrain.android.ui.challenges.compose.ChallengeTopBar
+import app.plugbrain.android.ui.challenges.compose.CountChallengeScreen
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import app.plugbrain.android.ui.timer.TimerActivity
@@ -25,7 +26,7 @@ class ChallengeActivity : ComponentActivity() {
 
   override fun onResume() {
     super.onResume()
-    challengeViewModel.generateChallenge()
+    challengeViewModel.generateCountChallenge()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,32 +35,20 @@ class ChallengeActivity : ComponentActivity() {
     setContent {
       MathlockAppTheme {
         val challenge by challengeViewModel.mathChallenge.collectAsState()
-        Scaffold(
-          topBar = {
-            if (BuildConfig.DEBUG) { // The refresh button works only on DEBUG mode!
-              ChallengeTopBar(onRefreshClicked = {
-                startActivity(Intent(this@ChallengeActivity, TimerActivity::class.java))
-              })
-            }
-          },
-          modifier = Modifier.fillMaxSize(),
-        ) { innerPadding ->
-          challenge?.let {
-            ArithChallengeScreen(
-              modifier = Modifier.padding(innerPadding),
-              mathChallenge = it,
-            ) { response ->
-              if (it.checkAnswer(response)) {
-                challengeViewModel.unblockApps()
-                finishAffinity()
-              } else {
-                Toast.makeText(
-                  this@ChallengeActivity,
-                  "Wrong Answer, try again!",
-                  Toast.LENGTH_LONG,
-                ).show()
-              }
-            }
+        val countValue = challengeViewModel.countChallenge
+
+        CountChallengeScreen(
+          countValue,
+        ) { filledValue ->
+          if (countValue == filledValue)  {
+            challengeViewModel.unblockApps()
+            finishAffinity()
+          } else {
+            Toast.makeText(
+              this@ChallengeActivity,
+              "Wrong Answer, try again!",
+              Toast.LENGTH_LONG,
+            ).show()
           }
         }
       }
