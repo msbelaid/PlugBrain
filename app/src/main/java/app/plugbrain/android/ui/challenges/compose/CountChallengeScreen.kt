@@ -30,26 +30,26 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CountChallengeScreen(
   number: Int,
-  checkAnswer: (Int) -> Unit
+  checkAnswer: (Int) -> Unit,
 ) {
   var userInput by remember { mutableStateOf("") }
 
-  Column (
+  Column(
     modifier = Modifier
       .fillMaxSize()
       .padding(16.dp),
     horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.spacedBy(16.dp)
+    verticalArrangement = Arrangement.spacedBy(16.dp),
   ) {
     Text(
       text = "How many objects do you see?",
-      style = MaterialTheme.typography.headlineSmall
+      style = MaterialTheme.typography.headlineSmall,
     )
 
-    LazyRow (
+    LazyRow(
       horizontalArrangement = Arrangement.spacedBy(8.dp),
       modifier = Modifier
-        .padding(vertical = 8.dp)
+        .padding(vertical = 8.dp),
     ) {
       items(number) {
         Box(
@@ -57,8 +57,8 @@ fun CountChallengeScreen(
             .size(16.dp)
             .background(
               color = Color.Red,
-              shape = CircleShape
-            )
+              shape = CircleShape,
+            ),
         )
       }
     }
@@ -68,11 +68,11 @@ fun CountChallengeScreen(
       onValueChange = { userInput = it },
       keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
       singleLine = true,
-      modifier = Modifier.fillMaxWidth()
+      modifier = Modifier.fillMaxWidth(),
     )
 
-    Button (
-      onClick = { checkAnswer(userInput.toInt()) }
+    Button(
+      onClick = { checkAnswer(userInput.toInt()) },
     ) {
       Text(">", style = MaterialTheme.typography.headlineLarge)
     }
