@@ -1,6 +1,5 @@
 package app.plugbrain.android.ui.challenges.presentation
 
-import android.util.Range
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.datastore.DataStoreManager
