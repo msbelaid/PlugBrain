@@ -1,5 +1,4 @@
-name: Release Build & Sign APK
-
+name: PlugBrain CI
 
 on:
   push:
@@ -12,7 +11,23 @@ permissions:
   contents: write
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Run KtLint
+        run: ./gradlew ktlintCheck
+
   build:
+    needs: lint
     runs-on: ubuntu-latest
 
     steps:
@@ -25,8 +40,35 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Run ktlint check
-        run: ./gradlew ktlintCheck
+      - name: Build unsigned APK
+        run: ./gradlew assembleRelease
+
+      - name: Upload unsigned APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-apk
+          path: app/build/outputs/apk/release/app-release.apk
+
+  sign_and_release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Download unsigned APK
+        uses: actions/download-artifact@v4
+        with:
+          name: unsigned-apk
+          path: app/build/outputs/apk/release
 
       - name: Decode and configure keystore
         run: |
@@ -40,14 +82,7 @@ jobs:
       - name: Build signed APK
         run: ./gradlew assembleRelease
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: PlugBrain-APK
-          path: app/build/outputs/apk/release/app-release.apk
-
       - name: Upload to GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v1
         with:
           files: app/build/outputs/apk/release/app-release.apk
