@@ -39,7 +39,13 @@ the harder the challenges become — but the longer you stay away, the easier th
   - Choose your focus frequency
   - Stay focused ;)
 
-[Latest APK](https://github.com/msbelaid/PlugBrain/releases/latest/download/app-release.apk)
+# Download
+<a href="https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android">
+    <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="IzzyOnDroid" height="100"/>
+</a>
+<a href="https://github.com/msbelaid/PlugBrain/releases/latest/download/app-release.apk">
+    <img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="100"/>
+</a>
 
 License: [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
