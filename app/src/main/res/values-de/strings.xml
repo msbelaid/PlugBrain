@@ -1,0 +1,27 @@
+<resources>
+    <string name="permissions_title">Berechtigungen</string>
+    <string name="all_permissions_granted">Alle Berechtigungen wurden zugelassen!</string>
+    <string name="accessibility_permission">Bedienungshilfen-Berechtigungen</string>
+    <string name="accessibility_permission_description">Erlaubt zu erkennen, wann Apps geöffnet werden.</string>
+    <string name="usage_access_permission">Zugriff auf App-Nutzungsdaten</string>
+    <string name="usage_access_permission_description">Gibt der App Zugriff auf App-Nutzungsdaten</string>
+    <string name="display_over_apps_permission">Über anderen Apps einblenden</string>
+    <string name="display_over_apps_permission_description">Erlaubt der App, sich über andere Apps einzublenden.</string>
+    <string name="battery_optimization_exemption_permission">Ausnahme bei der Akkuoptimierung</string>
+    <string name="battery_optimization_exemption_permission_description">Hindert das System, die App zu beenden.</string>
+    <string name="refresh">Aktualisieren</string>
+    <plurals name="applications_blocked">
+        <item quantity="zero">Keine Apps blockiert, tippe, um Apps auszuwählen</item>
+        <item quantity="one">Blockiert eine App</item>
+        <item quantity="other">Blockiert %d Apps</item>
+    </plurals>
+    <plurals name="blocked_every_x_minutes">
+        <item quantity="one"> jede Minute</item>
+        <item quantity="other"> alle %d Minuten</item>
+    </plurals>
+    <string name="blocking_interval">Blockfrequenz</string>
+    <string name="minutes_short">min</string>
+    <string name="settings_title">Einstellungen</string>
+    <string name="usage_free_duration_message">Super! Du hast dich seit über %1$s Minuten von ablenkenden Apps ferngehalten. Mach weiter so!</string>
+    <string name="apps_usage_duration_message">Du hast in den letzten %2$s für über %1$s Minuten ablenkende Apps genutzt.</string>
+</resources>

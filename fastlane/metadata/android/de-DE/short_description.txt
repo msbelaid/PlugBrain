@@ -1,0 +1,1 @@
+PlugBrain blockiert Apps und nutzt Mathematik-Rätsel um die Bildschirmzeit zu reduzieren.
