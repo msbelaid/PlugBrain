@@ -1,0 +1,17 @@
+PlugBrain ist eine App, die regelmässige Pausen von ablenkenden Apps fördert, indem sie in geplanten Intervallen den Zugriff blockiert.
+Um wieder Zugriff zu erhalten, musst du ein Mathematik-Rätsel lösen, das sich in der Schwierigkeit anpasst: je öfter du die Apps nutzt, je schwieriger werden die Rätsel, aber desto länger du fern bleibst, desto einfacher werden sie.
+
+**Funktionen**
+
+- Keine Werbung
+- Kein Internet benötigt
+- Blockiert ablenkende Apps
+- Entblockt Apps indem Mathematik-Rätsel gelöst werden
+- Schwierigkeit nimmt mit häufiger Nutzung zu, nimmt mit mehr Fokus ab
+
+**Wie funktionierts?**
+
+- Erlaube alle erforderlichen Berechtigungen
+- Wähle ablenkende Apps aus
+- Wähle deinen Fokus-Intervall
+- Bleib fokussiert ;)
