@@ -22,12 +22,16 @@ the harder the challenges become — but the longer you stay away, the easier th
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="Screenshot 3" width="30%" />
 </p>
 
+---
+
 # Features
   - Blocks distracting apps
   - Unblock apps by solving math challenges
   - Difficulty increases with frequent use, decreases with focus
   - No tracking, no ads
   - No internet required
+
+---
 
 # How to use
   - Grant all required permissions
