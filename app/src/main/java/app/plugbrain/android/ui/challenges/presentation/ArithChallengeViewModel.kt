@@ -20,7 +20,14 @@ class ArithChallengeViewModel(
   private val _mathChallenge: MutableStateFlow<MathChallenge?> = MutableStateFlow(null)
   val mathChallenge: StateFlow<MathChallenge?> = _mathChallenge
 
-  fun generateChallenge() {
+  private val _countChallenge: MutableStateFlow<Int> = MutableStateFlow(1)
+  val countChallenge: StateFlow<Int> = _countChallenge
+
+  fun generateCountChallenge() {
+    _countChallenge.value = (1..10).random()
+  }
+
+  fun generateArithChallenge() {
     viewModelScope.launch {
       decreaseDifficulty()
       _mathChallenge.value = mathChallengeRepository.generateProgressiveChallenge().first()
