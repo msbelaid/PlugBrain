@@ -35,6 +35,7 @@ class MathLockService : AccessibilityService() {
 
   private var blockInterval = 1
   private var lastBlockTime: Long? = null
+
   // TODO Refactor using TimeStats
   private var blockedPackages: Set<String> = emptySet()
   private var lastUsageTime: Long? = null
@@ -105,7 +106,6 @@ class MathLockService : AccessibilityService() {
     )
     startActivity(intent)
   }
-
 
   suspend fun decreaseDifficulty() {
     Timber.tag(TAG).i("Decrease Difficulty if applicable ...")
