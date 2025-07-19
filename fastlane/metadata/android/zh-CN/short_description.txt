@@ -1,1 +1,1 @@
-PlugBrain blocks apps and uses math challenges to reduce screen time.
+PlugBrain 通过屏蔽应用程序和使用数学题挑战来减少屏幕使用时间。

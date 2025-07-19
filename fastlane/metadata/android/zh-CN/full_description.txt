@@ -1,17 +1,17 @@
-PlugBrain is an app that encourages regular breaks from distracting apps by blocking access at scheduled intervals.
-To regain access, you’ll need to solve a math challenge that adjusts in difficulty: the more frequently you use the apps, the harder the challenges become, but the longer you stay away, the easier they get.
+PlugBrain 是一款鼓励用户定期远离分心应用的应用。它通过在预定时间间隔内屏蔽访问来实现这一点。
+要重新获得访问权限，你需要解决一个难度可调整的数学题挑战：你使用这些应用的频率越高，挑战就越难；但你远离这些应用的时间越长，挑战就会变得越容易。
 
-**Features**
+**功能特点**
 
-- No ads
-- No internet required
-- Blocks distracting apps
-- Unblock apps by solving math challenges
-- Difficulty increases with frequent use, decreases with focus
+- 无广告
+- 无需联网
+- 屏蔽干扰性应用
+- 通过解决数学题解锁应用
+- 使用越频繁难度越高，专注越久难度越低
 
-**How to use**
+**如何使用**
 
-- Grant all required permissions
-- Select distracting apps
-- Choose your focus interval
-- Stay focused ;)
+1.  授予所有必需的权限
+2.  选择你想要屏蔽的分心应用
+3.  选择你的专注间隔时间
+4.  保持专注 ;)
