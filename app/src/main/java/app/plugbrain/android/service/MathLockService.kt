@@ -11,11 +11,13 @@ import app.plugbrain.android.ui.challenges.ChallengeActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -31,9 +33,10 @@ class MathLockService : AccessibilityService() {
   private val appsUsageStats: AppsUsageStats by inject()
   private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-  private var blockedPackages: Set<String> = emptySet()
   private var blockInterval = 1
   private var lastBlockTime: Long? = null
+  // TODO Refactor using TimeStats
+  private var blockedPackages: Set<String> = emptySet()
   private var lastUsageTime: Long? = null
   private var isBlocked: Boolean? = null
 
@@ -90,6 +93,9 @@ class MathLockService : AccessibilityService() {
 
   private fun launchChallenge() {
     Timber.tag(TAG).i("Launch Challenge ...")
+    serviceScope.launch {
+      decreaseDifficulty()
+    }
     val intent = Intent(this@MathLockService, ChallengeActivity::class.java)
     intent.addFlags(
       Intent.FLAG_ACTIVITY_NEW_TASK or
@@ -98,6 +104,20 @@ class MathLockService : AccessibilityService() {
         Intent.FLAG_ACTIVITY_SINGLE_TOP,
     )
     startActivity(intent)
+  }
+
+
+  suspend fun decreaseDifficulty() {
+    Timber.tag(TAG).i("Decrease Difficulty if applicable ...")
+    val it = dataStoreManager.getTimeStats().first()
+    val durationSinceLastChallenge = (
+      System.currentTimeMillis() - (it.lastChallengeGenerateTime ?: 0)
+      ).milliseconds.inWholeMinutes.toInt()
+    Timber.tag(TAG).e("Duration since last challenge:%s", durationSinceLastChallenge.toString())
+    if (durationSinceLastChallenge >= it.blockInterval * 2) {
+      val nbDecLevels = durationSinceLastChallenge / (it.blockInterval * 2)
+      dataStoreManager.decrementProgressiveDifficulty(nbDecLevels)
+    }
   }
 
   override fun onInterrupt() {}

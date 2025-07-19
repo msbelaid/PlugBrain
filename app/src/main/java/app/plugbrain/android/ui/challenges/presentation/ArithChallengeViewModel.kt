@@ -22,21 +22,8 @@ class ArithChallengeViewModel(
 
   fun generateChallenge() {
     viewModelScope.launch {
-      decreaseDifficulty()
       _mathChallenge.value = mathChallengeRepository.generateProgressiveChallenge().first()
       dataStoreManager.updateLastChallengeTime(System.currentTimeMillis())
-    }
-  }
-
-  suspend fun decreaseDifficulty() {
-    val it = dataStoreManager.getTimeStats().first()
-    val durationSinceLastChallenge = (
-      System.currentTimeMillis() - (it.lastChallengeGenerateTime ?: 0)
-      ).milliseconds.inWholeMinutes.toInt()
-    Timber.tag(TAG).e("Duration since last challenge:%s", durationSinceLastChallenge.toString())
-    if (durationSinceLastChallenge >= it.blockInterval * 2) {
-      val nbDecLevels = durationSinceLastChallenge / (it.blockInterval * 2)
-      dataStoreManager.decrementProgressiveDifficulty(nbDecLevels)
     }
   }
 
