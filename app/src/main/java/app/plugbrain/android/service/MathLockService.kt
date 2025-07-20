@@ -97,6 +97,8 @@ class MathLockService : AccessibilityService() {
     serviceScope.launch {
       decreaseDifficulty()
     }
+    if (ChallengeActivity.isInForeground) return
+
     val intent = Intent(this@MathLockService, ChallengeActivity::class.java)
     intent.addFlags(
       Intent.FLAG_ACTIVITY_NEW_TASK or

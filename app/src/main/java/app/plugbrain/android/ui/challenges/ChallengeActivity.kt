@@ -25,7 +25,17 @@ class ChallengeActivity : ComponentActivity() {
 
   override fun onResume() {
     super.onResume()
+    isInForeground = true
     challengeViewModel.generateChallenge()
+  }
+
+  companion object {
+    var isInForeground: Boolean = false
+  }
+
+  override fun onPause() {
+    super.onPause()
+    isInForeground = false
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
