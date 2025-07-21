@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: unsigned-apk
-          path: app/build/outputs/apk/release/app-release.apk
+          path: app/build/outputs/apk/release/app-release-unsigned.apk
 
   sign_and_release:
     if: startsWith(github.ref, 'refs/tags/v')
@@ -63,12 +63,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-
-      - name: Download unsigned APK
-        uses: actions/download-artifact@v4
-        with:
-          name: unsigned-apk
-          path: app/build/outputs/apk/release
 
       - name: Decode and configure keystore
         run: |
