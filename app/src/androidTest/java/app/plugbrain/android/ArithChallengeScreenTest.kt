@@ -1,7 +1,11 @@
 package app.plugbrain.android
 
-import androidx.compose.ui.test.*
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import app.plugbrain.android.repository.model.MathChallenge
 import app.plugbrain.android.repository.model.Operator
 import app.plugbrain.android.ui.challenges.compose.ArithChallengeScreen
