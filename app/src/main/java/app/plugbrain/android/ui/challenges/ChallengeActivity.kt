@@ -2,7 +2,6 @@ package app.plugbrain.android.ui.challenges
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -63,7 +62,7 @@ class ChallengeActivity : ComponentActivity() {
             ArithChallengeScreen(
               modifier = Modifier.padding(innerPadding),
               mathChallenge = it,
-              isWrong = isWrong
+              isWrong = isWrong,
             ) { response ->
               if (it.checkAnswer(response)) {
                 challengeViewModel.unblockApps()
