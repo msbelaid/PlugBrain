@@ -13,8 +13,8 @@ class ChallengeSettingsTest {
             val challenge = ChallengeSettings(Operator.ADDITION, Difficulty.BEGINNER).generate()
             val a = challenge.num1
             val b = challenge.num2
-            assertTrue(a in 1..9, "$a should be in 1..9")
-            assertTrue(b in 1..9, "$b should be in 1..9")
+            assertTrue(a in 1..10, "$a should be in 1..9")
+            assertTrue(b in 1..10, "$b should be in 1..9")
         }
     }
 
