@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import app.plugbrain.android.BuildConfig
 import app.plugbrain.android.ui.challenges.compose.ArithChallengeScreen
@@ -44,6 +47,8 @@ class ChallengeActivity : ComponentActivity() {
     setContent {
       MathlockAppTheme {
         val challenge by challengeViewModel.mathChallenge.collectAsState()
+        var isWrong by remember { mutableStateOf<Boolean>(false) }
+
         Scaffold(
           topBar = {
             if (BuildConfig.DEBUG) { // The refresh button works only on DEBUG mode!
@@ -58,16 +63,13 @@ class ChallengeActivity : ComponentActivity() {
             ArithChallengeScreen(
               modifier = Modifier.padding(innerPadding),
               mathChallenge = it,
+              isWrong = isWrong
             ) { response ->
               if (it.checkAnswer(response)) {
                 challengeViewModel.unblockApps()
                 finishAffinity()
               } else {
-                Toast.makeText(
-                  this@ChallengeActivity,
-                  "Wrong Answer, try again!",
-                  Toast.LENGTH_LONG,
-                ).show()
+                isWrong = true
               }
             }
           }
