@@ -7,7 +7,6 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class ChallengeSettingsTest {
-
     @Test
     fun testAdditionBeginnerChallengeRange() {
         repeat(10) {
@@ -25,15 +24,14 @@ class ChallengeSettingsTest {
             val challenge = ChallengeSettings(Operator.ADDITION, Difficulty.EASY).generate()
             val a = challenge.num1
             val b = challenge.num2
-            val a1 = a/10
-            val a0 = a%10
-            val b1 = b/10
-            val b0 = b%10
+            val a1 = a / 10
+            val a0 = a % 10
+            val b1 = b / 10
+            val b0 = b % 10
             assertTrue(a0 + b0 in 0..9, "no remainder, first digit")
             assertTrue(a1 + b1 in 0..9, "no remainder, second digit")
             assertTrue(a in 10..99, "$a should have two digits")
             assertTrue(b in 10..99, "$b should have two digits")
         }
     }
-
 }

@@ -1,16 +1,14 @@
 package app.plugbrain.android
 
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.createComposeRule
 import app.plugbrain.android.repository.model.MathChallenge
 import app.plugbrain.android.repository.model.Operator
 import app.plugbrain.android.ui.challenges.compose.ArithChallengeScreen
-import kotlinx.coroutines.delay
 import org.junit.Rule
 import org.junit.Test
 
 class ArithChallengeScreenTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -18,16 +16,17 @@ class ArithChallengeScreenTest {
     fun testArithChallengeScreenDisplaysOperandsAndAcceptsInput() {
         var result: Int? = null
 
-        val challenge = MathChallenge(
-            num1 = 7,
-            num2 = 3,
-            operator = Operator.ADDITION
-        )
+        val challenge =
+            MathChallenge(
+                num1 = 7,
+                num2 = 3,
+                operator = Operator.ADDITION,
+            )
 
         composeTestRule.setContent {
-            ArithChallengeScreen (
+            ArithChallengeScreen(
                 mathChallenge = challenge,
-                checkAnswer = { result = it }
+                checkAnswer = { result = it },
             )
         }
 
@@ -40,8 +39,8 @@ class ArithChallengeScreenTest {
         composeTestRule.onNodeWithText(">").performClick()
         assert(result == 10)
     }
+
     @Test
     fun testArithChallengeScreenDisplaysOperandsAndAcceptsInput2() {
-
     }
 }
