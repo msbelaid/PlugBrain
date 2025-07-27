@@ -26,8 +26,36 @@ jobs:
       - name: Run KtLint
         run: ./gradlew ktlintCheck
 
-  build:
+  test:
     needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Run Unit Tests
+        run: ./gradlew test
+
+      - name: Run Instrumented Tests on Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: google_apis
+          arch: x86_64
+          profile: Nexus 6
+          script: ./gradlew connectedAndroidTest
+
+  build:
+    needs: [lint, test]
     runs-on: ubuntu-latest
 
     steps:
