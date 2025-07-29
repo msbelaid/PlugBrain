@@ -40,6 +40,9 @@ the harder the challenges become — but the longer you stay away, the easier th
   - Stay focused ;)
 
 # Download
+<a href="https://f-droid.org/packages/app.plugbrain.android/">
+    <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="F-Droid" height="100"/>
+</a>
 <a href="https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android">
     <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="IzzyOnDroid" height="100"/>
 </a>
