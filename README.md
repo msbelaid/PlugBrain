@@ -50,5 +50,20 @@ the harder the challenges become — but the longer you stay away, the easier th
     <img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="100"/>
 </a>
 
-License: [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
+# Contributing
+
+Want to contribute? Follow these quick steps:
+
+1. Fork this repository
+2. Clone your fork
+3. Create a new branch (`git checkout -b feature/YourFeature`)
+4. Make your changes
+5. Commit your changes (`git commit -m 'Add some feature'`)
+6. Push to the branch (`git push origin feature/YourFeature`)
+7. Open a pull request
+8. Make sure the CI pass
+
+
+# License
+[GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
