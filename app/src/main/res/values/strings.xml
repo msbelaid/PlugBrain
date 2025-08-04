@@ -26,4 +26,5 @@
     <string name="settings_title">Settings</string>
     <string name="usage_free_duration_message">Nice! You\'ve stayed away from distracting apps for over %1$s minutes. Keep it up!</string>
     <string name="apps_usage_duration_message">You\'ve used distracting apps for over %1$s minutes in the last %2$s.</string>
+    <string name="blocking_message">Time\'s up! Connect your brain to unlock the app!</string>
 </resources>

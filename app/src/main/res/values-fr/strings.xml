@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="permissions_title">Autorisations</string>
+    <string name="all_permissions_granted">Toutes les autorisations ont été accordées!</string>
+    <string name="accessibility_permission">Autorisation d\'accessibilité</string>
+    <string name="accessibility_permission_description">Permet de détecter quand des applications sont ouvertes.</string>
+    <string name="usage_access_permission">Accès à l\'utilisation des applications</string>
+    <string name="usage_access_permission_description">Autorise l\'application à accéder aux données d\'utilisation</string>
+    <string name="display_over_apps_permission">Afficher par-dessus les autres applications</string>
+    <string name="display_over_apps_permission_description">Permet à l\'application d\'apparaître au-dessus des autres</string>
+    <string name="battery_optimization_exemption_permission">Exemption d\'optimisation de batterie</string>
+    <string name="battery_optimization_exemption_permission_description">Empêche le système de fermer l\'application.</string>
+    <string name="refresh">Rafraîchir</string>
+    <string name="blocking_interval">Fréquence de blocage</string>
+    <string name="minutes_short">min</string>
+    <string name="settings_title">Paramètres</string>
+    <string name="usage_free_duration_message">Bravo! Vous êtes resté éloigné des applications distrayantes pendant plus de %1$s minutes. Continuez comme ça!</string>
+    <string name="apps_usage_duration_message">Vous avez utilisé des applications distrayantes pendant plus de %1$s minutes au cours des %2$s dernières.</string>
+    <string name="blocking_message">Le temps est écoulé ! Connectez votre cerveau pour déverrouiller l\'application !</string>
+
     <plurals name="applications_blocked">
         <item quantity="zero">Aucune application bloquée</item>
         <item quantity="one">Une application bloquée</item>

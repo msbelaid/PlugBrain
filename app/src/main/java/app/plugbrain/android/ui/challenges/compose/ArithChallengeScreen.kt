@@ -26,10 +26,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.plugbrain.android.R
 import app.plugbrain.android.repository.model.MathChallenge
 import app.plugbrain.android.repository.model.Operator
 import app.plugbrain.android.ui.isPortrait
@@ -67,7 +69,7 @@ fun ArithChallengeScreen(
 @Composable
 private fun BlockAppsMessage() {
   Text(
-    text = "Time's up!\nConnect your brain to unlock the app!",
+    text = stringResource(R.string.blocking_message),
     style = MaterialTheme.typography.titleLarge,
     textAlign = TextAlign.Center,
   )

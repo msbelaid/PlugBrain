@@ -25,4 +25,5 @@
     <string name="settings_title">设置</string>
     <string name="usage_free_duration_message">太棒了！你已经远离令人分心的应用超过 %1$s 分钟，继续保持！</string>
     <string name="apps_usage_duration_message">你在过去的 %2$s 中，使用了令人分心的应用超过 %1$s 分钟。</string>
+    <string name="blocking_message">时间到！动动脑筋来解锁应用！</string>
 </resources>

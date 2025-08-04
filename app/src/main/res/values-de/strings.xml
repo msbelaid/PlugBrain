@@ -24,4 +24,5 @@
     <string name="settings_title">Einstellungen</string>
     <string name="usage_free_duration_message">Super! Du hast dich seit über %1$s Minuten von ablenkenden Apps ferngehalten. Mach weiter so!</string>
     <string name="apps_usage_duration_message">Du hast in den letzten %2$s für über %1$s Minuten ablenkende Apps genutzt.</string>
+    <string name="blocking_message">Die Zeit ist um! Aktiviere dein Gehirn, um die App zu entsperren!</string>
 </resources>
