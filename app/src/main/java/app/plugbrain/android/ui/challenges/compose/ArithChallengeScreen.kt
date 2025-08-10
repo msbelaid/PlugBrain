@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -40,6 +41,7 @@ import app.plugbrain.android.ui.isPortrait
 fun ArithChallengeScreen(
   modifier: Modifier = Modifier,
   mathChallenge: MathChallenge,
+  isWrong: Boolean,
   checkAnswer: (Int) -> Unit,
 ) {
   Column(
@@ -62,7 +64,14 @@ fun ArithChallengeScreen(
         ResponseInputView(checkAnswer)
       }
     }
+    if (isWrong) ErrorMessage()
   }
+}
+
+@Composable
+fun ErrorMessage() {
+  // TODO create an array with error messages, select randomly
+  Text("Wrong Answer", color = Color.Red)
 }
 
 // TODO a list of messages, pick randomly
@@ -128,6 +137,7 @@ private fun ArithChallengePortraitScreenPreview() {
       num2 = 999,
       operator = Operator.ADDITION,
     ),
+    isWrong = false,
     checkAnswer = {},
   )
 }
@@ -142,6 +152,7 @@ private fun ArithChallengeLandscapeScreenPreview() {
       num2 = 999,
       operator = Operator.ADDITION,
     ),
+    isWrong = true,
     checkAnswer = {},
   )
 }
