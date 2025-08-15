@@ -1,6 +1,8 @@
 package app.plugbrain.android.ui.challenges.compose
 
 import android.content.res.Configuration
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,15 +25,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.R
+import androidx.compose.ui.unit.sp
 import app.plugbrain.android.repository.model.MathChallenge
 import app.plugbrain.android.repository.model.Operator
 import app.plugbrain.android.ui.isPortrait
@@ -42,24 +45,31 @@ fun ArithChallengeScreen(
   mathChallenge: MathChallenge,
   checkAnswer: (Int) -> Unit,
 ) {
+//   Tracking if the message animation is done
+  var messageAnimationDone by remember { mutableStateOf(false) }
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(32.dp),
     modifier = modifier.padding(top = 32.dp),
   ) {
-    BlockAppsMessage()
-    if (isPortrait()) {
-      OperationView(mathChallenge)
-      ResponseInputView(checkAnswer)
-    } else {
-      Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-      ) {
-        Spacer(Modifier.width(32.dp))
+    BlockAppsMessage(
+      onAnimationDone = { messageAnimationDone = true }
+    )
+
+    if (messageAnimationDone) {
+      if (isPortrait()) {
         OperationView(mathChallenge)
-        Text("=", style = MaterialTheme.typography.displayLarge)
         ResponseInputView(checkAnswer)
+      } else {
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+          Spacer(Modifier.width(32.dp))
+          OperationView(mathChallenge)
+          Text("=", style = MaterialTheme.typography.displayLarge)
+          ResponseInputView(checkAnswer)
+        }
       }
     }
   }
@@ -67,11 +77,33 @@ fun ArithChallengeScreen(
 
 // TODO a list of messages, pick randomly
 @Composable
-private fun BlockAppsMessage() {
+private fun BlockAppsMessage(onAnimationDone: () -> Unit) {
+  var startAnimation by remember { mutableStateOf(false) }
+
+  val animatedLetterSpacingValue by animateFloatAsState(
+    targetValue = if (startAnimation) 0.5f else -2f,
+    animationSpec = tween(durationMillis = 700, delayMillis = 200),
+    label = "letterSpacing",
+    finishedListener = {
+      onAnimationDone()
+    }
+  )
+
+  val animatedAlpha by animateFloatAsState(
+    targetValue = if (startAnimation) 1f else 0f,
+    animationSpec = tween(durationMillis = 700, delayMillis = 200),
+    label = "alpha"
+  )
+
+  LaunchedEffect(Unit) {
+    startAnimation = true
+  }
+
   Text(
-    text = stringResource(R.string.blocking_message),
-    style = MaterialTheme.typography.titleLarge,
+    text = "Time's up!\nConnect your brain to unlock the app!",
+    style = MaterialTheme.typography.titleLarge.copy(letterSpacing = animatedLetterSpacingValue.sp),
     textAlign = TextAlign.Center,
+    modifier = Modifier.alpha(animatedAlpha)
   )
 }
 
@@ -80,8 +112,16 @@ private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
   val focusRequester = remember { FocusRequester() }
   val keyboardController = LocalSoftwareKeyboardController.current
   var responseText by remember { mutableStateOf("") }
+  var startAnimation by remember { mutableStateOf(false) }
+
+  val animatedAlpha by animateFloatAsState(
+    targetValue = if (startAnimation) 1f else 0f,
+    animationSpec = tween(durationMillis = 800, delayMillis = 200),
+    label = "responseInputAlpha"
+  )
 
   LaunchedEffect(Unit) {
+    startAnimation = true
     focusRequester.requestFocus()
     keyboardController?.show()
   }
@@ -103,13 +143,26 @@ private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
     modifier = Modifier
       .fillMaxWidth()
       .focusRequester(focusRequester)
-      .focusable(),
+      .focusable()
+      .alpha(animatedAlpha),
   )
 }
 
 @Composable
 private fun OperationView(mathChallenge: MathChallenge) {
-  Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+  var startAnimation by remember { mutableStateOf(false) }
+
+  val scale by animateFloatAsState(
+    targetValue = if (startAnimation) 1f else 0f,
+    animationSpec = tween(durationMillis = 800),
+    label = "textScale",
+  )
+
+  LaunchedEffect(Unit) {
+    startAnimation = true
+  }
+
+  Row(horizontalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.scale(scale)) {
     Text(
       text = mathChallenge.num1.toString(),
       style = MaterialTheme.typography.displayLarge,
