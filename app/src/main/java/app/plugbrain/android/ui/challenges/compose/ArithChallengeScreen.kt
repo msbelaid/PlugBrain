@@ -1,15 +1,28 @@
 package app.plugbrain.android.ui.challenges.compose
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -26,13 +39,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextMotion
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,6 +54,7 @@ import app.plugbrain.android.R
 import app.plugbrain.android.repository.model.MathChallenge
 import app.plugbrain.android.repository.model.Operator
 import app.plugbrain.android.ui.isPortrait
+import kotlinx.coroutines.delay
 
 @Composable
 fun ArithChallengeScreen(
@@ -79,33 +94,37 @@ fun ArithChallengeScreen(
 // TODO a list of messages, pick randomly
 @Composable
 private fun BlockAppsMessage(onAnimationDone: () -> Unit) {
-  var startAnimation by remember { mutableStateOf(false) }
-
-  val animatedLetterSpacingValue by animateFloatAsState(
-    targetValue = if (startAnimation) 0.5f else -2f,
-    animationSpec = tween(durationMillis = 700, delayMillis = 200),
-    label = "letterSpacing",
-    finishedListener = {
-      onAnimationDone()
-    },
-  )
-
-  val animatedAlpha by animateFloatAsState(
-    targetValue = if (startAnimation) 1f else 0f,
-    animationSpec = tween(durationMillis = 700, delayMillis = 200),
-    label = "alpha",
-  )
+  var visible by remember { mutableStateOf(false) }
 
   LaunchedEffect(Unit) {
-    startAnimation = true
+    visible = true
+    delay(700)
+    onAnimationDone()
   }
 
-  Text(
-    text = stringResource(R.string.blocking_message),
-    style = MaterialTheme.typography.titleLarge.copy(letterSpacing = animatedLetterSpacingValue.sp),
-    textAlign = TextAlign.Center,
-    modifier = Modifier.alpha(animatedAlpha),
-  )
+  AnimatedVisibility(
+    visible = visible,
+    enter = scaleIn() + expandHorizontally(
+      animationSpec = tween(
+        durationMillis = 800,
+      ),
+      expandFrom = Alignment.Start,
+    ),
+    exit = scaleOut(),
+    label = "messageVisibility",
+  ){
+    Text(
+      text = stringResource(R.string.blocking_message),
+      style = MaterialTheme.typography.titleLarge.copy(letterSpacing = 0.5.sp),
+      textAlign = TextAlign.Center,
+      modifier = Modifier.graphicsLayer {
+        if (!visible) {
+          alpha = 0f
+          scaleX = 0.8f
+        }
+      },
+    )
+  }
 }
 
 @Composable
@@ -153,23 +172,30 @@ private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
 private fun OperationView(mathChallenge: MathChallenge) {
   var startAnimation by remember { mutableStateOf(false) }
 
-  val scale by animateFloatAsState(
-    targetValue = if (startAnimation) 1f else 0f,
-    animationSpec = tween(durationMillis = 800),
-    label = "textScale",
-  )
-
   LaunchedEffect(Unit) {
     startAnimation = true
   }
 
-  Row(horizontalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.scale(scale)) {
-    Text(
-      text = mathChallenge.num1.toString(),
-      style = MaterialTheme.typography.displayLarge,
-    )
-    Text(text = mathChallenge.operator.symbol, style = MaterialTheme.typography.displayLarge)
-    Text(text = mathChallenge.num2.toString(), style = MaterialTheme.typography.displayLarge)
+  AnimatedContent(
+    targetState = startAnimation,
+    transitionSpec = {
+      slideInVertically { height -> height } + fadeIn() togetherWith
+        slideOutVertically { height -> -height } + fadeOut()
+    },
+    label = "textScale",
+  ) { visible ->
+    if (visible) {
+      Row(horizontalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier) {
+        Text(
+          text = mathChallenge.num1.toString(),
+          style = MaterialTheme.typography.displayLarge,
+        )
+        Text(text = mathChallenge.operator.symbol, style = MaterialTheme.typography.displayLarge)
+        Text(text = mathChallenge.num2.toString(), style = MaterialTheme.typography.displayLarge)
+      }
+    } else {
+      Box(modifier = Modifier.size(0.dp))
+    }
   }
 }
 
@@ -187,7 +213,9 @@ private fun ArithChallengePortraitScreenPreview() {
 }
 
 @Preview(name = "Landscape", widthDp = 640, heightDp = 360)
-@Preview(name = "Landscape Dark", widthDp = 640, heightDp = 360, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+  name = "Landscape Dark", widthDp = 640, heightDp = 360, uiMode = Configuration.UI_MODE_NIGHT_YES
+)
 @Composable
 private fun ArithChallengeLandscapeScreenPreview() {
   ArithChallengeScreen(
