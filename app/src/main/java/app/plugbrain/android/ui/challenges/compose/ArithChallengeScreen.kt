@@ -53,7 +53,7 @@ fun ArithChallengeScreen(
     modifier = modifier.padding(top = 32.dp),
   ) {
     BlockAppsMessage(
-      onAnimationDone = { messageAnimationDone = true }
+      onAnimationDone = { messageAnimationDone = true },
     )
 
     if (messageAnimationDone) {
@@ -86,13 +86,13 @@ private fun BlockAppsMessage(onAnimationDone: () -> Unit) {
     label = "letterSpacing",
     finishedListener = {
       onAnimationDone()
-    }
+    },
   )
 
   val animatedAlpha by animateFloatAsState(
     targetValue = if (startAnimation) 1f else 0f,
     animationSpec = tween(durationMillis = 700, delayMillis = 200),
-    label = "alpha"
+    label = "alpha",
   )
 
   LaunchedEffect(Unit) {
@@ -103,7 +103,7 @@ private fun BlockAppsMessage(onAnimationDone: () -> Unit) {
     text = "Time's up!\nConnect your brain to unlock the app!",
     style = MaterialTheme.typography.titleLarge.copy(letterSpacing = animatedLetterSpacingValue.sp),
     textAlign = TextAlign.Center,
-    modifier = Modifier.alpha(animatedAlpha)
+    modifier = Modifier.alpha(animatedAlpha),
   )
 }
 
