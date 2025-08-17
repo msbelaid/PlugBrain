@@ -3,6 +3,7 @@ package app.plugbrain.android.repository.model
 data class ChallengeSettings(
   val operator: Operator = Operator.ADDITION,
   val difficulty: Difficulty = Difficulty.EASY,
+  val minimalDifficulty: Int = 0,
   val operationsNumber: Int = 1,
 ) {
   fun generate(): MathChallenge = operator.generateChallenge(difficulty)

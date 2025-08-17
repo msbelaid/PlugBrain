@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.core.net.toUri
+import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
 import app.plugbrain.android.repository.model.ChallengeSettings
 import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
@@ -27,6 +28,7 @@ class SettingsActivity : ComponentActivity() {
     settingsViewModel.getPermissions()
     settingsViewModel.getBlockInterval()
     settingsViewModel.getChallengeSettings()
+    settingsViewModel.getMinDifficulty()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +38,10 @@ class SettingsActivity : ComponentActivity() {
       val lockedApps by settingsViewModel.getLockedApps().collectAsState(emptyList())
       val permissions by settingsViewModel.permissionsState.collectAsState(PermissionsState())
       val blockInterval by settingsViewModel.blockIntervalState.collectAsState(5)
+      val minimalDifficultySample by settingsViewModel.minimalDifficultySample.collectAsState(
+        AdditionUnderFiveChallenge(),
+      )
+      val minimalDifficulty by settingsViewModel.minimalDifficulty.collectAsState(1)
       val challengeSettings by settingsViewModel.challengeSettingsState.collectAsState(
         ChallengeSettings(),
       )
@@ -45,6 +51,9 @@ class SettingsActivity : ComponentActivity() {
           permissionsState = permissions,
           challengeSettings = challengeSettings,
           blockInterval = blockInterval,
+          maxDifficulty = settingsViewModel.getMaxDifficulty(),
+          minDifficulty = minimalDifficulty,
+          minDifficultySample = minimalDifficultySample,
           onBlockApplicationsClicked = {
             startActivity(
               Intent(
@@ -71,8 +80,8 @@ class SettingsActivity : ComponentActivity() {
           onOperationSelected = {
             settingsViewModel.updateChallengeSettings(challengeSettings.copy(operator = it))
           },
-          onDifficultySelected = {
-            settingsViewModel.updateChallengeSettings(challengeSettings.copy(difficulty = it))
+          onMinDifficultySelected = {
+            settingsViewModel.updateMinDifficulty(it)
           },
           onRefreshClicked = {
             startActivity(Intent(this, TimerActivity::class.java))
