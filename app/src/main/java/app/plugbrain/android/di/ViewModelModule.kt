@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
   viewModel { MainScreenViewModel(get(), get(), get(), get()) }
-  viewModel { SettingsViewModel(get(), get(), get()) }
+  viewModel { SettingsViewModel(get(), get(), get(), get()) }
   viewModel { AppsSelectionViewModel(get(), get()) }
   viewModel { ArithChallengeViewModel(get(), get()) }
   viewModel { TimerViewModel(get()) }

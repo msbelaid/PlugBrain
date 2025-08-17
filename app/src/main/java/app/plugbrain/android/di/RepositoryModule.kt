@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
   single { InstalledAppsRepository(androidContext()) }
-  single { MathChallengeRepository(get()) }
+  single { MathChallengeRepository(get(), get()) }
   single { PermissionsRepository(androidContext()) }
 }
