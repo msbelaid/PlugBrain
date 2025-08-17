@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.repository.model.ChallengeSettings
 import app.plugbrain.android.repository.model.Difficulty
 import app.plugbrain.android.repository.model.Operator
@@ -16,7 +17,10 @@ import kotlinx.coroutines.flow.map
 
 private const val DEFAULT_BLOCK_INTERVAL = 15
 
-class DataStoreManager(private val context: Context) {
+class DataStoreManager(
+  private val context: Context,
+  private val challengeFactory: ChallengeFactory,
+) {
 
   private val Context.dataStore by preferencesDataStore(name = "settings")
 
@@ -29,6 +33,7 @@ class DataStoreManager(private val context: Context) {
   private val difficultyLevel = stringPreferencesKey("difficulty_level")
   private val challengeOperator = stringPreferencesKey("operator")
   private val progressiveDifficulty = intPreferencesKey("progressive_difficulty")
+  private val minimalDifficulty = intPreferencesKey("minimal_difficulty")
 
   suspend fun blockApp(packageName: String) {
     context.dataStore.edit { preferences ->
@@ -84,6 +89,12 @@ class DataStoreManager(private val context: Context) {
     }
   }
 
+  suspend fun updateMinimalDifficulty(minDifficulty: Int) {
+    context.dataStore.edit { prefs ->
+      prefs[minimalDifficulty] = minDifficulty
+    }
+  }
+
   suspend fun updateProgressiveDifficulty(difficultyLevel: Int) {
     context.dataStore.edit { prefs ->
       prefs[progressiveDifficulty] = difficultyLevel
@@ -92,15 +103,17 @@ class DataStoreManager(private val context: Context) {
 
   suspend fun incrementProgressiveDifficulty() {
     context.dataStore.edit { prefs ->
-      if ((prefs[progressiveDifficulty] ?: 0) < ChallengeSettings.Companion.challengeProgressionList.count() - 1) {
+      if ((prefs[progressiveDifficulty] ?: 0) < getMaxDifficulty()) {
         prefs[progressiveDifficulty] = (prefs[progressiveDifficulty] ?: 0) + 1
       }
     }
   }
 
+  fun getMaxDifficulty(): Int = challengeFactory.maxDifficulty()
+
   suspend fun decrementProgressiveDifficulty(steps: Int = 1) {
     context.dataStore.edit { prefs ->
-      if ((prefs[progressiveDifficulty] ?: 0) > 0) {
+      if ((prefs[progressiveDifficulty] ?: 0) > (prefs[minimalDifficulty] ?: 0)) {
         val newValue = (prefs[progressiveDifficulty] ?: 0) - steps
         prefs[progressiveDifficulty] = if (newValue >= 0) newValue else 0
       }
@@ -152,7 +165,11 @@ class DataStoreManager(private val context: Context) {
 
   fun getProgressiveDifficulty(): Flow<Int> =
     context.dataStore.data
-      .map { preferences -> preferences[progressiveDifficulty] ?: 0 }
+      .map { preferences -> preferences[progressiveDifficulty] ?: getMaxDifficulty() }
+
+  fun getMinimalDifficulty(): Flow<Int> =
+    context.dataStore.data
+      .map { preferences -> preferences[minimalDifficulty] ?: 1 }
 
   data class TimeStats(
     val lastUsageTime: Long?,
