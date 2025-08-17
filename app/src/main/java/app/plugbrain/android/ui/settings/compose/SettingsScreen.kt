@@ -33,6 +33,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,8 +47,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
+import app.plugbrain.android.challenges.Challenge
+import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
 import app.plugbrain.android.repository.model.ChallengeSettings
-import app.plugbrain.android.repository.model.Difficulty
 import app.plugbrain.android.repository.model.InstalledApp
 import app.plugbrain.android.repository.model.Operator
 import app.plugbrain.android.repository.model.PermissionsState
@@ -59,13 +62,16 @@ fun SettingsScreen(
   permissionsState: PermissionsState,
   challengeSettings: ChallengeSettings,
   blockInterval: Int,
+  minDifficulty: Int,
+  maxDifficulty: Int,
+  minDifficultySample: Challenge,
   onBlockApplicationsClicked: () -> Unit,
   onAccessibilityClicked: () -> Unit,
   onUsageStatsClicked: () -> Unit,
   batteryOptimizationClicked: () -> Unit,
   onSystemAlertWindow: () -> Unit,
   onUpdateBlockInterval: (Int) -> Unit,
-  onDifficultySelected: (Difficulty) -> Unit,
+  onMinDifficultySelected: (Int) -> Unit,
   onOperationSelected: (Operator) -> Unit,
   onRefreshClicked: () -> Unit,
 ) {
@@ -91,7 +97,59 @@ fun SettingsScreen(
       item { BlockedApplications(lockedApps, onBlockApplicationsClicked) }
       item { HorizontalDivider(thickness = 8.dp) }
       item { Timing(blockInterval, onUpdateBlockInterval) }
+      item { HorizontalDivider(thickness = 8.dp, modifier = Modifier.padding(top = 16.dp)) }
+      item {
+        MinDifficulty(
+          minimalDifficulty = minDifficulty,
+          maximalDifficulty = maxDifficulty,
+          minimalDifficultySample = minDifficultySample,
+          onMinDifficultySelected = onMinDifficultySelected,
+        )
+      }
     }
+  }
+}
+
+@Composable
+fun MinDifficulty(
+  minimalDifficulty: Int,
+  maximalDifficulty: Int,
+  minimalDifficultySample: Challenge,
+  onMinDifficultySelected: (Int) -> Unit,
+) {
+  Column(
+    modifier = Modifier.padding(horizontal = 32.dp),
+  ) {
+    Row(
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.SpaceBetween,
+      modifier = Modifier.fillMaxWidth(),
+    ) {
+      Text(
+        text = "Minimal Difficulty: $minimalDifficulty",
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(bottom = 16.dp, top = 16.dp),
+      )
+      Text(
+        text = minimalDifficultySample.string(),
+        style = MaterialTheme.typography.titleSmall,
+        modifier = Modifier.padding(bottom = 16.dp, top = 16.dp),
+      )
+    }
+    Slider(
+      value = minimalDifficulty.toFloat(),
+      onValueChange = { value ->
+        onMinDifficultySelected(value.toInt())
+      },
+      valueRange = 1.toFloat()..maximalDifficulty.toFloat(),
+      colors = SliderDefaults.colors(
+        activeTrackColor = MaterialTheme.colorScheme.inversePrimary,
+        inactiveTrackColor = MaterialTheme.colorScheme.primary,
+        inactiveTickColor = MaterialTheme.colorScheme.inversePrimary,
+        thumbColor = MaterialTheme.colorScheme.primary,
+      ),
+      steps = maximalDifficulty - 2,
+    )
   }
 }
 
@@ -112,7 +170,7 @@ fun Timing(
   blockInterval: Int,
   onUpdateBlockInterval: (Int) -> Unit,
 ) {
-  val options = listOf(1, 2, 5, 10, 15, 20, 30)
+  val options = listOf(1, 2, 5, 10, 15, 20)
 
   Column {
     Text(
@@ -310,6 +368,9 @@ private fun SettingsScreenPreview() {
     permissionsState = PermissionsState(true, true, false, false),
     challengeSettings = ChallengeSettings(),
     blockInterval = 10,
+    minDifficulty = 3,
+    maxDifficulty = 15,
+    minDifficultySample = AdditionTwoDigitsCarryFreeChallenge(),
     onBlockApplicationsClicked = { },
     onAccessibilityClicked = { },
     onUsageStatsClicked = { },
@@ -317,7 +378,7 @@ private fun SettingsScreenPreview() {
     onSystemAlertWindow = { },
     onUpdateBlockInterval = { },
     onOperationSelected = { },
-    onDifficultySelected = { },
+    onMinDifficultySelected = { },
     onRefreshClicked = { },
   )
 }
