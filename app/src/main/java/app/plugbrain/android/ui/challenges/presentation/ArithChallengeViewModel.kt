@@ -2,9 +2,9 @@ package app.plugbrain.android.ui.challenges.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.plugbrain.android.challenges.Challenge
 import app.plugbrain.android.datastore.DataStoreManager
 import app.plugbrain.android.repository.MathChallengeRepository
-import app.plugbrain.android.repository.model.MathChallenge
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
@@ -14,12 +14,12 @@ class ArithChallengeViewModel(
   private val dataStoreManager: DataStoreManager,
   private val mathChallengeRepository: MathChallengeRepository,
 ) : ViewModel() {
-  private val _mathChallenge: MutableStateFlow<MathChallenge?> = MutableStateFlow(null)
-  val mathChallenge: StateFlow<MathChallenge?> = _mathChallenge
+  private val _challenge: MutableStateFlow<Challenge?> = MutableStateFlow(null)
+  val challenge: StateFlow<Challenge?> = _challenge
 
   fun generateChallenge() {
     viewModelScope.launch {
-      _mathChallenge.value = mathChallengeRepository.generateProgressiveChallenge().first()
+      _challenge.value = mathChallengeRepository.generateChallenge().first()
       dataStoreManager.updateLastChallengeTime(System.currentTimeMillis())
     }
   }

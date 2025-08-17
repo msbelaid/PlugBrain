@@ -13,8 +13,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import app.plugbrain.android.BuildConfig
-import app.plugbrain.android.ui.challenges.compose.ArithChallengeScreen
+import app.plugbrain.android.challenges.TwoOperandsChallenge
 import app.plugbrain.android.ui.challenges.compose.ChallengeTopBar
+import app.plugbrain.android.ui.challenges.compose.TwoOperandsChallengeScreen
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import app.plugbrain.android.ui.timer.TimerActivity
@@ -43,7 +44,7 @@ class ChallengeActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       MathlockAppTheme {
-        val challenge by challengeViewModel.mathChallenge.collectAsState()
+        val challenge by challengeViewModel.challenge.collectAsState()
         Scaffold(
           topBar = {
             if (BuildConfig.DEBUG) { // The refresh button works only on DEBUG mode!
@@ -55,20 +56,24 @@ class ChallengeActivity : ComponentActivity() {
           modifier = Modifier.fillMaxSize(),
         ) { innerPadding ->
           challenge?.let {
-            ArithChallengeScreen(
-              modifier = Modifier.padding(innerPadding),
-              mathChallenge = it,
-            ) { response ->
-              if (response != null && it.checkAnswer(response)) {
-                challengeViewModel.unblockApps()
-                finishAffinity()
-              } else {
-                Toast.makeText(
-                  this@ChallengeActivity,
-                  "Wrong Answer, try again!",
-                  Toast.LENGTH_LONG,
-                ).show()
+            when (it) {
+              is TwoOperandsChallenge -> TwoOperandsChallengeScreen(
+                modifier = Modifier.padding(innerPadding),
+                challenge = it,
+              ) { response ->
+                if (it.checkAnswer(response)) {
+                  challengeViewModel.unblockApps()
+                  finishAffinity()
+                } else {
+                  Toast.makeText(
+                    this@ChallengeActivity,
+                    "Wrong Answer, try again!",
+                    Toast.LENGTH_LONG,
+                  ).show()
+                }
               }
+
+              else -> Unit
             }
           }
         }
