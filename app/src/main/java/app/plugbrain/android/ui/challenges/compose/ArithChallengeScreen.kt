@@ -110,7 +110,7 @@ private fun BlockAppsMessage(onAnimationDone: () -> Unit) {
     ),
     exit = scaleOut(),
     label = "messageVisibility",
-  ){
+  ) {
     Text(
       text = stringResource(R.string.blocking_message),
       style = MaterialTheme.typography.titleLarge.copy(letterSpacing = 0.5.sp),
@@ -135,7 +135,7 @@ private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
   val animatedAlpha by animateFloatAsState(
     targetValue = if (startAnimation) 1f else 0f,
     animationSpec = tween(durationMillis = 800, delayMillis = 200),
-    label = "responseInputAlpha"
+    label = "responseInputAlpha",
   )
 
   LaunchedEffect(Unit) {
@@ -212,7 +212,10 @@ private fun ArithChallengePortraitScreenPreview() {
 
 @Preview(name = "Landscape", widthDp = 640, heightDp = 360)
 @Preview(
-  name = "Landscape Dark", widthDp = 640, heightDp = 360, uiMode = Configuration.UI_MODE_NIGHT_YES
+  name = "Landscape Dark",
+  widthDp = 640,
+  heightDp = 360,
+  uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun ArithChallengeLandscapeScreenPreview() {
