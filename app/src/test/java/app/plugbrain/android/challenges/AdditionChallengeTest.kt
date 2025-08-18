@@ -3,6 +3,7 @@ package app.plugbrain.android.challenges
 import app.plugbrain.android.challenges.addition.AdditionFiveDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionFourDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionOneAndTwoDigitsChallenge
+import app.plugbrain.android.challenges.addition.AdditionPlusZeroOrOneChallenge
 import app.plugbrain.android.challenges.addition.AdditionThreeDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsWithCarryChallenge
@@ -15,14 +16,26 @@ import kotlin.test.assertTrue
 
 class AdditionChallengeTest {
     @Test
+    fun `test plus zero or one`() {
+        repeat(10) {
+            val challenge = AdditionPlusZeroOrOneChallenge()
+            val a = challenge.operand1
+            val b = challenge.operand2
+            assertEquals(1, challenge.difficultyLevel)
+            assertTrue(a in 1..9, "$a is not in 1..9")
+            assertTrue(b in 0..1, "$b is not in {0, 1}")
+        }
+    }
+
+    @Test
     fun `test addition under five`() {
         repeat(10) {
             val challenge = AdditionUnderFiveChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
             assertEquals(1, challenge.difficultyLevel)
-            assertTrue(a in 1..5, "$a is not in 1..5")
-            assertTrue(b in 1..5, "$b is not in 1..5")
+            assertTrue(a in 2..5, "$a is not in 2..5")
+            assertTrue(b in 2..5, "$b is not in 2..5")
         }
     }
 
@@ -33,8 +46,8 @@ class AdditionChallengeTest {
             val a = challenge.operand1
             val b = challenge.operand2
             assertEquals(2, challenge.difficultyLevel)
-            assertTrue(a in 1..9, "$a is not in 1..9")
-            assertTrue(b in 1..9, "$b is not in 1..9")
+            assertTrue(a in 2..9, "$a is not in 2..9")
+            assertTrue(b in 2..9, "$b is not in 2..9")
         }
     }
 
@@ -46,7 +59,7 @@ class AdditionChallengeTest {
             val b = challenge.operand2
             assertEquals(3, challenge.difficultyLevel)
             assertTrue(a in 10..99, "$a is not in 10..99")
-            assertTrue(b in 1..9, "$b is not in 1..9")
+            assertTrue(b in 2..9, "$b is not in 2..9")
         }
     }
 
