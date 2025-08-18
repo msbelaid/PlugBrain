@@ -21,7 +21,7 @@ class AdditionChallengeTest {
             val challenge = AdditionPlusZeroOrOneChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(1, challenge.difficultyLevel)
+            assertEquals(0, challenge.difficultyLevel)
             assertTrue(a in 1..9, "$a is not in 1..9")
             assertTrue(b in 0..1, "$b is not in {0, 1}")
         }
