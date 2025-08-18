@@ -1,5 +1,6 @@
 package app.plugbrain.android.ui.settings.compose
 
+import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.AnimatedVisibility
@@ -7,11 +8,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -49,7 +52,6 @@ import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
 import app.plugbrain.android.challenges.Challenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
-import app.plugbrain.android.repository.model.ChallengeSettings
 import app.plugbrain.android.repository.model.InstalledApp
 import app.plugbrain.android.repository.model.Operator
 import app.plugbrain.android.repository.model.PermissionsState
@@ -60,10 +62,10 @@ fun SettingsScreen(
   modifier: Modifier = Modifier,
   lockedApps: List<InstalledApp>,
   permissionsState: PermissionsState,
-  challengeSettings: ChallengeSettings,
   blockInterval: Int,
   minDifficulty: Int,
   maxDifficulty: Int,
+  selectedMinDifficulty: Int,
   minDifficultySample: Challenge,
   onBlockApplicationsClicked: () -> Unit,
   onAccessibilityClicked: () -> Unit,
@@ -73,7 +75,6 @@ fun SettingsScreen(
   onUpdateBlockInterval: (Int) -> Unit,
   onMinDifficultySelected: (Int) -> Unit,
   onOperationSelected: (Operator) -> Unit,
-  onRefreshClicked: () -> Unit,
 ) {
   Scaffold(
     modifier = Modifier
@@ -101,6 +102,7 @@ fun SettingsScreen(
       item {
         MinDifficulty(
           minimalDifficulty = minDifficulty,
+          selectedMinDifficulty = selectedMinDifficulty,
           maximalDifficulty = maxDifficulty,
           minimalDifficultySample = minDifficultySample,
           onMinDifficultySelected = onMinDifficultySelected,
@@ -110,8 +112,10 @@ fun SettingsScreen(
   }
 }
 
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun MinDifficulty(
+  selectedMinDifficulty: Int,
   minimalDifficulty: Int,
   maximalDifficulty: Int,
   minimalDifficultySample: Challenge,
@@ -120,35 +124,36 @@ fun MinDifficulty(
   Column(
     modifier = Modifier.padding(horizontal = 32.dp),
   ) {
-    Row(
-      verticalAlignment = Alignment.CenterVertically,
-      horizontalArrangement = Arrangement.SpaceBetween,
-      modifier = Modifier.fillMaxWidth(),
-    ) {
-      Text(
-        text = "Minimal Difficulty: $minimalDifficulty",
-        style = MaterialTheme.typography.titleLarge,
-        modifier = Modifier.padding(bottom = 16.dp, top = 16.dp),
-      )
+    Text(
+      text = stringResource(R.string.minimal_difficulty) + selectedMinDifficulty,
+      style = MaterialTheme.typography.titleLarge,
+      modifier = Modifier.padding(bottom = 8.dp, top = 16.dp),
+    )
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+      val percent =
+        (selectedMinDifficulty - minimalDifficulty).toFloat() / (maximalDifficulty - minimalDifficulty)
+      val offsetX = (maxWidth - 80.dp) * percent
       Text(
         text = minimalDifficultySample.string(),
         style = MaterialTheme.typography.titleSmall,
-        modifier = Modifier.padding(bottom = 16.dp, top = 16.dp),
+        modifier = Modifier
+          .offset(x = offsetX)
+          .align(Alignment.CenterStart),
       )
     }
     Slider(
-      value = minimalDifficulty.toFloat(),
+      value = selectedMinDifficulty.toFloat(),
       onValueChange = { value ->
         onMinDifficultySelected(value.toInt())
       },
-      valueRange = 1.toFloat()..maximalDifficulty.toFloat(),
+      valueRange = minimalDifficulty.toFloat()..maximalDifficulty.toFloat(),
       colors = SliderDefaults.colors(
         activeTrackColor = MaterialTheme.colorScheme.inversePrimary,
         inactiveTrackColor = MaterialTheme.colorScheme.primary,
         inactiveTickColor = MaterialTheme.colorScheme.inversePrimary,
         thumbColor = MaterialTheme.colorScheme.primary,
       ),
-      steps = maximalDifficulty - 2,
+      steps = maximalDifficulty - minimalDifficulty - 1,
     )
   }
 }
@@ -211,14 +216,9 @@ fun BlockedApplications(
 ) {
   Row(
     verticalAlignment = Alignment.CenterVertically,
+    modifier = Modifier.clickable { onBlockApplicationsClicked() },
   ) {
-    Column(
-      modifier = Modifier
-        .weight(1f)
-        .clickable {
-          onBlockApplicationsClicked()
-        },
-    ) {
+    Column(modifier = Modifier.weight(1f)) {
       Text(
         text = pluralStringResource(
           R.plurals.applications_blocked,
@@ -365,10 +365,15 @@ private fun SettingsScreenPreview() {
         selected = true,
       ),
     ),
-    permissionsState = PermissionsState(true, true, false, false),
-    challengeSettings = ChallengeSettings(),
+    permissionsState = PermissionsState(
+      accessibilityPermission = true,
+      usageStatsPermission = true,
+      batteryOptimizationExemption = false,
+      systemAlertWindow = false,
+    ),
     blockInterval = 10,
-    minDifficulty = 3,
+    selectedMinDifficulty = 3,
+    minDifficulty = 0,
     maxDifficulty = 15,
     minDifficultySample = AdditionTwoDigitsCarryFreeChallenge(),
     onBlockApplicationsClicked = { },
@@ -379,6 +384,5 @@ private fun SettingsScreenPreview() {
     onUpdateBlockInterval = { },
     onOperationSelected = { },
     onMinDifficultySelected = { },
-    onRefreshClicked = { },
   )
 }

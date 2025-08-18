@@ -16,4 +16,8 @@ class ChallengeFactory(
   fun maxDifficulty(): Int {
     return challengeProviders.map { it() }.maxOf { it.difficultyLevel }
   }
+
+  fun minDifficulty(): Int {
+    return challengeProviders.map { it() }.minOf { it.difficultyLevel }
+  }
 }

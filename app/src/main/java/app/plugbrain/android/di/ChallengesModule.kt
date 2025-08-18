@@ -4,6 +4,7 @@ import app.plugbrain.android.challenges.Challenge
 import app.plugbrain.android.challenges.addition.AdditionFiveDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionFourDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionOneAndTwoDigitsChallenge
+import app.plugbrain.android.challenges.addition.AdditionPlusZeroOrOneChallenge
 import app.plugbrain.android.challenges.addition.AdditionThreeDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsWithCarryChallenge
@@ -39,6 +40,7 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val challengesModule = module {
+  factory { AdditionPlusZeroOrOneChallenge() } bind Challenge::class
   factory { AdditionUnderFiveChallenge() } bind Challenge::class
   factory { AdditionUnderTenChallenge() } bind Challenge::class
   factory { AdditionOneAndTwoDigitsChallenge() } bind Challenge::class
