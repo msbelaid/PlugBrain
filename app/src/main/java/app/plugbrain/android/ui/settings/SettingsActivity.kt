@@ -17,7 +17,6 @@ import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
 import app.plugbrain.android.ui.settings.compose.SettingsScreen
 import app.plugbrain.android.ui.settings.presentation.SettingsViewModel
 import app.plugbrain.android.ui.theme.MathlockAppTheme
-import app.plugbrain.android.ui.timer.TimerActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsActivity : ComponentActivity() {
@@ -28,7 +27,7 @@ class SettingsActivity : ComponentActivity() {
     settingsViewModel.getPermissions()
     settingsViewModel.getBlockInterval()
     settingsViewModel.getChallengeSettings()
-    settingsViewModel.getMinDifficulty()
+    settingsViewModel.getSelectedMinDifficulty()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,10 +48,10 @@ class SettingsActivity : ComponentActivity() {
         SettingsScreen(
           lockedApps = lockedApps,
           permissionsState = permissions,
-          challengeSettings = challengeSettings,
           blockInterval = blockInterval,
+          minDifficulty = settingsViewModel.getMinDifficulty(),
           maxDifficulty = settingsViewModel.getMaxDifficulty(),
-          minDifficulty = minimalDifficulty,
+          selectedMinDifficulty = minimalDifficulty,
           minDifficultySample = minimalDifficultySample,
           onBlockApplicationsClicked = {
             startActivity(
@@ -82,9 +81,6 @@ class SettingsActivity : ComponentActivity() {
           },
           onMinDifficultySelected = {
             settingsViewModel.updateMinDifficulty(it)
-          },
-          onRefreshClicked = {
-            startActivity(Intent(this, TimerActivity::class.java))
           },
         )
       }

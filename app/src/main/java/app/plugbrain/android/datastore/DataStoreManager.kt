@@ -17,6 +17,8 @@ import kotlinx.coroutines.flow.map
 
 private const val DEFAULT_BLOCK_INTERVAL = 15
 
+private const val DEFAULT_MINIMAL_DIFFICULTY = 1
+
 class DataStoreManager(
   private val context: Context,
   private val challengeFactory: ChallengeFactory,
@@ -111,11 +113,14 @@ class DataStoreManager(
 
   fun getMaxDifficulty(): Int = challengeFactory.maxDifficulty()
 
+  fun getMinDifficulty(): Int = challengeFactory.minDifficulty()
+
   suspend fun decrementProgressiveDifficulty(steps: Int = 1) {
     context.dataStore.edit { prefs ->
-      if ((prefs[progressiveDifficulty] ?: 0) > (prefs[minimalDifficulty] ?: 0)) {
-        val newValue = (prefs[progressiveDifficulty] ?: 0) - steps
-        prefs[progressiveDifficulty] = if (newValue >= 0) newValue else 0
+      val minDifficulty = prefs[minimalDifficulty] ?: DEFAULT_MINIMAL_DIFFICULTY
+      if ((prefs[progressiveDifficulty] ?: 0) > minDifficulty) {
+        val newValue = (prefs[progressiveDifficulty] ?: minDifficulty) - steps
+        prefs[progressiveDifficulty] = if (newValue >= minDifficulty) newValue else minDifficulty
       }
     }
   }
@@ -165,11 +170,11 @@ class DataStoreManager(
 
   fun getProgressiveDifficulty(): Flow<Int> =
     context.dataStore.data
-      .map { preferences -> preferences[progressiveDifficulty] ?: getMaxDifficulty() }
+      .map { preferences -> preferences[progressiveDifficulty] ?: preferences[minimalDifficulty] ?: DEFAULT_MINIMAL_DIFFICULTY }
 
   fun getMinimalDifficulty(): Flow<Int> =
     context.dataStore.data
-      .map { preferences -> preferences[minimalDifficulty] ?: 1 }
+      .map { preferences -> preferences[minimalDifficulty] ?: DEFAULT_MINIMAL_DIFFICULTY }
 
   data class TimeStats(
     val lastUsageTime: Long?,

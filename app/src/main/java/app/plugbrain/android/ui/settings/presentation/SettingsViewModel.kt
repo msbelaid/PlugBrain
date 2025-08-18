@@ -79,7 +79,7 @@ class SettingsViewModel(
     }
   }
 
-  fun getMinDifficulty() {
+  fun getSelectedMinDifficulty() {
     viewModelScope.launch {
       dataStoreManager.getMinimalDifficulty().collect { state ->
         _minimalDifficulty.value = state
@@ -90,6 +90,8 @@ class SettingsViewModel(
   }
 
   fun getMaxDifficulty() = dataStoreManager.getMaxDifficulty()
+
+  fun getMinDifficulty() = dataStoreManager.getMinDifficulty()
 
   fun getChallengeSettings() {
     viewModelScope.launch {
