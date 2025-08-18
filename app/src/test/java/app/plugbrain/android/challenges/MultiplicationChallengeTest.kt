@@ -41,7 +41,7 @@ class MultiplicationChallengeTest {
             val b = challenge.operand2
             assertEquals(2, challenge.difficultyLevel)
             assertTrue(a == 10, "$a is not 10")
-            assertTrue(b in 2..10, "$b is not in 2..10")
+            assertTrue(b in 2..9, "$b is not in 2..9")
         }
     }
 
@@ -53,7 +53,7 @@ class MultiplicationChallengeTest {
             val b = challenge.operand2
             assertEquals(3, challenge.difficultyLevel)
             assertTrue(a == 11, "$a is not 11")
-            assertTrue(b in 2..10, "$b is not in 2..10")
+            assertTrue(b in 2..9, "$b is not in 2..9")
         }
     }
 
