@@ -40,7 +40,7 @@ import app.plugbrain.android.ui.isPortrait
 fun ArithChallengeScreen(
   modifier: Modifier = Modifier,
   mathChallenge: MathChallenge,
-  checkAnswer: (Int) -> Unit,
+  checkAnswer: (Int?) -> Unit,
 ) {
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -76,7 +76,7 @@ private fun BlockAppsMessage() {
 }
 
 @Composable
-private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
+private fun ResponseInputView(checkAnswer: (Int?) -> Unit) {
   val focusRequester = remember { FocusRequester() }
   val keyboardController = LocalSoftwareKeyboardController.current
   var responseText by remember { mutableStateOf("") }
@@ -94,7 +94,7 @@ private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
     singleLine = true,
     trailingIcon = {
       Button(
-        onClick = { if (responseText.isNotEmpty()) checkAnswer(responseText.toString().toInt()) },
+        onClick = { if (responseText.isNotEmpty()) checkAnswer(responseText.toString().toIntOrNull()) },
       ) { Text(">", style = MaterialTheme.typography.displayLarge) }
     },
     keyboardActions = KeyboardActions(
