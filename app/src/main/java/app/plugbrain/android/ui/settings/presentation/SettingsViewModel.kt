@@ -103,7 +103,6 @@ class SettingsViewModel(
 
   fun updateChallengeSettings(challengeSettings: ChallengeSettings) {
     viewModelScope.launch {
-      dataStoreManager.updateDifficulty(challengeSettings.difficulty)
       dataStoreManager.updateOperator(challengeSettings.operator)
     }
   }

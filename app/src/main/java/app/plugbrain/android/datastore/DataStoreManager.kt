@@ -10,7 +10,6 @@ import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.repository.model.ChallengeSettings
-import app.plugbrain.android.repository.model.Difficulty
 import app.plugbrain.android.repository.model.Operator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -21,21 +20,25 @@ private const val DEFAULT_MINIMAL_DIFFICULTY = 1
 
 class DataStoreManager(
   private val context: Context,
+  // TODO remove Challenge dependency from here
   private val challengeFactory: ChallengeFactory,
 ) {
 
   private val Context.dataStore by preferencesDataStore(name = "settings")
 
+  // TODO refactor this to separate data object
   private val blockedApps = stringSetPreferencesKey("blocked_apps")
   private val blockInterval = intPreferencesKey("block_interval")
+  private val minimalDifficulty = intPreferencesKey("minimal_difficulty")
+  private val challengeOperator = stringPreferencesKey("operator")
+  // TODO add speed of difficulty increasing!
+
   private val lastBlockTime = longPreferencesKey("last_block_time")
   private val lastUsageTime = longPreferencesKey("last_usage_time")
   private val lastChallengeGenerateTime = longPreferencesKey("last_challenge_time")
+
   private val blockAppsToggle = booleanPreferencesKey("block_apps_toggle")
-  private val difficultyLevel = stringPreferencesKey("difficulty_level")
-  private val challengeOperator = stringPreferencesKey("operator")
   private val progressiveDifficulty = intPreferencesKey("progressive_difficulty")
-  private val minimalDifficulty = intPreferencesKey("minimal_difficulty")
 
   suspend fun blockApp(packageName: String) {
     context.dataStore.edit { preferences ->
@@ -82,12 +85,6 @@ class DataStoreManager(
   suspend fun updateOperator(operator: Operator) {
     context.dataStore.edit { prefs ->
       prefs[challengeOperator] = operator.name
-    }
-  }
-
-  suspend fun updateDifficulty(difficulty: Difficulty) {
-    context.dataStore.edit { prefs ->
-      prefs[difficultyLevel] = difficulty.name
     }
   }
 
@@ -164,7 +161,6 @@ class DataStoreManager(
     .map { preferences ->
       ChallengeSettings(
         operator = Operator.valueOf(preferences[challengeOperator] ?: Operator.ADDITION.name),
-        difficulty = Difficulty.valueOf(preferences[difficultyLevel] ?: Difficulty.EASY.name),
       )
     }
 
