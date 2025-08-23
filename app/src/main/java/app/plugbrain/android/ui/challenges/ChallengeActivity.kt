@@ -59,7 +59,7 @@ class ChallengeActivity : ComponentActivity() {
               modifier = Modifier.padding(innerPadding),
               mathChallenge = it,
             ) { response ->
-              if (it.checkAnswer(response)) {
+              if (response != null && it.checkAnswer(response)) {
                 challengeViewModel.unblockApps()
                 finishAffinity()
               } else {

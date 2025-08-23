@@ -58,7 +58,7 @@ import kotlinx.coroutines.delay
 fun ArithChallengeScreen(
   modifier: Modifier = Modifier,
   mathChallenge: MathChallenge,
-  checkAnswer: (Int) -> Unit,
+  checkAnswer: (Int?) -> Unit,
 ) {
   var messageAnimationDone by remember { mutableStateOf(false) }
   Column(
@@ -126,7 +126,7 @@ private fun BlockAppsMessage(onAnimationDone: () -> Unit) {
 }
 
 @Composable
-private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
+private fun ResponseInputView(checkAnswer: (Int?) -> Unit) {
   val focusRequester = remember { FocusRequester() }
   val keyboardController = LocalSoftwareKeyboardController.current
   var responseText by remember { mutableStateOf("") }
@@ -152,7 +152,7 @@ private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
     singleLine = true,
     trailingIcon = {
       Button(
-        onClick = { if (responseText.isNotEmpty()) checkAnswer(responseText.toString().toInt()) },
+        onClick = { if (responseText.isNotEmpty()) checkAnswer(responseText.toString().toIntOrNull()) },
       ) { Text(">", style = MaterialTheme.typography.displayLarge) }
     },
     keyboardActions = KeyboardActions(
