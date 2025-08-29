@@ -1,6 +1,13 @@
 package app.plugbrain.android.ui.challenges.compose
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,6 +15,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -27,20 +35,26 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
 import app.plugbrain.android.challenges.TwoOperandsChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationFourByFourDigitChallenge
 import app.plugbrain.android.ui.isPortrait
+import coil3.compose.rememberAsyncImagePainter
+import kotlinx.coroutines.android.awaitFrame
+import kotlinx.coroutines.delay
 
 @Composable
 fun TwoOperandsChallengeScreen(
   modifier: Modifier = Modifier,
   challenge: TwoOperandsChallenge,
+  triggerAnimation: Boolean = true,
   checkAnswer: (Int) -> Unit,
 ) {
   Column(
@@ -48,9 +62,14 @@ fun TwoOperandsChallengeScreen(
     verticalArrangement = Arrangement.spacedBy(32.dp),
     modifier = modifier.padding(top = 32.dp),
   ) {
+    Image(
+      modifier = Modifier.padding(top = 24.dp).size(96.dp),
+      painter = rememberAsyncImagePainter(R.mipmap.ic_launcher),
+      contentDescription = "",
+    )
     BlockAppsMessage()
     if (isPortrait()) {
-      OperationView(challenge)
+      OperationView(challenge, triggerAnimation)
       ResponseInputView(checkAnswer)
     } else {
       Row(
@@ -58,7 +77,7 @@ fun TwoOperandsChallengeScreen(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
       ) {
         Spacer(Modifier.width(32.dp))
-        OperationView(challenge)
+        OperationView(challenge, triggerAnimation)
         Text("=", style = MaterialTheme.typography.displayLarge)
         ResponseInputView(checkAnswer)
       }
@@ -73,6 +92,7 @@ private fun BlockAppsMessage() {
     text = stringResource(R.string.blocking_message),
     style = MaterialTheme.typography.titleLarge,
     textAlign = TextAlign.Center,
+    modifier = Modifier.padding(horizontal = 64.dp)
   )
 }
 
@@ -83,6 +103,7 @@ private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
   var responseText by remember { mutableStateOf("") }
 
   LaunchedEffect(Unit) {
+    awaitFrame()
     focusRequester.requestFocus()
     keyboardController?.show()
   }
@@ -103,25 +124,60 @@ private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
     ),
     modifier = Modifier
       .fillMaxWidth()
-      .focusRequester(focusRequester)
-      .focusable(),
+      .focusRequester(focusRequester),
   )
 }
 
 @Composable
-private fun OperationView(challenge: TwoOperandsChallenge) {
+private fun OperationView(challenge: TwoOperandsChallenge, triggerAnimation: Boolean = true) {
   Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-    Text(
+    AnimatedText(
       text = challenge.operand1.toString(),
       style = MaterialTheme.typography.displayLarge,
+      delayMillis = 0,
+      triggerAnimation = triggerAnimation,
     )
-    Text(
+    AnimatedText(
       text = challenge.operationType.symbol,
       style = MaterialTheme.typography.displayLarge,
+      delayMillis = 150,
+      triggerAnimation = triggerAnimation,
     )
-    Text(
+    AnimatedText(
       text = challenge.operand2.toString(),
       style = MaterialTheme.typography.displayLarge,
+      delayMillis = 300,
+      triggerAnimation = triggerAnimation,
+    )
+  }
+}
+
+@Composable
+fun AnimatedText(
+  text: String,
+  style: TextStyle,
+  modifier: Modifier = Modifier,
+  delayMillis: Long = 0,
+  triggerAnimation: Boolean = true,
+  enter: EnterTransition = fadeIn() + slideInVertically(initialOffsetY = { it / 2 }),
+  exit: ExitTransition = fadeOut()
+) {
+  var visible by remember { mutableStateOf(triggerAnimation.not()) }
+
+  LaunchedEffect(text) {
+    delay(delayMillis)
+    visible = true
+  }
+
+  AnimatedVisibility (
+    visible = visible,
+    enter = enter,
+    exit = exit
+  ) {
+    Text(
+      text = text,
+      style = style,
+      modifier = modifier
     )
   }
 }
@@ -132,6 +188,7 @@ private fun ArithChallengePortraitScreenPreview() {
   TwoOperandsChallengeScreen(
     challenge = MultiplicationFourByFourDigitChallenge(),
     checkAnswer = {},
+    triggerAnimation = false,
   )
 }
 
@@ -142,5 +199,6 @@ private fun TwoOperandsLandscapeScreenPreview() {
   TwoOperandsChallengeScreen(
     challenge = AdditionTwoDigitsCarryFreeChallenge(),
     checkAnswer = {},
+    triggerAnimation = false,
   )
 }
