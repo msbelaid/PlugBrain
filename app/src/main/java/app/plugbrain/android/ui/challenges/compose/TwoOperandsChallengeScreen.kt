@@ -8,7 +8,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,7 +39,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
 import app.plugbrain.android.challenges.TwoOperandsChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
@@ -92,7 +90,7 @@ private fun BlockAppsMessage() {
     text = stringResource(R.string.blocking_message),
     style = MaterialTheme.typography.titleLarge,
     textAlign = TextAlign.Center,
-    modifier = Modifier.padding(horizontal = 64.dp)
+    modifier = Modifier.padding(horizontal = 64.dp),
   )
 }
 
@@ -116,11 +114,11 @@ private fun ResponseInputView(checkAnswer: (Int) -> Unit) {
     singleLine = true,
     trailingIcon = {
       Button(
-        onClick = { if (responseText.isNotEmpty()) checkAnswer(responseText.toString().toInt()) },
+        onClick = { if (responseText.isNotEmpty()) checkAnswer(responseText.toInt()) },
       ) { Text(">", style = MaterialTheme.typography.displayLarge) }
     },
     keyboardActions = KeyboardActions(
-      onDone = { checkAnswer(responseText.toString().toInt()) },
+      onDone = { checkAnswer(responseText.toInt()) },
     ),
     modifier = Modifier
       .fillMaxWidth()
@@ -160,7 +158,7 @@ fun AnimatedText(
   delayMillis: Long = 0,
   triggerAnimation: Boolean = true,
   enter: EnterTransition = fadeIn() + slideInVertically(initialOffsetY = { it / 2 }),
-  exit: ExitTransition = fadeOut()
+  exit: ExitTransition = fadeOut(),
 ) {
   var visible by remember { mutableStateOf(triggerAnimation.not()) }
 
@@ -169,15 +167,15 @@ fun AnimatedText(
     visible = true
   }
 
-  AnimatedVisibility (
+  AnimatedVisibility(
     visible = visible,
     enter = enter,
-    exit = exit
+    exit = exit,
   ) {
     Text(
       text = text,
       style = style,
-      modifier = modifier
+      modifier = modifier,
     )
   }
 }
