@@ -207,7 +207,7 @@ private fun ArithChallengePortraitScreenPreview() {
   name = "Landscape Dark",
   widthDp = 640,
   heightDp = 360,
-  uiMode = Configuration.UI_MODE_NIGHT_YES
+  uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun TwoOperandsLandscapeScreenPreview() {
