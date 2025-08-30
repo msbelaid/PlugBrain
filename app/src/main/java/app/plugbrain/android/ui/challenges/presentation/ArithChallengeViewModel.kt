@@ -36,7 +36,7 @@ class ArithChallengeViewModel(
   suspend fun decreaseDifficulty() {
     val (settings, timestamps) = combine(
       dataStore.getUserSettings(),
-      dataStore.getTimestamps()
+      dataStore.getTimestamps(),
     ) { settings, timestamps ->
       settings to timestamps
     }.first()

@@ -8,7 +8,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.plugbrain.android.R
 import app.plugbrain.android.appsusage.AppsUsageStats
-import app.plugbrain.android.datastore.decrementProgressiveDifficulty
 import app.plugbrain.android.datastore.getBlockAppsToggle
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
@@ -18,7 +17,6 @@ import app.plugbrain.android.datastore.setLastBlockTime
 import app.plugbrain.android.datastore.setLastUsageTime
 import app.plugbrain.android.datastore.updateBlockAppsToggle
 import app.plugbrain.android.ui.challenges.ChallengeActivity
-import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
