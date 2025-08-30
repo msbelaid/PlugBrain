@@ -53,7 +53,6 @@ import app.plugbrain.android.R
 import app.plugbrain.android.challenges.Challenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
 import app.plugbrain.android.repository.model.InstalledApp
-import app.plugbrain.android.repository.model.Operator
 import app.plugbrain.android.repository.model.PermissionsState
 import coil3.compose.rememberAsyncImagePainter
 
@@ -74,7 +73,6 @@ fun SettingsScreen(
   onSystemAlertWindow: () -> Unit,
   onUpdateBlockInterval: (Int) -> Unit,
   onMinDifficultySelected: (Int) -> Unit,
-  onOperationSelected: (Operator) -> Unit,
 ) {
   Scaffold(
     modifier = Modifier
@@ -382,7 +380,6 @@ private fun SettingsScreenPreview() {
     batteryOptimizationClicked = { },
     onSystemAlertWindow = { },
     onUpdateBlockInterval = { },
-    onOperationSelected = { },
     onMinDifficultySelected = { },
   )
 }
