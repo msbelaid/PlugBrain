@@ -74,7 +74,7 @@ suspend fun DataStore<Preferences>.decrementProgressiveDifficulty(steps: Int = 1
     val newValue = (current - steps).coerceAtLeast(minDifficulty)
     prefs[PROGRESSIVE_DIFFICULTY_KEY] = newValue
     if (newValue == minDifficulty) {
-      updateBlockAppsToggle(true)
+      prefs[BLOCK_APPS_TOGGLE_KEY] = true
     }
   }
 }

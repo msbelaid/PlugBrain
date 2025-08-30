@@ -108,7 +108,7 @@ class AdditionChallengeTest {
             val challenge = AdditionFourDigitsChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(7, challenge.difficultyLevel)
+            assertEquals(8, challenge.difficultyLevel)
             assertTrue(a in 1000..9999, "$a is not in 100..999")
             assertTrue(b in 1000..9999, "$b is not in 100..999")
         }
@@ -120,7 +120,7 @@ class AdditionChallengeTest {
             val challenge = AdditionFiveDigitsChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(8, challenge.difficultyLevel)
+            assertEquals(10, challenge.difficultyLevel)
             assertTrue(a in 10000..99999, "$a is not in 10000..99999")
             assertTrue(b in 10000..99999, "$b is not in 10000..99999")
             assertTrue(challenge.checkAnswer(a + b), "check answer is not correct")
