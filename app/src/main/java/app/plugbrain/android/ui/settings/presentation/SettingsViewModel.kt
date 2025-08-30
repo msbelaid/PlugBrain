@@ -76,6 +76,7 @@ class SettingsViewModel(
     viewModelScope.launch {
       dataStore.getUserSettings().collect { state ->
         _challengeSettingsState.value = state
+        _minimalDifficultySample.value = challengeFactory.getChallengeByDifficulty(state.selectedMinimalDifficulty)
       }
     }
   }
