@@ -93,9 +93,6 @@ class MathLockService : AccessibilityService() {
 
   private fun launchChallenge() {
     Timber.tag(TAG).i("Launch Challenge ...")
-    serviceScope.launch {
-      decreaseDifficulty()
-    }
     if (ChallengeActivity.isInForeground) return
 
     val intent = Intent(this@MathLockService, ChallengeActivity::class.java)
@@ -106,16 +103,6 @@ class MathLockService : AccessibilityService() {
         Intent.FLAG_ACTIVITY_SINGLE_TOP,
     )
     startActivity(intent)
-  }
-
-  suspend fun decreaseDifficulty() {
-    val durationSinceLastChallenge = (
-      System.currentTimeMillis() - (timestamps.lastChallenge ?: 0)
-      ).milliseconds.inWholeMinutes.toInt()
-    if (durationSinceLastChallenge >= userSettings.blockInterval * 2) {
-      val nbDecLevels = durationSinceLastChallenge / (userSettings.blockInterval * 2)
-      dataStore.decrementProgressiveDifficulty(nbDecLevels)
-    }
   }
 
   override fun onInterrupt() {}
