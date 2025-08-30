@@ -20,6 +20,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -39,6 +40,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.plugbrain.android.BuildConfig
 import app.plugbrain.android.R
 import app.plugbrain.android.challenges.TwoOperandsChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
@@ -55,29 +57,39 @@ fun TwoOperandsChallengeScreen(
   triggerAnimation: Boolean = true,
   checkAnswer: (Int) -> Unit,
 ) {
-  Column(
-    horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.spacedBy(32.dp),
-    modifier = modifier.padding(top = 32.dp),
-  ) {
-    Image(
-      modifier = Modifier.padding(top = 24.dp).size(96.dp),
-      painter = rememberAsyncImagePainter(R.mipmap.ic_launcher),
-      contentDescription = "",
-    )
-    BlockAppsMessage()
-    if (isPortrait()) {
-      OperationView(challenge, triggerAnimation)
-      ResponseInputView(checkAnswer)
-    } else {
-      Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-      ) {
-        Spacer(Modifier.width(32.dp))
+  Scaffold {
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.spacedBy(32.dp),
+      modifier = modifier.padding(it),
+    ) {
+      if (BuildConfig.DEBUG) {
+        Text(
+          text = challenge.difficultyLevel.toString(),
+          style = MaterialTheme.typography.titleSmall,
+        )
+      }
+      Image(
+        modifier = Modifier
+          .padding(top = 24.dp)
+          .size(96.dp),
+        painter = rememberAsyncImagePainter(R.mipmap.ic_launcher),
+        contentDescription = "",
+      )
+      BlockAppsMessage()
+      if (isPortrait()) {
         OperationView(challenge, triggerAnimation)
-        Text("=", style = MaterialTheme.typography.displayLarge)
         ResponseInputView(checkAnswer)
+      } else {
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+          Spacer(Modifier.width(32.dp))
+          OperationView(challenge, triggerAnimation)
+          Text("=", style = MaterialTheme.typography.displayLarge)
+          ResponseInputView(checkAnswer)
+        }
       }
     }
   }
@@ -191,7 +203,12 @@ private fun ArithChallengePortraitScreenPreview() {
 }
 
 @Preview(name = "Landscape", widthDp = 640, heightDp = 360)
-@Preview(name = "Landscape Dark", widthDp = 640, heightDp = 360, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+  name = "Landscape Dark",
+  widthDp = 640,
+  heightDp = 360,
+  uiMode = Configuration.UI_MODE_NIGHT_YES
+)
 @Composable
 private fun TwoOperandsLandscapeScreenPreview() {
   TwoOperandsChallengeScreen(
