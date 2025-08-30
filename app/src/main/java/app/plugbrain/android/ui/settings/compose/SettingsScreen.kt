@@ -123,7 +123,7 @@ fun MinDifficulty(
     modifier = Modifier.padding(horizontal = 32.dp),
   ) {
     Text(
-      text = stringResource(R.string.minimal_difficulty) + selectedMinDifficulty,
+      text = stringResource(R.string.minimal_difficulty),
       style = MaterialTheme.typography.titleLarge,
       modifier = Modifier.padding(bottom = 8.dp, top = 16.dp),
     )
