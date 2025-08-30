@@ -6,9 +6,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import app.plugbrain.android.repository.model.MathChallenge
-import app.plugbrain.android.repository.model.Operator
-import app.plugbrain.android.ui.challenges.compose.ArithChallengeScreen
+import app.plugbrain.android.challenges.addition.AdditionTwoDigitsWithCarryChallenge
+import app.plugbrain.android.ui.challenges.compose.TwoOperandsChallengeScreen
 import org.junit.Rule
 import org.junit.Test
 
@@ -20,28 +19,24 @@ class ArithChallengeScreenTest {
     fun testArithChallengeScreenDisplaysOperandsAndAcceptsInput() {
         var result: Int? = null
 
-        val challenge =
-            MathChallenge(
-                num1 = 7,
-                num2 = 3,
-                operator = Operator.ADDITION,
-            )
+        val challenge = AdditionTwoDigitsWithCarryChallenge()
 
         composeTestRule.setContent {
-            ArithChallengeScreen(
-                mathChallenge = challenge,
+            TwoOperandsChallengeScreen(
+                challenge = challenge,
                 checkAnswer = { result = it },
+                triggerAnimation = false,
             )
         }
 
-        composeTestRule.onNodeWithText("7").assertIsDisplayed()
+        composeTestRule.onNodeWithText(challenge.operand1.toString()).assertIsDisplayed()
         composeTestRule.onNodeWithText("+").assertIsDisplayed()
-        composeTestRule.onNodeWithText("3").assertIsDisplayed()
+        composeTestRule.onNodeWithText(challenge.operand2.toString()).assertIsDisplayed()
 
-        composeTestRule.onNode(hasSetTextAction()).performTextInput("10")
+        composeTestRule.onNode(hasSetTextAction()).performTextInput((challenge.operand1 + challenge.operand2).toString())
 
         composeTestRule.onNodeWithText(">").performClick()
-        assert(result == 10)
+        assert(result == challenge.operand1 + challenge.operand2)
     }
 
     @Test

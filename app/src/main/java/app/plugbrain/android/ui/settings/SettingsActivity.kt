@@ -11,7 +11,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.core.net.toUri
 import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
-import app.plugbrain.android.repository.model.ChallengeSettings
 import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
 import app.plugbrain.android.ui.settings.compose.SettingsScreen
@@ -25,9 +24,7 @@ class SettingsActivity : ComponentActivity() {
   override fun onResume() {
     super.onResume()
     settingsViewModel.getPermissions()
-    settingsViewModel.getBlockInterval()
     settingsViewModel.getChallengeSettings()
-    settingsViewModel.getSelectedMinDifficulty()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,22 +33,20 @@ class SettingsActivity : ComponentActivity() {
     setContent {
       val lockedApps by settingsViewModel.getLockedApps().collectAsState(emptyList())
       val permissions by settingsViewModel.permissionsState.collectAsState(PermissionsState())
-      val blockInterval by settingsViewModel.blockIntervalState.collectAsState(5)
       val minimalDifficultySample by settingsViewModel.minimalDifficultySample.collectAsState(
         AdditionUnderFiveChallenge(),
       )
-      val minimalDifficulty by settingsViewModel.minimalDifficulty.collectAsState(1)
       val challengeSettings by settingsViewModel.challengeSettingsState.collectAsState(
-        ChallengeSettings(),
+        app.plugbrain.android.datastore.model.UserSettings(),
       )
       MathlockAppTheme {
         SettingsScreen(
           lockedApps = lockedApps,
           permissionsState = permissions,
-          blockInterval = blockInterval,
+          blockInterval = challengeSettings.blockInterval,
           minDifficulty = settingsViewModel.getMinDifficulty(),
           maxDifficulty = settingsViewModel.getMaxDifficulty(),
-          selectedMinDifficulty = minimalDifficulty,
+          selectedMinDifficulty = challengeSettings.selectedMinimalDifficulty,
           minDifficultySample = minimalDifficultySample,
           onBlockApplicationsClicked = {
             startActivity(
@@ -75,9 +70,6 @@ class SettingsActivity : ComponentActivity() {
           },
           onUpdateBlockInterval = {
             settingsViewModel.updateBlockInterval(it)
-          },
-          onOperationSelected = {
-            settingsViewModel.updateChallengeSettings(challengeSettings.copy(operator = it))
           },
           onMinDifficultySelected = {
             settingsViewModel.updateMinDifficulty(it)
