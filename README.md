@@ -6,7 +6,6 @@
 ![Build Status](https://github.com/msbelaid/PlugBrain/actions/workflows/release-build.yml/badge.svg)
 [![F-Droid](https://img.shields.io/f-droid/v/app.plugbrain.android?label=Download%20on%20F-Droid&color=green&logo=f-droid)](https://f-droid.org/en/packages/app.plugbrain.android)
 [![IzzyOnDroid](https://img.shields.io/badge/IzzyOnDroid-Available-blue?logo=android&logoColor=white)](https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android)
-[<img src="https://shields.rbtlog.dev/simple/app.plugbrain.android" alt="RB shield">](https://shields.rbtlog.dev/app.plugbrain.android)
 ![GitHub stars](https://img.shields.io/github/stars/msbelaid/PlugBrain?style=social)
 </div>
 
@@ -14,7 +13,7 @@
 PlugBrain is an app that encourages regular breaks from distracting apps by blocking access at scheduled intervals.
 To regain access, you’ll need to solve a math challenge that adjusts in difficulty: 
 the more frequently you use the apps, 
-the harder the challenges become — but the longer you stay away, the easier they get.
+the harder the challenges become, but the longer you stay away, the easier they get.
 
 <div align="center">
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="Screenshot 1" width="30%" />
@@ -63,6 +62,27 @@ Want to contribute? Follow these quick steps:
 6. Push to the branch
 7. Open a pull request
 8. Make sure the CI pass
+
+## Tech stack
+PlugBrain is built using modern Android libraries and tools:
+
+- 100% [Kotlin](https://kotlinlang.org/)
+- [Jetpack Compose](https://developer.android.com/jetpack/compose) as UI toolkit
+- [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) & Flow for asynchronous.
+- [Koin](https://insert-koin.io/) for Dependency injection
+- Architecture 
+  - MVVM Architecture (Declarative View - ViewModel - Model)
+  - Repository pattern
+- [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) – Storage for user preferences
+- [Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle) – ViewModel and lifecycle-aware components
+- [Material 3](https://m3.material.io/) – Material Design components
+- [Coil](https://coil-kt.github.io/coil/) – Image loading for Android
+- [UsageStatsManager](https://developer.android.com/reference/android/app/usage/package-summary) for app usage tracking
+- [JUnit](https://junit.org/junit5/) – Unit testing
+- [MockK](https://mockk.io/) – Mocking library
+- [Timber](https://github.com/JakeWharton/timber) – Logging
+- [Ktlint](https://pinterest.github.io/ktlint/) – Kotlin code style checking
+- [GitHub Actions](https://github.com/features/actions) – CI/CD for builds, tests, and releases
 
 ## License
 [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
