@@ -5,8 +5,10 @@ import app.plugbrain.android.challenges.Challenge
 class ChallengeFactory(
   private val challengeProviders: List<Provider<Challenge>>,
 ) {
+  fun getChallenges(): List<Challenge> = challengeProviders.map { it() }
+
   fun getChallengesByDifficulty(difficultyLevel: Int): List<Challenge> {
-    return challengeProviders.map { it() }.filter { it.difficultyLevel == difficultyLevel }
+    return getChallenges().filter { it.difficultyLevel == difficultyLevel }
   }
 
   fun getChallengeByDifficulty(difficultyLevel: Int): Challenge {
