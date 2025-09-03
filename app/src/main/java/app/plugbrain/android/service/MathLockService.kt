@@ -4,20 +4,24 @@ import android.accessibilityservice.AccessibilityService
 import android.content.Intent
 import android.view.accessibility.AccessibilityEvent
 import android.widget.Toast
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import app.plugbrain.android.R
 import app.plugbrain.android.appsusage.AppsUsageStats
-import app.plugbrain.android.datastore.DataStoreManager
+import app.plugbrain.android.datastore.getBlockAppsToggle
+import app.plugbrain.android.datastore.getTimestamps
+import app.plugbrain.android.datastore.getUserSettings
+import app.plugbrain.android.datastore.model.Timestamps
+import app.plugbrain.android.datastore.model.UserSettings
+import app.plugbrain.android.datastore.setLastBlockTime
+import app.plugbrain.android.datastore.setLastUsageTime
+import app.plugbrain.android.datastore.updateBlockAppsToggle
 import app.plugbrain.android.ui.challenges.ChallengeActivity
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -29,16 +33,13 @@ private const val ONE_MINUTE = 60_000L
 private const val ONE_HOUR = 60 * ONE_MINUTE
 
 class MathLockService : AccessibilityService() {
-  private val dataStoreManager: DataStoreManager by inject()
+  private val dataStore: DataStore<Preferences> by inject()
   private val appsUsageStats: AppsUsageStats by inject()
   private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-  private var blockInterval = 1
-  private var lastBlockTime: Long? = null
-
   // TODO Refactor using TimeStats
-  private var blockedPackages: Set<String> = emptySet()
-  private var lastUsageTime: Long? = null
+  private var userSettings = UserSettings()
+  private var timestamps = Timestamps()
   private var isBlocked: Boolean? = null
 
   override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -55,19 +56,15 @@ class MathLockService : AccessibilityService() {
   private fun getData() {
     serviceScope.launch {
       combine(
-        dataStoreManager.getBlockedApps(),
-        dataStoreManager.getBlockInterval(),
-        dataStoreManager.getLastBlockTime(),
-        dataStoreManager.getLastUsageTime(),
-        dataStoreManager.getBlockAppsToggle(),
-      ) { blockedPackages, interval, lastTime, usageTime, toggle ->
-        State(blockedPackages, interval, lastTime, usageTime, toggle)
-      }.collect {
-        blockedPackages = it.blockedPackages
-        blockInterval = it.interval
-        lastBlockTime = it.lastTime
-        lastUsageTime = it.usageTime
-        isBlocked = it.toggle
+        dataStore.getUserSettings(),
+        dataStore.getTimestamps(),
+        dataStore.getBlockAppsToggle(),
+      ) { userSettings, timestamps, toggle ->
+        Triple(userSettings, timestamps, toggle)
+      }.collect { (settings, ts, toggle) ->
+        userSettings = settings
+        timestamps = ts
+        isBlocked = toggle
       }
     }
   }
@@ -76,12 +73,12 @@ class MathLockService : AccessibilityService() {
     if (event?.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
       val eventPackageName = event.packageName?.toString() ?: return
       Timber.tag(TAG).i("Event: $eventPackageName state changed")
-      if (eventPackageName in blockedPackages) {
+      if (eventPackageName in userSettings.distractiveApps) {
         if (isBlocked == true) {
           launchChallenge()
         } else {
           serviceScope.launch {
-            dataStoreManager.updateLastUsageTime(System.currentTimeMillis())
+            dataStore.setLastUsageTime(System.currentTimeMillis())
           }
           checkAppUsage()
         }
@@ -94,9 +91,6 @@ class MathLockService : AccessibilityService() {
 
   private fun launchChallenge() {
     Timber.tag(TAG).i("Launch Challenge ...")
-    serviceScope.launch {
-      decreaseDifficulty()
-    }
     if (ChallengeActivity.isInForeground) return
 
     val intent = Intent(this@MathLockService, ChallengeActivity::class.java)
@@ -109,49 +103,24 @@ class MathLockService : AccessibilityService() {
     startActivity(intent)
   }
 
-  suspend fun decreaseDifficulty() {
-    Timber.tag(TAG).i("Decrease Difficulty if applicable ...")
-    val it = dataStoreManager.getTimeStats().first()
-    val durationSinceLastChallenge = (
-      System.currentTimeMillis() - (it.lastChallengeGenerateTime ?: 0)
-      ).milliseconds.inWholeMinutes.toInt()
-    Timber.tag(TAG).e("Duration since last challenge:%s", durationSinceLastChallenge.toString())
-    if (durationSinceLastChallenge >= it.blockInterval * 2) {
-      val nbDecLevels = durationSinceLastChallenge / (it.blockInterval * 2)
-      dataStoreManager.decrementProgressiveDifficulty(nbDecLevels)
-    }
-  }
-
   override fun onInterrupt() {}
 
   private fun checkAppUsage() {
-    Timber.tag(TAG).i("* Check blocked app usage started")
-    Timber.tag(TAG).i("   Interval: $blockInterval min")
-    Timber.tag(TAG).i("   Blocked packages: $blockedPackages")
-    Timber.tag(TAG).i("   Blocked?: $isBlocked")
-    Timber.tag(TAG).i(
-      "   Last check : ${
-        SimpleDateFormat(
-          "yyyy-MM-dd HH:mm:ss",
-          Locale.getDefault(),
-        ).format(Date(lastBlockTime ?: 0))
-      }",
-    )
     if (isBlocked == true) return
     val blockedAppsUsageTime = appsUsageStats.getTotalAppsUsageDuration(
-      startTime = lastBlockTime ?: (System.currentTimeMillis() - ONE_HOUR),
+      startTime = timestamps.lastBlock ?: (System.currentTimeMillis() - ONE_HOUR),
       endTime = System.currentTimeMillis(),
-      filterPackages = blockedPackages,
+      filterPackages = userSettings.distractiveApps,
     )
-    if (blockedAppsUsageTime >= blockInterval) {
+    if (blockedAppsUsageTime >= userSettings.blockInterval) {
       serviceScope.launch {
-        dataStoreManager.updateBlockAppsToggle(true)
-        lastBlockTime = System.currentTimeMillis()
-        dataStoreManager.updateLastBlockTime(System.currentTimeMillis())
+        dataStore.updateBlockAppsToggle(true)
+        timestamps = timestamps.copy(lastBlock = System.currentTimeMillis())
+        dataStore.setLastBlockTime(System.currentTimeMillis())
       }
       launchChallenge()
     } else {
-      scheduleAppUsageCheck(blockInterval - blockedAppsUsageTime)
+      scheduleAppUsageCheck(userSettings.blockInterval - blockedAppsUsageTime)
     }
   }
 
@@ -165,12 +134,4 @@ class MathLockService : AccessibilityService() {
       checkAppUsage()
     }
   }
-
-  data class State(
-    val blockedPackages: Set<String>,
-    val interval: Int,
-    val lastTime: Long?,
-    val usageTime: Long?,
-    val toggle: Boolean?,
-  )
 }

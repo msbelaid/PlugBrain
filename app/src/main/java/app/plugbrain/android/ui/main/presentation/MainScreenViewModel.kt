@@ -1,9 +1,13 @@
 package app.plugbrain.android.ui.main.presentation
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.appsusage.AppsUsageStats
-import app.plugbrain.android.datastore.DataStoreManager
+import app.plugbrain.android.challenges.factory.ChallengeFactory
+import app.plugbrain.android.datastore.getTimestamps
+import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.repository.InstalledAppsRepository
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
@@ -21,8 +25,9 @@ private const val ONE_HOUR = 60 * 60_000
 class MainScreenViewModel(
   private val installedAppsRepository: InstalledAppsRepository,
   private val permissionsRepository: PermissionsRepository,
-  private val dataStoreManager: DataStoreManager,
+  private val dataStore: DataStore<Preferences>,
   private val appsUsageStats: AppsUsageStats,
+  private val challengeFactory: ChallengeFactory,
 ) : ViewModel() {
   private val _mainScreenState: MutableStateFlow<MainScreenState?> = MutableStateFlow(null)
   val mainScreenState: StateFlow<MainScreenState?> = _mainScreenState
@@ -35,26 +40,27 @@ class MainScreenViewModel(
 
     viewModelScope.launch {
       combine(
-        dataStoreManager.getBlockedApps(),
-        dataStoreManager.getTimeStats(),
-        dataStoreManager.getProgressiveDifficulty(),
+        dataStore.getUserSettings(),
+        dataStore.getTimestamps(),
         installedAppsRepository.getInstalledApps(),
-      ) { blockedApps, timeStats, difficultyLevel, installedApps ->
+      ) { settings, timestamps, installedApps ->
         Timber.e("getAppsUsageStats launched")
         val blockedAppsUsage = appsUsageStats.getTotalAppsUsageDuration(
-          startTime = timeStats.lastBlockTime ?: (System.currentTimeMillis() - ONE_HOUR),
+          startTime = timestamps.lastBlock ?: (System.currentTimeMillis() - ONE_HOUR),
           endTime = System.currentTimeMillis(),
-          filterPackages = blockedApps,
+          filterPackages = settings.distractiveApps,
         )
         MainScreenState(
           usageFreeDuration =
-          if (timeStats.lastUsageTime != null) (System.currentTimeMillis() - timeStats.lastUsageTime).milliseconds else null,
+          if (timestamps.lastUsage != null) (System.currentTimeMillis() - timestamps.lastUsage).milliseconds else null,
           lastUsageDuration = blockedAppsUsage.minutes,
           blockedApps = installedApps.filter {
-            it.packageName in blockedApps
+            it.packageName in settings.distractiveApps
           }.toSet(),
-          blockInterval = timeStats.blockInterval,
-          difficultyLevel = difficultyLevel,
+          blockInterval = settings.blockInterval,
+          difficultyLevel = settings.currentDifficultyLevel,
+          minDifficulty = challengeFactory.minDifficulty(),
+          maxDifficulty = challengeFactory.maxDifficulty(),
         )
       }.collect {
         _mainScreenState.value = it

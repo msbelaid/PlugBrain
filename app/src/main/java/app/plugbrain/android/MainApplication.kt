@@ -2,6 +2,7 @@ package app.plugbrain.android
 
 import android.app.Application
 import app.plugbrain.android.di.appsUsageModule
+import app.plugbrain.android.di.challengesModule
 import app.plugbrain.android.di.dataStoreModule
 import app.plugbrain.android.di.repositoryModule
 import app.plugbrain.android.di.viewModelModule
@@ -18,7 +19,13 @@ class MainApplication : Application() {
     startKoin {
       androidLogger()
       androidContext(this@MainApplication)
-      modules(dataStoreModule, viewModelModule, repositoryModule, appsUsageModule)
+      modules(
+        dataStoreModule,
+        viewModelModule,
+        repositoryModule,
+        appsUsageModule,
+        challengesModule,
+      )
     }
   }
 }

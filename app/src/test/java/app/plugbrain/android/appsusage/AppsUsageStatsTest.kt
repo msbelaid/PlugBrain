@@ -8,7 +8,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.whenever
 
@@ -28,7 +27,6 @@ class AppsUsageStatsTest {
     private val startTime = 1000L
     private val endTime = 5000L
     private val packageSet = setOf("com.example.app1", "com.example.app2")
-    private val mockEvent = mock(UsageEvents.Event::class.java)
 
     @Before
     fun setup() {

@@ -34,7 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
-import app.plugbrain.android.repository.model.ChallengeSettings
 import app.plugbrain.android.repository.model.InstalledApp
 import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.main.presentation.MainScreenState
@@ -156,10 +155,10 @@ private fun MainContent(
             .height(8.dp)
             .padding(horizontal = 24.dp),
         )
-        Text("Hardness: ${state.difficultyLevel}/${ChallengeSettings.Companion.challengeProgressionList.count()}")
+        Text("Hardness: ${state.difficultyLevel}/${state.maxDifficulty}")
         LinearProgressIndicator(
           progress = {
-            state.difficultyLevel.toFloat() / ChallengeSettings.Companion.challengeProgressionList.count()
+            state.difficultyLevel.toFloat() / state.maxDifficulty
           },
           gapSize = 0.dp,
           modifier = Modifier
@@ -208,7 +207,12 @@ private fun MainScreenPreview() {
       usageFreeDuration = 900_000L.milliseconds,
       blockInterval = 5,
     ),
-    permissionsState = PermissionsState(true, true, true, true),
+    permissionsState = PermissionsState(
+      accessibilityPermission = true,
+      usageStatsPermission = true,
+      batteryOptimizationExemption = true,
+      systemAlertWindow = true,
+    ),
     onSettingsClicked = {},
 
   )

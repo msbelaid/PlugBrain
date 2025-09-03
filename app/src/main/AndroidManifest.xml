@@ -31,10 +31,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.timer.TimerActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MathlockApp" />
-        <activity
             android:name=".ui.challenges.ChallengeActivity"
             android:exported="true"
             android:launchMode="singleTask"
