@@ -3,6 +3,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![GitHub release](https://img.shields.io/github/v/release/msbelaid/PlugBrain)
+![GitHub all releases](https://img.shields.io/github/downloads/msbelaid/PlugBrain/total.svg)
 ![Build Status](https://github.com/msbelaid/PlugBrain/actions/workflows/release-build.yml/badge.svg)
 [![F-Droid](https://img.shields.io/f-droid/v/app.plugbrain.android?label=Download%20on%20F-Droid&color=green&logo=f-droid)](https://f-droid.org/en/packages/app.plugbrain.android)
 [![IzzyOnDroid](https://img.shields.io/badge/IzzyOnDroid-Available-blue?logo=android&logoColor=white)](https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android)
@@ -32,6 +33,7 @@ the harder the challenges become, but the longer you stay away, the easier they 
   - Grant all required permissions
   - Select distracting apps
   - Choose your focus frequency
+  - Select minimum starting difficulty
   - Stay focused ;)
 
 ## Download
