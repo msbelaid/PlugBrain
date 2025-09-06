@@ -25,4 +25,8 @@
     <string name="usage_free_duration_message">Super! Du hast dich seit über %1$s Minuten von ablenkenden Apps ferngehalten. Mach weiter so!</string>
     <string name="apps_usage_duration_message">Du hast in den letzten %2$s für über %1$s Minuten ablenkende Apps genutzt.</string>
     <string name="blocking_message">Die Zeit ist um! Aktiviere dein Gehirn, um die App zu entsperren!</string>
+    <string name="minimal_difficulty">Minimale Schwierigkeit</string>
+    <string name="stats_hardness">Schwierigkeit: %1$s/%2$s</string>
+    <string name="stats_last_usage_time">Letzte Nutzungsdauer: %1$s/%2$s</string>
+    <string name="app_usage_description">Entsperre ablenkende Apps mit Mathematik\nJe weniger du sie nutzt -> desto einfacher die Rätsel.</string>
 </resources>

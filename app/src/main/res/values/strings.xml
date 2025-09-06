@@ -28,4 +28,7 @@
     <string name="apps_usage_duration_message">You\'ve used distracting apps for over %1$s minutes in the last %2$s.</string>
     <string name="blocking_message">Time\'s up! Connect your brain to unlock the app!</string>
     <string name="minimal_difficulty">Minimal Difficulty</string>
+    <string name="stats_hardness">Hardness: %1$s/%2$s</string>
+    <string name="stats_last_usage_time">Last usage time: %1$s/%2$s</string>
+    <string name="app_usage_description">Unlock distraction apps with math\nThe less you use them -> the easier the challenges.</string>
 </resources>
