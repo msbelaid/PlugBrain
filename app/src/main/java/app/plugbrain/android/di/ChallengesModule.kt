@@ -1,6 +1,7 @@
 package app.plugbrain.android.di
 
 import app.plugbrain.android.challenges.Challenge
+import app.plugbrain.android.challenges.MissingOperatorChallenge
 import app.plugbrain.android.challenges.addition.AdditionFiveDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionFourDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionOneAndTwoDigitsChallenge
@@ -76,6 +77,8 @@ val challengesModule = module {
   factory { MultiplicationThreeByThreeDigitChallenge() } bind Challenge::class
   factory { MultiplicationThreeByFourDigitChallenge() } bind Challenge::class
   factory { MultiplicationFourByFourDigitChallenge() } bind Challenge::class
+  factory { MissingOperatorChallenge() } bind Challenge::class
+  // New generated challenges will be added here, do not remove
 
   factory {
     ChallengeFactory(
