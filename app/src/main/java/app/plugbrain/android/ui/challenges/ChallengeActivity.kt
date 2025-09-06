@@ -67,10 +67,13 @@ class ChallengeActivity : ComponentActivity() {
   }
 
   private fun handleBackButton() {
-    onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-      override fun handleOnBackPressed() {
-        // Intentionally do nothing
-      }
-      })
+    onBackPressedDispatcher.addCallback(
+      this,
+      object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          // Intentionally do nothing
+        }
+      },
+    )
   }
 }
