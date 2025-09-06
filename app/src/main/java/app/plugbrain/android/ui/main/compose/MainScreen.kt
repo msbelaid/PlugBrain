@@ -81,7 +81,7 @@ private fun MainContent(
 ) {
   Column(modifier) {
     Text(
-      text = "Unlock distraction apps with math\nThe less you use them -> the easier the challenges.",
+      text = stringResource(R.string.app_usage_description),
       style = MaterialTheme.typography.bodyMedium,
       modifier = Modifier.padding(horizontal = 16.dp),
     )
@@ -144,7 +144,7 @@ private fun MainContent(
           style = MaterialTheme.typography.titleMedium,
         )
         val usageDurationMinutes = state.lastUsageDuration?.inWholeMinutes ?: 0
-        Text("Last usage Time: $usageDurationMinutes/${state.blockInterval}")
+        Text(stringResource(R.string.stats_last_usage_time, usageDurationMinutes, state.blockInterval))
         LinearProgressIndicator(
           progress = {
             usageDurationMinutes.toFloat() / state.blockInterval
@@ -155,7 +155,7 @@ private fun MainContent(
             .height(8.dp)
             .padding(horizontal = 24.dp),
         )
-        Text("Hardness: ${state.difficultyLevel}/${state.maxDifficulty}")
+        Text(stringResource(R.string.stats_hardness, state.difficultyLevel, state.maxDifficulty))
         LinearProgressIndicator(
           progress = {
             state.difficultyLevel.toFloat() / state.maxDifficulty
