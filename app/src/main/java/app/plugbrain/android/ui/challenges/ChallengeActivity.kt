@@ -3,6 +3,7 @@ package app.plugbrain.android.ui.challenges
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,6 +36,8 @@ class ChallengeActivity : ComponentActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    handleBackButton()
+
     enableEdgeToEdge()
     setContent {
       MathlockAppTheme {
@@ -61,5 +64,16 @@ class ChallengeActivity : ComponentActivity() {
         }
       }
     }
+  }
+
+  private fun handleBackButton() {
+    onBackPressedDispatcher.addCallback(
+      this,
+      object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          // Intentionally do nothing
+        }
+      },
+    )
   }
 }
