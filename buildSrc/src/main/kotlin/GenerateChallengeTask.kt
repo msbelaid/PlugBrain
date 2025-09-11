@@ -48,6 +48,8 @@ abstract class GenerateChallengeTask : DefaultTask() {
             package $challengePackage
 
             class $challengeName : $parentClass {
+              TODO("Add the challenge fields")
+            
               override fun checkAnswer(response: Int): Boolean {
                 TODO("Check the response here!")
               }
