@@ -100,14 +100,11 @@ abstract class GenerateChallengeTask : DefaultTask() {
 
         val content = screenFile.readText()
 
-        val screenImport = "import $composePackage.${challengeName}Screen"
         val updatedImports =
-            if (!content.contains(screenImport)) {
-                content.replaceFirst(
-                    "import $basePackage.challenges.TwoOperandsChallenge",
-                    "import $basePackage.challenges.TwoOperandsChallenge\n$screenImport\nimport $challengePackage.$challengeName"
-                )
-            } else content
+            content.replaceFirst(
+                "import $basePackage.challenges.TwoOperandsChallenge",
+                "import $basePackage.challenges.TwoOperandsChallenge\nimport $challengePackage.$challengeName"
+            )
 
         val whenCase =
             """    is $challengeName -> ${challengeName}Screen(
@@ -118,12 +115,10 @@ abstract class GenerateChallengeTask : DefaultTask() {
 
         val placeholder = "    // Placeholder for generated challenges, do not remove"
         val updatedWhen =
-            if (!updatedImports.contains(whenCase)) {
-                updatedImports.replace(
-                    placeholder,
-                    "$whenCase\n$placeholder"
-                )
-            } else updatedImports
+            updatedImports.replace(
+                placeholder,
+                "$whenCase\n$placeholder"
+            )
 
         screenFile.writeText(updatedWhen)
         println("Updated NumberChallengeScreen with $challengeName")
@@ -139,22 +134,18 @@ abstract class GenerateChallengeTask : DefaultTask() {
 
         val importLine = "import $challengePackage.$challengeName"
         val updatedImports =
-            if (!content.contains(importLine)) {
-                content.replaceFirst(
-                    "import $basePackage.challenges.Challenge",
-                    "import $basePackage.challenges.Challenge\n$importLine"
-                )
-            } else content
+            content.replaceFirst(
+                "import $basePackage.challenges.Challenge",
+                "import $basePackage.challenges.Challenge\n$importLine"
+            )
 
         val factoryLine = "  factory { $challengeName() } bind Challenge::class"
         val placeholder = "  // New generated challenges will be added here, do not remove"
         val updatedFactories =
-            if (!updatedImports.contains(factoryLine)) {
-                updatedImports.replace(
-                    placeholder,
-                    "$factoryLine\n$placeholder"
-                )
-            } else updatedImports
+            updatedImports.replace(
+                placeholder,
+                "$factoryLine\n$placeholder"
+            )
 
         diFile.writeText(updatedFactories)
         println("Updated ChallengesModule with $challengeName")
