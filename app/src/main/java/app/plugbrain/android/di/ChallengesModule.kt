@@ -76,6 +76,7 @@ val challengesModule = module {
   factory { MultiplicationThreeByThreeDigitChallenge() } bind Challenge::class
   factory { MultiplicationThreeByFourDigitChallenge() } bind Challenge::class
   factory { MultiplicationFourByFourDigitChallenge() } bind Challenge::class
+  // New generated challenges will be added here, do not remove
 
   factory {
     ChallengeFactory(
