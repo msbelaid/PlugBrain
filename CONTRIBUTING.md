@@ -58,3 +58,75 @@ After running this command, your job is simply to update the generated Challenge
 Note: At the moment, only numeric-answer challenges are supported.
 
 ### Example
+PlugBrain supports math-like challenges where the user must provide a numeric answer.
+In this challenge, the user is asked to count the number of circles displayed on screen.
+
+You can scaffold a new challenge automatically using the Gradle generator:
+```bash
+./gradlew generateChallenge -PchallengeName=CountingChallenge
+```
+
+#### Update the Model
+The generator will create a new file under `app.plugbrain.android.challenges.counting.CountingChallenge`.
+Update it with the following fields:
+```kotlin
+class CountingChallenge : NumberChallenge {
+  val totalCircles: Int = Random.nextInt(3, 10)
+  override fun checkAnswer(response: Int): Boolean {
+    return response == totalCircles
+  }
+  override val difficultyLevel = 0
+  override fun string() = "*".repeat(totalCircles)
+}
+```
+#### Update the Screen
+Next, update the generated compose screen file `CountingChallengeScreen.kt` to display circles:
+
+```kotlin
+@Composable
+fun CountingChallengeScreen(
+  modifier: Modifier = Modifier,
+  challenge: CountingChallenge,
+  checkAnswer: (Int) -> Unit,
+) {
+  val userInput = remember { mutableStateOf("") }
+
+  Column(
+    modifier = modifier.fillMaxSize().padding(16.dp),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center
+  ) {
+    Text("How many circles do you see?")
+    Spacer(modifier = Modifier.height(24.dp))
+    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+      repeat(challenge.totalCircles) {
+        Box(
+          modifier = Modifier
+            .size(24.dp)
+            .clip(CircleShape)
+            .background(Color.Red)
+        )
+      }
+    }
+
+    Spacer(modifier = Modifier.height(24.dp))
+
+    OutlinedTextField(
+      value = userInput.value,
+      onValueChange = { userInput.value = it },
+      label = { Text("Enter number") },
+      singleLine = true,
+      keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+    )
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    Button(onClick = {
+      checkAnswer(userInput.value.toInt())
+    }) {
+      Text("Submit")
+    }
+  }
+}
+```
+
