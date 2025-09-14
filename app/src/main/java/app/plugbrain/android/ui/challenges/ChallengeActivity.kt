@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import app.plugbrain.android.challenges.TwoOperandsChallenge
-import app.plugbrain.android.ui.challenges.compose.TwoOperandsChallengeScreen
+import app.plugbrain.android.challenges.NumberChallenge
+import app.plugbrain.android.ui.challenges.compose.NumberChallengeScreen
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,25 +44,32 @@ class ChallengeActivity : ComponentActivity() {
         val challenge by challengeViewModel.challenge.collectAsState()
         challenge?.let {
           when (it) {
-            is TwoOperandsChallenge -> TwoOperandsChallengeScreen(
+            is NumberChallenge -> NumberChallengeScreen(
               modifier = Modifier.fillMaxSize(),
               challenge = it,
             ) { response ->
-              if (it.checkAnswer(response)) {
-                challengeViewModel.unblockApps()
-                finishAffinity()
-              } else {
-                Toast.makeText(
-                  this@ChallengeActivity,
-                  "Wrong Answer, try again!",
-                  Toast.LENGTH_LONG,
-                ).show()
-              }
+              checkNumberAnswer(it, response)
             }
             else -> Unit
           }
         }
       }
+    }
+  }
+
+  private fun checkNumberAnswer(
+    challenge: NumberChallenge,
+    response: Int,
+  ) {
+    if (challenge.checkAnswer(response)) {
+      challengeViewModel.unblockApps()
+      finishAffinity()
+    } else {
+      Toast.makeText(
+        this@ChallengeActivity,
+        "Wrong Answer, try again!",
+        Toast.LENGTH_LONG,
+      ).show()
     }
   }
 
