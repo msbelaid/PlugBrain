@@ -48,7 +48,7 @@ abstract class GenerateChallengeTask : DefaultTask() {
             package $challengePackage
 
             class $challengeName : $parentClass {
-              TODO("Add the challenge fields")
+              //TODO("Add the challenge fields")
             
               override fun checkAnswer(response: Int): Boolean {
                 TODO("Check the response here!")
@@ -108,10 +108,9 @@ abstract class GenerateChallengeTask : DefaultTask() {
             )
 
         val whenCase =
-            """    is $challengeName -> ${challengeName}Screen(
-      modifier = modifier,
+            """    is $challengeName -> ${challengeName}View(
+      modifier = Modifier.padding(16.dp),
       challenge = challenge,
-      checkAnswer = checkAnswer,
     )"""
 
         val placeholder = "    // Placeholder for generated challenges, do not remove"
