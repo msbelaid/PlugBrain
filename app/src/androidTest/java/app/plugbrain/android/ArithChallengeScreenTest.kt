@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsWithCarryChallenge
-import app.plugbrain.android.ui.challenges.compose.TwoOperandsChallengeScreen
+import app.plugbrain.android.ui.challenges.compose.NumericalChallengeScreen
 import org.junit.Rule
 import org.junit.Test
 
@@ -22,10 +22,9 @@ class ArithChallengeScreenTest {
         val challenge = AdditionTwoDigitsWithCarryChallenge()
 
         composeTestRule.setContent {
-            TwoOperandsChallengeScreen(
+            NumericalChallengeScreen(
                 challenge = challenge,
                 checkAnswer = { result = it },
-                triggerAnimation = false,
             )
         }
 
