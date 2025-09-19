@@ -1,3 +1,10 @@
+---
+name: Translation request
+about: Help translate PlugBrain into a new language
+title: "Help make PlugBrain available to [LANGUAGE] speakers"
+labels: translation, good first issue, help wanted
+---
+
 ### Help make PlugBrain available in [Requested language]:
 
 1. Copy app strings in [strings.xml](https://github.com/msbelaid/PlugBrain/blob/master/app/src/main/res/values/strings.xml) to `res/values-<lang>/strings.xml`.
