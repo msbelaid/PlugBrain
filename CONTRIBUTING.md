@@ -70,7 +70,7 @@ You can scaffold a new challenge automatically using the Gradle generator:
 The generator will create a new file under `app.plugbrain.android.challenges.counting.CountingChallenge`.
 Update it with the following fields:
 ```kotlin
-class CountingChallenge : NumberChallenge {
+class CountingChallenge : NumericalChallenge {
   val totalCircles: Int = Random.nextInt(3, 10)
   override fun checkAnswer(response: Int): Boolean {
     return response == totalCircles
