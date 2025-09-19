@@ -37,8 +37,4 @@ class ArithChallengeScreenTest {
         composeTestRule.onNodeWithText(">").performClick()
         assert(result == challenge.operand1 + challenge.operand2)
     }
-
-    @Test
-    fun testArithChallengeScreenDisplaysOperandsAndAcceptsInput2() {
-    }
 }
