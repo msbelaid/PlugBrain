@@ -147,7 +147,7 @@ jobs:
           arch: x86_64
           profile: Nexus 6
           force-avd-creation: false
-          emulator-shutdown: false
+          emulator-shutdown: true
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: ./gradlew --no-daemon --max-workers=1 connectedAndroidTest
