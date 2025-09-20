@@ -87,6 +87,8 @@ jobs:
     name: UI Tests
     needs: [build, unit-tests]
     runs-on: ubuntu-latest
+    env:
+      ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL: 5
     strategy:
       matrix:
         api-level: [30]
@@ -139,14 +141,13 @@ jobs:
           script: echo "Generated AVD snapshot for caching."
 
       - name: Run Instrumented Tests
-        timeout-minutes: 15
+        timeout-minutes: 10
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
           target: google_apis
           arch: x86_64
           profile: Nexus 6
-          force-avd-creation: false
           emulator-shutdown: true
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
