@@ -1,5 +1,5 @@
 package app.plugbrain.android.challenges
 
-interface NumberChallenge : Challenge {
+interface NumericalChallenge : Challenge {
   fun checkAnswer(response: Int): Boolean
 }
