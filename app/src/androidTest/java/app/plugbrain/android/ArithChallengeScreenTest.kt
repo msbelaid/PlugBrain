@@ -25,6 +25,7 @@ class ArithChallengeScreenTest {
             NumericalChallengeScreen(
                 challenge = challenge,
                 checkAnswer = { result = it },
+                triggerAnimation = false,
             )
         }
 
