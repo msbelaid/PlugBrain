@@ -150,7 +150,7 @@ jobs:
           emulator-shutdown: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew connectedAndroidTest
+          script: ./gradlew --no-daemon connectedAndroidTest
 
       - name: Upload UI Test Results
         uses: actions/upload-artifact@v4
