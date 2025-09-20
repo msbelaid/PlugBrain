@@ -152,6 +152,10 @@ jobs:
           disable-animations: true
           script: ./gradlew --no-daemon --max-workers=1 connectedAndroidTest
 
+      - name: Ensure Emulator is Dead
+        if: always()
+        run: adb -s emulator-5554 emu kill || pkill -9 -f "emulator" || true
+
       - name: Upload UI Test Results
         uses: actions/upload-artifact@v4
         if: always()
