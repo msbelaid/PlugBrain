@@ -45,15 +45,15 @@ You can scaffold a new challenge automatically using the Gradle generator:
 ```bash
 ./gradlew generateChallenge -PchallengeName=MyNewChallenge
 ```
-After running this command, your job is simply to update the generated Challenge model and its Compose screen:
+After running this command, your job is simply to update the generated Challenge model and its Compose UI:
 ### Challenge model (MyNewChallenge.kt)
 - Add any required fields
 - Set the difficultyLevel property
 - Implement the checkAnswer() function with your validation logic
 - Override string() to define how the challenge is displayed
 
-### UI (MyNewChallengeScreen.kt)
-- Replace the TODO with Compose UI elements to render the challenge and handle user input
+### UI (MyNewChallengeView.kt)
+- Replace the TODO with Compose UI elements to render the challenge
 
 Note: At the moment, only numeric-answer challenges are supported.
 
@@ -70,7 +70,7 @@ You can scaffold a new challenge automatically using the Gradle generator:
 The generator will create a new file under `app.plugbrain.android.challenges.counting.CountingChallenge`.
 Update it with the following fields:
 ```kotlin
-class CountingChallenge : NumberChallenge {
+class CountingChallenge : NumericalChallenge {
   val totalCircles: Int = Random.nextInt(3, 10)
   override fun checkAnswer(response: Int): Boolean {
     return response == totalCircles
@@ -79,25 +79,22 @@ class CountingChallenge : NumberChallenge {
   override fun string() = "*".repeat(totalCircles)
 }
 ```
-#### Update the Screen
-Next, update the generated compose screen file `CountingChallengeScreen.kt` to display circles:
+#### Update the View
+Next, update the generated compose file `CountingChallengeView.kt` to display circles:
 
 ```kotlin
 @Composable
-fun CountingChallengeScreen(
+fun CountingChallengeView(
   modifier: Modifier = Modifier,
   challenge: CountingChallenge,
-  checkAnswer: (Int) -> Unit,
 ) {
-  val userInput = remember { mutableStateOf("") }
-
   Column(
     modifier = modifier.fillMaxSize().padding(16.dp),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.Center
   ) {
     Text("How many circles do you see?")
-    Spacer(modifier = Modifier.height(24.dp))
+    Spacer(modifier = Modifier.height(16.dp))
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
       repeat(challenge.totalCircles) {
         Box(
@@ -107,24 +104,6 @@ fun CountingChallengeScreen(
             .background(Color.Red)
         )
       }
-    }
-
-    Spacer(modifier = Modifier.height(24.dp))
-
-    OutlinedTextField(
-      value = userInput.value,
-      onValueChange = { userInput.value = it },
-      label = { Text("Enter number") },
-      singleLine = true,
-      keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
-    )
-
-    Spacer(modifier = Modifier.height(16.dp))
-
-    Button(onClick = {
-      checkAnswer(userInput.value.toInt())
-    }) {
-      Text("Submit")
     }
   }
 }

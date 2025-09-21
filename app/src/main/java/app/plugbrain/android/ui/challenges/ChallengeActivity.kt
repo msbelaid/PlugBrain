@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import app.plugbrain.android.challenges.NumberChallenge
-import app.plugbrain.android.ui.challenges.compose.NumberChallengeScreen
+import app.plugbrain.android.challenges.NumericalChallenge
+import app.plugbrain.android.ui.challenges.compose.NumericalChallengeScreen
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,11 +44,11 @@ class ChallengeActivity : ComponentActivity() {
         val challenge by challengeViewModel.challenge.collectAsState()
         challenge?.let {
           when (it) {
-            is NumberChallenge -> NumberChallengeScreen(
+            is NumericalChallenge -> NumericalChallengeScreen(
               modifier = Modifier.fillMaxSize(),
               challenge = it,
             ) { response ->
-              checkNumberAnswer(it, response)
+              checkNumericalAnswer(it, response)
             }
             else -> Unit
           }
@@ -57,8 +57,8 @@ class ChallengeActivity : ComponentActivity() {
     }
   }
 
-  private fun checkNumberAnswer(
-    challenge: NumberChallenge,
+  private fun checkNumericalAnswer(
+    challenge: NumericalChallenge,
     response: Int,
   ) {
     if (challenge.checkAnswer(response)) {

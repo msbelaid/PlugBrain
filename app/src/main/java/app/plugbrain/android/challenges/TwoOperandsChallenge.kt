@@ -1,6 +1,6 @@
 package app.plugbrain.android.challenges
 
-interface TwoOperandsChallenge : NumberChallenge {
+interface TwoOperandsChallenge : NumericalChallenge {
   val operand1: Int
   val operand2: Int
   val operationType: Operator
