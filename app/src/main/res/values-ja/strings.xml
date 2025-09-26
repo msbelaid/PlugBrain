@@ -1,0 +1,32 @@
+<resources>
+    <string name="permissions_title">権限</string>
+    <string name="all_permissions_granted">必要な権限はすべて許可されています</string>
+    <string name="accessibility_permission">アクセシビリティ</string>
+    <string name="accessibility_permission_description">ほかのアプリの起動の検知を許可</string>
+    <string name="usage_access_permission">使用状況へのアクセス</string>
+    <string name="usage_access_permission_description">このアプリにほかのアプリの使用状況へのアクセスを許可</string>
+    <string name="display_over_apps_permission">他のアプリの上に表示</string>
+    <string name="display_over_apps_permission_description">他のアプリに重ねて表示することを許可</string>
+    <string name="battery_optimization_exemption_permission">バッテリー最適化の対象外にする</string>
+    <string name="battery_optimization_exemption_permission_description">システムがこのアプリを終了させないようにする</string>
+    <string name="refresh">更新</string>
+    <plurals name="applications_blocked">
+        <item quantity="zero">アプリがブロックされていません、タップしてアプリを選択してください</item>
+        <item quantity="one">ブロックされているアプリケーション（1）\n</item>
+        <item quantity="other">ブロックされているアプリケーション（%d）\n</item>
+    </plurals>
+    <plurals name="blocked_every_x_minutes">
+        <item quantity="one">1分ごと</item>
+        <item quantity="other">%d分ごと</item>
+    </plurals>
+    <string name="blocking_interval">ブロックする頻度</string>
+    <string name="minutes_short">分</string>
+    <string name="settings_title">設定</string>
+    <string name="usage_free_duration_message">すごい！魅力的なアプリたちから %1$s 分以上距離を置けました。 その調子！</string>
+    <string name="apps_usage_duration_message">直近 %2$s 分のうち魅力的なアプリを %1$s 分以上使用しました</string>
+    <string name="blocking_message">時間切れです。問題を解いてアプリをアンロックしましょう！</string>
+    <string name="minimal_difficulty">最小難易度</string>
+    <string name="stats_hardness">難易度: %1$s/%2$s</string>
+    <string name="stats_last_usage_time">前回の使用時間: %1$s/%2$s</string>
+    <string name="app_usage_description">計算問題を解いてアプリをアンロックしましょう\nアプリの使用頻度が低いほど問題が簡単になります</string>
+</resources>
