@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="permissions_title">権限</string>
     <string name="all_permissions_granted">必要な権限はすべて許可されています</string>
