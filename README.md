@@ -9,7 +9,7 @@
 [![IzzyOnDroid](https://img.shields.io/badge/IzzyOnDroid-Available-blue?logo=android&logoColor=white)](https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android)
 ![GitHub stars](https://img.shields.io/github/stars/msbelaid/PlugBrain?style=social)
 </div>
-<img src="app/src/main/res/drawable/plugbrain_example.gif" align="right" width="320" />
+<img src="assets/plugbrain_example.gif" align="right" width="320" />
 
 # PlugBrain
 PlugBrain is an app that encourages regular breaks from distracting apps by blocking access at scheduled intervals.
