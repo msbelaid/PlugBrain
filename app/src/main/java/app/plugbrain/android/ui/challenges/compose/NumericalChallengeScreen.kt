@@ -16,6 +16,7 @@ import app.plugbrain.android.BuildConfig
 import app.plugbrain.android.challenges.MissingChallenge
 import app.plugbrain.android.challenges.NumericalChallenge
 import app.plugbrain.android.challenges.TwoOperandsChallenge
+import app.plugbrain.android.challenges.SquareChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
 import app.plugbrain.android.ui.isPortrait
 
@@ -68,12 +69,6 @@ private fun Content(
 ) {
   when (challenge) {
     is TwoOperandsChallenge -> TwoOperandsChallengeView(
-      modifier = Modifier.padding(16.dp),
-      challenge = challenge,
-      triggerAnimation = triggerAnimation,
-    )
-
-    is MissingChallenge -> MissingChallengeView(
       modifier = Modifier.padding(16.dp),
       challenge = challenge,
       triggerAnimation = triggerAnimation,
