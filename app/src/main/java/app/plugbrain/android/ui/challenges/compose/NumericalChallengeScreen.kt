@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import app.plugbrain.android.BuildConfig
 import app.plugbrain.android.challenges.NumericalChallenge
 import app.plugbrain.android.challenges.TwoOperandsChallenge
+import app.plugbrain.android.challenges.SquareChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
 import app.plugbrain.android.ui.isPortrait
 
@@ -70,6 +71,10 @@ private fun Content(
       modifier = Modifier.padding(16.dp),
       challenge = challenge,
       triggerAnimation = triggerAnimation,
+    )
+    is SquareChallenge -> SquareChallengeView(
+      modifier = Modifier.padding(16.dp),
+      challenge = challenge,
     )
     // Placeholder for generated challenges, do not remove
   }
