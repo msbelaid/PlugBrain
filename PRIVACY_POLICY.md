@@ -1,6 +1,6 @@
 # Privacy Policy – PlugBrain
 
-**Last updated:** August 4, 2025
+**Last updated:** October 2, 2025
 
 **PlugBrain** blocks apps and uses math challenges to reduce screen time.
 
@@ -22,14 +22,15 @@ Some permissions are required **only to ensure the proper functionality** of the
 
 - `android.permission.SYSTEM_ALERT_WINDOW`: Used to display the challenge screen on top of other apps.
 - `android.permission.PACKAGE_USAGE_STATS`: Used to detect usage time of selected apps.
-- `android.accessibilityservice.AccessibilityService`: Helps the app detect when a blocked app is opened.
+- `android.accessibilityservice.AccessibilityService`: The Accessibility Service is used exclusively to detect when a blocked app is opened and to show a math challenge before allowing access. PlugBrain does not use Accessibility to read content, capture input, or collect any user data.
 - **No internet access is requested or required by the app.**
 
 ---
 
 ## 3. Local Data Usage
 
-All user data is stored **locally on the device**. The app does **not sync or transmit any information externally**.
+PlugBrain may store user preferences **locally** (such as selected blocked apps).
+This data never leaves the device and can be deleted by uninstalling the app.
 
 ---
 
@@ -48,7 +49,8 @@ We are committed to protecting user privacy. Since PlugBrain does not collect or
 
 ## 6. Policy Changes
 
-Any changes to this privacy policy will be posted on this page. Users will be notified through an app update if significant changes are made.
+Any changes to this privacy policy will be posted on this page.
+Users will be notified through an app update if significant changes are made.
 
 ---
 
