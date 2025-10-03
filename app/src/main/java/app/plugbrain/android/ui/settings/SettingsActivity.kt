@@ -7,9 +7,25 @@ import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.SegmentedButtonDefaults.Icon
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.core.net.toUri
+import app.plugbrain.android.R
 import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
 import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
@@ -39,6 +55,8 @@ class SettingsActivity : ComponentActivity() {
       val challengeSettings by settingsViewModel.challengeSettingsState.collectAsState(
         app.plugbrain.android.datastore.model.UserSettings(),
       )
+      var showAccessibilityDialog by remember { mutableStateOf(false) }
+
       MathlockAppTheme {
         SettingsScreen(
           lockedApps = lockedApps,
@@ -57,7 +75,7 @@ class SettingsActivity : ComponentActivity() {
             )
           },
           onAccessibilityClicked = {
-            openAccessibilitySettings()
+            showAccessibilityDialog = true
           },
           onUsageStatsClicked = {
             openUsageStatsPermissionSettings()
@@ -74,6 +92,17 @@ class SettingsActivity : ComponentActivity() {
           onMinDifficultySelected = {
             settingsViewModel.updateMinDifficulty(it)
           },
+        )
+      }
+      if (showAccessibilityDialog) {
+        AccessibilityDisclosureDialog(
+          onContinue = {
+            showAccessibilityDialog = false
+            openAccessibilitySettings()
+          },
+          onCancel = {
+            showAccessibilityDialog = false
+          }
         )
       }
     }
@@ -93,6 +122,34 @@ class SettingsActivity : ComponentActivity() {
       Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK
       },
+    )
+  }
+
+  @Composable
+  fun AccessibilityDisclosureDialog(
+    onContinue: () -> Unit,
+    onCancel: () -> Unit
+  ) {
+    AlertDialog(
+      onDismissRequest = { onCancel() },
+      icon = {
+        Icon(
+          imageVector = Icons.Default.Info,
+          contentDescription = stringResource(R.string.accessibility_disclosure_title)
+        )
+      },
+      title = {
+        Text(stringResource(R.string.accessibility_disclosure_title), textAlign = TextAlign.Center)
+      },
+      text = {
+        Text(stringResource(R.string.accessibility_disclosure_body), textAlign = TextAlign.Center)
+      },
+      confirmButton = {
+        Button(onClick = onContinue) { Text(stringResource(R.string.global_continue)) }
+      },
+      dismissButton = {
+        TextButton(onClick = onCancel) { Text(stringResource(R.string.global_cancel)) }
+      }
     )
   }
 
