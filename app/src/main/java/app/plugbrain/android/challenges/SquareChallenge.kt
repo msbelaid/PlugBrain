@@ -12,5 +12,6 @@ class SquareChallenge : NumericalChallenge {
 
   override fun string(): String {
     TODO("How the challenge should be displayed")
+    return operand1.toString() + "² = ?"
   }
 }
