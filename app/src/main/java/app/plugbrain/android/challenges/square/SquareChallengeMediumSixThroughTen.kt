@@ -1,29 +1,20 @@
 package app.plugbrain.android.challenges.square
 
-class SquareChallengeMediumSixThroughSixThroughTen : NumericalChallenge {
+import app.plugbrain.android.challenges.SquareChallenge
+
+class SquareChallengeMediumSixThroughTen : SquareChallenge() {
   //TODO("Add the challenge fields")
-   val operand1: Int = (2..5).random()
-   val operand2: Int = (6..10).random()
-   val operand3: Int = (2..9).random()
+  override val operand: Int = (6..10).random()
 
   override fun checkAnswer(response: Int): Boolean {
     TODO("Check the response here!")
-//    return operand1 * operand1 == response
-    if(operand1 * operand1 == response)
-    {
-      return true
-    }
-    else
-    {
-      return false
-    }
+    return operand * operand == response
   }
 
-  override val difficultyLevel: Int
-    get() = TODO("Put difficulty level here")
-  //  override val difficultyLevel: Int = 1, 2, or 3
+  override val difficultyLevel: Int = 2
+
   override fun string(): String {
     TODO("How the challenge should be displayed")
-    return operand1.toString() + "² = ?"
+    return operand.toString() + "² = ?"
   }
 }
