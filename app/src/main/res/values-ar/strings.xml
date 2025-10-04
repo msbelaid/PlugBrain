@@ -34,4 +34,8 @@
         <item quantity="many"> كل %d دقيقة</item>
         <item quantity="other"> كل %d دقيقة</item>
     </plurals>
+    <string name="enable_accessibility_title">تفعيل خدمة إمكانية الوصول</string>
+    <string name="enable_accessibility_text">يستخدم تطبيق PlugBrain خدمة إمكانية الوصول في نظام أندرويد لحظر التطبيقات التي تختارها.\nيتيح ذلك لـ PlugBrain اكتشاف متى تفتح أحد هذه التطبيقات وعرض تحدي رياضي قبل السماح بالدخول.\nنحن لا نجمع أو نشارك أي معلومات شخصية.</string>
+    <string name="continue_btn">متابعة</string>
+    <string name="cancel_btn">إلغاء</string>
 </resources>

@@ -27,4 +27,9 @@
         <item quantity="one"> une minute</item>
         <item quantity="other"> %d minutes</item>
     </plurals>
+
+    <string name="enable_accessibility_title">Activer le service d\'accessibilité</string>
+    <string name="enable_accessibility_text">PlugBrain utilise le service d\'accessibilité pour bloquer les applications que vous choisissez.\nCela permet à PlugBrain de détecter lorsque vous ouvrez l\'une de ces applications et de vous afficher un défi mathématique avant d'y accéder.\nNous ne collectons ni ne partageons aucune information personnelle.</string>
+    <string name="continue_btn">Continuer</string>
+    <string name="cancel_btn">Annuler</string>
 </resources>
