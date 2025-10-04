@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
@@ -39,6 +40,17 @@ class SettingsViewModel(
 
   private val _minimalDifficultySample = MutableStateFlow<Challenge>(AdditionUnderFiveChallenge())
   val minimalDifficultySample: StateFlow<Challenge> = _minimalDifficultySample
+
+  private val _displayAccessibilityDialog = MutableStateFlow(false)
+  val displayAccessibilityDialog: StateFlow<Boolean> = _displayAccessibilityDialog
+
+  fun displayAccessibilityDialog() {
+    _displayAccessibilityDialog.update { true }
+  }
+
+  fun dismissAccessibilityDialog() {
+    _displayAccessibilityDialog.update { false }
+  }
 
   private fun getInstalledApps(): Flow<List<InstalledApp>> =
     installedAppsRepository.getInstalledApps()

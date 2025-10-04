@@ -7,9 +7,18 @@ import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
+import app.plugbrain.android.R
 import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
 import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
@@ -27,12 +36,18 @@ class SettingsActivity : ComponentActivity() {
     settingsViewModel.getChallengeSettings()
   }
 
+  override fun onPause() {
+    super.onPause()
+    settingsViewModel.dismissAccessibilityDialog()
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContent {
       val lockedApps by settingsViewModel.getLockedApps().collectAsState(emptyList())
       val permissions by settingsViewModel.permissionsState.collectAsState(PermissionsState())
+      val displayAccessibilityDialog by settingsViewModel.displayAccessibilityDialog.collectAsState(false)
       val minimalDifficultySample by settingsViewModel.minimalDifficultySample.collectAsState(
         AdditionUnderFiveChallenge(),
       )
@@ -57,7 +72,7 @@ class SettingsActivity : ComponentActivity() {
             )
           },
           onAccessibilityClicked = {
-            openAccessibilitySettings()
+            settingsViewModel.displayAccessibilityDialog()
           },
           onUsageStatsClicked = {
             openUsageStatsPermissionSettings()
@@ -75,6 +90,41 @@ class SettingsActivity : ComponentActivity() {
             settingsViewModel.updateMinDifficulty(it)
           },
         )
+
+        // Disclosure Dialog for Accessibility Service
+        if (displayAccessibilityDialog) {
+          AlertDialog(
+            onDismissRequest = {
+              settingsViewModel.dismissAccessibilityDialog()
+            },
+            title = {
+              Text(getString(R.string.enable_accessibility_title))
+            },
+            text = {
+              Text(getString(R.string.enable_accessibility_text))
+            },
+            icon = {
+              Icon(
+                imageVector = Icons.Default.Warning,
+                contentDescription = getString(R.string.enable_accessibility_title),
+              )
+            },
+            confirmButton = {
+              Button(
+                onClick = { openAccessibilitySettings() },
+              ) {
+                Text(stringResource(R.string.continue_btn))
+              }
+            },
+            dismissButton = {
+              TextButton(
+                onClick = { settingsViewModel.dismissAccessibilityDialog() },
+              ) {
+                Text(stringResource(R.string.cancel_btn))
+              }
+            },
+          )
+        }
       }
     }
   }

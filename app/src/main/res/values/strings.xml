@@ -31,4 +31,8 @@
     <string name="stats_hardness">Hardness: %1$s/%2$s</string>
     <string name="stats_last_usage_time">Last usage time: %1$s/%2$s</string>
     <string name="app_usage_description">Unlock distraction apps with math\nThe less you use them -> the easier the challenges.</string>
+    <string name="enable_accessibility_title">Enable Accessibility Service</string>
+    <string name="enable_accessibility_text">PlugBrain uses Android\'s Accessibility Service to block the apps you choose.\nThis allows PlugBrain to detect when you open one of those apps and show you a math challenge before access.\nWe do not collect or share any personal information.</string>
+    <string name="continue_btn">Continue</string>
+    <string name="cancel_btn">Cancel</string>
 </resources>
