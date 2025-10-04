@@ -11,4 +11,5 @@ enum class Operator(val symbol: String) {
   ADDITION("+"),
   SUBTRACTION("-"),
   MULTIPLICATION("x"),
+  DIVISION("/"),
 }
