@@ -73,6 +73,10 @@ private fun Content(
       challenge = challenge,
       triggerAnimation = triggerAnimation,
     )
+    is SquareChallenge -> SquareChallengeView(
+      modifier = Modifier.padding(16.dp),
+      challenge = challenge,
+    )
     // Placeholder for generated challenges, do not remove
   }
   NumericalInputView(checkAnswer)
