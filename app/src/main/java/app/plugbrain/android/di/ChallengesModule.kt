@@ -11,6 +11,10 @@ import app.plugbrain.android.challenges.addition.AdditionTwoDigitsWithCarryChall
 import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
 import app.plugbrain.android.challenges.addition.AdditionUnderTenChallenge
 import app.plugbrain.android.challenges.factory.ChallengeFactory
+import app.plugbrain.android.challenges.missing.MissingAdditionChallenge
+import app.plugbrain.android.challenges.missing.MissingDivisionChallenge
+import app.plugbrain.android.challenges.missing.MissingMultiplicationChallenge
+import app.plugbrain.android.challenges.missing.MissingSubtractionChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByElevenChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByFiveChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByTenChallenge
@@ -76,6 +80,11 @@ val challengesModule = module {
   factory { MultiplicationThreeByThreeDigitChallenge() } bind Challenge::class
   factory { MultiplicationThreeByFourDigitChallenge() } bind Challenge::class
   factory { MultiplicationFourByFourDigitChallenge() } bind Challenge::class
+
+  factory { MissingAdditionChallenge() } bind Challenge::class
+  factory { MissingSubtractionChallenge() } bind Challenge::class
+  factory { MissingMultiplicationChallenge() } bind Challenge::class
+  factory { MissingDivisionChallenge() } bind Challenge::class
   // New generated challenges will be added here, do not remove
 
   factory {

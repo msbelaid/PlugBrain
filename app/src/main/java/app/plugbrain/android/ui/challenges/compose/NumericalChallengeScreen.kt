@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.BuildConfig
+import app.plugbrain.android.challenges.MissingChallenge
 import app.plugbrain.android.challenges.NumericalChallenge
 import app.plugbrain.android.challenges.TwoOperandsChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
@@ -67,6 +68,12 @@ private fun Content(
 ) {
   when (challenge) {
     is TwoOperandsChallenge -> TwoOperandsChallengeView(
+      modifier = Modifier.padding(16.dp),
+      challenge = challenge,
+      triggerAnimation = triggerAnimation,
+    )
+
+    is MissingChallenge -> MissingChallengeView(
       modifier = Modifier.padding(16.dp),
       challenge = challenge,
       triggerAnimation = triggerAnimation,
