@@ -34,5 +34,5 @@ abstract class MissingChallenge : NumericalChallenge {
 enum class MissingPosition {
   FIRST_OPERAND,
   SECOND_OPERAND,
-  RESULT
+  RESULT,
 }

@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.BuildConfig
+import app.plugbrain.android.challenges.MissingChallenge
 import app.plugbrain.android.challenges.NumericalChallenge
 import app.plugbrain.android.challenges.TwoOperandsChallenge
-import app.plugbrain.android.challenges.MissingChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
 import app.plugbrain.android.ui.isPortrait
 
@@ -72,6 +72,7 @@ private fun Content(
       challenge = challenge,
       triggerAnimation = triggerAnimation,
     )
+
     is MissingChallenge -> MissingChallengeView(
       modifier = Modifier.padding(16.dp),
       challenge = challenge,

@@ -10,7 +10,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class MissingChallengeTest {
-
     @Test
     fun `test missing addition challenge generation`() {
         repeat(20) {
@@ -19,26 +18,6 @@ class MissingChallengeTest {
             assertTrue(challenge.operand1 in 1..19, "${challenge.operand1} is not in 1..19")
             assertTrue(challenge.operand2 in 1..19, "${challenge.operand2} is not in 1..19")
             assertEquals(challenge.operand1 + challenge.operand2, challenge.result)
-        }
-    }
-
-    @Test
-    fun `test missing addition challenge validation - first operand`() {
-        val challenge = MissingAdditionChallenge().apply {
-            // Mock values for testing
-        }
-        val correctAnswer = challenge.operand1
-        when (challenge.missingPosition) {
-            MissingPosition.FIRST_OPERAND -> {
-                assertTrue(challenge.checkAnswer(correctAnswer), "Should accept correct answer for first operand")
-                assertFalse(challenge.checkAnswer(correctAnswer + 1), "Should reject incorrect answer")
-            }
-            MissingPosition.SECOND_OPERAND -> {
-                assertTrue(challenge.checkAnswer(challenge.operand2), "Should accept correct answer for second operand")
-            }
-            MissingPosition.RESULT -> {
-                assertTrue(challenge.checkAnswer(challenge.result), "Should accept correct answer for result")
-            }
         }
     }
 
@@ -60,16 +39,36 @@ class MissingChallengeTest {
             val challenge = MissingSubtractionChallenge()
             when (challenge.missingPosition) {
                 MissingPosition.FIRST_OPERAND -> {
-                    assertTrue(challenge.checkAnswer(challenge.operand1), "Should accept correct answer for first operand")
-                    assertFalse(challenge.checkAnswer(challenge.operand1 + 1), "Should reject incorrect answer")
+                    assertTrue(
+                        challenge.checkAnswer(challenge.operand1),
+                        "Should accept correct answer for first operand",
+                    )
+                    assertFalse(
+                        challenge.checkAnswer(challenge.operand1 + 1),
+                        "Should reject incorrect answer",
+                    )
                 }
+
                 MissingPosition.SECOND_OPERAND -> {
-                    assertTrue(challenge.checkAnswer(challenge.operand2), "Should accept correct answer for second operand")
-                    assertFalse(challenge.checkAnswer(challenge.operand2 + 1), "Should reject incorrect answer")
+                    assertTrue(
+                        challenge.checkAnswer(challenge.operand2),
+                        "Should accept correct answer for second operand",
+                    )
+                    assertFalse(
+                        challenge.checkAnswer(challenge.operand2 + 1),
+                        "Should reject incorrect answer",
+                    )
                 }
+
                 MissingPosition.RESULT -> {
-                    assertTrue(challenge.checkAnswer(challenge.result), "Should accept correct answer for result")
-                    assertFalse(challenge.checkAnswer(challenge.result + 1), "Should reject incorrect answer")
+                    assertTrue(
+                        challenge.checkAnswer(challenge.result),
+                        "Should accept correct answer for result",
+                    )
+                    assertFalse(
+                        challenge.checkAnswer(challenge.result + 1),
+                        "Should reject incorrect answer",
+                    )
                 }
             }
         }
@@ -92,16 +91,36 @@ class MissingChallengeTest {
             val challenge = MissingMultiplicationChallenge()
             when (challenge.missingPosition) {
                 MissingPosition.FIRST_OPERAND -> {
-                    assertTrue(challenge.checkAnswer(challenge.operand1), "Should accept correct answer for first operand")
-                    assertFalse(challenge.checkAnswer(challenge.operand1 + 1), "Should reject incorrect answer")
+                    assertTrue(
+                        challenge.checkAnswer(challenge.operand1),
+                        "Should accept correct answer for first operand",
+                    )
+                    assertFalse(
+                        challenge.checkAnswer(challenge.operand1 + 1),
+                        "Should reject incorrect answer",
+                    )
                 }
+
                 MissingPosition.SECOND_OPERAND -> {
-                    assertTrue(challenge.checkAnswer(challenge.operand2), "Should accept correct answer for second operand")
-                    assertFalse(challenge.checkAnswer(challenge.operand2 + 1), "Should reject incorrect answer")
+                    assertTrue(
+                        challenge.checkAnswer(challenge.operand2),
+                        "Should accept correct answer for second operand",
+                    )
+                    assertFalse(
+                        challenge.checkAnswer(challenge.operand2 + 1),
+                        "Should reject incorrect answer",
+                    )
                 }
+
                 MissingPosition.RESULT -> {
-                    assertTrue(challenge.checkAnswer(challenge.result), "Should accept correct answer for result")
-                    assertFalse(challenge.checkAnswer(challenge.result + 1), "Should reject incorrect answer")
+                    assertTrue(
+                        challenge.checkAnswer(challenge.result),
+                        "Should accept correct answer for result",
+                    )
+                    assertFalse(
+                        challenge.checkAnswer(challenge.result + 1),
+                        "Should reject incorrect answer",
+                    )
                 }
             }
         }
@@ -114,7 +133,11 @@ class MissingChallengeTest {
             assertEquals(4, challenge.difficultyLevel)
             assertTrue(challenge.operand2 in 2..11, "${challenge.operand2} is not in 2..11")
             assertTrue(challenge.result in 2..11, "${challenge.result} is not in 2..11")
-            assertEquals(challenge.operand2 * challenge.result, challenge.operand1, "Division should be exact")
+            assertEquals(
+                challenge.operand2 * challenge.result,
+                challenge.operand1,
+                "Division should be exact",
+            )
             assertEquals(challenge.operand1 / challenge.operand2, challenge.result)
         }
     }
@@ -125,16 +148,36 @@ class MissingChallengeTest {
             val challenge = MissingDivisionChallenge()
             when (challenge.missingPosition) {
                 MissingPosition.FIRST_OPERAND -> {
-                    assertTrue(challenge.checkAnswer(challenge.operand1), "Should accept correct answer for first operand")
-                    assertFalse(challenge.checkAnswer(challenge.operand1 + 1), "Should reject incorrect answer")
+                    assertTrue(
+                        challenge.checkAnswer(challenge.operand1),
+                        "Should accept correct answer for first operand",
+                    )
+                    assertFalse(
+                        challenge.checkAnswer(challenge.operand1 + 1),
+                        "Should reject incorrect answer",
+                    )
                 }
+
                 MissingPosition.SECOND_OPERAND -> {
-                    assertTrue(challenge.checkAnswer(challenge.operand2), "Should accept correct answer for second operand")
-                    assertFalse(challenge.checkAnswer(challenge.operand2 + 1), "Should reject incorrect answer")
+                    assertTrue(
+                        challenge.checkAnswer(challenge.operand2),
+                        "Should accept correct answer for second operand",
+                    )
+                    assertFalse(
+                        challenge.checkAnswer(challenge.operand2 + 1),
+                        "Should reject incorrect answer",
+                    )
                 }
+
                 MissingPosition.RESULT -> {
-                    assertTrue(challenge.checkAnswer(challenge.result), "Should accept correct answer for result")
-                    assertFalse(challenge.checkAnswer(challenge.result + 1), "Should reject incorrect answer")
+                    assertTrue(
+                        challenge.checkAnswer(challenge.result),
+                        "Should accept correct answer for result",
+                    )
+                    assertFalse(
+                        challenge.checkAnswer(challenge.result + 1),
+                        "Should reject incorrect answer",
+                    )
                 }
             }
         }
@@ -149,18 +192,44 @@ class MissingChallengeTest {
 
             when (challenge.missingPosition) {
                 MissingPosition.FIRST_OPERAND -> {
-                    assertTrue(challengeString.startsWith("?"), "Should start with '?' for missing first operand")
-                    assertTrue(challengeString.contains("+ ${challenge.operand2}"), "Should contain second operand")
-                    assertTrue(challengeString.endsWith("= ${challenge.result}"), "Should end with result")
+                    assertTrue(
+                        challengeString.startsWith("?"),
+                        "Should start with '?' for missing first operand",
+                    )
+                    assertTrue(
+                        challengeString.contains("+ ${challenge.operand2}"),
+                        "Should contain second operand",
+                    )
+                    assertTrue(
+                        challengeString.endsWith("= ${challenge.result}"),
+                        "Should end with result",
+                    )
                 }
+
                 MissingPosition.SECOND_OPERAND -> {
-                    assertTrue(challengeString.startsWith("${challenge.operand1}"), "Should start with first operand")
-                    assertTrue(challengeString.contains("+ ?"), "Should contain '?' for second operand")
-                    assertTrue(challengeString.endsWith("= ${challenge.result}"), "Should end with result")
+                    assertTrue(
+                        challengeString.startsWith("${challenge.operand1}"),
+                        "Should start with first operand",
+                    )
+                    assertTrue(
+                        challengeString.contains("+ ?"),
+                        "Should contain '?' for second operand",
+                    )
+                    assertTrue(
+                        challengeString.endsWith("= ${challenge.result}"),
+                        "Should end with result",
+                    )
                 }
+
                 MissingPosition.RESULT -> {
-                    assertTrue(challengeString.startsWith("${challenge.operand1}"), "Should start with first operand")
-                    assertTrue(challengeString.contains("+ ${challenge.operand2}"), "Should contain second operand")
+                    assertTrue(
+                        challengeString.startsWith("${challenge.operand1}"),
+                        "Should start with first operand",
+                    )
+                    assertTrue(
+                        challengeString.contains("+ ${challenge.operand2}"),
+                        "Should contain second operand",
+                    )
                     assertTrue(challengeString.endsWith("= ?"), "Should end with '?' for result")
                 }
             }

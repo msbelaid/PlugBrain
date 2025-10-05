@@ -1,11 +1,6 @@
 package app.plugbrain.android.di
 
 import app.plugbrain.android.challenges.Challenge
-import app.plugbrain.android.challenges.MissingChallenge
-import app.plugbrain.android.challenges.missing.MissingAdditionChallenge
-import app.plugbrain.android.challenges.missing.MissingSubtractionChallenge
-import app.plugbrain.android.challenges.missing.MissingMultiplicationChallenge
-import app.plugbrain.android.challenges.missing.MissingDivisionChallenge
 import app.plugbrain.android.challenges.addition.AdditionFiveDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionFourDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionOneAndTwoDigitsChallenge
@@ -16,6 +11,10 @@ import app.plugbrain.android.challenges.addition.AdditionTwoDigitsWithCarryChall
 import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
 import app.plugbrain.android.challenges.addition.AdditionUnderTenChallenge
 import app.plugbrain.android.challenges.factory.ChallengeFactory
+import app.plugbrain.android.challenges.missing.MissingAdditionChallenge
+import app.plugbrain.android.challenges.missing.MissingDivisionChallenge
+import app.plugbrain.android.challenges.missing.MissingMultiplicationChallenge
+import app.plugbrain.android.challenges.missing.MissingSubtractionChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByElevenChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByFiveChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByTenChallenge
