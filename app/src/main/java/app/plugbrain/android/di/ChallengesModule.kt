@@ -1,9 +1,6 @@
 package app.plugbrain.android.di
 
 import app.plugbrain.android.challenges.Challenge
-import app.plugbrain.android.challenges.square.SquareChallengeEasyTwoThroughFive
-import app.plugbrain.android.challenges.square.SquareChallengeMediumSixThroughTen
-import app.plugbrain.android.challenges.square.SquareChallengeHardElevenThroughTwenty
 import app.plugbrain.android.challenges.addition.AdditionFiveDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionFourDigitsChallenge
 import app.plugbrain.android.challenges.addition.AdditionOneAndTwoDigitsChallenge
@@ -14,6 +11,10 @@ import app.plugbrain.android.challenges.addition.AdditionTwoDigitsWithCarryChall
 import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
 import app.plugbrain.android.challenges.addition.AdditionUnderTenChallenge
 import app.plugbrain.android.challenges.factory.ChallengeFactory
+import app.plugbrain.android.challenges.missing.MissingAdditionChallenge
+import app.plugbrain.android.challenges.missing.MissingDivisionChallenge
+import app.plugbrain.android.challenges.missing.MissingMultiplicationChallenge
+import app.plugbrain.android.challenges.missing.MissingSubtractionChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByElevenChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByFiveChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByTenChallenge
@@ -29,6 +30,9 @@ import app.plugbrain.android.challenges.multiplication.MultiplicationSingleDigit
 import app.plugbrain.android.challenges.multiplication.MultiplicationThreeByFourDigitChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationThreeByThreeDigitChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationTwoByThreeDigitChallenge
+import app.plugbrain.android.challenges.square.SquareChallengeEasyTwoThroughFive
+import app.plugbrain.android.challenges.square.SquareChallengeHardElevenThroughTwenty
+import app.plugbrain.android.challenges.square.SquareChallengeMediumSixThroughTen
 import app.plugbrain.android.challenges.substraction.SubtractFourDigitsChallenge
 import app.plugbrain.android.challenges.substraction.SubtractFromSelfChallenge
 import app.plugbrain.android.challenges.substraction.SubtractFromZeroChallenge
@@ -79,6 +83,12 @@ val challengesModule = module {
   factory { MultiplicationThreeByThreeDigitChallenge() } bind Challenge::class
   factory { MultiplicationThreeByFourDigitChallenge() } bind Challenge::class
   factory { MultiplicationFourByFourDigitChallenge() } bind Challenge::class
+
+  factory { MissingAdditionChallenge() } bind Challenge::class
+  factory { MissingSubtractionChallenge() } bind Challenge::class
+  factory { MissingMultiplicationChallenge() } bind Challenge::class
+  factory { MissingDivisionChallenge() } bind Challenge::class
+
   factory { SquareChallengeEasyTwoThroughFive() } bind Challenge::class
   factory { SquareChallengeMediumSixThroughTen() } bind Challenge::class
   factory { SquareChallengeHardElevenThroughTwenty() } bind Challenge::class
