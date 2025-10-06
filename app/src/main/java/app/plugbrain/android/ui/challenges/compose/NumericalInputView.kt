@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.android.awaitFrame
 
 @Composable
-fun NumericalInputView(checkAnswer: (Int) -> Unit) {
+fun NumericalInputView(checkAnswer: (Int?) -> Unit) {
   val focusRequester = remember { FocusRequester() }
   val keyboardController = LocalSoftwareKeyboardController.current
   var responseText by remember { mutableStateOf("") }
@@ -42,11 +42,11 @@ fun NumericalInputView(checkAnswer: (Int) -> Unit) {
     singleLine = true,
     trailingIcon = {
       Button(
-        onClick = { if (responseText.isNotEmpty()) checkAnswer(responseText.toInt()) },
+        onClick = { if (responseText.isNotEmpty()) checkAnswer(responseText.toIntOrNull()) },
       ) { Text(">", style = MaterialTheme.typography.displayLarge) }
     },
     keyboardActions = KeyboardActions(
-      onDone = { checkAnswer(responseText.toInt()) },
+      onDone = { checkAnswer(responseText.toIntOrNull()) },
     ),
     modifier = Modifier
       .fillMaxWidth()
