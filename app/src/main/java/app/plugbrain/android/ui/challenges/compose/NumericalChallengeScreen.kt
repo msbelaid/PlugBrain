@@ -25,7 +25,7 @@ fun NumericalChallengeScreen(
   modifier: Modifier = Modifier,
   challenge: NumericalChallenge,
   triggerAnimation: Boolean = true,
-  checkAnswer: (Int) -> Unit,
+  checkAnswer: (Int?) -> Unit,
 ) {
   Scaffold {
     Column(
@@ -64,7 +64,7 @@ fun NumericalChallengeScreen(
 @Composable
 private fun Content(
   challenge: NumericalChallenge,
-  checkAnswer: (Int) -> Unit,
+  checkAnswer: (Int?) -> Unit,
   triggerAnimation: Boolean,
 ) {
   when (challenge) {

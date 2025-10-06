@@ -59,9 +59,9 @@ class ChallengeActivity : ComponentActivity() {
 
   private fun checkNumericalAnswer(
     challenge: NumericalChallenge,
-    response: Int,
+    response: Int?,
   ) {
-    if (challenge.checkAnswer(response)) {
+    if (response != null && challenge.checkAnswer(response)) {
       challengeViewModel.unblockApps()
       finishAffinity()
     } else {
