@@ -10,7 +10,7 @@ class SquareChallengeEasyTwoThroughFive : SquareChallenge() {
   }
 
   override val difficultyLevel: Int = 1
-  //  override val difficultyLevel: Int = 1, 2, or 3
+
   override fun string(): String {
     return operand.toString() + "² = ?"
   }
