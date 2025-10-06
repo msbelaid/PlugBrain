@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">PlugBrain</string>
+    <string name="app_name_with_brain_icon" translatable="false">PlugBrain 🧠</string>
+    <string name="permissions_title">अनुमतियाँ</string>
+    <string name="all_permissions_granted">सभी अनुमतियाँ दे दी गई हैं!</string>
+    <string name="accessibility_permission">एक्सेसिबिलिटी अनुमति</string>
+    <string name="accessibility_permission_description">यह अनुमति ऐप को यह जानने में मदद करती है कि कौन-सा ऐप कब खोला गया।</string>
+    <string name="usage_access_permission">ऐप इस्तेमाल की जानकारी</string>
+    <string name="usage_access_permission_description">ऐप को, ऐप इस्तेमाल के डेटा तक पहुँच देता है।</string>
+    <string name="display_over_apps_permission">अन्य ऐप्स के ऊपर दिखाना</string>
+    <string name="display_over_apps_permission_description">इससे ऐप, दूसरे ऐप्स के ऊपर दिखाई दे सकता है</string>
+    <string name="battery_optimization_exemption_permission">बैटरी ऑप्टिमाइज़ेशन से छूट</string>
+    <string name="battery_optimization_exemption_permission_description">इससे सिस्टम आपके ऐप को बैकग्राउंड में बंद नहीं करेगा।</string>
+    <string name="refresh">फिर से लोड करें</string>
+    <plurals name="applications_blocked">
+        <item quantity="zero">No application blocked, tap to select apps</item>
+        <item quantity="one">Blocks one application</item>
+        <item quantity="other">Blocks %d applications</item>
+    </plurals>
+    <plurals name="blocked_every_x_minutes">
+        <item quantity="one"> every one minute</item>
+        <item quantity="other"> every %d minutes</item>
+    </plurals>
+    <string name="blocking_interval">ब्लॉक करने की सीमा</string>
+    <string name="minutes_short">मिनट</string>
+    <string name="settings_title">सेटिंग्स</string>
+    <string name="usage_free_duration_message">बहुत बढ़िया!  आप %1$s मिनट से ज़्यादा समय से ध्यान भटकाने वाले ऐप्स से दूर हैं। Keep it up!</string>
+    <string name="apps_usage_duration_message">आपने पिछले %2$s में %1$s मिनट से ज़्यादा समय तक ध्यान भटकाने वाले ऐप्स का इस्तेमाल किया है।</string>
+    <string name="blocking_message">समय समाप्त! ऐप अनलॉक करने के लिए दिमाग़ लगाओ!</string>
+    <string name="minimal_difficulty">न्यूनतम कठिनाई</string>
+    <string name="stats_hardness">कठिनाई: %1$s/%2$s</string>
+    <string name="stats_last_usage_time">आखिरी इस्तेमाल का समय: %1$s/%2$s</string>
+    <string name="app_usage_description">ध्यान भटकाने वाले ऐप्स को गणित से अनलॉक करें। आप इनका जितना कम इस्तेमाल करेंगे, चुनौतियाँ उतनी ही आसान होती जाएँगी।</string>
+    <string name="enable_accessibility_title">एक्सेसिबिलिटी सर्विस चालू करें</string>
+    <string name="enable_accessibility_text">PlugBrain आपके चुने हुए ऐप्स को ब्लॉक करने के लिए एंड्रॉयड की एक्सेसिबिलिटी सर्विस का इस्तेमाल करता है। यह सर्विस PlugBrain को बताती है कि आपने कब कोई चुना हुआ ऐप खोला है, और उसे इस्तेमाल करने से पहले आपको एक गणित की चुनौती दिखाती है। हम आपकी कोई भी निजी जानकारी इकट्ठा या शेयर नहीं करते हैं।</string>
+    <string name="continue_btn">आगे बढ़ें</string>
+    <string name="cancel_btn">रद्द करें</string>
+</resources>
