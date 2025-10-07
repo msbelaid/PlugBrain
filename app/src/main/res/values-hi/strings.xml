@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">PlugBrain</string>
-    <string name="app_name_with_brain_icon" translatable="false">PlugBrain 🧠</string>
     <string name="permissions_title">अनुमतियाँ</string>
     <string name="all_permissions_granted">सभी अनुमतियाँ दे दी गई हैं!</string>
     <string name="accessibility_permission">एक्सेसिबिलिटी अनुमति</string>
@@ -14,13 +12,13 @@
     <string name="battery_optimization_exemption_permission_description">इससे सिस्टम आपके ऐप को बैकग्राउंड में बंद नहीं करेगा।</string>
     <string name="refresh">फिर से लोड करें</string>
     <plurals name="applications_blocked">
-        <item quantity="zero">No application blocked, tap to select apps</item>
-        <item quantity="one">Blocks one application</item>
-        <item quantity="other">Blocks %d applications</item>
+        <item quantity="zero">कोई ऐप ब्लॉक नहीं है, ऐप्स चुनने के लिए टैप करें।</item>
+        <item quantity="one">एक एप्लिकेशन ब्लॉक है</item>
+        <item quantity="other">%d एप्लिकेशन्स ब्लॉक है</item>
     </plurals>
     <plurals name="blocked_every_x_minutes">
-        <item quantity="one"> every one minute</item>
-        <item quantity="other"> every %d minutes</item>
+        <item quantity="one"> हर एक मिनट</item>
+        <item quantity="other"> हर %d मिनट में</item>
     </plurals>
     <string name="blocking_interval">ब्लॉक करने की सीमा</string>
     <string name="minutes_short">मिनट</string>
