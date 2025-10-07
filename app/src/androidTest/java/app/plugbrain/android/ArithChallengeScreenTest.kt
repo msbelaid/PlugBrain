@@ -38,4 +38,22 @@ class ArithChallengeScreenTest {
         composeTestRule.onNodeWithText(">").performClick()
         assert(result == challenge.operand1 + challenge.operand2)
     }
+
+    @Test
+    fun testArithChallengeScreenHandlesNonNumericalInputGracefully() {
+        var result: Int? = null
+
+        val challenge = AdditionTwoDigitsWithCarryChallenge()
+
+        composeTestRule.setContent {
+            NumericalChallengeScreen(
+                challenge = challenge,
+                checkAnswer = { result = it },
+                triggerAnimation = false,
+            )
+        }
+        composeTestRule.onNode(hasSetTextAction()).performTextInput("...")
+        composeTestRule.onNodeWithText(">").performClick()
+        assert(result == null)
+    }
 }

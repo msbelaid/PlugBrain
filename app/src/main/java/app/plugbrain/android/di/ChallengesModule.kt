@@ -30,6 +30,9 @@ import app.plugbrain.android.challenges.multiplication.MultiplicationSingleDigit
 import app.plugbrain.android.challenges.multiplication.MultiplicationThreeByFourDigitChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationThreeByThreeDigitChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationTwoByThreeDigitChallenge
+import app.plugbrain.android.challenges.square.SquareChallengeEasyTwoThroughFive
+import app.plugbrain.android.challenges.square.SquareChallengeHardElevenThroughTwenty
+import app.plugbrain.android.challenges.square.SquareChallengeMediumSixThroughTen
 import app.plugbrain.android.challenges.substraction.SubtractFourDigitsChallenge
 import app.plugbrain.android.challenges.substraction.SubtractFromSelfChallenge
 import app.plugbrain.android.challenges.substraction.SubtractFromZeroChallenge
@@ -85,6 +88,10 @@ val challengesModule = module {
   factory { MissingSubtractionChallenge() } bind Challenge::class
   factory { MissingMultiplicationChallenge() } bind Challenge::class
   factory { MissingDivisionChallenge() } bind Challenge::class
+
+  factory { SquareChallengeEasyTwoThroughFive() } bind Challenge::class
+  factory { SquareChallengeMediumSixThroughTen() } bind Challenge::class
+  factory { SquareChallengeHardElevenThroughTwenty() } bind Challenge::class
   // New generated challenges will be added here, do not remove
 
   factory {
