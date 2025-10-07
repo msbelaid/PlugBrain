@@ -7,9 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.plugbrain.android.ui.selectapps.presentation.AppsSelectionViewModel
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,19 +22,25 @@ class AppsSelectionActivity : ComponentActivity() {
     enableEdgeToEdge()
 
     setContent {
-      val installedApps by installedAppsViewModel.getInstalledApps().collectAsState(emptyList())
-      val selectedApps by installedAppsViewModel.blockedApps.collectAsState(emptySet())
+      val blockedApps by installedAppsViewModel.blockedAppsFlow.collectAsStateWithLifecycle()
+      val installedApps by installedAppsViewModel.installedApps.collectAsStateWithLifecycle()
+      val searchQuery by installedAppsViewModel.searchQuery.collectAsStateWithLifecycle()
+
       MathlockAppTheme {
-        Scaffold(modifier = Modifier.Companion.fillMaxSize()) { innerPadding ->
+        Scaffold { innerPadding ->
           AppsSelectionScreen(
-            modifier = Modifier.Companion.padding(innerPadding),
-            installedApps = installedApps,
-            selectedApps = selectedApps,
-            onItemClicked = { clickedPackage ->
-              if (clickedPackage in selectedApps) {
-                installedAppsViewModel.unblockApp(clickedPackage)
-              } else {
+            modifier = Modifier
+              .fillMaxSize()
+              .padding(innerPadding),
+            blockedApps = blockedApps,
+            installedAppsState = installedApps,
+            onQueryChanged = installedAppsViewModel::onChangeQuery,
+            searchQuery = searchQuery,
+            onItemClicked = { clickedPackage, checked ->
+              if (checked) {
                 installedAppsViewModel.blockApp(clickedPackage)
+              } else {
+                installedAppsViewModel.unblockApp(clickedPackage)
               }
             },
           )

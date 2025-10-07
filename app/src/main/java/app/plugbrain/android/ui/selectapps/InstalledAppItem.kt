@@ -1,18 +1,18 @@
 package app.plugbrain.android.ui.selectapps
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
 import app.plugbrain.android.repository.model.InstalledApp
 import coil3.compose.rememberAsyncImagePainter
@@ -21,7 +21,8 @@ import coil3.compose.rememberAsyncImagePainter
 fun InstalledAppItem(
   modifier: Modifier = Modifier,
   installedApp: InstalledApp,
-  onClicked: () -> Unit,
+  isSelected: Boolean,
+  onClicked: (Boolean) -> Unit,
 ) {
   ListItem(
     headlineContent = {
@@ -33,17 +34,21 @@ fun InstalledAppItem(
     leadingContent = {
       Image(
         modifier = Modifier.width(56.dp),
-        painter = rememberAsyncImagePainter(installedApp.icon.toBitmap()),
-        contentDescription = "",
+        painter = rememberAsyncImagePainter(model = installedApp.icon),
+        contentDescription = installedApp.name,
       )
     },
     trailingContent = {
       Checkbox(
-        checked = installedApp.selected,
-        onCheckedChange = { onClicked() },
+        checked = isSelected,
+        onCheckedChange = null,
       )
     },
-    modifier = modifier.clickable { onClicked() },
+    modifier = modifier.toggleable(
+      value = isSelected,
+      onValueChange = onClicked,
+      role = Role.Checkbox // Important for accessibility
+    ),
   )
 }
 
@@ -56,9 +61,9 @@ private fun InstalledAppPreview() {
         name = "Youtube",
         packageName = "com.google.youtube",
         icon = LocalContext.current.getDrawable(R.mipmap.ic_launcher)!!,
-        selected = true,
       ),
       onClicked = { },
+      isSelected = true,
     )
     InstalledAppItem(
       installedApp = InstalledApp(
@@ -66,6 +71,7 @@ private fun InstalledAppPreview() {
         packageName = "app.mathlock.android",
         icon = LocalContext.current.getDrawable(R.mipmap.ic_launcher)!!,
       ),
+      isSelected = false,
       onClicked = { },
     )
   }

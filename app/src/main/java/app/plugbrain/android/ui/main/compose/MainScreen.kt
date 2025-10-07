@@ -32,7 +32,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
 import app.plugbrain.android.repository.model.InstalledApp
 import app.plugbrain.android.repository.model.PermissionsState
@@ -120,7 +119,7 @@ private fun MainContent(
           items(state.blockedApps.toList()) { app ->
             Image(
               modifier = Modifier.width(48.dp),
-              painter = rememberAsyncImagePainter(app.icon.toBitmap()),
+              painter = rememberAsyncImagePainter(app.icon),
               contentDescription = app.name,
             )
           }
@@ -191,7 +190,6 @@ private fun MainScreenPreview() {
             LocalContext.current,
             R.mipmap.ic_launcher,
           )!!,
-          selected = true,
         ),
         InstalledApp(
           name = "MathLock",
@@ -200,7 +198,6 @@ private fun MainScreenPreview() {
             LocalContext.current,
             R.mipmap.ic_launcher,
           )!!,
-          selected = true,
         ),
       ),
       lastUsageDuration = 100_000L.milliseconds,

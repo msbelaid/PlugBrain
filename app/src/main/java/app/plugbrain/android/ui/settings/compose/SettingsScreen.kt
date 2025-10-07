@@ -48,7 +48,6 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
 import app.plugbrain.android.challenges.Challenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
@@ -233,7 +232,7 @@ fun BlockedApplications(
         items(lockedApps.toList()) { app ->
           Image(
             modifier = Modifier.width(48.dp),
-            painter = rememberAsyncImagePainter(app.icon.toBitmap()),
+            painter = rememberAsyncImagePainter(app.icon),
             contentDescription = app.name,
           )
         }
@@ -351,7 +350,6 @@ private fun SettingsScreenPreview() {
           LocalContext.current,
           R.mipmap.ic_launcher,
         )!!,
-        selected = true,
       ),
       InstalledApp(
         name = stringResource(R.string.app_name),
@@ -360,7 +358,6 @@ private fun SettingsScreenPreview() {
           LocalContext.current,
           R.mipmap.ic_launcher,
         )!!,
-        selected = true,
       ),
     ),
     permissionsState = PermissionsState(
