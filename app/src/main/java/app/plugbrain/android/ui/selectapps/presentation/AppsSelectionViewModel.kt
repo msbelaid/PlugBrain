@@ -34,7 +34,6 @@ class AppsSelectionViewModel(
     .map { it.distractiveApps }
     .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptySet())
 
-
   private val installedAppsFlow: Flow<List<InstalledApp>> =
     installedAppsRepository.getInstalledApps()
       .distinctUntilChanged()
@@ -46,15 +45,15 @@ class AppsSelectionViewModel(
         pair.second
           .filter { installedApp ->
             if (pair.first.isBlank()) return@filter true
-            installedApp.packageName.contains(pair.first, ignoreCase = true)
-              || installedApp.name.contains(pair.first, ignoreCase = true)
-          }
+            installedApp.packageName.contains(pair.first, ignoreCase = true) ||
+              installedApp.name.contains(pair.first, ignoreCase = true)
+          },
       )
     }
     .stateIn(
       viewModelScope,
       SharingStarted.WhileSubscribed(5000),
-      InstalledAppsState.Loading
+      InstalledAppsState.Loading,
     )
 
   fun onChangeQuery(query: String) {

@@ -34,7 +34,7 @@ class InstalledAppsRepository(private val context: Context) {
     fun sendApps() {
       val apps = pm
         .getInstalledApplications(PackageManager.GET_META_DATA)
-        .filter { isAppVisible( it) }
+        .filter { isAppVisible(it) }
         .map { appInfo ->
           InstalledApp(
             name = pm.getApplicationLabel(appInfo).toString(),
@@ -64,11 +64,9 @@ class InstalledAppsRepository(private val context: Context) {
     // Send the initial list of apps
     sendApps()
 
-
     // must unregister the receiver to avoid memory leaks.
     awaitClose {
       context.unregisterReceiver(broadcastReceiver)
     }
-
   }.flowOn(Dispatchers.IO)
 }

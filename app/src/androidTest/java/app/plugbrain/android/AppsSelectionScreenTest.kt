@@ -26,16 +26,15 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class AppsSelectionScreenTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
     // Dummy data for our tests
-    private val sampleApps = listOf(
-        InstalledApp(name = "App One", packageName = "com.app.one"),
-        InstalledApp(name = "App Two", packageName = "com.app.two")
-    )
-
+    private val sampleApps =
+        listOf(
+            InstalledApp(name = "App One", packageName = "com.app.one"),
+            InstalledApp(name = "App Two", packageName = "com.app.two"),
+        )
 
     @Test
     fun whenStateIsLoading_showsLoadingIndicator() {
@@ -46,7 +45,7 @@ class AppsSelectionScreenTest {
                 onQueryChanged = {},
                 installedAppsState = InstalledAppsState.Loading,
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> }
+                onItemClicked = { _, _ -> },
             )
         }
 
@@ -67,7 +66,7 @@ class AppsSelectionScreenTest {
                 onQueryChanged = {},
                 installedAppsState = InstalledAppsState.Success(sampleApps),
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> }
+                onItemClicked = { _, _ -> },
             )
         }
 
@@ -95,7 +94,7 @@ class AppsSelectionScreenTest {
                 onItemClicked = { pkg, checked ->
                     clickedPackage = pkg
                     isChecked = checked
-                }
+                },
             )
         }
         composeTestRule.waitForIdle()
@@ -122,7 +121,7 @@ class AppsSelectionScreenTest {
                 },
                 installedAppsState = InstalledAppsState.Success(sampleApps),
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> }
+                onItemClicked = { _, _ -> },
             )
         }
 
@@ -147,7 +146,7 @@ class AppsSelectionScreenTest {
                 onQueryChanged = {},
                 installedAppsState = InstalledAppsState.Success(sampleApps),
                 blockedApps = blockedSet,
-                onItemClicked = { _, _ -> }
+                onItemClicked = { _, _ -> },
             )
         }
 
@@ -171,7 +170,7 @@ class AppsSelectionScreenTest {
                 onItemClicked = { pkg, checked ->
                     clickedPackage = pkg
                     isChecked = checked
-                }
+                },
             )
         }
 
@@ -193,7 +192,7 @@ class AppsSelectionScreenTest {
                 onQueryChanged = {},
                 installedAppsState = InstalledAppsState.Success(sampleApps),
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> }
+                onItemClicked = { _, _ -> },
             )
         }
 
@@ -210,7 +209,7 @@ class AppsSelectionScreenTest {
                 onQueryChanged = {},
                 installedAppsState = state,
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> }
+                onItemClicked = { _, _ -> },
             )
         }
 
@@ -234,7 +233,7 @@ class AppsSelectionScreenTest {
                 onQueryChanged = {},
                 installedAppsState = InstalledAppsState.Success(emptyList()),
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> }
+                onItemClicked = { _, _ -> },
             )
         }
 

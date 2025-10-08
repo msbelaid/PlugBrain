@@ -61,7 +61,7 @@ fun AppsSelectionScreen(
         autoCorrectEnabled = false,
         keyboardType = KeyboardType.Text,
         imeAction = ImeAction.Search,
-      )
+      ),
     )
 
     AnimatedContent(
@@ -73,13 +73,13 @@ fun AppsSelectionScreen(
         fadeIn(animationSpec = tween(300)) togetherWith
           fadeOut(animationSpec = tween(300))
       },
-      label = "AnimatedContent" // provide a label for debugging animations
+      label = "AnimatedContent", // provide a label for debugging animations
     ) { state ->
       when (state) {
         is InstalledAppsState.Loading -> {
           Box(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
           ) {
             CircularProgressIndicator(modifier = Modifier.testTag("LoadingIndicator"))
           }
@@ -89,7 +89,7 @@ fun AppsSelectionScreen(
             modifier = Modifier.fillMaxSize().testTag("AppsList"),
             installedApps = state.apps,
             blockedApps = blockedApps,
-            onItemClicked = onItemClicked
+            onItemClicked = onItemClicked,
           )
         }
       }
@@ -106,15 +106,15 @@ fun InstalledAppsList(
 ) {
   LazyColumn(
     modifier = modifier,
-    contentPadding = PaddingValues(vertical = 8.dp)
+    contentPadding = PaddingValues(vertical = 8.dp),
   ) {
     items(
       installedApps,
-      key = { it.packageName }
+      key = { it.packageName },
     ) { item ->
       InstalledAppItem(
         installedApp = item,
-        isSelected = blockedApps.contains(item.packageName)
+        isSelected = blockedApps.contains(item.packageName),
       ) { checked ->
         onItemClicked(item.packageName, checked)
       }
@@ -147,11 +147,11 @@ private fun AppsSelectionScreenPreview() {
             R.mipmap.ic_launcher,
           )!!,
         ),
-      )
+      ),
     ),
     searchQuery = "",
     onQueryChanged = {},
     onItemClicked = { packageName, checked -> },
-    blockedApps = emptySet()
+    blockedApps = emptySet(),
   )
 }

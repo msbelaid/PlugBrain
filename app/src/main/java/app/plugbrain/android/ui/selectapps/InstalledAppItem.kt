@@ -47,7 +47,7 @@ fun InstalledAppItem(
     modifier = modifier.toggleable(
       value = isSelected,
       onValueChange = onClicked,
-      role = Role.Checkbox // Important for accessibility
+      role = Role.Checkbox, // Important for accessibility
     ),
   )
 }
