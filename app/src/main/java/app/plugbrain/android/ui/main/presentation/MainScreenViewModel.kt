@@ -52,7 +52,7 @@ class MainScreenViewModel(
         )
         MainScreenState(
           usageFreeDuration =
-          if (timestamps.lastUsage != null) (System.currentTimeMillis() - timestamps.lastUsage).milliseconds else null,
+          if (timestamps.lastUsage != null && timestamps.lastUsage > 0) (System.currentTimeMillis() - timestamps.lastUsage).milliseconds else null,
           lastUsageDuration = blockedAppsUsage.minutes,
           blockedApps = installedApps.filter {
             it.packageName in settings.distractiveApps
