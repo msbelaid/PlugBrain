@@ -1,0 +1,40 @@
+<resources>
+    <string name="permissions_title">Разрешения</string>
+    <string name="all_permissions_granted">Все разрешения выданы!</string>
+    <string name="accessibility_permission">Разрешение специальных возможностей</string>
+    <string name="accessibility_permission_description">Позволяет определить запуск приложений.</string>
+    <string name="usage_access_permission">Статистика использования</string>
+    <string name="usage_access_permission_description">Даёт доступ к статистике использования приложений</string>
+    <string name="display_over_apps_permission">Поверх других приложений</string>
+    <string name="display_over_apps_permission_description">Разрешает отображать поверх других приложений</string>
+    <string name="battery_optimization_exemption_permission">Исключение из оптимизации расхода батарейки</string>
+    <string name="battery_optimization_exemption_permission_description">Не даёт системе убивать приложение.</string>
+    <string name="refresh">Обновить</string>
+    <plurals name="applications_blocked">
+        <item quantity="zero">Нет заблокированных приложений, нажмите для выбора</item>
+        <item quantity="one">Заблокировано одно приложение</item>
+        <item quantity="few">Заблокировано %d приложения</item>
+        <item quantity="many">Заблокировано %d приложений</item>
+        <item quantity="other">Заблокировано %d приложений</item>
+    </plurals>
+    <plurals name="blocked_every_x_minutes">
+        <item quantity="one"> каждую минуту</item>
+        <item quantity="few"> каждые %d минуты</item>
+        <item quantity="many"> каждые %d минут</item>
+        <item quantity="other"> каждые %d минут</item>
+    </plurals>
+    <string name="blocking_interval">Частота блокирования</string>
+    <string name="minutes_short">мин</string>
+    <string name="settings_title">Настройки</string>
+    <string name="usage_free_duration_message">Отлично! Минут без отвлекающих приложений: %1$s. Продолжай в том же духе!</string>
+    <string name="apps_usage_duration_message">За последние %2$s проведено минут в отвлекающих приложениях: %1$s.</string>
+    <string name="blocking_message">Время вышло! Включи мозг, чтобы разблокировать приложение!</string>
+    <string name="minimal_difficulty">Минимальная сложность</string>
+    <string name="stats_hardness">Сложность: %1$s/%2$s</string>
+    <string name="stats_last_usage_time">Последний запуск: %1$s/%2$s</string>
+    <string name="app_usage_description">Разблокируй отвлекающие приложения, используя математику\nРеже запускаешь -> легче задачи.</string>
+    <string name="enable_accessibility_title">Включить сервис</string>
+    <string name="enable_accessibility_text">PlugBrain использует специальные возможности Android для блокирования выбранных приложений.\С их помощью PlugBrain определяет когда вы открываете одно из приложений и показывает вам задачу, которую нужно решить для доступа.\nМы не собираем и не отправляем никакие персональные данные.</string>
+    <string name="continue_btn">Продолжить</string>
+    <string name="cancel_btn">Отмена</string>
+</resources>
