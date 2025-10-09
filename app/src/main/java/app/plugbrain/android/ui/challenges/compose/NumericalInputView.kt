@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,7 +52,8 @@ fun NumericalInputView(
       OutlinedButton(
         modifier = Modifier
           .size(70.dp)
-          .clip(CircleShape),
+          .clip(CircleShape)
+          .testTag("Submit Answer"),
         enabled = responseText.isNotEmpty(),
         onClick = { if (responseText.isNotEmpty()) checkAnswer(responseText.toIntOrNull()) },
       ) {
