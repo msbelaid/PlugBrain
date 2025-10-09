@@ -3,7 +3,15 @@ package app.plugbrain.android.ui.challenges.compose
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -26,36 +34,69 @@ fun NumericalChallengeScreen(
   challenge: NumericalChallenge,
   triggerAnimation: Boolean = true,
   checkAnswer: (Int?) -> Unit,
+  onExitChallenge: () -> Unit,
 ) {
   Scaffold {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(16.dp),
-      modifier = modifier.padding(it),
+      modifier = modifier
+        .padding(it)
+        .fillMaxSize(),
     ) {
-      if (BuildConfig.DEBUG) {
-        Text(
-          text = challenge.difficultyLevel.toString(),
-          style = MaterialTheme.typography.titleSmall,
-        )
+      Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+      ) {
+        if (BuildConfig.DEBUG) {
+          Text(
+            text = challenge.difficultyLevel.toString(),
+            style = MaterialTheme.typography.titleSmall,
+          )
+        }
+        ChallengeHeader()
+        if (isPortrait()) {
+          Content(
+            challenge = challenge,
+            triggerAnimation = triggerAnimation,
+            checkAnswer = checkAnswer,
+          )
+        } else {
+          Row(verticalAlignment = Alignment.CenterVertically) {
+            Content(
+              challenge = challenge,
+              triggerAnimation = triggerAnimation,
+              checkAnswer = checkAnswer,
+            )
+          }
+        }
       }
-      ChallengeHeader()
-      if (isPortrait()) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-          Content(
-            challenge = challenge,
-            triggerAnimation = triggerAnimation,
-            checkAnswer = checkAnswer,
+
+      Spacer(modifier = Modifier.weight(1f))
+
+      Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(bottom = 24.dp),
+      ) {
+        Button(
+          modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp)
+            .padding(horizontal = 16.dp),
+          onClick = onExitChallenge,
+        ) {
+          Icon(
+            imageVector = Icons.AutoMirrored.Filled.ExitToApp,
+            contentDescription = null,
+            modifier = Modifier.padding(end = 8.dp),
           )
+          Text("Take me out of here")
         }
-      } else {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-          Content(
-            challenge = challenge,
-            triggerAnimation = triggerAnimation,
-            checkAnswer = checkAnswer,
-          )
-        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+          text = "This will take you to your phone's home screen.",
+          style = MaterialTheme.typography.bodySmall,
+          color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
       }
     }
   }
@@ -85,7 +126,7 @@ private fun Content(
     )
     // Placeholder for generated challenges, do not remove
   }
-  NumericalInputView(checkAnswer)
+  NumericalInputView(modifier = Modifier.fillMaxWidth(), checkAnswer = checkAnswer)
 }
 
 @Preview
@@ -96,5 +137,6 @@ private fun NumericalScreenPreview() {
     challenge = AdditionTwoDigitsCarryFreeChallenge(),
     triggerAnimation = false,
     checkAnswer = {},
+    onExitChallenge = {},
   )
 }
