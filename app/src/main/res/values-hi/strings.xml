@@ -34,4 +34,6 @@
     <string name="enable_accessibility_text">PlugBrain आपके चुने हुए ऐप्स को ब्लॉक करने के लिए एंड्रॉयड की एक्सेसिबिलिटी सर्विस का इस्तेमाल करता है। यह सर्विस PlugBrain को बताती है कि आपने कब कोई चुना हुआ ऐप खोला है, और उसे इस्तेमाल करने से पहले आपको एक गणित की चुनौती दिखाती है। हम आपकी कोई भी निजी जानकारी इकट्ठा या शेयर नहीं करते हैं।</string>
     <string name="continue_btn">आगे बढ़ें</string>
     <string name="cancel_btn">रद्द करें</string>
+    <string name="challenge_answer_hint">आपका उत्तर</string>
+    <string name="take_me_out_of_here">यहाँ से बाहर जाएँ</string>
 </resources>
