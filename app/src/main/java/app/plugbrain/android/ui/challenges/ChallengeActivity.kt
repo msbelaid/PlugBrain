@@ -1,5 +1,6 @@
 package app.plugbrain.android.ui.challenges
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -47,14 +48,25 @@ class ChallengeActivity : ComponentActivity() {
             is NumericalChallenge -> NumericalChallengeScreen(
               modifier = Modifier.fillMaxSize(),
               challenge = it,
-            ) { response ->
-              checkNumericalAnswer(it, response)
-            }
+              checkAnswer = { response ->
+                checkNumericalAnswer(it, response)
+              },
+              onExitChallenge = exitToHomeScreen,
+            )
             else -> Unit
           }
         }
       }
     }
+  }
+
+  private val exitToHomeScreen: () -> Unit = {
+    val intent = Intent(Intent.ACTION_MAIN).apply {
+      addCategory(Intent.CATEGORY_HOME)
+      flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    }
+    startActivity(intent)
+    finishAndRemoveTask()
   }
 
   private fun checkNumericalAnswer(

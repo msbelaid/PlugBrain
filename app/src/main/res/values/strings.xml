@@ -35,4 +35,6 @@
     <string name="enable_accessibility_text">PlugBrain uses Android\'s Accessibility Service to block the apps you choose.\nThis allows PlugBrain to detect when you open one of those apps and show you a math challenge before access.\nWe do not collect or share any personal information.</string>
     <string name="continue_btn">Continue</string>
     <string name="cancel_btn">Cancel</string>
+    <string name="challenge_answer_hint">Your answer</string>
+    <string name="take_me_out_of_here">Take me out of here</string>
 </resources>
