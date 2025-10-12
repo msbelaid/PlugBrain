@@ -43,6 +43,8 @@
         <item quantity="one">%d Tag</item>
         <item quantity="other">%d Tage</item>
     </plurals>
+    
+    <string name="duration_zero_minutes">0 Minuten</string>
     <string name="blocking_message">Die Zeit ist um! Aktiviere dein Gehirn, um die App zu entsperren!</string>
     <string name="minimal_difficulty">Minimale Schwierigkeit</string>
     <string name="stats_hardness">Schwierigkeit: %1$s/%2$s</string>

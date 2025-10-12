@@ -23,18 +23,23 @@
     
     <plurals name="duration_minutes">
         <item quantity="one">%d minute</item>
+        <item quantity="many">%d de minutes</item>
         <item quantity="other">%d minutes</item>
     </plurals>
     
     <plurals name="duration_hours">
         <item quantity="one">%d heure</item>
+        <item quantity="many">%d d\'heures</item>
         <item quantity="other">%d heures</item>
     </plurals>
     
     <plurals name="duration_days">
         <item quantity="one">%d jour</item>
+        <item quantity="many">%d de jours</item>
         <item quantity="other">%d jours</item>
     </plurals>
+    
+    <string name="duration_zero_minutes">0 minutes</string>
     <string name="blocking_message">Le temps est écoulé ! Connectez votre cerveau pour déverrouiller l\'application !</string>
 
     <plurals name="applications_blocked">

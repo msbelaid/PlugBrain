@@ -4,41 +4,41 @@ import android.content.Context
 import app.plugbrain.android.R
 import kotlin.time.Duration
 
-object DurationFormatter {
+private const val MINUTES_IN_HOUR = 60
+private const val MINUTES_IN_DAY = 1440
+
+fun Context.formatDuration(duration: Duration): String {
+    val totalMinutes = duration.inWholeMinutes
     
-    fun formatDuration(context: Context, duration: Duration): String {
-        val totalMinutes = duration.inWholeMinutes
-        
-        return when {
-            totalMinutes < 60 -> {
-                // Less than 1 hour - show in minutes
-                context.resources.getQuantityString(R.plurals.duration_minutes, totalMinutes.toInt(), totalMinutes)
+    return when {
+        totalMinutes < MINUTES_IN_HOUR -> {
+            // Less than 1 hour - show in minutes
+            resources.getQuantityString(R.plurals.duration_minutes, totalMinutes.toInt(), totalMinutes)
+        }
+        totalMinutes < MINUTES_IN_DAY -> {
+            // Less than 1 day - show in hours and minutes
+            val hours = totalMinutes / MINUTES_IN_HOUR
+            val minutes = totalMinutes % MINUTES_IN_HOUR
+            if (minutes == 0L) {
+                resources.getQuantityString(R.plurals.duration_hours, hours.toInt(), hours)
+            } else {
+                getString(R.string.duration_hours_minutes, 
+                    resources.getQuantityString(R.plurals.duration_hours, hours.toInt(), hours),
+                    resources.getQuantityString(R.plurals.duration_minutes, minutes.toInt(), minutes)
+                )
             }
-            totalMinutes < 1440 -> {
-                // Less than 1 day - show in hours and minutes
-                val hours = totalMinutes / 60
-                val minutes = totalMinutes % 60
-                if (minutes == 0L) {
-                    context.resources.getQuantityString(R.plurals.duration_hours, hours.toInt(), hours)
-                } else {
-                    context.getString(R.string.duration_hours_minutes, 
-                        context.resources.getQuantityString(R.plurals.duration_hours, hours.toInt(), hours),
-                        context.resources.getQuantityString(R.plurals.duration_minutes, minutes.toInt(), minutes)
-                    )
-                }
-            }
-            else -> {
-                // 1 day or more - show in days and hours
-                val days = totalMinutes / 1440
-                val hours = (totalMinutes % 1440) / 60
-                if (hours == 0L) {
-                    context.resources.getQuantityString(R.plurals.duration_days, days.toInt(), days)
-                } else {
-                    context.getString(R.string.duration_days_hours,
-                        context.resources.getQuantityString(R.plurals.duration_days, days.toInt(), days),
-                        context.resources.getQuantityString(R.plurals.duration_hours, hours.toInt(), hours)
-                    )
-                }
+        }
+        else -> {
+            // 1 day or more - show in days and hours
+            val days = totalMinutes / MINUTES_IN_DAY
+            val hours = (totalMinutes % MINUTES_IN_DAY) / MINUTES_IN_HOUR
+            if (hours == 0L) {
+                resources.getQuantityString(R.plurals.duration_days, days.toInt(), days)
+            } else {
+                getString(R.string.duration_days_hours,
+                    resources.getQuantityString(R.plurals.duration_days, days.toInt(), days),
+                    resources.getQuantityString(R.plurals.duration_hours, hours.toInt(), hours)
+                )
             }
         }
     }

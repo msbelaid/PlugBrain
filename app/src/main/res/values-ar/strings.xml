@@ -14,8 +14,41 @@
     <string name="blocking_interval">وقت الحظر</string>
     <string name="minutes_short">د</string>
     <string name="settings_title">الإعدادات</string>
-    <string name="usage_free_duration_message">أحسنت! لقد ابتعدت عن التطبيقات المشتتة لأكثر من %1$s دقيقة. تابع العمل الجيد!</string>
-    <string name="apps_usage_duration_message">لقد استخدمت التطبيقات المشتتة لأكثر من %1$s دقيقة خلال %2$s الماضية.</string>
+    <string name="usage_free_duration_message">أحسنت! لقد ابتعدت عن التطبيقات المشتتة لأكثر من %1$s. تابع العمل الجيد!</string>
+    <string name="apps_usage_duration_message">لقد استخدمت التطبيقات المشتتة لأكثر من %1$s خلال %2$s الماضية.</string>
+    
+    <!-- Duration formatting strings -->
+    <string name="duration_hours_minutes">%1$s و %2$s</string>
+    <string name="duration_days_hours">%1$s و %2$s</string>
+    
+    <plurals name="duration_minutes">
+        <item quantity="zero">%d دقائق</item>
+        <item quantity="one">%d دقيقة</item>
+        <item quantity="two">%d دقيقتان</item>
+        <item quantity="few">%d دقائق</item>
+        <item quantity="many">%d دقيقة</item>
+        <item quantity="other">%d دقيقة</item>
+    </plurals>
+    
+    <plurals name="duration_hours">
+        <item quantity="zero">%d ساعات</item>
+        <item quantity="one">%d ساعة</item>
+        <item quantity="two">%d ساعتان</item>
+        <item quantity="few">%d ساعات</item>
+        <item quantity="many">%d ساعة</item>
+        <item quantity="other">%d ساعة</item>
+    </plurals>
+    
+    <plurals name="duration_days">
+        <item quantity="zero">%d أيام</item>
+        <item quantity="one">%d يوم</item>
+        <item quantity="two">%d يومان</item>
+        <item quantity="few">%d أيام</item>
+        <item quantity="many">%d يوماً</item>
+        <item quantity="other">%d يوم</item>
+    </plurals>
+    
+    <string name="duration_zero_minutes">0 دقائق</string>
     <string name="blocking_message">انتهى الوقت! شغّل عقلك لفتح التطبيق!</string>
 
     <plurals name="applications_blocked">

@@ -34,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
 import app.plugbrain.android.repository.model.InstalledApp
-import app.plugbrain.android.util.DurationFormatter
+import app.plugbrain.android.util.formatDuration
 import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.main.presentation.MainScreenState
 import coil3.compose.rememberAsyncImagePainter
@@ -145,8 +145,8 @@ private fun MainContent(
         )
         val usageDurationMinutes = state.lastUsageDuration?.inWholeMinutes ?: 0
         val formattedLastUsage = state.lastUsageDuration?.let { 
-          DurationFormatter.formatDuration(LocalContext.current, it) 
-        } ?: "0 minutes"
+          LocalContext.current.formatDuration(it) 
+        } ?: stringResource(R.string.duration_zero_minutes)
         Text(stringResource(R.string.stats_last_usage_time, formattedLastUsage, state.blockInterval))
         LinearProgressIndicator(
           progress = {
@@ -231,14 +231,14 @@ private fun recapMessage(state: MainScreenState): String {
   return when {
     (state.usageFreeDuration?.inWholeMinutes ?: 0) > state.blockInterval * 2 -> {
       val formattedDuration = state.usageFreeDuration?.let { 
-        DurationFormatter.formatDuration(context, it) 
-      } ?: "0 minutes"
+        context.formatDuration(it) 
+      } ?: stringResource(R.string.duration_zero_minutes)
       stringResource(R.string.usage_free_duration_message, formattedDuration)
     }
     (state.lastUsageDuration?.inWholeMinutes ?: 0) > 0 -> {
       val formattedDuration = state.lastUsageDuration?.let { 
-        DurationFormatter.formatDuration(context, it) 
-      } ?: "0 minutes"
+        context.formatDuration(it) 
+      } ?: stringResource(R.string.duration_zero_minutes)
       stringResource(R.string.apps_usage_duration_message, formattedDuration, state.blockInterval)
     }
     else -> ""

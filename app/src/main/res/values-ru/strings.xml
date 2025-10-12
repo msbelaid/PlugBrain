@@ -26,8 +26,35 @@
     <string name="blocking_interval">Частота блокирования</string>
     <string name="minutes_short">мин</string>
     <string name="settings_title">Настройки</string>
-    <string name="usage_free_duration_message">Отлично! Минут без отвлекающих приложений: %1$s. Продолжай в том же духе!</string>
-    <string name="apps_usage_duration_message">За последние %2$s проведено минут в отвлекающих приложениях: %1$s.</string>
+    <string name="usage_free_duration_message">Отлично! Время без отвлекающих приложений: %1$s. Продолжай в том же духе!</string>
+    <string name="apps_usage_duration_message">За последние %2$s проведено времени в отвлекающих приложениях: %1$s.</string>
+    
+    <!-- Duration formatting strings -->
+    <string name="duration_hours_minutes">%1$s и %2$s</string>
+    <string name="duration_days_hours">%1$s и %2$s</string>
+    
+    <plurals name="duration_minutes">
+        <item quantity="one">%d минута</item>
+        <item quantity="few">%d минуты</item>
+        <item quantity="many">%d минут</item>
+        <item quantity="other">%d минут</item>
+    </plurals>
+    
+    <plurals name="duration_hours">
+        <item quantity="one">%d час</item>
+        <item quantity="few">%d часа</item>
+        <item quantity="many">%d часов</item>
+        <item quantity="other">%d часов</item>
+    </plurals>
+    
+    <plurals name="duration_days">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дня</item>
+        <item quantity="many">%d дней</item>
+        <item quantity="other">%d дней</item>
+    </plurals>
+    
+    <string name="duration_zero_minutes">0 минут</string>
     <string name="blocking_message">Время вышло! Включи мозг, чтобы разблокировать приложение!</string>
     <string name="minimal_difficulty">Минимальная сложность</string>
     <string name="stats_hardness">Сложность: %1$s/%2$s</string>
