@@ -81,9 +81,6 @@ android {
         buildConfig = true
         compose = true
     }
-    lint {
-        baseline = file("lint-baseline.xml")
-    }
 }
 
 dependencies {
