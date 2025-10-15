@@ -45,6 +45,9 @@ the harder the challenges become, but the longer you stay away, the easier they 
   <a href="https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android">
       <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="IzzyOnDroid" height="75"/>
   </a>
+  <a href="https://play.google.com/store/apps/details?id=app.plugbrain.android">
+      <img src="https://github.com/user-attachments/assets/d6ad9c07-1d48-4772-ae71-29e47e17cad5" alt="Google Play" height="75"/>
+  </a>
   <a href="https://github.com/msbelaid/PlugBrain/releases/latest/download/app-release.apk">
       <img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="75"/>
   </a>
