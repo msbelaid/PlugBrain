@@ -23,7 +23,25 @@
     <string name="blocking_interval">屏蔽频率</string>
     <string name="minutes_short">分钟</string>
     <string name="settings_title">设置</string>
-    <string name="usage_free_duration_message">太棒了！你已经远离令人分心的应用超过 %1$s 分钟，继续保持！</string>
-    <string name="apps_usage_duration_message">你在过去的 %2$s 中，使用了令人分心的应用超过 %1$s 分钟。</string>
+    <string name="usage_free_duration_message">太棒了！你已经远离令人分心的应用超过 %1$s，继续保持！</string>
+    <string name="apps_usage_duration_message">你在过去的 %2$s 中，使用了令人分心的应用超过 %1$s。</string>
+    
+    <!-- Duration formatting strings -->
+    <string name="duration_hours_minutes">%1$s 和 %2$s</string>
+    <string name="duration_days_hours">%1$s 和 %2$s</string>
+    
+    <plurals name="duration_minutes">
+        <item quantity="other">%d分钟</item>
+    </plurals>
+    
+    <plurals name="duration_hours">
+        <item quantity="other">%d小时</item>
+    </plurals>
+    
+    <plurals name="duration_days">
+        <item quantity="other">%d天</item>
+    </plurals>
+    
+    <string name="duration_zero_minutes">0分钟</string>
     <string name="blocking_message">时间到！动动脑筋来解锁应用！</string>
 </resources>

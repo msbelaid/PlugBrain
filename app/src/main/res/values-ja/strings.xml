@@ -23,8 +23,26 @@
     <string name="blocking_interval">ブロックする頻度</string>
     <string name="minutes_short">分</string>
     <string name="settings_title">設定</string>
-    <string name="usage_free_duration_message">すごい！魅力的なアプリたちから %1$s 分以上距離を置けました。 その調子！</string>
-    <string name="apps_usage_duration_message">直近 %2$s 分のうち魅力的なアプリを %1$s 分以上使用しました</string>
+    <string name="usage_free_duration_message">すごい！魅力的なアプリたちから %1$s 以上距離を置けました。 その調子！</string>
+    <string name="apps_usage_duration_message">直近 %2$s 分のうち魅力的なアプリを %1$s 以上使用しました</string>
+    
+    <!-- Duration formatting strings -->
+    <string name="duration_hours_minutes">%1$s と %2$s</string>
+    <string name="duration_days_hours">%1$s と %2$s</string>
+    
+    <plurals name="duration_minutes">
+        <item quantity="other">%d分</item>
+    </plurals>
+    
+    <plurals name="duration_hours">
+        <item quantity="other">%d時間</item>
+    </plurals>
+    
+    <plurals name="duration_days">
+        <item quantity="other">%d日</item>
+    </plurals>
+    
+    <string name="duration_zero_minutes">0分</string>
     <string name="blocking_message">時間切れです。問題を解いてアプリをアンロックしましょう！</string>
     <string name="minimal_difficulty">最小難易度</string>
     <string name="stats_hardness">難易度: %1$s/%2$s</string>
