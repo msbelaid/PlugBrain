@@ -7,9 +7,11 @@
 ![Build Status](https://github.com/msbelaid/PlugBrain/actions/workflows/release-build.yml/badge.svg)
 [![F-Droid](https://img.shields.io/f-droid/v/app.plugbrain.android?label=Download%20on%20F-Droid&color=green&logo=f-droid)](https://f-droid.org/en/packages/app.plugbrain.android)
 [![IzzyOnDroid](https://img.shields.io/badge/IzzyOnDroid-Available-blue?logo=android&logoColor=white)](https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android)
+[![Reddit - r/PlugBrain](https://img.shields.io/badge/Reddit-r%2FPlugBrain-orange?logo=reddit&logoColor=white)](https://www.reddit.com/r/PlugBrain/)
 ![GitHub stars](https://img.shields.io/github/stars/msbelaid/PlugBrain?style=social)
 </div>
 <img src="assets/plugbrain_example.gif" align="right" width="320" />
+
 
 # PlugBrain
 PlugBrain is an app that encourages regular breaks from distracting apps by blocking access at scheduled intervals.
@@ -38,23 +40,12 @@ the harder the challenges become, but the longer you stay away, the easier they 
 </div>
 
 ## Download
-<div align="center">
-  <a href="https://f-droid.org/packages/app.plugbrain.android/">
-      <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="F-Droid" height="75"/>
-  </a>
-  <a href="https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android">
-      <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="IzzyOnDroid" height="75"/>
-  </a>
-  <a href="https://play.google.com/store/apps/details?id=app.plugbrain.android">
-      <img src="https://github.com/user-attachments/assets/d6ad9c07-1d48-4772-ae71-29e47e17cad5" alt="Google Play" height="75"/>
-  </a>
-  <a href="https://github.com/msbelaid/PlugBrain/releases/latest/download/app-release.apk">
-      <img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="75"/>
-  </a>
-  <a href="https://www.openapk.net/plugbrain/app.plugbrain.android/">
-      <img src="https://www.openapk.net/images/openapk-badge.png" alt="Get it on Openapk" height="75"/>
-  </a>
-</div>
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/app.plugbrain.android/)
+[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android)
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Play Store" height="80">](https://play.google.com/store/apps/details?id=app.plugbrain.android)
+[<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Get it on GitHub" height="80">](https://github.com/msbelaid/PlugBrain/releases/latest/download/app-release.apk)
+[<img src="https://www.openapk.net/images/openapk-badge.png" alt="Get it on OpenAPK" height="80">](https://www.openapk.net/plugbrain/app.plugbrain.android/)
+[<img src="https://www.androidfreeware.net/images/androidfreeware-badge.png" alt="Get it on AndroidFreeware" height="80">](https://www.androidfreeware.net/fr/download-plugbrain-apk.html)
 
 ## Contributing
 
@@ -93,3 +84,7 @@ PlugBrain is built using modern Android libraries and tools:
 ## License
 [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
+## Community
+We'd love to hear your use cases, success stories, and feedback.
+- [Reddit](https://www.reddit.com/r/PlugBrain/)
+- [GitHub Discussions](https://github.com/msbelaid/PlugBrain/discussions)
