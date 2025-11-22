@@ -8,6 +8,7 @@
 [![F-Droid](https://img.shields.io/f-droid/v/app.plugbrain.android?label=Download%20on%20F-Droid&color=green&logo=f-droid)](https://f-droid.org/en/packages/app.plugbrain.android)
 [![IzzyOnDroid](https://img.shields.io/badge/IzzyOnDroid-Available-blue?logo=android&logoColor=white)](https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android)
 [![Reddit - r/PlugBrain](https://img.shields.io/badge/Reddit-r%2FPlugBrain-orange?logo=reddit&logoColor=white)](https://www.reddit.com/r/PlugBrain/)
+[![contribute.design](https://contribute.design/api/shield/msbelaid/PlugBrain)](https://contribute.design/msbelaid/PlugBrain)
 ![GitHub stars](https://img.shields.io/github/stars/msbelaid/PlugBrain?style=social)
 </div>
 <img src="assets/plugbrain_example.gif" align="right" width="320" />
