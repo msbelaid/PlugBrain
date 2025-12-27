@@ -2,46 +2,75 @@
 <resources>
     <string name="permissions_title">权限</string>
     <string name="all_permissions_granted">所有权限均已授予！</string>
-    <string name="accessibility_permission">辅助功能权限</string>
-    <string name="accessibility_permission_description">允许检测应用何时被打开。</string>
-    <string name="usage_access_permission">应用使用情况访问权限</string>
-    <string name="usage_access_permission_description">允许应用访问应用使用数据</string>
-    <string name="display_over_apps_permission">悬浮窗权限</string>
-    <string name="display_over_apps_permission_description">允许应用显示在其他应用上方</string>
-    <string name="battery_optimization_exemption_permission">电池优化豁免</string>
-    <string name="battery_optimization_exemption_permission_description">防止系统关闭该应用。</string>
+
+    <string name="accessibility_permission">无障碍权限</string>
+    <string name="accessibility_permission_description">允许检测应用是否被打开。</string>
+
+    <string name="usage_access_permission">应用使用情况访问</string>
+    <string name="usage_access_permission_description">授予应用访问应用使用数据的权限</string>
+
+    <string name="display_over_apps_permission">显示在其他应用上层</string>
+    <string name="display_over_apps_permission_description">允许应用显示在其他应用之上</string>
+
+    <string name="battery_optimization_exemption_permission">电池优化白名单</string>
+    <string name="battery_optimization_exemption_permission_description">防止系统强制终止该应用。</string>
+
     <string name="refresh">刷新</string>
+
     <plurals name="applications_blocked">
         <item quantity="zero">未屏蔽任何应用，点击选择应用</item>
         <item quantity="one">已屏蔽 1 个应用</item>
         <item quantity="other">已屏蔽 %d 个应用</item>
     </plurals>
+
     <plurals name="blocked_every_x_minutes">
-        <item quantity="one"> 每 1 分钟</item>
-        <item quantity="other"> 每 %d 分钟</item>
+        <item quantity="one">每 1 分钟一次</item>
+        <item quantity="other">每 %d 分钟一次</item>
     </plurals>
+
     <string name="blocking_interval">屏蔽频率</string>
     <string name="minutes_short">分钟</string>
+
     <string name="settings_title">设置</string>
-    <string name="usage_free_duration_message">太棒了！你已经远离令人分心的应用超过 %1$s，继续保持！</string>
-    <string name="apps_usage_duration_message">你在过去的 %2$s 中，使用了令人分心的应用超过 %1$s。</string>
-    
-    <!-- Duration formatting strings -->
+
+    <string name="usage_free_duration_message">太棒了！你已经超过 %1$s 没有使用分心应用了，继续保持！</string>
+    <string name="apps_usage_duration_message">在过去的 %2$s 内，你使用分心应用的时间超过了 %1$s。</string>
+
     <string name="duration_hours_minutes">%1$s 和 %2$s</string>
     <string name="duration_days_hours">%1$s 和 %2$s</string>
-    
+
     <plurals name="duration_minutes">
-        <item quantity="other">%d分钟</item>
+        <item quantity="one">%d 分钟</item>
+        <item quantity="other">%d 分钟</item>
     </plurals>
-    
+
     <plurals name="duration_hours">
-        <item quantity="other">%d小时</item>
+        <item quantity="one">%d 小时</item>
+        <item quantity="other">%d 小时</item>
     </plurals>
-    
+
     <plurals name="duration_days">
-        <item quantity="other">%d天</item>
+        <item quantity="one">%d 天</item>
+        <item quantity="other">%d 天</item>
     </plurals>
-    
-    <string name="duration_zero_minutes">0分钟</string>
-    <string name="blocking_message">时间到！动动脑筋来解锁应用！</string>
+
+    <string name="duration_zero_minutes">0 分钟</string>
+
+    <string name="blocking_message">时间到！连接你的大脑才能解锁应用！</string>
+
+    <string name="minimal_difficulty">最低难度</string>
+
+    <string name="stats_hardness">难度：%1$s/%2$s</string>
+    <string name="stats_last_usage_time">上次使用时间：%1$s/%2$s</string>
+
+    <string name="app_usage_description">用数学题解锁分心应用\n使用得越少 → 挑战越简单。</string>
+
+    <string name="enable_accessibility_title">启用无障碍服务</string>
+    <string name="enable_accessibility_text">PlugBrain 使用 Android 的无障碍服务来屏蔽你选择的应用。\n这使 PlugBrain 能够在你打开这些应用时检测到，并在允许访问前显示一道数学挑战。\n我们不会收集或分享任何个人信息。</string>
+
+    <string name="continue_btn">继续</string>
+    <string name="cancel_btn">取消</string>
+
+    <string name="challenge_answer_hint">你的答案</string>
+    <string name="take_me_out_of_here">让我离开这里</string>
 </resources>
