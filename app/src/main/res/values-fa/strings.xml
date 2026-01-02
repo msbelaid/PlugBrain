@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="permissions_title">مجوزها</string>
+    <string name="all_permissions_granted">همهٔ مجوزها داده شده‌اند!</string>
+    <string name="accessibility_permission">مجوز دسترسی‌پذیری</string>
+    <string name="accessibility_permission_description">اجازه می‌دهد تشخیص داده شود چه زمانی برنامه‌ها باز می‌شوند.</string>
+    <string name="usage_access_permission">دسترسی به استفاده از برنامه‌ها</string>
+    <string name="usage_access_permission_description">به برنامه اجازه دسترسی به داده‌های استفاده از برنامه‌ها را می‌دهد</string>
+    <string name="display_over_apps_permission">نمایش روی سایر برنامه‌ها</string>
+    <string name="display_over_apps_permission_description">به برنامه اجازه می‌دهد روی سایر برنامه‌ها نمایش داده شود</string>
+    <string name="battery_optimization_exemption_permission">معافیت از بهینه‌سازی باتری</string>
+    <string name="battery_optimization_exemption_permission_description">از بسته شدن برنامه توسط سیستم جلوگیری می‌کند.</string>
+    <string name="refresh">تازه‌سازی</string>
+
+    <plurals name="applications_blocked">
+        <item quantity="zero">هیچ برنامه‌ای مسدود نشده است، برای انتخاب برنامه‌ها ضربه بزنید</item>
+        <item quantity="one">یک برنامه مسدود شده است</item>
+        <item quantity="other">%d برنامه مسدود شده‌اند</item>
+    </plurals>
+
+    <plurals name="blocked_every_x_minutes">
+        <item quantity="one"> هر یک دقیقه</item>
+        <item quantity="other"> هر %d دقیقه</item>
+    </plurals>
+
+    <string name="blocking_interval">دفعات مسدودسازی</string>
+    <string name="minutes_short">دقیقه</string>
+    <string name="settings_title">تنظیمات</string>
+    <string name="usage_free_duration_message">عالیه! بیش از %1$s از برنامه‌های حواس‌پرت‌کن دور موندی. ادامه بده!</string>
+    <string name="apps_usage_duration_message">در %2$s گذشته بیش از %1$s از برنامه‌های حواس‌پرت‌کن استفاده کرده‌ای.</string>
+
+    <!-- Duration formatting strings -->
+    <string name="duration_hours_minutes">%1$s و %2$s</string>
+    <string name="duration_days_hours">%1$s و %2$s</string>
+
+    <plurals name="duration_minutes">
+        <item quantity="one">%d دقیقه</item>
+        <item quantity="other">%d دقیقه</item>
+    </plurals>
+
+    <plurals name="duration_hours">
+        <item quantity="one">%d ساعت</item>
+        <item quantity="other">%d ساعت</item>
+    </plurals>
+
+    <plurals name="duration_days">
+        <item quantity="one">%d روز</item>
+        <item quantity="other">%d روز</item>
+    </plurals>
+
+    <string name="duration_zero_minutes">۰ دقیقه</string>
+    <string name="blocking_message">وقت تموم شد! برای باز کردن برنامه، مغزت رو وصل کن!</string>
+    <string name="minimal_difficulty">حداقل سختی</string>
+    <string name="stats_hardness">سختی: %1$s/%2$s</string>
+    <string name="stats_last_usage_time">آخرین زمان استفاده: %1$s/%2$s</string>
+    <string name="app_usage_description">باز کردن برنامه‌های حواس‌پرت‌کن با ریاضی\nهرچه کمتر استفاده کنی → چالش‌ها ساده‌تر می‌شوند.</string>
+    <string name="enable_accessibility_title">فعال‌سازی سرویس دسترسی‌پذیری</string>
+    <string name="enable_accessibility_text">PlugBrain از سرویس دسترسی‌پذیری اندروید برای مسدود کردن برنامه‌های انتخاب‌شده استفاده می‌کند.\nاین امکان به PlugBrain می‌دهد تشخیص دهد چه زمانی یکی از آن برنامه‌ها را باز می‌کنید و قبل از دسترسی، یک چالش ریاضی نمایش دهد.\nما هیچ اطلاعات شخصی‌ای را جمع‌آوری یا به اشتراک نمی‌گذاریم.</string>
+    <string name="continue_btn">ادامه</string>
+    <string name="cancel_btn">لغو</string>
+    <string name="challenge_answer_hint">پاسخ شما</string>
+    <string name="take_me_out_of_here">منو از اینجا ببر بیرون</string>
+</resources>
