@@ -34,7 +34,7 @@ CMYK and RGB colour values are from Inkscape.
 
 #### Light
 
-![light mode logo](./Logo/Digital/02-Android/Google_Play_Icons/02-RGB-PNG/256px/Light.png)
+![light mode logo](./Logo/Digital/02-Android/Google_Play_Icons/256px/Light.png)
 
 |Color| HTML | Preview | Places | 
 |---|---|---|---|
