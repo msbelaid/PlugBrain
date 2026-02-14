@@ -126,12 +126,12 @@ CMYK and RGB colour values are from Inkscape.
 
 ![light mode logo](./Logo/Digital/02-Android/Google_Play_Icons/02-RGB-PNG/256px/Light.png)
 
-<ul class="col-list">
-<li><span class="swatch cyan"></span>Cyan <strong>#adfefd</strong> (plug slot, prongs, and cable)</li>
-<li><span class="swatch teal"></span>Teal <strong>#20dfd9</strong> (plug)</li>
-<li><span class="swatch dark-green"></span>Dark Green <strong>#004852</strong> (brain and plug cable outline)</li>
-<li><span class="swatch beige"></span>Beige <strong>#f9f5f4</strong> (background)</li>
-</ul>
+|Color| HTML | Preview | Places | 
+|---|---|---|---|
+| Cyan | `#ADFEFD` | ![#ADFEFD](https://img.shields.io/badge/Cyan-ADFEFD-ADFEFD) | (plug slot, prongs, and cable) |
+| Teal   | `#20DFD9` | ![#20DFD9](https://img.shields.io/badge/Teal-20DFD9-20DFD9)| (plug) |
+| Dark Green | `#004852`| ![#004852](https://img.shields.io/badge/Dark-Green-004852-004852) | (brain and plug cable outline) |
+| Beige | `#F9F5F4` | ![#F9F5F4](https://img.shields.io/badge/Beige-F9F5F4-F9F5F4) | (background) |
 
 <div class="flex-horizontal">
 <dl>
