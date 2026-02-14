@@ -269,7 +269,7 @@ The following ratios are ordered from best to worst.
 - <span class="swatch cyan"></span>Cyan vs <span class="swatch teal"></span>Teal ([1.45:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=ADFEFD&bcolor=20DFD9))
 - <span class="swatch cyan"></span>Cyan vs <span class="swatch beige"></span>Beige ([1.05:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=ADFEFD&bcolor=F9F5F4))
 
-I have not made all the comparisons to Beige because it is a very similar lightness to Teal.
+I have not made all the comparisons to Beige because it is a very similar lightness to Cyan.
 
 ##### Dark Logo Contrasts
 
