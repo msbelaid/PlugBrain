@@ -153,8 +153,8 @@ CMYK and RGB colour values are from Inkscape.
 
 The light monochrome logo has the plug slots, background, and entire plug shape as white while the brain is black. In the dark monochrome logo, the colour schemes are inversed.
 
-![dark mode logo](./Logo/Digital/02-Android/Google_Play_Icons/02-RGB-PNG/256px/Dark-Monochrome.png)
-![light mode logo](./Logo/Digital/02-Android/Google_Play_Icons/02-RGB-PNG/256px/Light-Monochrome.png)
+![dark mode logo](./Logo/Digital/02-Android/Google_Play_Icons/256px/Dark-Monochrome.png)
+![light mode logo](./Logo/Digital/02-Android/Google_Play_Icons/256px/Light-Monochrome.png)
 
 <ul class="col-list">
 <li><span class="swatch black"></span>Black <strong>#000000</strong></li>
