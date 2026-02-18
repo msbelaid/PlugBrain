@@ -49,52 +49,11 @@ CMYK and RGB colour values are from Inkscape.
 
 ![dark mode logo](./Logo/Digital/02-Android/Google_Play_Icons/02-RGB-PNG/256px/Dark.png)
 
-<ul class="col-list">
-<li><span class="swatch dark-blue"></span>Dark Blue <strong>#001824</strong> (plug slot, plug, and background)</li>
-<li><span class="swatch dark-teal"></span>Dark Teal <strong>#0d7777</strong> (plug prongs and cable)</li>
-<li><span class="swatch teal"></span>Teal <strong>#20dfd9</strong> (brain)</li>
-</ul>
-
-<div class="flex-horizontal">
-<dl>
-<dt>Name</dt>
-<dd>Dark Blue</dd>
-<dt>Swatch</dt>
-<dd><span class="swatch dark-blue"></span></dd>
-<dt>RGB</dt>
-<dd>R 0</dd><dd>G 24</dd><dd>B 36</dd>
-<dt>CMYK</dt>
-<dd>C 100</dd><dd>M 33</dd><dd>Y 0</dd><dd>K 86</dd>
-<dt>HEX</dt>
-<dd>#001824</dd>
-</dl>
-
-<dl>
-<dt>Name</dt>
-<dd>Dark Teal</dd>
-<dt>Swatch</dt>
-<dd><span class="swatch dark-teal"></span></dd>
-<dt>RGB</dt>
-<dd>R 13</dd><dd>G 119</dd><dd>B 119</dd>
-<dt>CMYK</dt>
-<dd>C 89</dd><dd>M 0</dd><dd>Y 0</dd><dd>K 53</dd>
-<dt>HEX</dt>
-<dd>#0d7777</dd>
-</dl>
-
-<dl>
-<dt>Name</dt>
-<dd>Teal</dd>
-<dt>Swatch</dt>
-<dd><span class="swatch teal"></span></dd>
-<dt>RGB</dt>
-<dd>R 32</dd><dd>G 223</dd><dd>B 217</dd>
-<dt>CMYK</dt>
-<dd>C 86</dd><dd>M 0</dd><dd>Y 3</dd><dd>K 13</dd>
-<dt>HEX</dt>
-<dd>#20dfd9</dd>
-</dl>
-</div> <!-- flex-horizontal -->
+| Color | HEX | Preview | RGB | CMYK | Places |
+|---|---|---|---|---|---|
+| Dark Blue | `#001824` | ![#001824](https://img.shields.io/badge/DarkBlue-001824-001824) | `rgb(0, 24, 36)` | `(100, 33, 0, 86)` | (plug slot, plug, and background) |
+| Dark Teal | `#0D7777` | ![#0D7777](https://img.shields.io/badge/DarkTeal-0D7777-0D7777) | `rgb(13, 119, 119)` | `(89, 0, 0, 53)` | (plug prongs and cable) |
+| Teal | `#20DFD9` | ![#20DFD9](https://img.shields.io/badge/Teal-20DFD9-20DFD9) | `rgb(32, 223, 217)` | `(86, 0, 3, 13)` | (brain) |
 
 #### Monochrome
 
