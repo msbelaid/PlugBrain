@@ -79,20 +79,18 @@ The following ratios are ordered from best to worst.
 
 ##### Light Logo Contrasts
 
-<div class="contrasts">
-- <span class="swatch cyan"></span>Cyan vs <span class="swatch dark-green"></span>Dark Green ([8.96:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=ADFEFD&bcolor=004852))
-- <span class="swatch teal"></span>Teal vs <span class="swatch dark-green"></span>Dark Green ([6.15:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=20DFD9&bcolor=004852))
-- <span class="swatch cyan"></span>Cyan vs <span class="swatch teal"></span>Teal ([1.45:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=ADFEFD&bcolor=20DFD9))
-- <span class="swatch cyan"></span>Cyan vs <span class="swatch beige"></span>Beige ([1.05:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=ADFEFD&bcolor=F9F5F4))
+- Cyan ![#ADFEFD](https://img.shields.io/badge/Cyan-ADFEFD-ADFEFD) vs Dark Green ![#004852](https://img.shields.io/badge/DarkGreen-004852-004852) ([8.96:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=ADFEFD&bcolor=004852))
+- Teal ![#20DFD9](https://img.shields.io/badge/Teal-20DFD9-20DFD9) vs Dark Green ![#004852](https://img.shields.io/badge/DarkGreen-004852-004852) ([6.15:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=20DFD9&bcolor=004852))
+- Cyan ![#ADFEFD](https://img.shields.io/badge/Cyan-ADFEFD-ADFEFD) vs Teal ![#20DFD9](https://img.shields.io/badge/Teal-20DFD9-20DFD9) ([1.45:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=ADFEFD&bcolor=20DFD9))
+- Cyan ![#ADFEFD](https://img.shields.io/badge/Cyan-ADFEFD-ADFEFD) vs Beige ![#F9F5F4](https://img.shields.io/badge/Beige-F9F5F4-F9F5F4) ([1.05:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=ADFEFD&bcolor=F9F5F4))
 
 I have not made all the comparisons to Beige because it is a very similar lightness to Cyan.
 
 ##### Dark Logo Contrasts
 
-- <span class="swatch dark-blue"></span>Dark Blue vs <span class="swatch teal"></span>Teal ([10.91:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=001824&bcolor=20DFD9))
-- <span class="swatch dark-blue"></span>Dark Blue vs <span class="swatch dark-teal"></span>Dark Teal ([3.39:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=001824&bcolor=0D7777))
-- <span class="swatch teal"></span>Teal vs <span class="swatch dark-teal"></span>Dark Teal ([3.21:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=20DFD9&bcolor=0D7777))
-</div> <!-- contrasts -->
+- Dark Blue ![#001824](https://img.shields.io/badge/DarkBlue-001824-001824) vs Teal ![#20DFD9](https://img.shields.io/badge/Teal-20DFD9-20DFD9 ([10.91:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=001824&bcolor=20DFD9))
+- Dark Blue ![#001824](https://img.shields.io/badge/DarkBlue-001824-001824) vs Dark Teal ![#0D7777](https://img.shields.io/badge/DarkTeal-0D7777-0D7777) ([3.39:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=001824&bcolor=0D7777))
+- Teal ![#20DFD9](https://img.shields.io/badge/Teal-20DFD9-20DFD9) vs Dark Teal ![#0D7777](https://img.shields.io/badge/DarkTeal-0D7777-0D7777) ([3.21:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=20DFD9&bcolor=0D7777))
 
 
 ##### Color In Other Contexts
@@ -135,10 +133,9 @@ The RGB-PNG folder:
 
 ###### Android App Icons
 
-<figure>
 ![light logo in a circle mask](./Logo/Digital/02-Android/Android_App_Icons/mipmap-xhdpi/ic_launcher.png)
-<figcaption>the ic_launcher file from the folder mipmap-xhdpi</figcaption>
-</figure>
+
+Above is the ic_launcher file from the folder mipmap-xhdpi.
 
 This folder includes the output files from the [Figma mockup](https://www.figma.com/design/oTZT3XovkdQTZJnk4rwuJF/Android-App-Icons-PlugBrain?m=auto&t=2W21jKbHADO1M3ev-1). The Light logo SVG forms the basis of the launcher icon while the Light Monochrome Transparent logo SVG makes the adaptive icon examples.
 
