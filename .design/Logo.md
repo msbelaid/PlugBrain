@@ -89,7 +89,7 @@ I have not made all the comparisons to Beige because it is a very similar lightn
 
 ##### Dark Logo Contrasts
 
-- Dark Blue ![#001824](https://img.shields.io/badge/DarkBlue-001824-001824) vs Teal ![#20DFD9](https://img.shields.io/badge/Teal-20DFD9-20DFD9 ([10.91:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=001824&bcolor=20DFD9))
+- Dark Blue ![#001824](https://img.shields.io/badge/DarkBlue-001824-001824) vs Teal ![#20DFD9](https://img.shields.io/badge/Teal-20DFD9-20DFD9) ([10.91:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=001824&bcolor=20DFD9))
 - Dark Blue ![#001824](https://img.shields.io/badge/DarkBlue-001824-001824) vs Dark Teal ![#0D7777](https://img.shields.io/badge/DarkTeal-0D7777-0D7777) ([3.39:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=001824&bcolor=0D7777))
 - Teal ![#20DFD9](https://img.shields.io/badge/Teal-20DFD9-20DFD9) vs Dark Teal ![#0D7777](https://img.shields.io/badge/DarkTeal-0D7777-0D7777) ([3.21:1 WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=20DFD9&bcolor=0D7777))
 
