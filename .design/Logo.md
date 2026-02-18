@@ -47,7 +47,7 @@ CMYK and RGB colour values are from Inkscape.
 
 #### Dark
 
-![dark mode logo](./Logo/Digital/02-Android/Google_Play_Icons/02-RGB-PNG/256px/Dark.png)
+![dark mode logo](./Logo/Digital/02-Android/Google_Play_Icons/256px/Dark.png)
 
 | Color | HEX | Preview | RGB | CMYK | Places |
 |---|---|---|---|---|---|
