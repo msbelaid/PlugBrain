@@ -36,66 +36,13 @@ CMYK and RGB colour values are from Inkscape.
 
 ![light mode logo](./Logo/Digital/02-Android/Google_Play_Icons/256px/Light.png)
 
-|Color| HTML | Preview | Places | 
-|---|---|---|---|
-| Cyan | `#ADFEFD` | ![#ADFEFD](https://img.shields.io/badge/Cyan-ADFEFD-ADFEFD) | (plug slot, prongs, and cable) |
-| Teal   | `#20DFD9` | ![#20DFD9](https://img.shields.io/badge/Teal-20DFD9-20DFD9)| (plug) |
-| Dark Green | `#004852`| ![#004852](https://img.shields.io/badge/Dark-Green-004852-004852) | (brain and plug cable outline) |
-| Beige | `#F9F5F4` | ![#F9F5F4](https://img.shields.io/badge/Beige-F9F5F4-F9F5F4) | (background) |
+|Color| HEX | Preview | RGB| CMYK| Places | 
+|---|---|---|---|---|---|
+| Cyan | `#ADFEFD` | ![#ADFEFD](https://img.shields.io/badge/Cyan-ADFEFD-ADFEFD) | `rgb(173, 254, 253)`| `(32, 0, 0, 0)` |(plug slot, prongs, and cable) |
+| Teal   | `#20DFD9` | ![#20DFD9](https://img.shields.io/badge/Teal-20DFD9-20DFD9)| `rgb(32, 223, 217)` | `(86, 0, 3, 13)` | (plug) |
+| Dark Green | `#004852`| ![#004852](https://img.shields.io/badge/DarkGreen-004852-004852)| `rgb(0, 72, 82)` | `(100, 12, 0, 68)` | (brain and plug cable outline) |
+| Beige | `#F9F5F4` | ![#F9F5F4](https://img.shields.io/badge/Beige-F9F5F4-F9F5F4) | `rgb(249, 245, 244)` | `(0, 2, 2, 2)` | (background) |
 
-<div class="flex-horizontal">
-<dl>
-<dt>Name</dt>
-<dd>Cyan</dd>
-<dt>Swatch</dt>
-<dd><span class="swatch cyan"></span></dd>
-<dt>RGB</dt>
-<dd>R 173</dd><dd>G 254</dd><dd>B 253</dd>
-<dt>CMYK</dt>
-<dd>C 32</dd><dd>M 0</dd><dd>Y 0</dd><dd>K 0</dd>
-<dt>HEX</dt>
-<dd>#adfefd</dd>
-</dl>
-
-<dl>
-<dt>Name</dt>
-<dd>Teal</dd>
-<dt>Swatch</dt>
-<dd><span class="swatch teal"></span></dd>
-<dt>RGB</dt>
-<dd>R 32</dd><dd>G 223</dd><dd>B 217</dd>
-<dt>CMYK</dt>
-<dd>C 86</dd><dd>M 0</dd><dd>Y 3</dd><dd>K 13</dd>
-<dt>HEX</dt>
-<dd>#20dfd9</dd>
-</dl>
-
-<dl>
-<dt>Name</dt>
-<dd>Dark Green</dd>
-<dt>Swatch</dt>
-<dd><span class="swatch dark-green"></span></dd>
-<dt>RGB</dt>
-<dd>R 0</dd><dd>G 72</dd><dd>B 82</dd>
-<dt>CMYK</dt>
-<dd>C 100</dd><dd>M 12</dd><dd>Y 0</dd><dd>K 68</dd>
-<dt>HEX</dt>
-<dd>#004852</dd>
-</dl>
-
-<dl>
-<dt>Name</dt>
-<dd>Beige</dd>
-<dt>Swatch</dt>
-<dd><span class="swatch beige"></span></dd>
-<dt>RGB</dt>
-<dd>R 249</dd><dd>G 245</dd><dd>B 244</dd>
-<dt>CMYK</dt>
-<dd>C 0</dd><dd>M 2</dd><dd>Y 2</dd><dd>K 2</dd>
-<dt>HEX</dt>
-<dd>#f9f5f4</dd>
-</dl>
-</div> <!-- flex-horizontal -->
 
 
 #### Dark
