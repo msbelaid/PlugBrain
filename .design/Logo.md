@@ -34,7 +34,7 @@ CMYK and RGB colour values are from Inkscape.
 
 #### Light
 
-![light mode logo](./Logo/Digital/02-Android/Google_Play_Icons/256px/Light.png)
+![light mode logo](/Logo/Digital/02-Android/Google_Play_Icons/256px/Light.png)
 
 |Color| HEX | Preview | RGB| CMYK| Places | 
 |---|---|---|---|---|---|
@@ -47,7 +47,7 @@ CMYK and RGB colour values are from Inkscape.
 
 #### Dark
 
-![dark mode logo](./Logo/Digital/02-Android/Google_Play_Icons/256px/Dark.png)
+![dark mode logo](/Logo/Digital/02-Android/Google_Play_Icons/256px/Dark.png)
 
 | Color | HEX | Preview | RGB | CMYK | Places |
 |---|---|---|---|---|---|
@@ -59,8 +59,8 @@ CMYK and RGB colour values are from Inkscape.
 
 The light monochrome logo has the plug slots, background, and entire plug shape as white while the brain is black. In the dark monochrome logo, the colour schemes are inversed.
 
-![dark mode logo](./Logo/Digital/02-Android/Google_Play_Icons/256px/Dark-Monochrome.png)
-![light mode logo](./Logo/Digital/02-Android/Google_Play_Icons/256px/Light-Monochrome.png)
+![dark mode logo](/Logo/Digital/02-Android/Google_Play_Icons/256px/Dark-Monochrome.png)
+![light mode logo](/Logo/Digital/02-Android/Google_Play_Icons/256px/Light-Monochrome.png)
 
 <ul class="col-list">
 <li><span class="swatch black"></span>Black <strong>#000000</strong></li>
@@ -133,7 +133,7 @@ The RGB-PNG folder:
 
 ###### Android App Icons
 
-![light logo in a circle mask](./Logo/Digital/02-Android/Android_App_Icons/mipmap-xhdpi/ic_launcher.png)
+![light logo in a circle mask](/Logo/Digital/02-Android/Android_App_Icons/mipmap-xhdpi/ic_launcher.png)
 
 Above is the ic_launcher file from the folder mipmap-xhdpi.
 
