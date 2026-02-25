@@ -16,7 +16,7 @@ private val DarkColorScheme =
     secondary = Primary400,
     surface = Neutral700,
     onSurface = Primary100,
-    onPrimary = LightBG,
+    onPrimary = White,
     onSecondary = Primary100,
     background = Neutral900,
     error = Error500,
@@ -26,11 +26,11 @@ private val LightColorScheme =
   lightColorScheme(
     primary = Primary500,
     secondary = Primary400,
-    surface = LightBG,
+    surface = White,
     onSurface = Primary900,
-    onPrimary = LightBG,
+    onPrimary = White,
     onSecondary = Primary900,
-    background = LightBG,
+    background = White,
     error = Error500,
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
