@@ -63,5 +63,5 @@ val GradientEnd = Color(0xFF0D7777)
 
 // The Linear Gradient Brush
 val PrimaryGradient = Brush.linearGradient(
-  colors = listOf(GradientStart, GradientEnd)
+  colors = listOf(GradientStart, GradientEnd),
 )
