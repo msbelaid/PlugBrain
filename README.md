@@ -20,6 +20,10 @@ To regain access, you’ll need to solve a math challenge that adjusts in diffic
 the more frequently you use the apps, 
 the harder the challenges become, but the longer you stay away, the easier they get.
 
+> [!IMPORTANT]
+> We're currently working on a **new UI redesign** based on a Figma design to make the app more modern and intuitive.
+> Huge thanks to [@HichemDahaoui](https://github.com/HichemDahaoui) for the amazing design work, and to [@travis-jeans](https://github.com/travis-jeans) for the new app icon.
+
 ## Features
   - Blocks distracting apps
   - Unblock apps by solving math challenges
