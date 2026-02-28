@@ -1,14 +1,7 @@
 package app.plugbrain.android.ui.theme
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
 
 // New Color Theme
 val Black = Color(0xFF000000)
@@ -63,3 +56,12 @@ val Warning600 = Color(0xFFB45309)
 val Warning700 = Color(0xFF92400E)
 val Warning800 = Color(0xFF78350F)
 val Warning900 = Color(0xFF5A2A0C)
+
+// Gradient Colors
+val GradientStart = Color(0xFF2497AE)
+val GradientEnd = Color(0xFF0D7777)
+
+// The Linear Gradient Brush
+val PrimaryGradient = Brush.linearGradient(
+  colors = listOf(GradientStart, GradientEnd),
+)
