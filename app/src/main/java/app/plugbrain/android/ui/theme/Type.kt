@@ -22,41 +22,41 @@ val Typography =
       fontFamily = SoraFontFamily,
       fontWeight = FontWeight.SemiBold,
       fontSize = 32.sp,
-      lineHeight = 40.sp
+      lineHeight = 40.sp,
     ),
 
     headlineLarge = TextStyle(
       fontFamily = SoraFontFamily,
       fontWeight = FontWeight.Bold,
       fontSize = 24.sp,
-      lineHeight = 28.sp
+      lineHeight = 28.sp,
     ),
 
     titleLarge = TextStyle(
       fontFamily = SoraFontFamily,
       fontWeight = FontWeight.SemiBold,
       fontSize = 14.sp,
-      lineHeight = 18.sp
+      lineHeight = 18.sp,
     ),
 
     bodyLarge = TextStyle(
       fontFamily = SoraFontFamily,
       fontWeight = FontWeight.Normal,
       fontSize = 16.sp,
-      lineHeight = 22.sp
+      lineHeight = 22.sp,
     ),
 
     labelLarge = TextStyle(
       fontFamily = SoraFontFamily,
       fontWeight = FontWeight.SemiBold,
       fontSize = 14.sp,
-      lineHeight = 18.sp
+      lineHeight = 18.sp,
     ),
 
     labelSmall = TextStyle(
       fontFamily = SoraFontFamily,
       fontWeight = FontWeight.SemiBold,
       fontSize = 14.sp,
-      lineHeight = 18.sp
-    )
+      lineHeight = 18.sp,
+    ),
   )
