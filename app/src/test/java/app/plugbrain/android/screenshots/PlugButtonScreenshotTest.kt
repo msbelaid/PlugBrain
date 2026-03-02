@@ -31,7 +31,7 @@ class PlugButtonScreenshotTest {
             MathlockAppTheme(dynamicColor = false) {
                 Column(
                     modifier = Modifier.background(MaterialTheme.colorScheme.background),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     PlugButtonPrimary(
                         text = "Primary Button with icon",
