@@ -4,9 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
@@ -28,51 +30,66 @@ class PlugButtonScreenshotTest {
     @Test
     fun plugButtonTests() {
         paparazzi.snapshot {
-            MathlockAppTheme(dynamicColor = false) {
-                Column(
-                    modifier = Modifier.background(MaterialTheme.colorScheme.background),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    PlugButtonPrimary(
-                        text = "Primary Button with icon",
-                        onClick = {},
-                        icon = Icons.Default.Settings,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    PlugButtonPrimary(
-                        text = "Primary Button disabled",
-                        onClick = {},
-                        enabled = false,
-                        icon = Icons.Default.Settings,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    PlugButtonSecondary(
-                        text = "Secondary Button",
-                        onClick = {},
-                        icon = Icons.Default.Settings,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    PlugButtonSecondary(
-                        text = "Secondary Button",
-                        onClick = {},
-                        enabled = false,
-                        icon = Icons.Default.Settings,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    PlugButtonTertiary(
-                        text = "Tertiary Button",
-                        onClick = {},
-                        icon = Icons.Default.Settings,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    PlugButtonTertiary(
-                        text = "Tertiary Button",
-                        onClick = {},
-                        enabled = false,
-                        icon = Icons.Default.Settings,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                }
+            plugButtonsTest(darkTheme = false)
+        }
+    }
+
+    @Test
+    fun plugButtonDarkModeTests() {
+        paparazzi.snapshot {
+            plugButtonsTest(darkTheme = true)
+        }
+    }
+
+    @Composable
+    private fun plugButtonsTest(darkTheme: Boolean) {
+        MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
+            Column(
+                modifier =
+                    Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(32.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                PlugButtonPrimary(
+                    text = "Primary Button with icon",
+                    onClick = {},
+                    icon = Icons.Default.Settings,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                PlugButtonPrimary(
+                    text = "Primary Button disabled",
+                    onClick = {},
+                    enabled = false,
+                    icon = Icons.Default.Settings,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                PlugButtonSecondary(
+                    text = "Secondary Button",
+                    onClick = {},
+                    icon = Icons.Default.Settings,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                PlugButtonSecondary(
+                    text = "Secondary Button",
+                    onClick = {},
+                    enabled = false,
+                    icon = Icons.Default.Settings,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                PlugButtonTertiary(
+                    text = "Tertiary Button",
+                    onClick = {},
+                    icon = Icons.Default.Settings,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                PlugButtonTertiary(
+                    text = "Tertiary Button",
+                    onClick = {},
+                    enabled = false,
+                    icon = Icons.Default.Settings,
+                    modifier = Modifier.fillMaxWidth(),
+                )
             }
         }
     }
