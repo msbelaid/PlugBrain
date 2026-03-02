@@ -83,9 +83,44 @@ jobs:
             **/build/reports/tests/
             **/build/test-results/
 
+  screenshot-tests:
+    name: Screenshot Tests (Paparazzi)
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Verify Paparazzi snapshots
+        run: ./gradlew verifyPaparazziDebug
+
+      - name: Upload Paparazzi report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paparazzi-report
+          path: app/build/paparazzi/
+
   ui-tests:
     name: UI Tests
-    needs: [build, unit-tests]
+    needs: [build, unit-tests, screenshot-tests]
     runs-on: ubuntu-latest
     env:
       ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL: 5
@@ -168,7 +203,7 @@ jobs:
 
   sign_and_release:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [build, lint, unit-tests, ui-tests]
+    needs: [build, lint, unit-tests, screenshot-tests, ui-tests]
     runs-on: ubuntu-latest
 
     steps:
