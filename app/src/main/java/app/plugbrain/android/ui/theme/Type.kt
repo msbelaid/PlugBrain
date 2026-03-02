@@ -49,7 +49,7 @@ val Typography =
     labelLarge = TextStyle(
       fontFamily = SoraFontFamily,
       fontWeight = FontWeight.SemiBold,
-      fontSize = 14.sp,
+      fontSize = 16.sp,
       lineHeight = 18.sp,
     ),
 
