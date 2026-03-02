@@ -116,7 +116,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: paparazzi-report
-          path: app/build/reports/paparazzi/
+          path: app/build/reports/
 
   ui-tests:
     name: UI Tests
