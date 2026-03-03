@@ -19,8 +19,11 @@ private val DarkColorScheme =
     onPrimary = White,
     onSecondary = Primary100,
     background = Neutral900,
-    error = Error500,
+    error = Error600,
     outline = Neutral200,
+    surfaceVariant = Neutral500,
+    onSurfaceVariant = Neutral300,
+    tertiary = Success300,
   )
 
 private val LightColorScheme =
@@ -34,6 +37,9 @@ private val LightColorScheme =
     background = White,
     error = Error500,
     outline = Neutral300,
+    surfaceVariant = Neutral100,
+    onSurfaceVariant = Neutral300,
+    tertiary = Success500,
   )
 
 @Composable

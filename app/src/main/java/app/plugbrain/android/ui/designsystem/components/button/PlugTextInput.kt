@@ -1,0 +1,213 @@
+package app.plugbrain.android.ui.designsystem.components.button
+
+import android.content.res.Configuration
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInputDefaults.ElevationFocused
+import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInputDefaults.Shape
+import app.plugbrain.android.ui.theme.MathlockAppTheme
+
+@Composable
+fun PlugNumericalInput(
+  value: String,
+  onValueChange: (String) -> Unit,
+  onSubmit: (Int?) -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  isSuccess: Boolean = false,
+  isError: Boolean = false,
+  placeholder: String,
+) {
+  val focusBorderColor = when {
+    isError -> MaterialTheme.colorScheme.error
+    isSuccess -> MaterialTheme.colorScheme.tertiary
+    else -> MaterialTheme.colorScheme.primary
+  }
+  val unfocusBorderColor = when {
+    isError -> MaterialTheme.colorScheme.error
+    isSuccess -> MaterialTheme.colorScheme.tertiary
+    else -> MaterialTheme.colorScheme.outline
+  }
+  val focusTextColor = when {
+    isError -> MaterialTheme.colorScheme.error
+    isSuccess -> MaterialTheme.colorScheme.tertiary
+    else -> MaterialTheme.colorScheme.onSurface
+  }
+  val interactionSource = remember { MutableInteractionSource() }
+  val isFocused by interactionSource.collectIsFocusedAsState()
+  val elevation by animateDpAsState(
+    if (isFocused) ElevationFocused else 0.dp,
+    label = "anim_elevation",
+  )
+  OutlinedTextField(
+    value = value,
+    onValueChange = onValueChange,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    keyboardOptions = KeyboardOptions(
+      keyboardType = KeyboardType.Number,
+      imeAction = ImeAction.Done,
+    ),
+    keyboardActions = KeyboardActions(
+      onDone = { onSubmit(value.toIntOrNull()) },
+    ),
+    textStyle = MaterialTheme.typography.labelLarge.copy(
+      textAlign = TextAlign.Center,
+    ),
+    singleLine = true,
+    placeholder = {
+      Text(
+        text = placeholder,
+        style = MaterialTheme.typography.labelLarge,
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.Center,
+      )
+    },
+    colors = OutlinedTextFieldDefaults.colors(
+      focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+      unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+      focusedTextColor = focusTextColor,
+      unfocusedTextColor = focusTextColor,
+      focusedPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+      unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+      focusedBorderColor = focusBorderColor,
+      unfocusedBorderColor = unfocusBorderColor,
+    ),
+    shape = Shape,
+    trailingIcon = {
+      PlugNumericalInputIcon(isSuccess = isSuccess, isError = isError)
+    },
+    modifier = modifier.then(
+      if (isFocused || isSuccess || isError) {
+        Modifier.shadow(
+          elevation = elevation,
+          ambientColor = focusBorderColor,
+          spotColor = focusBorderColor,
+          shape = Shape,
+        )
+      } else {
+        Modifier
+      },
+    ),
+  )
+}
+
+private object PlugNumericalInputDefaults {
+  val Shape = RoundedCornerShape(50)
+  val ElevationFocused = 12.dp
+}
+
+@Composable
+private fun PlugNumericalInputIcon(
+  isSuccess: Boolean,
+  isError: Boolean,
+) {
+  when {
+    isSuccess -> Icon(
+      imageVector = Icons.Default.Check,
+      tint = MaterialTheme.colorScheme.tertiary,
+      contentDescription = "Input valid",
+    )
+    isError -> Icon(
+      imageVector = Icons.Default.Clear,
+      tint = MaterialTheme.colorScheme.error,
+      contentDescription = "Input invalid",
+    )
+  }
+}
+
+@Preview(
+  name = "Light Mode",
+  showBackground = true,
+  uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+  name = "Dark Mode",
+  showBackground = true,
+  uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Composable
+private fun PlugNumericalInputPreview() {
+  val focusRequester = remember { FocusRequester() }
+
+  LaunchedEffect(Unit) {
+    focusRequester.requestFocus()
+  }
+
+  MathlockAppTheme(dynamicColor = false) {
+    Column(
+      modifier = Modifier.background(MaterialTheme.colorScheme.surface),
+    ) {
+      PlugNumericalInput(
+        value = "",
+        onValueChange = {},
+        onSubmit = {},
+        placeholder = "Unfocused",
+        modifier = Modifier
+          .padding(8.dp)
+          .fillMaxWidth(),
+      )
+      PlugNumericalInput(
+        value = "Focused",
+        onValueChange = {},
+        onSubmit = {},
+        placeholder = "Focused",
+        modifier = Modifier
+          .focusRequester(focusRequester)
+          .focusable()
+          .padding(8.dp)
+          .fillMaxWidth(),
+      )
+      PlugNumericalInput(
+        value = "Success",
+        onValueChange = {},
+        onSubmit = {},
+        placeholder = "Success",
+        isSuccess = true,
+        modifier = Modifier
+          .padding(8.dp)
+          .fillMaxWidth(),
+      )
+      PlugNumericalInput(
+        value = "Error",
+        onValueChange = {},
+        onSubmit = {},
+        placeholder = "Error",
+        isError = true,
+        modifier = Modifier
+          .padding(8.dp)
+          .fillMaxWidth(),
+      )
+    }
+  }
+}
