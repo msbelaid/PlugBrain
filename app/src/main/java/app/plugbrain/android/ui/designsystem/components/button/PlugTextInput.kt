@@ -67,7 +67,7 @@ fun PlugNumericalInput(
   val isFocused by interactionSource.collectIsFocusedAsState()
   val elevation by animateDpAsState(
     if (isFocused) ElevationFocused else 0.dp,
-    label = "anim_elevation"
+    label = "anim_elevation",
   )
   OutlinedTextField(
     value = value,
@@ -76,13 +76,13 @@ fun PlugNumericalInput(
     interactionSource = interactionSource,
     keyboardOptions = KeyboardOptions(
       keyboardType = KeyboardType.Number,
-      imeAction = ImeAction.Done
+      imeAction = ImeAction.Done,
     ),
     keyboardActions = KeyboardActions(
-      onDone = { onSubmit(value.toIntOrNull()) }
+      onDone = { onSubmit(value.toIntOrNull()) },
     ),
     textStyle = MaterialTheme.typography.labelLarge.copy(
-      textAlign = TextAlign.Center
+      textAlign = TextAlign.Center,
     ),
     singleLine = true,
     placeholder = {
@@ -113,12 +113,12 @@ fun PlugNumericalInput(
           elevation = elevation,
           ambientColor = focusBorderColor,
           spotColor = focusBorderColor,
-          shape = Shape
+          shape = Shape,
         )
       } else {
         Modifier
-      }
-    )
+      },
+    ),
   )
 }
 
@@ -130,7 +130,7 @@ private object PlugNumericalInputDefaults {
 @Composable
 private fun PlugNumericalInputIcon(
   isSuccess: Boolean,
-  isError: Boolean
+  isError: Boolean,
 ) {
   when {
     isSuccess -> Icon(
@@ -166,7 +166,7 @@ private fun PlugNumericalInputPreview() {
 
   MathlockAppTheme(dynamicColor = false) {
     Column(
-      modifier = Modifier.background(MaterialTheme.colorScheme.surface)
+      modifier = Modifier.background(MaterialTheme.colorScheme.surface),
     ) {
       PlugNumericalInput(
         value = "",
@@ -175,7 +175,7 @@ private fun PlugNumericalInputPreview() {
         placeholder = "Unfocused",
         modifier = Modifier
           .padding(8.dp)
-          .fillMaxWidth()
+          .fillMaxWidth(),
       )
       PlugNumericalInput(
         value = "Focused",
@@ -186,7 +186,7 @@ private fun PlugNumericalInputPreview() {
           .focusRequester(focusRequester)
           .focusable()
           .padding(8.dp)
-          .fillMaxWidth()
+          .fillMaxWidth(),
       )
       PlugNumericalInput(
         value = "Success",
@@ -196,7 +196,7 @@ private fun PlugNumericalInputPreview() {
         isSuccess = true,
         modifier = Modifier
           .padding(8.dp)
-          .fillMaxWidth()
+          .fillMaxWidth(),
       )
       PlugNumericalInput(
         value = "Error",
@@ -206,7 +206,7 @@ private fun PlugNumericalInputPreview() {
         isError = true,
         modifier = Modifier
           .padding(8.dp)
-          .fillMaxWidth()
+          .fillMaxWidth(),
       )
     }
   }
