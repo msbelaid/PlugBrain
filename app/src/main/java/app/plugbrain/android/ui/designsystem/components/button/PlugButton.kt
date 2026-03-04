@@ -2,7 +2,9 @@ package app.plugbrain.android.ui.designsystem.components.button
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,14 +22,21 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
 import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PrimaryGradient
 
-// TODO add Primary button with the gradient
+val shape = RoundedCornerShape(50)
+val buttonPadding = PaddingValues(
+  horizontal = 24.dp,
+  vertical = 15.dp,
+)
+
 @Composable
 fun PlugButtonPrimary(
   text: String,
@@ -36,17 +45,26 @@ fun PlugButtonPrimary(
   enabled: Boolean = true,
   icon: ImageVector? = null,
 ) {
-  val shape = RoundedCornerShape(50)
-
   Button(
     onClick = onClick,
-    modifier = modifier,
     enabled = enabled,
     shape = shape,
-    elevation = ButtonDefaults.buttonElevation(
-      defaultElevation = 8.dp,
-      pressedElevation = 0.dp,
+    contentPadding = buttonPadding,
+    colors = ButtonDefaults.buttonColors(
+      containerColor = Color.Transparent,
+      disabledContainerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
     ),
+    modifier = modifier
+      .then(
+        if (enabled) {
+          Modifier.background(
+            brush = PrimaryGradient,
+            shape = shape,
+          )
+        } else {
+          Modifier
+        },
+      ),
   ) {
     ButtonContent(
       text = text,
@@ -63,13 +81,12 @@ fun PlugButtonSecondary(
   enabled: Boolean = true,
   icon: ImageVector? = null,
 ) {
-  val shape = RoundedCornerShape(50)
-
   OutlinedButton(
     onClick = onClick,
     modifier = modifier,
     enabled = enabled,
     shape = shape,
+    contentPadding = buttonPadding,
   ) {
     ButtonContent(
       text = text,
@@ -86,13 +103,12 @@ fun PlugButtonTertiary(
   enabled: Boolean = true,
   icon: ImageVector? = null,
 ) {
-  val shape = RoundedCornerShape(50)
-
   TextButton(
     onClick = onClick,
     modifier = modifier,
     enabled = enabled,
     shape = shape,
+    contentPadding = buttonPadding,
   ) {
     ButtonContent(
       text = text,
@@ -142,11 +158,17 @@ private fun PlugButtonPreview() {
   MathlockAppTheme(dynamicColor = false) {
     Column(
       modifier = Modifier.background(MaterialTheme.colorScheme.background),
+      verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
       PlugButtonPrimary(
         text = "Primary Button with icon",
         onClick = {},
         icon = Icons.Default.Settings,
+        modifier = Modifier.fillMaxWidth(),
+      )
+      PlugButtonPrimary(
+        text = "Primary Button without icon",
+        onClick = {},
         modifier = Modifier.fillMaxWidth(),
       )
       PlugButtonPrimary(
