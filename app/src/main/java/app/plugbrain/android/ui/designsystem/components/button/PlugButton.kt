@@ -34,7 +34,7 @@ import app.plugbrain.android.ui.theme.PrimaryGradient
 val shape = RoundedCornerShape(50)
 val buttonPadding = PaddingValues(
   horizontal = 24.dp,
-  vertical = 15.dp
+  vertical = 15.dp,
 )
 
 @Composable
@@ -52,19 +52,19 @@ fun PlugButtonPrimary(
     contentPadding = buttonPadding,
     colors = ButtonDefaults.buttonColors(
       containerColor = Color.Transparent,
-      disabledContainerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
+      disabledContainerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
     ),
     modifier = modifier
       .then(
         if (enabled) {
           Modifier.background(
             brush = PrimaryGradient,
-            shape = shape
+            shape = shape,
           )
         } else {
           Modifier
-        }
-      )
+        },
+      ),
   ) {
     ButtonContent(
       text = text,
@@ -86,7 +86,7 @@ fun PlugButtonSecondary(
     modifier = modifier,
     enabled = enabled,
     shape = shape,
-    contentPadding = buttonPadding
+    contentPadding = buttonPadding,
   ) {
     ButtonContent(
       text = text,
@@ -108,7 +108,7 @@ fun PlugButtonTertiary(
     modifier = modifier,
     enabled = enabled,
     shape = shape,
-    contentPadding = buttonPadding
+    contentPadding = buttonPadding,
   ) {
     ButtonContent(
       text = text,
@@ -158,7 +158,7 @@ private fun PlugButtonPreview() {
   MathlockAppTheme(dynamicColor = false) {
     Column(
       modifier = Modifier.background(MaterialTheme.colorScheme.background),
-      verticalArrangement = Arrangement.spacedBy(8.dp)
+      verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
       PlugButtonPrimary(
         text = "Primary Button with icon",
