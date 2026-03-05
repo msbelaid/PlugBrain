@@ -7,19 +7,22 @@ Plugbrain is open to design contributions: including UI/UX improvements, app ico
 2. Clearly describe your proposal and include previews or links (Figma / Sketch / XD / images).
 3. Align with our current visual direction:
    - Clean, minimal, focused look
-   - Brain + electric/energy motif as the core identity
    - Accessible colors and legible typography
+   - intentional friction in the blocking process
 
 ## What we look for
-- Designs that improve usability and clarity.
-- Improve the onboarding experience
-- Improve the challenge screen
-- Logo (App icon) redesign
-- Improve the screenshot assets for Google Play
-- Compliance with accessibility standards (color contrast, legibility).
+- New UX proposal for the Home screen (layout, hierarchy, and overall experience).
+- ~~Improve the onboarding experience~~
+- ~~Improve the challenge screen~~
+- ~~Logo (App icon) redesign~~
+- Strengthen store presence (F-Droid, Google Play, etc.): improve cover images, screenshots, and overall listing visuals.
+- Create a video tutorial for the onboarding experience
+- Study the UX on how to introduce intentional friction in the blocking process.
+- ...
 
 ## Assets & references
-- Current app screenshots and icon are available in the repo or issues.
-- If proposing a new asset (e.g. icon), include SVG when possible.
+- [PlugBrain App Icon](.design/Logo.md), credits to @travis-jeans
+- [Figma design](https://www.figma.com/design/uYAs8XFheRGrCAcSqTQ5Sb/PlugBrain---Github?node-id=256-890&m=dev&t=kjAGq9BIXpykhYhJ-1), credits to @HichemDahaoui
+
 
 Thank you for helping make Plugbrain better!
