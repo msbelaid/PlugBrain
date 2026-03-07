@@ -57,5 +57,7 @@
     <string name="continue_btn">Continue</string>
     <string name="cancel_btn">Cancel</string>
     <string name="challenge_answer_hint">Your answer</string>
+    <string name="plug_card_input_placeholder">Write your answer</string>
+    <string name="plug_card_check_answer">Check your answer</string>
     <string name="take_me_out_of_here">Take me out of here</string>
 </resources>
