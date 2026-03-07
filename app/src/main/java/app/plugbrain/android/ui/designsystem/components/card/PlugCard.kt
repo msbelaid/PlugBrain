@@ -5,14 +5,11 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -22,13 +19,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
+import app.plugbrain.android.ui.designsystem.components.button.PlugButtonSecondary
 import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInput
 import app.plugbrain.android.ui.theme.MathlockAppTheme
-import app.plugbrain.android.ui.theme.Success200
 
 @Composable
 fun PlugCard(
@@ -68,7 +66,7 @@ fun PlugCard(
       // Challenge text
       Text(
         text = challengeText,
-        style = MaterialTheme.typography.displayMedium,
+        style = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.Bold),
         color = MaterialTheme.colorScheme.onSurface,
         textAlign = TextAlign.Center,
         modifier = Modifier.fillMaxWidth(),
@@ -91,29 +89,17 @@ fun PlugCard(
       )
 
       // Check answer button
-      Button(
+      PlugButtonSecondary(
+        text = stringResource(R.string.plug_card_check_answer),
         onClick = { onCheckAnswer(inputValue.toIntOrNull()) },
         enabled = inputValue.isNotEmpty(),
-        shape = CheckButtonShape,
-        contentPadding = CheckButtonPadding,
-        colors = ButtonDefaults.buttonColors(
-          containerColor = MaterialTheme.colorScheme.surfaceVariant,
-          contentColor = Success200,
-          disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-          disabledContentColor = Success200.copy(alpha = 0.5f),
-        ),
         modifier = Modifier
           .fillMaxWidth()
           .shadow(
             elevation = ButtonElevation,
             shape = CheckButtonShape,
           ),
-      ) {
-        Text(
-          text = stringResource(R.string.plug_card_check_answer),
-          style = MaterialTheme.typography.labelLarge,
-        )
-      }
+      )
     }
   }
 }
@@ -121,10 +107,6 @@ fun PlugCard(
 private val CardShape = RoundedCornerShape(16.dp)
 private val CheckButtonShape = RoundedCornerShape(50)
 private val InputShadowShape = RoundedCornerShape(50)
-private val CheckButtonPadding = PaddingValues(
-  horizontal = 24.dp,
-  vertical = 15.dp,
-)
 private val CardElevation = 4.dp
 private val InputElevation = 2.dp
 private val ButtonElevation = 2.dp
