@@ -2,7 +2,6 @@ package app.plugbrain.android.screenshots
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -142,7 +141,6 @@ class PlugCardScreenshotTest {
                     onCheckAnswer = {},
                     isSuccess = isSuccess,
                     isError = isError,
-                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         }
