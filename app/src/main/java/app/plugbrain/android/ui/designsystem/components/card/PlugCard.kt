@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -18,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
 import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInput
 import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.Success200
 
 @Composable
 fun PlugCard(
@@ -37,7 +41,14 @@ fun PlugCard(
   isError: Boolean = false,
 ) {
   OutlinedCard(
-    modifier = modifier,
+    modifier = modifier
+      .width(329.dp)
+      .height(238.dp)
+      .shadow(
+        elevation = CardElevation,
+        shape = CardShape,
+        clip = false,
+      ),
     shape = CardShape,
     colors = CardDefaults.outlinedCardColors(
       containerColor = MaterialTheme.colorScheme.surface,
@@ -49,12 +60,12 @@ fun PlugCard(
   ) {
     Column(
       modifier = Modifier
-        .padding(24.dp)
+        .padding(horizontal = 20.dp, vertical = 16.dp)
         .fillMaxWidth(),
       horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(16.dp),
+      verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-      // Challenge text centered at top
+      // Challenge text
       Text(
         text = challengeText,
         style = MaterialTheme.typography.displayMedium,
@@ -63,7 +74,7 @@ fun PlugCard(
         modifier = Modifier.fillMaxWidth(),
       )
 
-      // Answer input field (grey fill)
+      // Answer input field
       PlugNumericalInput(
         value = inputValue,
         onValueChange = onInputChange,
@@ -71,10 +82,15 @@ fun PlugCard(
         placeholder = stringResource(R.string.plug_card_input_placeholder),
         isSuccess = isSuccess,
         isError = isError,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+          .fillMaxWidth()
+          .shadow(
+            elevation = InputElevation,
+            shape = InputShadowShape,
+          ),
       )
 
-      // Check answer button (nearly white fill, green text)
+      // Check answer button
       Button(
         onClick = { onCheckAnswer(inputValue.toIntOrNull()) },
         enabled = inputValue.isNotEmpty(),
@@ -82,11 +98,16 @@ fun PlugCard(
         contentPadding = CheckButtonPadding,
         colors = ButtonDefaults.buttonColors(
           containerColor = MaterialTheme.colorScheme.surfaceVariant,
-          contentColor = MaterialTheme.colorScheme.tertiary,
+          contentColor = Success200,
           disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-          disabledContentColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.5f),
+          disabledContentColor = Success200.copy(alpha = 0.5f),
         ),
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+          .fillMaxWidth()
+          .shadow(
+            elevation = ButtonElevation,
+            shape = CheckButtonShape,
+          ),
       ) {
         Text(
           text = stringResource(R.string.plug_card_check_answer),
@@ -99,12 +120,14 @@ fun PlugCard(
 
 private val CardShape = RoundedCornerShape(16.dp)
 private val CheckButtonShape = RoundedCornerShape(50)
+private val InputShadowShape = RoundedCornerShape(50)
 private val CheckButtonPadding = PaddingValues(
   horizontal = 24.dp,
   vertical = 15.dp,
 )
-
-// region Previews
+private val CardElevation = 4.dp
+private val InputElevation = 2.dp
+private val ButtonElevation = 2.dp
 
 @Preview(
   name = "Light Mode",
@@ -129,7 +152,6 @@ private fun PlugCardSmallNumbersPreview() {
         inputValue = "",
         onInputChange = {},
         onCheckAnswer = {},
-        modifier = Modifier.fillMaxWidth(),
       )
     }
   }
@@ -158,7 +180,6 @@ private fun PlugCardBigNumbersPreview() {
         inputValue = "",
         onInputChange = {},
         onCheckAnswer = {},
-        modifier = Modifier.fillMaxWidth(),
       )
     }
   }
@@ -187,7 +208,6 @@ private fun PlugCardWithInputPreview() {
         inputValue = "42",
         onInputChange = {},
         onCheckAnswer = {},
-        modifier = Modifier.fillMaxWidth(),
       )
     }
   }
@@ -217,7 +237,6 @@ private fun PlugCardSuccessPreview() {
         onInputChange = {},
         onCheckAnswer = {},
         isSuccess = true,
-        modifier = Modifier.fillMaxWidth(),
       )
     }
   }
@@ -247,7 +266,6 @@ private fun PlugCardErrorPreview() {
         onInputChange = {},
         onCheckAnswer = {},
         isError = true,
-        modifier = Modifier.fillMaxWidth(),
       )
     }
   }
@@ -276,7 +294,6 @@ private fun PlugCardSquareChallengePreview() {
         inputValue = "",
         onInputChange = {},
         onCheckAnswer = {},
-        modifier = Modifier.fillMaxWidth(),
       )
     }
   }
@@ -305,10 +322,7 @@ private fun PlugCardMissingChallengePreview() {
         inputValue = "",
         onInputChange = {},
         onCheckAnswer = {},
-        modifier = Modifier.fillMaxWidth(),
       )
     }
   }
 }
-
-// endregion
