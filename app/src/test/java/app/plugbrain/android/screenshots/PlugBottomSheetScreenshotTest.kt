@@ -13,10 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.plugbrain.android.R
-import app.plugbrain.android.ui.designsystem.components.button.PlugBottomSheetDrawer
+import app.plugbrain.android.ui.designsystem.components.sheetdrawer.PlugBottomSheetDrawer
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import org.junit.Rule
 import org.junit.Test
@@ -54,7 +50,6 @@ class PlugBottomSheetScreenshotTest {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun bottomSheetTest(darkTheme: Boolean = false) {
-        var showSheet by remember { mutableStateOf(true) }
         val sheetState = rememberModalBottomSheetState()
 
         LaunchedEffect(Unit) { sheetState.expand() }
@@ -87,7 +82,7 @@ class PlugBottomSheetScreenshotTest {
                 secondaryCtaText = "Stay Focused!",
                 secondaryCtaAction = { },
                 secondaryCtaIcon = Icons.Rounded.Check,
-                onDismiss = { showSheet = false },
+                onDismiss = { },
                 sheetState = sheetState,
             ) {
                 Text(

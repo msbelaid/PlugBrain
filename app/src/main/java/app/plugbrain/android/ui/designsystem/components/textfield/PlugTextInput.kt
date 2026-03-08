@@ -1,4 +1,4 @@
-package app.plugbrain.android.ui.designsystem.components.button
+package app.plugbrain.android.ui.designsystem.components.textfield
 
 import android.content.res.Configuration
 import androidx.compose.animation.core.animateDpAsState
@@ -36,9 +36,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInputDefaults.ElevationFeedback
-import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInputDefaults.ElevationFocused
-import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInputDefaults.Shape
+import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.ElevationFeedback
+import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.ElevationFocused
+import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.Shape
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 
 @Composable

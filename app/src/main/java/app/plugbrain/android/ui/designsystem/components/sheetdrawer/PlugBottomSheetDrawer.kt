@@ -1,4 +1,4 @@
-package app.plugbrain.android.ui.designsystem.components.button
+package app.plugbrain.android.ui.designsystem.components.sheetdrawer
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +32,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
+import app.plugbrain.android.ui.designsystem.components.button.PlugButtonPrimary
+import app.plugbrain.android.ui.designsystem.components.button.PlugButtonSecondary
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,20 +68,20 @@ fun PlugBottomSheetDrawer(
       if (title != null) title()
       if (content != null) content()
       if (primaryCtaText != null) {
-        PlugButtonPrimary(
-          text = primaryCtaText,
-          icon = primaryCtaIcon,
-          onClick = primaryCtaAction,
-          modifier = Modifier.fillMaxWidth(),
-        )
+          PlugButtonPrimary(
+              text = primaryCtaText,
+              icon = primaryCtaIcon,
+              onClick = primaryCtaAction,
+              modifier = Modifier.fillMaxWidth(),
+          )
       }
       if (secondaryCtaText != null) {
-        PlugButtonSecondary(
-          text = secondaryCtaText,
-          icon = secondaryCtaIcon,
-          onClick = secondaryCtaAction,
-          modifier = Modifier.fillMaxWidth(),
-        )
+          PlugButtonSecondary(
+              text = secondaryCtaText,
+              icon = secondaryCtaIcon,
+              onClick = secondaryCtaAction,
+              modifier = Modifier.fillMaxWidth(),
+          )
       }
     }
   }

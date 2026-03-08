@@ -16,7 +16,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
-import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInput
+import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInput
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import org.junit.Rule
 import org.junit.Test
