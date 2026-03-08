@@ -68,20 +68,20 @@ fun PlugBottomSheetDrawer(
       if (title != null) title()
       if (content != null) content()
       if (primaryCtaText != null) {
-          PlugButtonPrimary(
-              text = primaryCtaText,
-              icon = primaryCtaIcon,
-              onClick = primaryCtaAction,
-              modifier = Modifier.fillMaxWidth(),
-          )
+        PlugButtonPrimary(
+          text = primaryCtaText,
+          icon = primaryCtaIcon,
+          onClick = primaryCtaAction,
+          modifier = Modifier.fillMaxWidth(),
+        )
       }
       if (secondaryCtaText != null) {
-          PlugButtonSecondary(
-              text = secondaryCtaText,
-              icon = secondaryCtaIcon,
-              onClick = secondaryCtaAction,
-              modifier = Modifier.fillMaxWidth(),
-          )
+        PlugButtonSecondary(
+          text = secondaryCtaText,
+          icon = secondaryCtaIcon,
+          onClick = secondaryCtaAction,
+          modifier = Modifier.fillMaxWidth(),
+        )
       }
     }
   }
