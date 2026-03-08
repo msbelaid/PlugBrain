@@ -71,10 +71,10 @@ fun PlugNumericalInput(
   val isFocused by interactionSource.collectIsFocusedAsState()
   val elevation by animateDpAsState(
     when {
-        isFocused -> ElevationFocused
-        isSuccess -> ElevationFeedback
-        isError -> ElevationFeedback
-        else -> 0.dp
+      isFocused -> ElevationFocused
+      isSuccess -> ElevationFeedback
+      isError -> ElevationFeedback
+      else -> 0.dp
     },
     label = "anim_elevation",
   )
@@ -182,7 +182,7 @@ private fun PlugNumericalInputIcon(
 @Preview(
   name = "Font Scale",
   showBackground = true,
-  fontScale = 2f
+  fontScale = 2f,
 )
 @Preview(
   name = "Dark Mode",
