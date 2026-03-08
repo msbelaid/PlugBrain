@@ -58,7 +58,6 @@ class PlugNumericalInputFontScaleScreenshotTest {
     }
 }
 
-
 @Composable
 private fun numericalInputTest(darkTheme: Boolean = false) {
     val focusRequester = remember { FocusRequester() }
@@ -69,9 +68,10 @@ private fun numericalInputTest(darkTheme: Boolean = false) {
 
     MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
         Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.background)
-                .padding(32.dp),
+            modifier =
+                Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(32.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             PlugNumericalInput(
