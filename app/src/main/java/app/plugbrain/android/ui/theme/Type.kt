@@ -53,6 +53,13 @@ val Typography =
       lineHeight = 22.sp,
     ),
 
+    bodyMedium = TextStyle(
+      fontFamily = SoraFontFamily,
+      fontWeight = FontWeight.Normal,
+      fontSize = 14.sp,
+      lineHeight = 17.sp,
+    ),
+
     labelLarge = TextStyle(
       fontFamily = SoraFontFamily,
       fontWeight = FontWeight.SemiBold,

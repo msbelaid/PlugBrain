@@ -24,6 +24,7 @@ private val DarkColorScheme =
     surfaceVariant = Neutral500,
     onSurfaceVariant = Neutral300,
     tertiary = Success300,
+    onTertiary = White,
   )
 
 private val LightColorScheme =
@@ -38,8 +39,9 @@ private val LightColorScheme =
     error = Error500,
     outline = Neutral300,
     surfaceVariant = Neutral100,
-    onSurfaceVariant = Neutral300,
+    onSurfaceVariant = Neutral400,
     tertiary = Success500,
+    onTertiary = White,
   )
 
 @Composable
