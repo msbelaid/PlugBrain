@@ -42,6 +42,13 @@ val Typography =
     titleLarge = TextStyle(
       fontFamily = SoraFontFamily,
       fontWeight = FontWeight.SemiBold,
+      fontSize = 16.sp,
+      lineHeight = 22.sp,
+    ),
+
+    titleMedium = TextStyle(
+      fontFamily = SoraFontFamily,
+      fontWeight = FontWeight.SemiBold,
       fontSize = 14.sp,
       lineHeight = 18.sp,
     ),
