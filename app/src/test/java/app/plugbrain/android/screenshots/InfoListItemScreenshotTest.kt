@@ -5,20 +5,21 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.rounded.Layers
+import androidx.compose.material.icons.automirrored.rounded.TrendingUp
+import androidx.compose.material.icons.rounded.LockOpen
+import androidx.compose.material.icons.rounded.TrackChanges
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
-import app.plugbrain.android.ui.designsystem.components.listitem.PlugPermissionListItem
+import app.plugbrain.android.ui.designsystem.components.listitem.PlugInfoListItem
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import org.junit.Rule
 import org.junit.Test
 
-class PermissionListItemScreenshotTest {
+class InfoListItemScreenshotTest {
     @get:Rule
     val paparazzi =
         Paparazzi(
@@ -28,40 +29,41 @@ class PermissionListItemScreenshotTest {
     @Test
     fun permissionListItemGrantedTest() {
         paparazzi.snapshot {
-            permissionItemTest()
+            infoItemTest()
         }
     }
 
     @Test
     fun permissionListItemDarkModeTest() {
         paparazzi.snapshot {
-            permissionItemTest(darkTheme = true)
+            infoItemTest(darkTheme = true)
         }
     }
 
     @Composable
-    private fun permissionItemTest(darkTheme: Boolean = false) {
+    private fun infoItemTest(darkTheme: Boolean = false) {
         MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(24.dp),
                 modifier =
                     Modifier
                         .background(MaterialTheme.colorScheme.surface)
                         .padding(32.dp),
             ) {
-                PlugPermissionListItem(
-                    title = "App Usage access",
-                    description = "Lets PlugBrain track app usage so it can block distracting apps at the right time.",
-                    isGranted = true,
-                    icon = Icons.Filled.Search,
-                    onClick = {},
+                PlugInfoListItem(
+                    title = "Focus your attention",
+                    description = "Spend less time on apps that distract you.",
+                    icon = Icons.Rounded.TrackChanges,
                 )
-                PlugPermissionListItem(
-                    title = "Display over other apps",
-                    description = "Allows PlugBrain to display a challenge while you use a distracting app.",
-                    isGranted = false,
-                    icon = Icons.Rounded.Layers,
-                    onClick = {},
+                PlugInfoListItem(
+                    title = "Unlock with a challenge",
+                    description = "Solve a quick math challenge to keep using the app.",
+                    icon = Icons.Rounded.LockOpen,
+                )
+                PlugInfoListItem(
+                    title = "Gets harder the longer you stay",
+                    description = "Challenges increase in difficulty the longer you keep scrolling.",
+                    icon = Icons.AutoMirrored.Rounded.TrendingUp,
                 )
             }
         }

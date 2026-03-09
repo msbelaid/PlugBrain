@@ -2,30 +2,19 @@ package app.plugbrain.android.ui.designsystem.components.listitem
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ShowChart
 import androidx.compose.material.icons.automirrored.rounded.TrendingUp
-import androidx.compose.material.icons.filled.CenterFocusWeak
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.rounded.CenterFocusWeak
-import androidx.compose.material.icons.rounded.Layers
 import androidx.compose.material.icons.rounded.LockOpen
-import androidx.compose.material.icons.rounded.MyLocation
-import androidx.compose.material.icons.rounded.ShowChart
 import androidx.compose.material.icons.rounded.TrackChanges
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,7 +30,7 @@ fun PlugInfoListItem(
     horizontalArrangement = Arrangement.spacedBy(24.dp),
     verticalAlignment = Alignment.CenterVertically,
     modifier = Modifier
-      .background(MaterialTheme.colorScheme.surface)
+      .background(MaterialTheme.colorScheme.surface),
   ) {
     LeadingIcon(
       icon = icon,
