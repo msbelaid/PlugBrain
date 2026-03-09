@@ -3,10 +3,10 @@
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
-    <color name="icon_primary">#004852</color>
-    <color name="icon_secondary">#20DFD9</color>
-    <color name="icon_tertiary">#ADFEFD</color>
+    <color name="icon_primary">#20DFD9</color>
+    <color name="icon_secondary">#001824</color>
+    <color name="icon_tertiary">#0D7777</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="icon_background">#FFFFFF</color>
+    <color name="icon_background">#000000</color>
 </resources>
