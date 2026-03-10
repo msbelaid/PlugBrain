@@ -40,74 +40,73 @@ import app.plugbrain.android.ui.designsystem.components.button.PlugButtonPrimary
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugInfoListItem
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import app.plugbrain.android.ui.theme.Primary500
-import app.plugbrain.android.ui.theme.White
 
 @Composable
 fun WelcomeScreen() {
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.surface,
-        modifier = Modifier,
-        topBar = {},
-        bottomBar = {
-            PlugButtonPrimary(
-                text = stringResource(R.string.welcome_cta_title),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(32.dp),
-                onClick = {},
-            )
-        },
-    ) { paddingValues ->
-        var size by remember { mutableStateOf(IntSize.Zero) }
-        Column(
-            verticalArrangement = Arrangement.SpaceEvenly,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .onSizeChanged { size = it }
-                .fillMaxSize()
-                .background(CircularGradient(size))
-                .padding(paddingValues)
-                .padding(32.dp),
-        ) {
-            Image(painterResource(R.drawable.ic_launcher), "", modifier = Modifier.size(144.dp))
-            Text(stringResource(R.string.app_name), style = MaterialTheme.typography.displayLarge)
-            Text(
-                text = stringResource(R.string.welcome_title),
-                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Normal),
-                textAlign = TextAlign.Center
-            )
-            Spacer(Modifier.height(8.dp))
-            PlugInfoListItem(
-                modifier = Modifier.wrapContentSize(),
-                title = stringResource(R.string.welcome_feature_one_title),
-                description = stringResource(R.string.welcome_feature_one_description),
-                icon = Icons.Rounded.TrackChanges,
-            )
-            PlugInfoListItem(
-                title = stringResource(R.string.welcome_feature_two_title),
-                description = stringResource(R.string.welcome_feature_two_description),
-                icon = Icons.Rounded.LockOpen,
-            )
-            PlugInfoListItem(
-                title = stringResource(R.string.welcome_feature_three_title),
-                description = stringResource(R.string.welcome_feature_three_description),
-                icon = Icons.AutoMirrored.Rounded.TrendingUp,
-            )
-        }
+  Scaffold(
+    containerColor = MaterialTheme.colorScheme.surface,
+    modifier = Modifier,
+    topBar = {},
+    bottomBar = {
+      PlugButtonPrimary(
+        text = stringResource(R.string.welcome_cta_title),
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(32.dp),
+        onClick = {},
+      )
+    },
+  ) { paddingValues ->
+    var size by remember { mutableStateOf(IntSize.Zero) }
+    Column(
+      verticalArrangement = Arrangement.SpaceEvenly,
+      horizontalAlignment = Alignment.CenterHorizontally,
+      modifier = Modifier
+        .onSizeChanged { size = it }
+        .fillMaxSize()
+        .background(CircularGradient(size))
+        .padding(paddingValues)
+        .padding(32.dp),
+    ) {
+      Image(painterResource(R.drawable.ic_launcher), "", modifier = Modifier.size(144.dp))
+      Text(stringResource(R.string.app_name), style = MaterialTheme.typography.displayLarge)
+      Text(
+        text = stringResource(R.string.welcome_title),
+        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Normal),
+        textAlign = TextAlign.Center,
+      )
+      Spacer(Modifier.height(8.dp))
+      PlugInfoListItem(
+        modifier = Modifier.wrapContentSize(),
+        title = stringResource(R.string.welcome_feature_one_title),
+        description = stringResource(R.string.welcome_feature_one_description),
+        icon = Icons.Rounded.TrackChanges,
+      )
+      PlugInfoListItem(
+        title = stringResource(R.string.welcome_feature_two_title),
+        description = stringResource(R.string.welcome_feature_two_description),
+        icon = Icons.Rounded.LockOpen,
+      )
+      PlugInfoListItem(
+        title = stringResource(R.string.welcome_feature_three_title),
+        description = stringResource(R.string.welcome_feature_three_description),
+        icon = Icons.AutoMirrored.Rounded.TrendingUp,
+      )
     }
+  }
 }
 
 @Composable
 private fun CircularGradient(size: IntSize): Brush = Brush.radialGradient(
-    colors = listOf(Primary500, MaterialTheme.colorScheme.surface),
-    center = Offset(x = size.width / 2f, y = -size.height / 3f),
-    radius = 1500f,
+  colors = listOf(Primary500, MaterialTheme.colorScheme.surface),
+  center = Offset(x = size.width / 2f, y = -size.height / 3f),
+  radius = 1500f,
 )
 
 @Preview(showSystemUi = true)
 @Composable
 private fun WelcomeScreenPreview() {
-    MathlockAppTheme(dynamicColor = false) {
-        WelcomeScreen()
-    }
+  MathlockAppTheme(dynamicColor = false) {
+    WelcomeScreen()
+  }
 }
