@@ -1,15 +1,19 @@
-package app.plugbrain.android.ui.designsystem.components.button
+package app.plugbrain.android.ui.designsystem.components.textfield
 
 import android.content.res.Configuration
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -17,13 +21,12 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
@@ -33,8 +36,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInputDefaults.ElevationFocused
-import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInputDefaults.Shape
+import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.ElevationFeedback
+import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.ElevationFocused
+import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.Shape
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 
 @Composable
@@ -66,10 +70,16 @@ fun PlugNumericalInput(
   val interactionSource = remember { MutableInteractionSource() }
   val isFocused by interactionSource.collectIsFocusedAsState()
   val elevation by animateDpAsState(
-    if (isFocused) ElevationFocused else 0.dp,
+    when {
+      isFocused -> ElevationFocused
+      isSuccess -> ElevationFeedback
+      isError -> ElevationFeedback
+      else -> 0.dp
+    },
     label = "anim_elevation",
   )
-  OutlinedTextField(
+
+  BasicTextField(
     value = value,
     onValueChange = onValueChange,
     enabled = enabled,
@@ -83,30 +93,9 @@ fun PlugNumericalInput(
     ),
     textStyle = MaterialTheme.typography.labelLarge.copy(
       textAlign = TextAlign.Center,
+      color = focusTextColor,
     ),
     singleLine = true,
-    placeholder = {
-      Text(
-        text = placeholder,
-        style = MaterialTheme.typography.labelLarge,
-        modifier = Modifier.fillMaxWidth(),
-        textAlign = TextAlign.Center,
-      )
-    },
-    colors = OutlinedTextFieldDefaults.colors(
-      focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-      unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-      focusedTextColor = focusTextColor,
-      unfocusedTextColor = focusTextColor,
-      focusedPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
-      unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
-      focusedBorderColor = focusBorderColor,
-      unfocusedBorderColor = unfocusBorderColor,
-    ),
-    shape = Shape,
-    trailingIcon = {
-      PlugNumericalInputIcon(isSuccess = isSuccess, isError = isError)
-    },
     modifier = modifier.then(
       if (isFocused || isSuccess || isError) {
         Modifier.shadow(
@@ -119,12 +108,50 @@ fun PlugNumericalInput(
         Modifier
       },
     ),
+    decorationBox = { innerTextField ->
+      Box(
+        modifier = Modifier
+          .fillMaxWidth()
+          .background(
+            color = MaterialTheme.colorScheme.surfaceVariant,
+            shape = Shape,
+          )
+          .border(
+            width = 1.dp,
+            color = if (isFocused) focusBorderColor else unfocusBorderColor,
+            shape = Shape,
+          )
+          .padding(horizontal = 16.dp, vertical = 15.dp),
+        contentAlignment = Alignment.Center,
+      ) {
+        if (value.isEmpty()) {
+          Text(
+            text = placeholder,
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
+          )
+        }
+        Row(
+          modifier = Modifier.fillMaxWidth(),
+          verticalAlignment = Alignment.CenterVertically,
+        ) {
+          Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) { innerTextField() }
+          PlugNumericalInputIcon(
+            isSuccess = isSuccess,
+            isError = isError,
+          )
+        }
+      }
+    },
   )
 }
 
 private object PlugNumericalInputDefaults {
   val Shape = RoundedCornerShape(50)
   val ElevationFocused = 12.dp
+  val ElevationFeedback = 6.dp
 }
 
 @Composable
@@ -143,6 +170,7 @@ private fun PlugNumericalInputIcon(
       tint = MaterialTheme.colorScheme.error,
       contentDescription = "Input invalid",
     )
+    else -> null
   }
 }
 
@@ -150,6 +178,11 @@ private fun PlugNumericalInputIcon(
   name = "Light Mode",
   showBackground = true,
   uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+  name = "Font Scale",
+  showBackground = true,
+  fontScale = 2f,
 )
 @Preview(
   name = "Dark Mode",
