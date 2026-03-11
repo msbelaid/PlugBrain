@@ -85,6 +85,7 @@ PlugBrain is built using modern Android libraries and tools:
 - [Timber](https://github.com/JakeWharton/timber) – Logging
 - [Ktlint](https://pinterest.github.io/ktlint/) – Kotlin code style checking
 - [GitHub Actions](https://github.com/features/actions) – CI/CD for builds, tests, and releases
+- [Paparazzi](https://github.com/cashapp/paparazzi) - Screenshot testing
 
 ## License
 [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
