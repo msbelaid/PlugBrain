@@ -58,4 +58,12 @@
     <string name="cancel_btn">Cancel</string>
     <string name="challenge_answer_hint">Your answer</string>
     <string name="take_me_out_of_here">Take me out of here</string>
+    <string name="welcome_title">Take back control of your attention.</string>
+    <string name="welcome_feature_one_title">Focus your attention</string>
+    <string name="welcome_feature_one_description">Spend less time on apps that distract you.</string>
+    <string name="welcome_feature_two_title">Unlock with a challenge</string>
+    <string name="welcome_feature_two_description">Solve a quick math challenge to keep using the app.</string>
+    <string name="welcome_feature_three_title">Gets harder the longer you stay</string>
+    <string name="welcome_feature_three_description">Challenges increase in difficulty the longer you keep scrolling.</string>
+    <string name="welcome_cta_title">Get started</string>
 </resources>

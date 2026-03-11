@@ -36,7 +36,7 @@ val Typography =
       fontFamily = SoraFontFamily,
       fontWeight = FontWeight.Bold,
       fontSize = 20.sp,
-      lineHeight = 24.sp,
+      lineHeight = 30.sp,
     ),
 
     titleLarge = TextStyle(

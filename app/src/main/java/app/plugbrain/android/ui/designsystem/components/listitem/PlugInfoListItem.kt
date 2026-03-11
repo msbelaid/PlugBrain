@@ -22,6 +22,7 @@ import app.plugbrain.android.ui.theme.MathlockAppTheme
 
 @Composable
 fun PlugInfoListItem(
+  modifier: Modifier = Modifier,
   title: String,
   description: String,
   icon: ImageVector,
@@ -29,7 +30,7 @@ fun PlugInfoListItem(
   Row(
     horizontalArrangement = Arrangement.spacedBy(24.dp),
     verticalAlignment = Alignment.CenterVertically,
-    modifier = Modifier
+    modifier = modifier
       .background(MaterialTheme.colorScheme.surface),
   ) {
     LeadingIcon(
