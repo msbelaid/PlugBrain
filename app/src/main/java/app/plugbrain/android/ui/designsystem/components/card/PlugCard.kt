@@ -41,7 +41,6 @@ fun PlugCard(
   OutlinedCard(
     modifier = modifier
       .width(329.dp)
-      .height(238.dp)
       .shadow(
         elevation = CardElevation,
         shape = CardShape,
