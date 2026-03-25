@@ -57,8 +57,6 @@
     <string name="continue_btn">Continue</string>
     <string name="cancel_btn">Cancel</string>
     <string name="challenge_answer_hint">Your answer</string>
-    <string name="plug_card_input_placeholder">Write your answer</string>
-    <string name="plug_card_check_answer">Check your answer</string>
     <string name="take_me_out_of_here">Take me out of here</string>
     <string name="welcome_title">Take back control of your attention.</string>
     <string name="welcome_feature_one_title">Focus your attention</string>

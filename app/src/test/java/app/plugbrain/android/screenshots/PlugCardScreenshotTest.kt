@@ -24,35 +24,35 @@ class PlugCardScreenshotTest {
     @Test
     fun plugCardSmallNumbersLightMode() {
         paparazzi.snapshot {
-            plugCardTest(challengeText = "12 + 34", darkTheme = false)
+            PlugCardTest(challengeText = "12 + 34", darkTheme = false)
         }
     }
 
     @Test
     fun plugCardSmallNumbersDarkMode() {
         paparazzi.snapshot {
-            plugCardTest(challengeText = "12 + 34", darkTheme = true)
+            PlugCardTest(challengeText = "12 + 34", darkTheme = true)
         }
     }
 
     @Test
     fun plugCardBigNumbersLightMode() {
         paparazzi.snapshot {
-            plugCardTest(challengeText = "9876 x 5432", darkTheme = false)
+            PlugCardTest(challengeText = "9876 x 5432", darkTheme = false)
         }
     }
 
     @Test
     fun plugCardBigNumbersDarkMode() {
         paparazzi.snapshot {
-            plugCardTest(challengeText = "9876 x 5432", darkTheme = true)
+            PlugCardTest(challengeText = "9876 x 5432", darkTheme = true)
         }
     }
 
     @Test
     fun plugCardWithInputLightMode() {
         paparazzi.snapshot {
-            plugCardTest(
+            PlugCardTest(
                 challengeText = "25 + 17",
                 inputValue = "42",
                 darkTheme = false,
@@ -63,7 +63,7 @@ class PlugCardScreenshotTest {
     @Test
     fun plugCardWithInputDarkMode() {
         paparazzi.snapshot {
-            plugCardTest(
+            PlugCardTest(
                 challengeText = "25 + 17",
                 inputValue = "42",
                 darkTheme = true,
@@ -74,7 +74,7 @@ class PlugCardScreenshotTest {
     @Test
     fun plugCardSuccessLightMode() {
         paparazzi.snapshot {
-            plugCardTest(
+            PlugCardTest(
                 challengeText = "25 + 17",
                 inputValue = "42",
                 isSuccess = true,
@@ -86,7 +86,7 @@ class PlugCardScreenshotTest {
     @Test
     fun plugCardSuccessDarkMode() {
         paparazzi.snapshot {
-            plugCardTest(
+            PlugCardTest(
                 challengeText = "25 + 17",
                 inputValue = "42",
                 isSuccess = true,
@@ -98,7 +98,7 @@ class PlugCardScreenshotTest {
     @Test
     fun plugCardErrorLightMode() {
         paparazzi.snapshot {
-            plugCardTest(
+            PlugCardTest(
                 challengeText = "25 + 17",
                 inputValue = "99",
                 isError = true,
@@ -110,7 +110,7 @@ class PlugCardScreenshotTest {
     @Test
     fun plugCardErrorDarkMode() {
         paparazzi.snapshot {
-            plugCardTest(
+            PlugCardTest(
                 challengeText = "25 + 17",
                 inputValue = "99",
                 isError = true,
@@ -120,7 +120,7 @@ class PlugCardScreenshotTest {
     }
 
     @Composable
-    private fun plugCardTest(
+    private fun PlugCardTest(
         challengeText: String,
         darkTheme: Boolean,
         inputValue: String = "",
@@ -139,6 +139,8 @@ class PlugCardScreenshotTest {
                     inputValue = inputValue,
                     onInputChange = {},
                     onCheckAnswer = {},
+                    placeholder = "Write your answer",
+                    ctaText = "Check your answer",
                     isSuccess = isSuccess,
                     isError = isError,
                 )

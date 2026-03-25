@@ -18,12 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.R
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonSecondary
 import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInput
 import app.plugbrain.android.ui.theme.MathlockAppTheme
@@ -34,6 +32,8 @@ fun PlugCard(
   inputValue: String,
   onInputChange: (String) -> Unit,
   onCheckAnswer: (Int?) -> Unit,
+  placeholder: String,
+  ctaText: String,
   modifier: Modifier = Modifier,
   isSuccess: Boolean = false,
   isError: Boolean = false,
@@ -66,6 +66,7 @@ fun PlugCard(
       Text(
         text = challengeText,
         style = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.Bold),
+        maxLines = 1,
         color = MaterialTheme.colorScheme.onSurface,
         textAlign = TextAlign.Center,
         modifier = Modifier.fillMaxWidth(),
@@ -76,7 +77,7 @@ fun PlugCard(
         value = inputValue,
         onValueChange = onInputChange,
         onSubmit = onCheckAnswer,
-        placeholder = stringResource(R.string.plug_card_input_placeholder),
+        placeholder = placeholder,
         isSuccess = isSuccess,
         isError = isError,
         modifier = Modifier
@@ -89,7 +90,7 @@ fun PlugCard(
 
       // Check answer button
       PlugButtonSecondary(
-        text = stringResource(R.string.plug_card_check_answer),
+        text = ctaText,
         onClick = { onCheckAnswer(inputValue.toIntOrNull()) },
         enabled = inputValue.isNotEmpty(),
         modifier = Modifier
@@ -109,6 +110,8 @@ private val InputShadowShape = RoundedCornerShape(50)
 private val CardElevation = 4.dp
 private val InputElevation = 2.dp
 private val ButtonElevation = 2.dp
+
+// region Previews
 
 @Preview(
   name = "Light Mode",
@@ -133,6 +136,8 @@ private fun PlugCardSmallNumbersPreview() {
         inputValue = "",
         onInputChange = {},
         onCheckAnswer = {},
+        placeholder = "Write your answer",
+        ctaText = "Check your answer",
       )
     }
   }
@@ -161,6 +166,8 @@ private fun PlugCardBigNumbersPreview() {
         inputValue = "",
         onInputChange = {},
         onCheckAnswer = {},
+        placeholder = "Write your answer",
+        ctaText = "Check your answer",
       )
     }
   }
@@ -189,6 +196,8 @@ private fun PlugCardWithInputPreview() {
         inputValue = "42",
         onInputChange = {},
         onCheckAnswer = {},
+        placeholder = "Write your answer",
+        ctaText = "Check your answer",
       )
     }
   }
@@ -218,6 +227,8 @@ private fun PlugCardSuccessPreview() {
         onInputChange = {},
         onCheckAnswer = {},
         isSuccess = true,
+        placeholder = "Write your answer",
+        ctaText = "Check your answer",
       )
     }
   }
@@ -247,6 +258,8 @@ private fun PlugCardErrorPreview() {
         onInputChange = {},
         onCheckAnswer = {},
         isError = true,
+        placeholder = "Write your answer",
+        ctaText = "Check your answer",
       )
     }
   }
@@ -275,6 +288,8 @@ private fun PlugCardSquareChallengePreview() {
         inputValue = "",
         onInputChange = {},
         onCheckAnswer = {},
+        placeholder = "Write your answer",
+        ctaText = "Check your answer",
       )
     }
   }
@@ -303,7 +318,11 @@ private fun PlugCardMissingChallengePreview() {
         inputValue = "",
         onInputChange = {},
         onCheckAnswer = {},
+        placeholder = "Write your answer",
+        ctaText = "Check your answer",
       )
     }
   }
 }
+
+// endregion
