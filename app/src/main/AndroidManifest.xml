@@ -33,6 +33,7 @@
         <activity
             android:name=".ui.challenges.ChallengeActivity"
             android:resizeableActivity="false"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTask"
             android:theme="@style/Theme.MathlockApp" />
