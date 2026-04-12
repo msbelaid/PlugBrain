@@ -6,9 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -23,7 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonSecondary
-import app.plugbrain.android.ui.designsystem.components.button.PlugNumericalInput
+import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInput
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 
 @Composable
@@ -40,7 +38,6 @@ fun PlugCard(
 ) {
   OutlinedCard(
     modifier = modifier
-      .width(329.dp)
       .shadow(
         elevation = CardElevation,
         shape = CardShape,
@@ -62,7 +59,6 @@ fun PlugCard(
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-      // Challenge text
       Text(
         text = challengeText,
         style = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.Bold),
@@ -72,7 +68,6 @@ fun PlugCard(
         modifier = Modifier.fillMaxWidth(),
       )
 
-      // Answer input field
       PlugNumericalInput(
         value = inputValue,
         onValueChange = onInputChange,
@@ -80,38 +75,21 @@ fun PlugCard(
         placeholder = placeholder,
         isSuccess = isSuccess,
         isError = isError,
-        modifier = Modifier
-          .fillMaxWidth()
-          .shadow(
-            elevation = InputElevation,
-            shape = InputShadowShape,
-          ),
+        modifier = Modifier.fillMaxWidth(),
       )
 
-      // Check answer button
       PlugButtonSecondary(
         text = ctaText,
         onClick = { onCheckAnswer(inputValue.toIntOrNull()) },
         enabled = inputValue.isNotEmpty(),
-        modifier = Modifier
-          .fillMaxWidth()
-          .shadow(
-            elevation = ButtonElevation,
-            shape = CheckButtonShape,
-          ),
+        modifier = Modifier.fillMaxWidth(),
       )
     }
   }
 }
 
 private val CardShape = RoundedCornerShape(16.dp)
-private val CheckButtonShape = RoundedCornerShape(50)
-private val InputShadowShape = RoundedCornerShape(50)
 private val CardElevation = 4.dp
-private val InputElevation = 2.dp
-private val ButtonElevation = 2.dp
-
-// region Previews
 
 @Preview(
   name = "Light Mode",
@@ -324,5 +302,3 @@ private fun PlugCardMissingChallengePreview() {
     }
   }
 }
-
-// endregion
