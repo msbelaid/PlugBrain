@@ -11,7 +11,6 @@
 [![contribute.design](https://contribute.design/api/shield/msbelaid/PlugBrain)](https://contribute.design/msbelaid/PlugBrain)
 ![GitHub stars](https://img.shields.io/github/stars/msbelaid/PlugBrain?style=social)
 </div>
-<img src="assets/plugbrain_example.gif" align="right" width="320" />
 
 
 # PlugBrain
@@ -19,6 +18,10 @@ PlugBrain is an app that encourages regular breaks from distracting apps by bloc
 To regain access, you’ll need to solve a math challenge that adjusts in difficulty: 
 the more frequently you use the apps, 
 the harder the challenges become, but the longer you stay away, the easier they get.
+
+<div align="center">
+  <img src="assets/plugbrain_example.gif" width="320" />
+</div>
 
 > [!IMPORTANT]
 > We're currently working on a **new UI redesign** based on a Figma design to make the app more modern and intuitive.
