@@ -1,0 +1,70 @@
+
+<resources>
+    <string name="app_name" translatable="false">PlugBrain</string>
+    <string name="app_name_with_brain_icon" translatable="false">PlugBrain 🧠</string>
+    <string name="permissions_title">Toestemmingen</string>
+    <string name="all_permissions_granted">Alle toestemmingen zijn gegeven!</string>
+    <string name="accessibility_permission">Toegankelijkheid Toestemming</string>
+    <string name="accessibility_permission_description">Laat de app detecteren wanneer apps worden geopend.</string>
+    <string name="usage_access_permission">App Gebruik Toegang</string>
+    <string name="usage_access_permission_description">Geeft de app toegang tot app gebruik data.</string>
+    <string name="display_over_apps_permission">Toon Over Andere Apps</string>
+    <string name="display_over_apps_permission_description">Laat de app over andere apps verschijnen.</string>
+    <string name="battery_optimization_exemption_permission">Batterij Optimalisatie Vrijstelling</string>
+    <string name="battery_optimization_exemption_permission_description">Voorkomt dat het systeem de app stopt.</string>
+    <string name="refresh">Vernieuwen</string>
+    <plurals name="applications_blocked">
+        <item quantity="zero">Geen app geblokkeerd, tik om apps te selecteren</item>
+        <item quantity="one">Blokkeert één app</item>
+        <item quantity="other">Blokkeert %d apps</item>
+    </plurals>
+    <plurals name="blocked_every_x_minutes">
+        <item quantity="one"> elke minuut</item>
+        <item quantity="other"> elke %d minuten</item>
+    </plurals>
+    <string name="blocking_interval">Blokkering Frequentie</string>
+    <string name="minutes_short">min</string>
+    <string name="settings_title">Instellingen</string>
+    <string name="usage_free_duration_message">Nice! Je hebt langer dan %1$s geen afleidende apps gebruikt. Ga zo door!</string>
+    <string name="apps_usage_duration_message">Je hebt langer dan %1$s afleidende apps gebruikt in de laatste %2$s.</string>
+    
+    <!-- Duration formatting strings -->
+    <string name="duration_hours_minutes">%1$s en %2$s</string>
+    <string name="duration_days_hours">%1$s en %2$s</string>
+    
+    <plurals name="duration_minutes">
+        <item quantity="one">%d minuut</item>
+        <item quantity="other">%d minuten</item>
+    </plurals>
+    
+    <plurals name="duration_hours">
+        <item quantity="one">%d uur</item>
+        <item quantity="other">%d uren</item>
+    </plurals>
+    
+    <plurals name="duration_days">
+        <item quantity="one">%d dag</item>
+        <item quantity="other">%d dagen</item>
+    </plurals>
+    
+    <string name="duration_zero_minutes">0 minuten</string>
+    <string name="blocking_message">De tijd is op! Verbind je hersenen om verder te gaan in de app!</string>
+    <string name="minimal_difficulty">Minimale Moeilijkheid</string>
+    <string name="stats_hardness">Moeilijkheid: %1$s/%2$s</string>
+    <string name="stats_last_usage_time">Laatste tijd van gebruik: %1$s/%2$s</string>
+    <string name="app_usage_description">Ontgrendel afleidende apps met wiskune\Meer gebruik -> makkelijkere problemen.</string>
+    <string name="enable_accessibility_title">Toegankelijkheid Dienst Aanzetten</string>
+    <string name="enable_accessibility_text">PlugBrain gebruikt Android\'s Toegankelijkheid Service om de apps die je kiest te blokkeren.\nDit staat PlugBrain toe om te detecteren wanneer deze apps geopend worden, en een wiskundeprobleem te tonen voordat toegang gegeven wordt.\nWe verzamelen of delen geen persoonlijke informatie.</string>
+    <string name="continue_btn">Doorgaan</string>
+    <string name="cancel_btn">Annuleren</string>
+    <string name="challenge_answer_hint">Je antwoord</string>
+    <string name="take_me_out_of_here">Ik wil hier weg</string>
+    <string name="welcome_title">Neem controle over je aandacht.</string>
+    <string name="welcome_feature_one_title">Concentreer je aandacht</string>
+    <string name="welcome_feature_one_description">Verlies minder tijd in afleidende apps.</string>
+    <string name="welcome_feature_two_title">Ontgrendel met een uitdaging</string>
+    <string name="welcome_feature_two_description">Los een snel wiskundeprobleem op om door te gaan met de app.</string>
+    <string name="welcome_feature_three_title">Moeilijker des te langer je blijft</string>
+    <string name="welcome_feature_three_description">Uitdagingen worden moeilijker des te meer je scrollt.</string>
+    <string name="welcome_cta_title">Begin nu</string>
+</resources>

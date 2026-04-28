@@ -1,0 +1,17 @@
+PlugBrain is een app die regelmatige pauzes van afleidende apps aanmoedigt, door toegang te blokkeren in geplande intervals.
+Om toegang terug te krijgen los je eerst een wiskundeprobleem op. De moeilijkheid van het probleem past zich aan: des te vaker je de apps gebruikt, des te moeilijker worden de problemen, maar als je langer pauze neemt worden ze makkelijker.
+
+**Functies**
+
+- Geen ads
+- Geen internet nodig
+- Blokkeert afleidende apps
+- Los wiskundeproblemen op om toegang te krijgen
+- Moeilijker met meer gebruikt, makkelijker met meer focus
+
+**Hoe te gebruiken**
+
+- Geef alle nodige toestemmingen
+- Selecteer afleidende apps
+- Kies je focus interval
+- Blijf geconcentreerd ;)
