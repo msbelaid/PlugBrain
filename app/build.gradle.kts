@@ -21,7 +21,7 @@ android {
     defaultConfig {
         applicationId = "app.plugbrain.android"
         minSdk = 28
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 154
         versionName = "1.5.4"
 
