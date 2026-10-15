@@ -19,6 +19,7 @@ import app.plugbrain.android.datastore.updateBlockAppsToggle
 import app.plugbrain.android.ui.challenges.ChallengeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
@@ -41,6 +42,10 @@ class MathLockService : AccessibilityService() {
   private var userSettings = UserSettings()
   private var timestamps = Timestamps()
   private var isBlocked: Boolean? = null
+
+  // Only one pending usage check at a time, otherwise every window event of a
+  // distractive app would start a new polling loop.
+  private var usageCheckJob: Job? = null
 
   override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
     Timber.tag(TAG).i("onStart")
@@ -125,7 +130,9 @@ class MathLockService : AccessibilityService() {
   }
 
   private fun scheduleAppUsageCheck(delayCheckBy: Long) {
-    serviceScope.launch {
+    usageCheckJob?.cancel()
+    // Runs on Main so usageCheckJob is only ever touched from the main thread.
+    usageCheckJob = serviceScope.launch(Dispatchers.Main) {
       val targetTime = System.currentTimeMillis() + delayCheckBy * 60 * 1000L
       while (isActive && System.currentTimeMillis() < targetTime) {
         delay(1000) // delay(delayCheckBy ...) was not working for recent Android versions!
