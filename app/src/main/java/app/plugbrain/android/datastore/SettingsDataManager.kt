@@ -39,13 +39,13 @@ suspend fun DataStore<Preferences>.setSelectedMinimalDifficulty(minDifficulty: I
 
 suspend fun DataStore<Preferences>.addDistractiveApp(packageName: String) {
   edit { preferences ->
-    preferences[BLOCKED_APPS_KEY] = preferences[BLOCKED_APPS_KEY]?.plus(packageName) ?: emptySet()
+    preferences[BLOCKED_APPS_KEY] = (preferences[BLOCKED_APPS_KEY] ?: emptySet()) + packageName
   }
 }
 
 suspend fun DataStore<Preferences>.removeDistractiveApp(packageName: String) {
   edit { preferences ->
-    preferences[BLOCKED_APPS_KEY] = preferences[BLOCKED_APPS_KEY]?.minus(packageName) ?: emptySet()
+    preferences[BLOCKED_APPS_KEY] = (preferences[BLOCKED_APPS_KEY] ?: emptySet()) - packageName
   }
 }
 
