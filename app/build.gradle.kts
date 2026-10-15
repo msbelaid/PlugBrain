@@ -102,6 +102,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core.android)
     implementation(libs.timber)
+    implementation(project(":appusage"))
 
     testImplementation(libs.junit)
     testImplementation(libs.mockito)
