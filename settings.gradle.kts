@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MathlockApp"
 include(":app")
+include(":appusage")

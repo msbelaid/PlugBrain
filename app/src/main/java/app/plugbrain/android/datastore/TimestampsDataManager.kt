@@ -13,15 +13,13 @@ private val LAST_UNBLOCK_TIME_KEY = longPreferencesKey("last_unblock_time")
 private val LAST_USAGE_TIME_KEY = longPreferencesKey("last_usage_time")
 private val LAST_CHALLENGE_TIME_KEY = longPreferencesKey("last_challenge_time")
 
-private const val DEFAULT_START_TIME = 0L
-
 fun DataStore<Preferences>.getTimestamps(): Flow<Timestamps> =
   data.map {
     Timestamps(
-      lastUsage = it[LAST_USAGE_TIME_KEY] ?: DEFAULT_START_TIME,
-      lastBlock = it[LAST_BLOCK_TIME_KEY] ?: DEFAULT_START_TIME,
-      lastUnblock = it[LAST_UNBLOCK_TIME_KEY] ?: DEFAULT_START_TIME,
-      lastChallenge = it[LAST_CHALLENGE_TIME_KEY] ?: DEFAULT_START_TIME,
+      lastUsage = it[LAST_USAGE_TIME_KEY],
+      lastBlock = it[LAST_BLOCK_TIME_KEY],
+      lastUnblock = it[LAST_UNBLOCK_TIME_KEY],
+      lastChallenge = it[LAST_CHALLENGE_TIME_KEY],
     )
   }
 
