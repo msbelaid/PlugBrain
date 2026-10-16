@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import app.plugbrain.android.R
+import app.plugbrain.android.designsystem.R
 
 val SoraFontFamily = FontFamily(
   Font(R.font.sora_regular, FontWeight.Normal),

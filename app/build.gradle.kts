@@ -103,6 +103,7 @@ dependencies {
     implementation(libs.androidx.datastore.core.android)
     implementation(libs.timber)
     implementation(project(":appusage"))
+    implementation(project(":designsystem"))
 
     testImplementation(libs.junit)
     testImplementation(libs.mockito)

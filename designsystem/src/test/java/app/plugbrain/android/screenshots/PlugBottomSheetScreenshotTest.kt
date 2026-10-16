@@ -15,12 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
-import app.plugbrain.android.R
 import app.plugbrain.android.ui.designsystem.components.sheetdrawer.PlugBottomSheetDrawer
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import org.junit.Rule
@@ -63,7 +61,7 @@ class PlugBottomSheetScreenshotTest {
                         Icon(
                             imageVector = Icons.Rounded.Check,
                             tint = MaterialTheme.colorScheme.tertiary,
-                            contentDescription = stringResource(R.string.settings_title),
+                            contentDescription = null,
                             modifier =
                                 Modifier
                                     .size(40.dp)

@@ -27,11 +27,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.R
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonPrimary
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonSecondary
 import app.plugbrain.android.ui.theme.MathlockAppTheme
@@ -115,7 +113,7 @@ fun PlugBottomSheetDrawerFormPreview() {
             Icon(
               imageVector = Icons.Rounded.Check,
               tint = MaterialTheme.colorScheme.tertiary,
-              contentDescription = stringResource(R.string.settings_title),
+              contentDescription = null,
               modifier = Modifier
                 .size(40.dp)
                 .padding(end = 8.dp),
