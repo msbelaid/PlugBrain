@@ -47,6 +47,7 @@ koin_compose = { module = "io.insert-koin:koin-compose-viewmodel", version.ref =
 #DataStore
 androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastoreCoreAndroid" }
+androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastoreCoreAndroid" }
 
 #Timber
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
