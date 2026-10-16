@@ -105,6 +105,7 @@ dependencies {
     implementation(project(":appusage"))
     implementation(project(":designsystem"))
     implementation(project(":challenges"))
+    implementation(project(":datastore"))
 
     testImplementation(libs.junit)
     testImplementation(libs.mockito)
