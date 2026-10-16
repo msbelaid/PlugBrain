@@ -38,13 +38,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build installable APK (signed with debug key)
-        run: ./gradlew assembleRelease -PsignWithDebugKey
+      - name: Build installable APK (signed with the CI test key)
+        run: ./gradlew assembleRelease -PsignWithTestKey
 
       - name: Upload installable APK
         uses: actions/upload-artifact@v4
         with:
-          name: plugbrain-release-debug-signed-apk
+          name: plugbrain-release-test-signed-apk
           path: app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
 

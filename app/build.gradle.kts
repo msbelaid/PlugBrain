@@ -45,6 +45,14 @@ android {
                 println("keystore.properties not found — release will be unsigned.")
             }
         }
+        // Throwaway key committed on purpose so every CI test build has the same
+        // signature and can be installed over the previous one. Never use it for releases.
+        create("ciTest") {
+            storeFile = file("ci-test.keystore")
+            storePassword = "android"
+            keyAlias = "citest"
+            keyPassword = "android"
+        }
     }
 
     buildTypes {
@@ -57,9 +65,9 @@ android {
             )
             if (keystorePropertiesFile.exists()) {
                 signingConfig = signingConfigs.getByName("release")
-            } else if (project.hasProperty("signWithDebugKey")) {
+            } else if (project.hasProperty("signWithTestKey")) {
                 // CI test builds: Android refuses to install an unsigned APK.
-                signingConfig = signingConfigs.getByName("debug")
+                signingConfig = signingConfigs.getByName("ciTest")
             } else {
                 println("No keystore found, APK will be unsigned")
             }
