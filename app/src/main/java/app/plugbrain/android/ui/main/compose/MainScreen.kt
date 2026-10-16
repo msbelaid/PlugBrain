@@ -172,7 +172,7 @@ private fun MainContent(
       }
     }
     Text(
-      text = stringResource(R.string.main_screen_placeholder),
+      text = "This is a placeholder screen and will be redesigned later.",
       style = MaterialTheme.typography.labelSmall,
       modifier = Modifier
         .padding(top = 16.dp)
