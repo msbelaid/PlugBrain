@@ -14,8 +14,7 @@ import timber.log.Timber
 class MainApplication : Application() {
   override fun onCreate() {
     super.onCreate()
-    // TODO use Timber only on debug mode.
-    Timber.plant(Timber.DebugTree())
+    if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     startKoin {
       androidLogger()
       androidContext(this@MainApplication)
