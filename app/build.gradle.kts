@@ -98,7 +98,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.koin.core)
     implementation(libs.koin.android)
-    implementation(libs.koin.test)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core.android)
     implementation(libs.timber)
@@ -108,6 +107,7 @@ dependencies {
     implementation(project(":datastore"))
 
     testImplementation(libs.junit)
+    testImplementation(libs.koin.test)
     testImplementation(libs.mockito)
     testImplementation(libs.mockito.kotlin)
     androidTestImplementation(libs.androidx.junit)
