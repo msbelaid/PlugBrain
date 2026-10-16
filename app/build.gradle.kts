@@ -104,6 +104,7 @@ dependencies {
     implementation(libs.timber)
     implementation(project(":appusage"))
     implementation(project(":designsystem"))
+    implementation(project(":challenges"))
 
     testImplementation(libs.junit)
     testImplementation(libs.mockito)
