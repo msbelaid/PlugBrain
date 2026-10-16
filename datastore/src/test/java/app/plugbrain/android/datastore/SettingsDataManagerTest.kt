@@ -78,4 +78,40 @@ class SettingsDataManagerTest {
             assertEquals(emptySet<String>(), dataStore.getUserSettings().first().distractiveApps)
         }
     }
+
+    @Test
+    fun `incrementProgressiveDifficulty starts from the minimal difficulty`() {
+        runBlocking {
+            dataStore.setSelectedMinimalDifficulty(3)
+
+            dataStore.incrementProgressiveDifficulty(maxDifficulty = 10)
+
+            assertEquals(4, dataStore.getProgressiveDifficulty().first())
+        }
+    }
+
+    @Test
+    fun `incrementProgressiveDifficulty stops at the max difficulty`() {
+        runBlocking {
+            dataStore.setSelectedMinimalDifficulty(5)
+
+            dataStore.incrementProgressiveDifficulty(maxDifficulty = 5)
+
+            assertEquals(5, dataStore.getProgressiveDifficulty().first())
+        }
+    }
+
+    @Test
+    fun `decrementProgressiveDifficulty to the minimum leaves the block toggle alone`() {
+        runBlocking {
+            dataStore.setSelectedMinimalDifficulty(1)
+            dataStore.incrementProgressiveDifficulty(maxDifficulty = 10)
+            dataStore.updateBlockAppsToggle(false)
+
+            dataStore.decrementProgressiveDifficulty(steps = 5)
+
+            assertEquals(1, dataStore.getProgressiveDifficulty().first())
+            assertEquals(false, dataStore.getBlockAppsToggle().first())
+        }
+    }
 }

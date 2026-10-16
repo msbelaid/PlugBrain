@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import app.plugbrain.android.R
 import app.plugbrain.android.challenges.NumericalChallenge
 import app.plugbrain.android.ui.challenges.compose.NumericalChallengeScreen
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
@@ -23,7 +24,6 @@ class ChallengeActivity : ComponentActivity() {
   override fun onResume() {
     super.onResume()
     isInForeground = true
-    challengeViewModel.generateChallenge()
   }
 
   companion object {
@@ -38,6 +38,7 @@ class ChallengeActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     handleBackButton()
+    challengeViewModel.generateChallenge()
 
     enableEdgeToEdge()
     setContent {
@@ -79,7 +80,7 @@ class ChallengeActivity : ComponentActivity() {
     } else {
       Toast.makeText(
         this@ChallengeActivity,
-        "Wrong Answer, try again!",
+        getString(R.string.wrong_answer),
         Toast.LENGTH_LONG,
       ).show()
     }

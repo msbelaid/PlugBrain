@@ -26,7 +26,10 @@ class ArithChallengeViewModel(
   private val _challenge: MutableStateFlow<Challenge?> = MutableStateFlow(null)
   val challenge: StateFlow<Challenge?> = _challenge
 
+  // Only the first call generates a challenge, so leaving and coming back to the
+  // challenge screen neither re-rolls it nor applies the difficulty decay again.
   fun generateChallenge() {
+    if (_challenge.value != null) return
     viewModelScope.launch {
       decreaseDifficulty()
       _challenge.value = mathChallengeRepository.generateChallenge().first()
@@ -54,6 +57,7 @@ class ArithChallengeViewModel(
   fun unblockApps() {
     viewModelScope.launch {
       dataStore.updateBlockAppsToggle(false)
+      dataStore.setLastChallengeTime(System.currentTimeMillis())
       dataStore.incrementProgressiveDifficulty(mathChallengeRepository.getMaxDifficulty())
     }
   }

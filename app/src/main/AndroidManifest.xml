@@ -36,12 +36,12 @@
             android:name=".ui.challenges.ChallengeActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
-            android:exported="true"
+            android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/Theme.MathlockApp" />
         <activity
             android:name=".ui.settings.SettingsActivity"
-            android:exported="true"
+            android:exported="false"
             android:theme="@style/Theme.MathlockApp" />
         <activity
             android:name=".ui.selectapps.AppsSelectionActivity"

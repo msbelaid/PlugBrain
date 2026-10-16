@@ -195,7 +195,7 @@ fun Timing(
             if (blockInterval == value) {
               Icon(
                 imageVector = Icons.Filled.Done,
-                contentDescription = "Done icon",
+                contentDescription = stringResource(R.string.selected),
                 modifier = Modifier.size(FilterChipDefaults.IconSize),
               )
             }
