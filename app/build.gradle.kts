@@ -57,6 +57,9 @@ android {
             )
             if (keystorePropertiesFile.exists()) {
                 signingConfig = signingConfigs.getByName("release")
+            } else if (project.hasProperty("signWithDebugKey")) {
+                // CI test builds: Android refuses to install an unsigned APK.
+                signingConfig = signingConfigs.getByName("debug")
             } else {
                 println("No keystore found, APK will be unsigned")
             }

@@ -38,14 +38,15 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build unsigned APK
-        run: ./gradlew assembleRelease
+      - name: Build installable APK (signed with debug key)
+        run: ./gradlew assembleRelease -PsignWithDebugKey
 
-      - name: Upload unsigned APK
+      - name: Upload installable APK
         uses: actions/upload-artifact@v4
         with:
-          name: unsigned-apk
-          path: app/build/outputs/apk/release/app-release-unsigned.apk
+          name: plugbrain-release-debug-signed-apk
+          path: app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
 
   unit-tests:
     name: Unit Tests
