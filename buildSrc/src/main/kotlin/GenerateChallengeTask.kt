@@ -19,11 +19,12 @@ abstract class GenerateChallengeTask : DefaultTask() {
     private val challengePackage = "$basePackage.challenges"
     private val composePackage = "$basePackage.ui.challenges.compose"
     private val outputDir = File(project.projectDir, "app/src/main/java")
+    private val challengesOutputDir = File(project.projectDir, "challenges/src/main/java")
 
 
     @get:OutputFile
     val challengeFile: File
-        get() = File(outputDir, "${challengePackage.replace(".", "/")}/$challengeName.kt")
+        get() = File(challengesOutputDir, "${challengePackage.replace(".", "/")}/$challengeName.kt")
 
     @get:OutputFile
     val uiFile: File
