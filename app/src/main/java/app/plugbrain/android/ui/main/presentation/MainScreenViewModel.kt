@@ -36,7 +36,7 @@ class MainScreenViewModel(
   val permissionsState: StateFlow<PermissionsState?> = _permissionsState
 
   fun getAppsUsageStats() {
-    Timber.e("getAppsUsageStats called")
+    Timber.d("getAppsUsageStats called")
 
     viewModelScope.launch {
       combine(
@@ -44,7 +44,7 @@ class MainScreenViewModel(
         dataStore.getTimestamps(),
         installedAppsRepository.getInstalledApps(),
       ) { settings, timestamps, installedApps ->
-        Timber.e("getAppsUsageStats launched")
+        Timber.d("getAppsUsageStats launched")
         val blockedAppsUsage = appsUsageStats.getTotalAppsUsageDuration(
           startTime = timestamps.lastBlock ?: (System.currentTimeMillis() - ONE_HOUR),
           endTime = System.currentTimeMillis(),
