@@ -66,4 +66,8 @@
     <string name="welcome_feature_three_title">Gets harder the longer you stay</string>
     <string name="welcome_feature_three_description">Challenges increase in difficulty the longer you keep scrolling.</string>
     <string name="welcome_cta_title">Get started</string>
+    <string name="wrong_answer">Wrong answer, try again!</string>
+    <string name="calculator_warning">Please, don\'t use the calculator!</string>
+    <string name="main_screen_placeholder">This is a placeholder screen and will be redesigned later.</string>
+    <string name="selected">Selected</string>
 </resources>

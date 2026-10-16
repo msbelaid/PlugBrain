@@ -73,15 +73,12 @@ suspend fun DataStore<Preferences>.decrementProgressiveDifficulty(steps: Int = 1
 
     val newValue = (current - steps).coerceAtLeast(minDifficulty)
     prefs[PROGRESSIVE_DIFFICULTY_KEY] = newValue
-    if (newValue == minDifficulty) {
-      prefs[BLOCK_APPS_TOGGLE_KEY] = true
-    }
   }
 }
 
 suspend fun DataStore<Preferences>.incrementProgressiveDifficulty(maxDifficulty: Int) {
   edit { prefs ->
-    val current = prefs[PROGRESSIVE_DIFFICULTY_KEY] ?: 0
+    val current = prefs[PROGRESSIVE_DIFFICULTY_KEY] ?: prefs[MINIMAL_DIFFICULTY_KEY] ?: DEFAULT_MINIMAL_DIFFICULTY
     val newValue = (current + 1).coerceAtMost(maxDifficulty)
     prefs[PROGRESSIVE_DIFFICULTY_KEY] = newValue
   }

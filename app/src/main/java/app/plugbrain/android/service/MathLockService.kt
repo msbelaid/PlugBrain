@@ -32,6 +32,7 @@ const val TAG = "MathLockService"
 
 private const val ONE_MINUTE = 60_000L
 private const val ONE_HOUR = 60 * ONE_MINUTE
+private const val USAGE_CHECK_STEP = 10_000L
 
 class MathLockService : AccessibilityService() {
   private val dataStore: DataStore<Preferences> by inject()
@@ -89,7 +90,7 @@ class MathLockService : AccessibilityService() {
         }
       }
       if ((eventPackageName in resources.getStringArray(R.array.calculator_packages) || "calc" in eventPackageName) && (isBlocked == true)) {
-        Toast.makeText(this, "Please, don't use the calculator!", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, R.string.calculator_warning, Toast.LENGTH_LONG).show()
       }
     }
   }
@@ -134,9 +135,12 @@ class MathLockService : AccessibilityService() {
     // Runs on Main so usageCheckJob is only ever touched from the main thread.
     usageCheckJob = serviceScope.launch(Dispatchers.Main) {
       val targetTime = System.currentTimeMillis() + delayCheckBy * 60 * 1000L
-      while (isActive && System.currentTimeMillis() < targetTime) {
-        delay(1000) // delay(delayCheckBy ...) was not working for recent Android versions!
-        // TODO find a cleaner solution
+      // Sleep in bounded steps against the wall clock: a single long delay() was not
+      // reliable on recent Android versions, and 1 s steps woke the CPU needlessly.
+      while (isActive) {
+        val remaining = targetTime - System.currentTimeMillis()
+        if (remaining <= 0) break
+        delay(minOf(remaining, USAGE_CHECK_STEP))
       }
       checkAppUsage()
     }
