@@ -55,9 +55,10 @@
     </plurals>
     
     <string name="duration_zero_minutes">0 минут</string>
-    <string name="app_usage_last_24h">%1$s за последние 24 ч</string>
-    <string name="app_not_used_last_24h">Не использовалось за последние 24 ч</string>
-    <string name="app_used_less_than_minute_last_24h">Меньше минуты за последние 24 ч</string>
+    <string name="usage_short_hours_minutes">%1$d ч %2$d мин</string>
+    <string name="usage_short_hours">%1$d ч</string>
+    <string name="usage_short_minutes">%1$d мин</string>
+    <string name="usage_short_less_than_minute">&lt;1 мин</string>
     <string name="blocking_message">Время вышло! Включи мозг, чтобы разблокировать приложение!</string>
     <string name="minimal_difficulty">Минимальная сложность</string>
     <string name="stats_hardness">Сложность: %1$s/%2$s</string>

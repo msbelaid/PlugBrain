@@ -45,9 +45,10 @@
     </plurals>
     
     <string name="duration_zero_minutes">0 Minuten</string>
-    <string name="app_usage_last_24h">%1$s in den letzten 24 Std.</string>
-    <string name="app_not_used_last_24h">In den letzten 24 Std. nicht genutzt</string>
-    <string name="app_used_less_than_minute_last_24h">Weniger als eine Minute in den letzten 24 Std.</string>
+    <string name="usage_short_hours_minutes">%1$d Std. %2$d Min.</string>
+    <string name="usage_short_hours">%1$d Std.</string>
+    <string name="usage_short_minutes">%1$d Min.</string>
+    <string name="usage_short_less_than_minute">&lt;1 Min.</string>
     <string name="blocking_message">Die Zeit ist um! Aktiviere dein Gehirn, um die App zu entsperren!</string>
     <string name="minimal_difficulty">Minimale Schwierigkeit</string>
     <string name="stats_hardness">Schwierigkeit: %1$s/%2$s</string>

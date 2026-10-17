@@ -72,12 +72,13 @@ class AppsSelectionViewModel(
   val installedApps = combine(searchQuery, installedAppsFlow, ::Pair)
     .map { pair ->
       InstalledAppsState.Success(
-        pair.second
+        apps = pair.second
           .filter { installedApp ->
             if (pair.first.isBlank()) return@filter true
             installedApp.packageName.contains(pair.first, ignoreCase = true) ||
               installedApp.name.contains(pair.first, ignoreCase = true)
           },
+        maxUsageMillis = pair.second.maxOfOrNull { it.usageMillis } ?: 0L,
       )
     }
     .stateIn(
@@ -113,5 +114,9 @@ internal fun List<InstalledApp>.sortedByUsage(
 
 sealed interface InstalledAppsState {
   data object Loading : InstalledAppsState
-  data class Success(val apps: List<InstalledApp>) : InstalledAppsState
+  data class Success(
+    val apps: List<InstalledApp>,
+    // Usage of the most used app, so the bars keep their scale while searching.
+    val maxUsageMillis: Long = 0L,
+  ) : InstalledAppsState
 }

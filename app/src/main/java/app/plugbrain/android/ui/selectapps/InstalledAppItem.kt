@@ -2,12 +2,17 @@ package app.plugbrain.android.ui.selectapps
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -16,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
 import app.plugbrain.android.appsusage.model.InstalledApp
-import app.plugbrain.android.util.formatDuration
 import coil3.compose.rememberAsyncImagePainter
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -26,6 +30,7 @@ import kotlin.time.Duration.Companion.minutes
 fun InstalledAppItem(
   modifier: Modifier = Modifier,
   installedApp: InstalledApp,
+  usageFraction: Float,
   isSelected: Boolean,
   onClicked: (Boolean) -> Unit,
 ) {
@@ -33,8 +38,10 @@ fun InstalledAppItem(
     headlineContent = {
       Text(text = installedApp.name)
     },
-    supportingContent = {
-      Text(text = usageLast24hText(installedApp.usageMillis))
+    supportingContent = if (installedApp.usageMillis > 0) {
+      { UsageBar(usageMillis = installedApp.usageMillis, fraction = usageFraction) }
+    } else {
+      null
     },
     leadingContent = {
       Image(
@@ -58,12 +65,30 @@ fun InstalledAppItem(
 }
 
 @Composable
-private fun usageLast24hText(usageMillis: Long): String {
-  val usage = usageMillis.milliseconds
+private fun UsageBar(usageMillis: Long, fraction: Float) {
+  Row(verticalAlignment = Alignment.CenterVertically) {
+    LinearProgressIndicator(
+      progress = { fraction },
+      gapSize = 0.dp,
+      drawStopIndicator = {},
+      modifier = Modifier
+        .weight(1f)
+        .height(6.dp),
+    )
+    Spacer(modifier = Modifier.width(8.dp))
+    Text(text = shortUsage(usageMillis.milliseconds))
+  }
+}
+
+@Composable
+private fun shortUsage(usage: Duration): String {
+  val hours = usage.inWholeHours.toInt()
+  val minutes = (usage.inWholeMinutes % 60).toInt()
   return when {
-    usage == Duration.ZERO -> stringResource(R.string.app_not_used_last_24h)
-    usage < 1.minutes -> stringResource(R.string.app_used_less_than_minute_last_24h)
-    else -> stringResource(R.string.app_usage_last_24h, LocalContext.current.formatDuration(usage))
+    usage < 1.minutes -> stringResource(R.string.usage_short_less_than_minute)
+    hours == 0 -> stringResource(R.string.usage_short_minutes, minutes)
+    minutes == 0 -> stringResource(R.string.usage_short_hours, hours)
+    else -> stringResource(R.string.usage_short_hours_minutes, hours, minutes)
   }
 }
 
@@ -76,8 +101,9 @@ private fun InstalledAppPreview() {
         name = "Youtube",
         packageName = "com.google.youtube",
         icon = LocalContext.current.getDrawable(R.mipmap.ic_launcher)!!,
-        usageMillis = 72 * 60_000L,
+        usageMillis = 104 * 60_000L,
       ),
+      usageFraction = 1f,
       onClicked = { },
       isSelected = true,
     )
@@ -87,6 +113,7 @@ private fun InstalledAppPreview() {
         packageName = "app.mathlock.android",
         icon = LocalContext.current.getDrawable(R.mipmap.ic_launcher)!!,
       ),
+      usageFraction = 0f,
       isSelected = false,
       onClicked = { },
     )
