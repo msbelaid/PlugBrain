@@ -1,4 +1,4 @@
-package app.plugbrain.android.repository.model
+package app.plugbrain.android.appsusage.model
 
 import android.graphics.drawable.Drawable
 

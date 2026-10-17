@@ -49,9 +49,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
+import app.plugbrain.android.appsusage.model.InstalledApp
 import app.plugbrain.android.challenges.Challenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
-import app.plugbrain.android.repository.model.InstalledApp
 import app.plugbrain.android.repository.model.PermissionsState
 import coil3.compose.rememberAsyncImagePainter
 

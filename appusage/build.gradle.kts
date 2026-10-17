@@ -23,6 +23,7 @@ android {
 
 dependencies {
     implementation(libs.timber)
+    implementation(libs.kotlinx.coroutines.android)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockito)

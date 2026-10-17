@@ -1,4 +1,4 @@
-package app.plugbrain.android.repository
+package app.plugbrain.android.appsusage
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -6,8 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import app.plugbrain.android.R
-import app.plugbrain.android.repository.model.InstalledApp
+import app.plugbrain.android.appsusage.model.InstalledApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

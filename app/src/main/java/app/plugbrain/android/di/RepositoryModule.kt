@@ -1,6 +1,6 @@
 package app.plugbrain.android.di
 
-import app.plugbrain.android.repository.InstalledAppsRepository
+import app.plugbrain.android.appsusage.InstalledAppsRepository
 import app.plugbrain.android.repository.MathChallengeRepository
 import app.plugbrain.android.repository.PermissionsRepository
 import org.koin.android.ext.koin.androidContext
