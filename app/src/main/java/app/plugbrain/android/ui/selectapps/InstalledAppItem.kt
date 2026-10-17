@@ -71,8 +71,9 @@ private fun UsageBar(usageMillis: Long, fraction: Float) {
       progress = { fraction },
       gapSize = 0.dp,
       drawStopIndicator = {},
+      // Fixed width so every row's track has the same length, whatever the time text says.
       modifier = Modifier
-        .weight(1f)
+        .width(160.dp)
         .height(6.dp),
     )
     Spacer(modifier = Modifier.width(8.dp))
