@@ -43,6 +43,9 @@
     </plurals>
     
     <string name="duration_zero_minutes">0分</string>
+    <string name="app_usage_last_24h">過去24時間で%1$s</string>
+    <string name="app_not_used_last_24h">過去24時間は未使用</string>
+    <string name="app_used_less_than_minute_last_24h">過去24時間で1分未満</string>
     <string name="blocking_message">時間切れです。問題を解いてアプリをアンロックしましょう！</string>
     <string name="minimal_difficulty">最小難易度</string>
     <string name="stats_hardness">難易度: %1$s/%2$s</string>

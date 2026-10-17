@@ -31,6 +31,20 @@ class AppsUsageStats(
     return totalTimeInMinutes
   }
 
+  /**
+   * @return foreground time(in milliseconds) of each app in filterPackages between startTime
+   * and endTime. Apps that were not used are missing from the map.
+   */
+  fun getUsagePerPackage(
+    startTime: Long,
+    endTime: Long,
+    filterPackages: Set<String>,
+  ): Map<String, Long> {
+    val usageStatsManager = context.getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
+    val events = usageStatsManager.queryEvents(startTime, endTime).toAppEvents(filterPackages)
+    return UsageCalculator.totalTimePerPackage(events, startTime, endTime)
+  }
+
   private fun UsageEvents.toAppEvents(filterPackages: Set<String>): List<AppEvent> {
     val event = UsageEvents.Event()
     val appEvents = mutableListOf<AppEvent>()

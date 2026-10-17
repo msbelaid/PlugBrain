@@ -42,4 +42,11 @@ class AppsUsageStatsTest {
         val result = appsUsageStats.getTotalAppsUsageDuration(startTime, endTime, packageSet)
         assertEquals(0L, result)
     }
+
+    @Test
+    fun `getUsagePerPackage should return an empty map when no events`() {
+        whenever(usageEvents.hasNextEvent()).thenReturn(false)
+        val result = appsUsageStats.getUsagePerPackage(startTime, endTime, packageSet)
+        assertEquals(emptyMap<String, Long>(), result)
+    }
 }

@@ -46,6 +46,9 @@
     </plurals>
     
     <string name="duration_zero_minutes">0 मिनट</string>
+    <string name="app_usage_last_24h">पिछले 24 घंटों में %1$s</string>
+    <string name="app_not_used_last_24h">पिछले 24 घंटों में उपयोग नहीं हुआ</string>
+    <string name="app_used_less_than_minute_last_24h">पिछले 24 घंटों में एक मिनट से कम</string>
     <string name="blocking_message">समय समाप्त! ऐप अनलॉक करने के लिए दिमाग़ लगाओ!</string>
     <string name="minimal_difficulty">न्यूनतम कठिनाई</string>
     <string name="stats_hardness">कठिनाई: %1$s/%2$s</string>

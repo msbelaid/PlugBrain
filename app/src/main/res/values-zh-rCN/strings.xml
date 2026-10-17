@@ -55,6 +55,9 @@
     </plurals>
 
     <string name="duration_zero_minutes">0 分钟</string>
+    <string name="app_usage_last_24h">过去 24 小时内使用 %1$s</string>
+    <string name="app_not_used_last_24h">过去 24 小时内未使用</string>
+    <string name="app_used_less_than_minute_last_24h">过去 24 小时内不到 1 分钟</string>
 
     <string name="blocking_message">时间到！连接你的大脑才能解锁应用！</string>
 

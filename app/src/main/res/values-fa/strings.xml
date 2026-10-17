@@ -49,6 +49,9 @@
     </plurals>
 
     <string name="duration_zero_minutes">۰ دقیقه</string>
+    <string name="app_usage_last_24h">%1$s در ۲۴ ساعت گذشته</string>
+    <string name="app_not_used_last_24h">در ۲۴ ساعت گذشته استفاده نشده</string>
+    <string name="app_used_less_than_minute_last_24h">کمتر از یک دقیقه در ۲۴ ساعت گذشته</string>
     <string name="blocking_message">وقت تموم شد! برای باز کردن برنامه، مغزت رو وصل کن!</string>
     <string name="minimal_difficulty">حداقل سختی</string>
     <string name="stats_hardness">سختی: %1$s/%2$s</string>

@@ -40,6 +40,9 @@
     </plurals>
     
     <string name="duration_zero_minutes">0 minutes</string>
+    <string name="app_usage_last_24h">%1$s ces dernières 24 h</string>
+    <string name="app_not_used_last_24h">Non utilisée ces dernières 24 h</string>
+    <string name="app_used_less_than_minute_last_24h">Moins d\'une minute ces dernières 24 h</string>
     <string name="blocking_message">Le temps est écoulé ! Connectez votre cerveau pour déverrouiller l\'application !</string>
 
     <plurals name="applications_blocked">

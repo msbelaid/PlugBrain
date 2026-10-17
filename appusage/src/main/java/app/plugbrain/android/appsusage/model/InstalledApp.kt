@@ -6,4 +6,5 @@ data class InstalledApp(
   val name: String,
   val packageName: String,
   val icon: Drawable? = null,
+  val usageMillis: Long = 0L,
 )
