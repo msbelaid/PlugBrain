@@ -55,6 +55,10 @@
     </plurals>
 
     <string name="duration_zero_minutes">0 分钟</string>
+    <string name="usage_short_hours_minutes">%1$d小时%2$d分钟</string>
+    <string name="usage_short_hours">%1$d小时</string>
+    <string name="usage_short_minutes">%1$d分钟</string>
+    <string name="usage_short_less_than_minute">不到1分钟</string>
 
     <string name="blocking_message">时间到！连接你的大脑才能解锁应用！</string>
 

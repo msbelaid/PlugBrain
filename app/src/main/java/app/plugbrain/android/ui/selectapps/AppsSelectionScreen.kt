@@ -88,6 +88,7 @@ fun AppsSelectionScreen(
           InstalledAppsList(
             modifier = Modifier.fillMaxSize().testTag("AppsList"),
             installedApps = state.apps,
+            maxUsageMillis = state.maxUsageMillis,
             blockedApps = blockedApps,
             onItemClicked = onItemClicked,
           )
@@ -101,6 +102,7 @@ fun AppsSelectionScreen(
 fun InstalledAppsList(
   modifier: Modifier = Modifier,
   installedApps: List<InstalledApp>,
+  maxUsageMillis: Long,
   blockedApps: Set<String>,
   onItemClicked: (String, Boolean) -> Unit,
 ) {
@@ -114,6 +116,7 @@ fun InstalledAppsList(
     ) { item ->
       InstalledAppItem(
         installedApp = item,
+        usageFraction = if (maxUsageMillis > 0) item.usageMillis.toFloat() / maxUsageMillis else 0f,
         isSelected = blockedApps.contains(item.packageName),
       ) { checked ->
         onItemClicked(item.packageName, checked)
