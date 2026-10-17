@@ -4,6 +4,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.plugbrain.android.appsusage.InstalledAppsRepository
+import app.plugbrain.android.appsusage.model.InstalledApp
 import app.plugbrain.android.challenges.Challenge
 import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
 import app.plugbrain.android.challenges.factory.ChallengeFactory
@@ -11,9 +13,7 @@ import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.datastore.model.UserSettings
 import app.plugbrain.android.datastore.setBlockInterval
 import app.plugbrain.android.datastore.setSelectedMinimalDifficulty
-import app.plugbrain.android.repository.InstalledAppsRepository
 import app.plugbrain.android.repository.PermissionsRepository
-import app.plugbrain.android.repository.model.InstalledApp
 import app.plugbrain.android.repository.model.PermissionsState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

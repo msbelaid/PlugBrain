@@ -5,10 +5,10 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.appsusage.AppsUsageStats
+import app.plugbrain.android.appsusage.InstalledAppsRepository
 import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
-import app.plugbrain.android.repository.InstalledAppsRepository
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
 import kotlin.time.Duration.Companion.milliseconds

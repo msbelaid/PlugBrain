@@ -16,7 +16,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.plugbrain.android.repository.model.InstalledApp
+import app.plugbrain.android.appsusage.model.InstalledApp
 import app.plugbrain.android.ui.selectapps.AppsSelectionScreen
 import app.plugbrain.android.ui.selectapps.presentation.InstalledAppsState
 import org.junit.Assert.assertEquals

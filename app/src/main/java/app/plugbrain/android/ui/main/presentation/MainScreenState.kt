@@ -1,6 +1,6 @@
 package app.plugbrain.android.ui.main.presentation
 
-import app.plugbrain.android.repository.model.InstalledApp
+import app.plugbrain.android.appsusage.model.InstalledApp
 import kotlin.time.Duration
 
 data class MainScreenState(

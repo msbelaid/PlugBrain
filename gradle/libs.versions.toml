@@ -7,6 +7,7 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
+kotlinxCoroutines = "1.8.1"
 activityCompose = "1.10.1"
 composeBom = "2025.03.01"
 ktlint = "12.2.0"
@@ -48,6 +49,9 @@ koin_compose = { module = "io.insert-koin:koin-compose-viewmodel", version.ref =
 androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastoreCoreAndroid" }
 androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastoreCoreAndroid" }
+
+#Coroutines
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 
 #Timber
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }

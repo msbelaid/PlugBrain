@@ -4,11 +4,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.plugbrain.android.appsusage.InstalledAppsRepository
+import app.plugbrain.android.appsusage.model.InstalledApp
 import app.plugbrain.android.datastore.addDistractiveApp
 import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.datastore.removeDistractiveApp
-import app.plugbrain.android.repository.InstalledAppsRepository
-import app.plugbrain.android.repository.model.InstalledApp
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

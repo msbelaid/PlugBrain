@@ -32,7 +32,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
-import app.plugbrain.android.repository.model.InstalledApp
+import app.plugbrain.android.appsusage.model.InstalledApp
 import app.plugbrain.android.ui.selectapps.presentation.InstalledAppsState
 
 @Composable
