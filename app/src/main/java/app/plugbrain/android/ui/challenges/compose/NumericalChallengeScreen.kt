@@ -84,10 +84,12 @@ fun NumericalChallengeScreen(
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
+      // Debug builds only: the challenge is picked at the user's current progressive difficulty.
       if (BuildConfig.DEBUG) {
         Text(
-          text = challenge.difficultyLevel.toString(),
-          style = MaterialTheme.typography.titleSmall,
+          text = "Difficulty: ${challenge.difficultyLevel}",
+          style = MaterialTheme.typography.labelSmall,
+          color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
       }
       ChallengeHeader()
