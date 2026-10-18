@@ -15,15 +15,26 @@ import kotlinx.coroutines.flow.flowOn
 
 class InstalledAppsRepository(private val context: Context) {
 
-  private fun isAppVisible(appInfo: ApplicationInfo): Boolean {
+  private fun isAppVisible(appInfo: ApplicationInfo, launchablePackages: Set<String>): Boolean {
     // Filter out system apps, but keep a specific allow-list
     val isSystemApp = (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
     val isAllowedSystemApp = appInfo.packageName in
       context.resources.getStringArray(R.array.default_system_apps)
+    // System apps with a launcher icon are user-facing (e.g. a preinstalled browser
+    // like Vanadium on GrapheneOS), so they can be distracting too.
+    val isLaunchable = appInfo.packageName in launchablePackages
 
-    // Keep the app if it's not a system app, OR if it's an allowed system app.
+    // Keep the app if it's not a system app, OR if it's an allowed or launchable system app.
     // Also, always filter out our own app.
-    return (isAllowedSystemApp || !isSystemApp) && appInfo.packageName != context.packageName
+    return (isAllowedSystemApp || isLaunchable || !isSystemApp) &&
+      appInfo.packageName != context.packageName
+  }
+
+  private fun getLaunchablePackages(pm: PackageManager): Set<String> {
+    val launcherIntent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
+    return pm.queryIntentActivities(launcherIntent, 0)
+      .map { it.activityInfo.packageName }
+      .toSet()
   }
 
   fun getInstalledApps(): Flow<List<InstalledApp>> = callbackFlow {
@@ -31,9 +42,10 @@ class InstalledAppsRepository(private val context: Context) {
 
     // Function to fetch and send the app list
     fun sendApps() {
+      val launchablePackages = getLaunchablePackages(pm)
       val apps = pm
         .getInstalledApplications(PackageManager.GET_META_DATA)
-        .filter { isAppVisible(it) }
+        .filter { isAppVisible(it, launchablePackages) }
         .map { appInfo ->
           InstalledApp(
             name = pm.getApplicationLabel(appInfo).toString(),
