@@ -40,7 +40,8 @@ class ChallengeActivity : ComponentActivity() {
 
     enableEdgeToEdge()
     setContent {
-      MathlockAppTheme {
+      // Brand colors rather than the wallpaper's, so the screen matches the design in both themes.
+      MathlockAppTheme(dynamicColor = false) {
         val challenge by challengeViewModel.challenge.collectAsState()
         challenge?.let {
           when (it) {

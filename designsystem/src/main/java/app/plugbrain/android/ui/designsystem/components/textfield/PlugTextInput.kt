@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -60,7 +61,8 @@ fun PlugNumericalInput(
   val unfocusBorderColor = when {
     isError -> MaterialTheme.colorScheme.error
     isSuccess -> MaterialTheme.colorScheme.tertiary
-    else -> MaterialTheme.colorScheme.outline
+    // A subtle border keeps the filled field from reading like an outlined button.
+    else -> MaterialTheme.colorScheme.outlineVariant
   }
   val focusTextColor = when {
     isError -> MaterialTheme.colorScheme.error
@@ -127,7 +129,7 @@ fun PlugNumericalInput(
         if (value.isEmpty()) {
           Text(
             text = placeholder,
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Normal),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),

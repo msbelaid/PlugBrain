@@ -1,6 +1,7 @@
 package app.plugbrain.android.ui.designsystem.components.button
 
 import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import app.plugbrain.android.ui.theme.PrimaryGradient
+import app.plugbrain.android.ui.theme.White
 
 val shape = RoundedCornerShape(50)
 val buttonPadding = PaddingValues(
@@ -50,6 +52,8 @@ fun PlugButtonPrimary(
     contentPadding = buttonPadding,
     colors = ButtonDefaults.buttonColors(
       containerColor = Color.Transparent,
+      // The gradient is fixed brand colors, so the label stays white whatever the color scheme.
+      contentColor = White,
       disabledContainerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
     ),
     modifier = modifier
@@ -85,6 +89,14 @@ fun PlugButtonSecondary(
     enabled = enabled,
     shape = shape,
     contentPadding = buttonPadding,
+    colors = ButtonDefaults.outlinedButtonColors(
+      disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+    ),
+    // Keep the outline readable while disabled, so the button stays visible.
+    border = BorderStroke(
+      width = 1.dp,
+      color = MaterialTheme.colorScheme.outline.copy(alpha = if (enabled) 1f else 0.5f),
+    ),
   ) {
     ButtonContent(
       text = text,

@@ -8,6 +8,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +49,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import app.plugbrain.android.BuildConfig
 import app.plugbrain.android.R
 import app.plugbrain.android.challenges.NumericalChallenge
@@ -101,78 +103,99 @@ fun NumericalChallengeScreen(
   LaunchedEffect(Unit) { entrance.targetState = true }
 
   Scaffold(modifier = modifier) { innerPadding ->
-    Column(
+    Box(
       modifier = Modifier
         .fillMaxSize()
         .padding(innerPadding)
-        .consumeWindowInsets(innerPadding)
-        .imePadding()
-        .verticalScroll(rememberScrollState())
-        .padding(horizontal = 32.dp, vertical = 24.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
+        .consumeWindowInsets(innerPadding),
     ) {
+      Column(
+        modifier = Modifier
+          .fillMaxSize()
+          .imePadding()
+          .verticalScroll(rememberScrollState())
+          .padding(horizontal = 32.dp, vertical = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+      ) {
+        Spacer(Modifier.height(40.dp))
+        EntranceItem(entrance, order = 0) { AppIcon() }
+        Spacer(Modifier.height(16.dp))
+        EntranceItem(entrance, order = 1) {
+          Text(
+            text = stringResource(R.string.challenge_title),
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+            textAlign = TextAlign.Center,
+          )
+        }
+        Spacer(Modifier.height(24.dp))
+        Column(
+          modifier = Modifier.widthIn(max = 400.dp).fillMaxWidth(),
+          verticalArrangement = Arrangement.spacedBy(40.dp),
+        ) {
+          EntranceItem(entrance, order = 2) {
+            PlugCard(
+              challengeText = challenge.string(),
+              inputValue = answer,
+              onInputChange = {
+                answer = it
+                if (answerState == AnswerState.Wrong) answerState = AnswerState.Idle
+              },
+              onCheckAnswer = { response ->
+                if (answerState != AnswerState.Correct) {
+                  if (response != null && challenge.checkAnswer(response)) {
+                    answerState = AnswerState.Correct
+                  } else {
+                    answerState = AnswerState.Wrong
+                    wrongAttempts++
+                  }
+                }
+              },
+              placeholder = stringResource(R.string.challenge_answer_placeholder),
+              ctaText = stringResource(R.string.challenge_check_answer),
+              isSuccess = answerState == AnswerState.Correct,
+              isError = answerState == AnswerState.Wrong,
+              modifier = Modifier
+                .fillMaxWidth()
+                .graphicsLayer { translationX = shakeOffset.value },
+            )
+          }
+          EntranceItem(entrance, order = 3) {
+            PlugButtonPrimary(
+              text = stringResource(R.string.challenge_leave_app),
+              onClick = onExitChallenge,
+              icon = Icons.AutoMirrored.Filled.ExitToApp,
+              modifier = Modifier.fillMaxWidth(),
+            )
+          }
+        }
+      }
       // Debug builds only: the challenge is picked at the user's current progressive difficulty.
       if (BuildConfig.DEBUG) {
-        Text(
-          text = "Difficulty: ${challenge.difficultyLevel}",
-          style = MaterialTheme.typography.labelSmall,
-          color = MaterialTheme.colorScheme.onSurfaceVariant,
+        DifficultyBadge(
+          level = challenge.difficultyLevel,
+          modifier = Modifier
+            .align(Alignment.TopEnd)
+            .padding(12.dp),
         )
-      }
-      Spacer(Modifier.height(24.dp))
-      EntranceItem(entrance, order = 0) { AppIcon() }
-      Spacer(Modifier.height(16.dp))
-      EntranceItem(entrance, order = 1) {
-        Text(
-          text = stringResource(R.string.challenge_title),
-          style = MaterialTheme.typography.headlineMedium,
-          color = MaterialTheme.colorScheme.onBackground,
-          textAlign = TextAlign.Center,
-        )
-      }
-      Spacer(Modifier.height(24.dp))
-      Column(
-        modifier = Modifier.widthIn(max = 400.dp).fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(40.dp),
-      ) {
-        EntranceItem(entrance, order = 2) {
-          PlugCard(
-            challengeText = challenge.string(),
-            inputValue = answer,
-            onInputChange = {
-              answer = it
-              if (answerState == AnswerState.Wrong) answerState = AnswerState.Idle
-            },
-            onCheckAnswer = { response ->
-              if (answerState != AnswerState.Correct) {
-                if (response != null && challenge.checkAnswer(response)) {
-                  answerState = AnswerState.Correct
-                } else {
-                  answerState = AnswerState.Wrong
-                  wrongAttempts++
-                }
-              }
-            },
-            placeholder = stringResource(R.string.challenge_answer_placeholder),
-            ctaText = stringResource(R.string.challenge_check_answer),
-            isSuccess = answerState == AnswerState.Correct,
-            isError = answerState == AnswerState.Wrong,
-            modifier = Modifier
-              .fillMaxWidth()
-              .graphicsLayer { translationX = shakeOffset.value },
-          )
-        }
-        EntranceItem(entrance, order = 3) {
-          PlugButtonPrimary(
-            text = stringResource(R.string.challenge_leave_app),
-            onClick = onExitChallenge,
-            icon = Icons.AutoMirrored.Filled.ExitToApp,
-            modifier = Modifier.fillMaxWidth(),
-          )
-        }
       }
     }
   }
+}
+
+@Composable
+private fun DifficultyBadge(
+  level: Int,
+  modifier: Modifier = Modifier,
+) {
+  Text(
+    text = "Difficulty $level",
+    style = MaterialTheme.typography.labelSmall.copy(fontSize = 11.sp),
+    color = MaterialTheme.colorScheme.onSurfaceVariant,
+    modifier = modifier
+      .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(50))
+      .padding(horizontal = 8.dp, vertical = 2.dp),
+  )
 }
 
 // Fades and lifts each block in one after the other, to set a calmer pace.
