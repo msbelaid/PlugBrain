@@ -8,7 +8,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,8 +48,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import app.plugbrain.android.BuildConfig
 import app.plugbrain.android.R
 import app.plugbrain.android.challenges.NumericalChallenge
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChallenge
@@ -170,32 +167,8 @@ fun NumericalChallengeScreen(
           }
         }
       }
-      // Debug builds only: the challenge is picked at the user's current progressive difficulty.
-      if (BuildConfig.DEBUG) {
-        DifficultyBadge(
-          level = challenge.difficultyLevel,
-          modifier = Modifier
-            .align(Alignment.TopEnd)
-            .padding(12.dp),
-        )
-      }
     }
   }
-}
-
-@Composable
-private fun DifficultyBadge(
-  level: Int,
-  modifier: Modifier = Modifier,
-) {
-  Text(
-    text = "Difficulty $level",
-    style = MaterialTheme.typography.labelSmall.copy(fontSize = 11.sp),
-    color = MaterialTheme.colorScheme.onSurfaceVariant,
-    modifier = modifier
-      .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(50))
-      .padding(horizontal = 8.dp, vertical = 2.dp),
-  )
 }
 
 // Fades and lifts each block in one after the other, to set a calmer pace.
