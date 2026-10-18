@@ -60,7 +60,6 @@
     <string name="usage_short_minutes">%1$d分钟</string>
     <string name="usage_short_less_than_minute">不到1分钟</string>
 
-    <string name="blocking_message">时间到！连接你的大脑才能解锁应用！</string>
 
     <string name="minimal_difficulty">最低难度</string>
 
@@ -75,6 +74,8 @@
     <string name="continue_btn">继续</string>
     <string name="cancel_btn">取消</string>
 
-    <string name="challenge_answer_hint">你的答案</string>
-    <string name="take_me_out_of_here">让我离开这里</string>
+    <string name="challenge_title">我们慢一点</string>
+    <string name="challenge_answer_placeholder">写下你的答案</string>
+    <string name="challenge_check_answer">检查答案</string>
+    <string name="challenge_leave_app">离开应用</string>
 </resources>

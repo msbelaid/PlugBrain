@@ -45,21 +45,20 @@ You can scaffold a new challenge automatically using the Gradle generator:
 ```bash
 ./gradlew generateChallenge -PchallengeName=MyNewChallenge
 ```
-After running this command, your job is simply to update the generated Challenge model and its Compose UI:
+After running this command, your job is simply to update the generated Challenge model:
 ### Challenge model (MyNewChallenge.kt)
 - Add any required fields
 - Set the difficultyLevel property
 - Implement the checkAnswer() function with your validation logic
 - Override string() to define how the challenge is displayed
 
-### UI (MyNewChallengeView.kt)
-- Replace the TODO with Compose UI elements to render the challenge
+The challenge screen shows `string()` inside the design system's `PlugCard`, so no UI code is needed.
 
 Note: At the moment, only numeric-answer challenges are supported.
 
 ### Example
 PlugBrain supports math-like challenges where the user must provide a numeric answer.
-In this challenge, the user is asked to count the number of circles displayed on screen.
+In this challenge, the user is asked to count the number of stars displayed on screen.
 
 You can scaffold a new challenge automatically using the Gradle generator:
 ```bash
@@ -77,35 +76,6 @@ class CountingChallenge : NumericalChallenge {
   }
   override val difficultyLevel = 0
   override fun string() = "*".repeat(totalCircles)
-}
-```
-#### Update the View
-Next, update the generated compose file `CountingChallengeView.kt` to display circles:
-
-```kotlin
-@Composable
-fun CountingChallengeView(
-  modifier: Modifier = Modifier,
-  challenge: CountingChallenge,
-) {
-  Column(
-    modifier = modifier.fillMaxSize().padding(16.dp),
-    horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.Center
-  ) {
-    Text("How many circles do you see?")
-    Spacer(modifier = Modifier.height(16.dp))
-    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-      repeat(challenge.totalCircles) {
-        Box(
-          modifier = Modifier
-            .size(24.dp)
-            .clip(CircleShape)
-            .background(Color.Red)
-        )
-      }
-    }
-  }
 }
 ```
 

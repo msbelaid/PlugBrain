@@ -53,7 +53,6 @@
     <string name="usage_short_hours">%1$d س</string>
     <string name="usage_short_minutes">%1$d د</string>
     <string name="usage_short_less_than_minute">&lt;1 د</string>
-    <string name="blocking_message">انتهى الوقت! شغّل عقلك لفتح التطبيق!</string>
 
     <plurals name="applications_blocked">
         <item quantity="zero">لا توجد تطبيقات محجوبة</item>
@@ -75,4 +74,8 @@
     <string name="enable_accessibility_text">يستخدم تطبيق PlugBrain خدمة إمكانية الوصول في نظام أندرويد لحظر التطبيقات التي تختارها.\nيتيح ذلك لـ PlugBrain اكتشاف متى تفتح أحد هذه التطبيقات وعرض تحدي رياضي قبل السماح بالدخول.\nنحن لا نجمع أو نشارك أي معلومات شخصية.</string>
     <string name="continue_btn">متابعة</string>
     <string name="cancel_btn">إلغاء</string>
+    <string name="challenge_title">لنبطئ قليلاً</string>
+    <string name="challenge_answer_placeholder">اكتب إجابتك</string>
+    <string name="challenge_check_answer">تحقق من الإجابة</string>
+    <string name="challenge_leave_app">مغادرة التطبيق</string>
 </resources>

@@ -3,7 +3,6 @@ package app.plugbrain.android
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
@@ -26,18 +25,15 @@ class ArithChallengeScreenTest {
             NumericalChallengeScreen(
                 challenge = challenge,
                 checkAnswer = { result = it },
-                triggerAnimation = false,
                 onExitChallenge = {},
             )
         }
 
-        composeTestRule.onNodeWithText(challenge.operand1.toString()).assertIsDisplayed()
-        composeTestRule.onNodeWithText("+").assertIsDisplayed()
-        composeTestRule.onNodeWithText(challenge.operand2.toString()).assertIsDisplayed()
+        composeTestRule.onNodeWithText(challenge.string()).assertIsDisplayed()
 
         composeTestRule.onNode(hasSetTextAction()).performTextInput((challenge.operand1 + challenge.operand2).toString())
 
-        composeTestRule.onNodeWithTag("Submit Answer").performClick()
+        composeTestRule.onNodeWithText("Check Answer").performClick()
         assert(result == challenge.operand1 + challenge.operand2)
     }
 
@@ -51,12 +47,11 @@ class ArithChallengeScreenTest {
             NumericalChallengeScreen(
                 challenge = challenge,
                 checkAnswer = { result = it },
-                triggerAnimation = false,
                 onExitChallenge = {},
             )
         }
         composeTestRule.onNode(hasSetTextAction()).performTextInput("...")
-        composeTestRule.onNodeWithTag("Submit Answer").performClick()
+        composeTestRule.onNodeWithText("Check Answer").performClick()
         assert(result == null)
     }
 }
