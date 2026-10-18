@@ -88,12 +88,16 @@ class MathLockService : AccessibilityService() {
           }
           checkAppUsage()
         }
-      }
-      if ((eventPackageName in resources.getStringArray(R.array.calculator_packages) || "calc" in eventPackageName) && (isBlocked == true)) {
+      } else if (isCalculator(eventPackageName) && isBlocked == true) {
+        // Showing a toast alone left the calculator usable; cover it with the challenge.
         Toast.makeText(this, R.string.calculator_warning, Toast.LENGTH_LONG).show()
+        launchChallenge()
       }
     }
   }
+
+  private fun isCalculator(packageName: String): Boolean =
+    packageName in resources.getStringArray(R.array.calculator_packages) || "calc" in packageName
 
   private fun launchChallenge() {
     Timber.tag(TAG).i("Launch Challenge ...")
