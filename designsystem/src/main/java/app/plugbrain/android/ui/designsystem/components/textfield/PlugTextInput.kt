@@ -9,9 +9,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -39,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.ElevationFeedback
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.ElevationFocused
+import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.IconSize
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.Shape
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 
@@ -135,16 +136,21 @@ fun PlugNumericalInput(
             modifier = Modifier.fillMaxWidth(),
           )
         }
-        Row(
-          modifier = Modifier.fillMaxWidth(),
-          verticalAlignment = Alignment.CenterVertically,
-        ) {
-          Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) { innerTextField() }
-          PlugNumericalInputIcon(
-            isSuccess = isSuccess,
-            isError = isError,
-          )
-        }
+        // The text is inset on both sides by the icon width so it stays centered and never runs under the icon.
+        Box(
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = IconSize),
+          contentAlignment = Alignment.Center,
+        ) { innerTextField() }
+        // Overlaid rather than laid out next to the text, so showing it doesn't change the field's height.
+        PlugNumericalInputIcon(
+          isSuccess = isSuccess,
+          isError = isError,
+          modifier = Modifier
+            .align(Alignment.CenterEnd)
+            .size(IconSize),
+        )
       }
     },
   )
@@ -152,6 +158,7 @@ fun PlugNumericalInput(
 
 private object PlugNumericalInputDefaults {
   val Shape = RoundedCornerShape(50)
+  val IconSize = 24.dp
   val ElevationFocused = 12.dp
   val ElevationFeedback = 6.dp
 }
@@ -160,17 +167,20 @@ private object PlugNumericalInputDefaults {
 private fun PlugNumericalInputIcon(
   isSuccess: Boolean,
   isError: Boolean,
+  modifier: Modifier = Modifier,
 ) {
   when {
     isSuccess -> Icon(
       imageVector = Icons.Default.Check,
       tint = MaterialTheme.colorScheme.tertiary,
       contentDescription = "Input valid",
+      modifier = modifier,
     )
     isError -> Icon(
       imageVector = Icons.Default.Clear,
       tint = MaterialTheme.colorScheme.error,
       contentDescription = "Input invalid",
+      modifier = modifier,
     )
     else -> null
   }
