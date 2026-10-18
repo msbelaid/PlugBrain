@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -143,14 +143,17 @@ fun PlugNumericalInput(
             .padding(horizontal = IconSize),
           contentAlignment = Alignment.Center,
         ) { innerTextField() }
-        // Overlaid rather than laid out next to the text, so showing it doesn't change the field's height.
-        PlugNumericalInputIcon(
-          isSuccess = isSuccess,
-          isError = isError,
-          modifier = Modifier
-            .align(Alignment.CenterEnd)
-            .size(IconSize),
-        )
+        // Sized to the text row and allowed to overflow it, so showing the icon doesn't change the field's height.
+        Box(
+          modifier = Modifier.matchParentSize(),
+          contentAlignment = Alignment.CenterEnd,
+        ) {
+          PlugNumericalInputIcon(
+            isSuccess = isSuccess,
+            isError = isError,
+            modifier = Modifier.requiredSize(IconSize),
+          )
+        }
       }
     },
   )
