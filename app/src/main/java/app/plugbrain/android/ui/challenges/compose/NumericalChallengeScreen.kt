@@ -54,7 +54,6 @@ import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChall
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonPrimary
 import app.plugbrain.android.ui.designsystem.components.card.PlugCard
 import app.plugbrain.android.ui.theme.MathlockAppTheme
-import kotlinx.coroutines.delay
 
 private enum class AnswerState { Idle, Wrong, Correct }
 
@@ -86,14 +85,6 @@ fun NumericalChallengeScreen(
       },
     )
   }
-  LaunchedEffect(answerState) {
-    if (answerState == AnswerState.Correct) {
-      // Let the success state show before the challenge screen goes away.
-      delay(SUCCESS_HOLD_MILLIS)
-      onCorrectAnswer()
-    }
-  }
-
   // Previews and screenshot tests render a single frame, so start fully visible there.
   val inspectionMode = LocalInspectionMode.current
   val entrance = remember { MutableTransitionState(inspectionMode) }
@@ -142,6 +133,7 @@ fun NumericalChallengeScreen(
                 if (answerState != AnswerState.Correct) {
                   if (response != null && challenge.checkAnswer(response)) {
                     answerState = AnswerState.Correct
+                    onCorrectAnswer()
                   } else {
                     answerState = AnswerState.Wrong
                     wrongAttempts++
@@ -215,7 +207,6 @@ private val AppIconSize = 64.dp
 private const val ENTRANCE_DURATION_MILLIS = 500
 private const val ENTRANCE_STAGGER_MILLIS = 120
 private const val SHAKE_DURATION_MILLIS = 360
-private const val SUCCESS_HOLD_MILLIS = 600L
 
 @Preview(showSystemUi = true)
 @Preview(name = "Landscape", widthDp = 640, heightDp = 360)

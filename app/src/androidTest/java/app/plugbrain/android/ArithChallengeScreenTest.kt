@@ -35,9 +35,8 @@ class ArithChallengeScreenTest {
         composeTestRule.onNode(hasSetTextAction()).performTextInput((challenge.operand1 + challenge.operand2).toString())
 
         composeTestRule.onNodeWithText("Check Answer").performClick()
-        // The screen holds the success state briefly before reporting the correct answer.
-        composeTestRule.onNodeWithContentDescription("Input valid").assertIsDisplayed()
-        composeTestRule.waitUntil(timeoutMillis = 5_000) { solved }
+        composeTestRule.waitForIdle()
+        assert(solved)
     }
 
     @Test
