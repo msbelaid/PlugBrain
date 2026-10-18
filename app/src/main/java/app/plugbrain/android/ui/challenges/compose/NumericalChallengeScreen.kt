@@ -1,15 +1,15 @@
 package app.plugbrain.android.ui.challenges.compose
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
@@ -18,6 +18,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -49,58 +50,61 @@ fun NumericalChallengeScreen(
 ) {
   var answer by rememberSaveable(challenge) { mutableStateOf("") }
 
-  Column(
-    modifier = modifier
-      .fillMaxSize()
-      .background(MaterialTheme.colorScheme.background)
-      .safeDrawingPadding()
-      .verticalScroll(rememberScrollState())
-      .padding(horizontal = 32.dp, vertical = 24.dp),
-    horizontalAlignment = Alignment.CenterHorizontally,
-  ) {
-    // Debug builds only: the challenge is picked at the user's current progressive difficulty.
-    if (BuildConfig.DEBUG) {
-      Text(
-        text = "Difficulty: ${challenge.difficultyLevel}",
-        style = MaterialTheme.typography.labelSmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-      )
-    }
-    Spacer(Modifier.height(24.dp))
-    Image(
-      painter = painterResource(R.drawable.ic_launcher),
-      contentDescription = null,
-      modifier = Modifier
-        .size(48.dp)
-        .clip(RoundedCornerShape(12.dp)),
-    )
-    Spacer(Modifier.height(16.dp))
-    Text(
-      text = stringResource(R.string.challenge_title),
-      style = MaterialTheme.typography.headlineMedium,
-      color = MaterialTheme.colorScheme.onBackground,
-      textAlign = TextAlign.Center,
-    )
-    Spacer(Modifier.height(56.dp))
+  Scaffold(modifier = modifier) { innerPadding ->
     Column(
-      modifier = Modifier.widthIn(max = 400.dp).fillMaxWidth(),
-      verticalArrangement = Arrangement.spacedBy(40.dp),
+      modifier = Modifier
+        .fillMaxSize()
+        .padding(innerPadding)
+        .consumeWindowInsets(innerPadding)
+        .imePadding()
+        .verticalScroll(rememberScrollState())
+        .padding(horizontal = 32.dp, vertical = 24.dp),
+      horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-      PlugCard(
-        challengeText = challenge.string(),
-        inputValue = answer,
-        onInputChange = { answer = it },
-        onCheckAnswer = checkAnswer,
-        placeholder = stringResource(R.string.challenge_answer_placeholder),
-        ctaText = stringResource(R.string.challenge_check_answer),
-        modifier = Modifier.fillMaxWidth(),
+      // Debug builds only: the challenge is picked at the user's current progressive difficulty.
+      if (BuildConfig.DEBUG) {
+        Text(
+          text = "Difficulty: ${challenge.difficultyLevel}",
+          style = MaterialTheme.typography.labelSmall,
+          color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+      }
+      Spacer(Modifier.height(24.dp))
+      Image(
+        painter = painterResource(R.drawable.ic_launcher),
+        contentDescription = null,
+        modifier = Modifier
+          .size(48.dp)
+          .clip(RoundedCornerShape(12.dp)),
       )
-      PlugButtonPrimary(
-        text = stringResource(R.string.challenge_leave_app),
-        onClick = onExitChallenge,
-        icon = Icons.AutoMirrored.Filled.ExitToApp,
-        modifier = Modifier.fillMaxWidth(),
+      Spacer(Modifier.height(16.dp))
+      Text(
+        text = stringResource(R.string.challenge_title),
+        style = MaterialTheme.typography.headlineMedium,
+        color = MaterialTheme.colorScheme.onBackground,
+        textAlign = TextAlign.Center,
       )
+      Spacer(Modifier.height(56.dp))
+      Column(
+        modifier = Modifier.widthIn(max = 400.dp).fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(40.dp),
+      ) {
+        PlugCard(
+          challengeText = challenge.string(),
+          inputValue = answer,
+          onInputChange = { answer = it },
+          onCheckAnswer = checkAnswer,
+          placeholder = stringResource(R.string.challenge_answer_placeholder),
+          ctaText = stringResource(R.string.challenge_check_answer),
+          modifier = Modifier.fillMaxWidth(),
+        )
+        PlugButtonPrimary(
+          text = stringResource(R.string.challenge_leave_app),
+          onClick = onExitChallenge,
+          icon = Icons.AutoMirrored.Filled.ExitToApp,
+          modifier = Modifier.fillMaxWidth(),
+        )
+      }
     }
   }
 }
