@@ -2,6 +2,7 @@ package app.plugbrain.android.ui.challenges.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
@@ -70,13 +72,7 @@ fun NumericalChallengeScreen(
         )
       }
       Spacer(Modifier.height(24.dp))
-      Image(
-        painter = painterResource(R.drawable.ic_launcher),
-        contentDescription = null,
-        modifier = Modifier
-          .size(48.dp)
-          .clip(RoundedCornerShape(12.dp)),
-      )
+      AppIcon()
       Spacer(Modifier.height(16.dp))
       Text(
         text = stringResource(R.string.challenge_title),
@@ -84,7 +80,7 @@ fun NumericalChallengeScreen(
         color = MaterialTheme.colorScheme.onBackground,
         textAlign = TextAlign.Center,
       )
-      Spacer(Modifier.height(56.dp))
+      Spacer(Modifier.height(24.dp))
       Column(
         modifier = Modifier.widthIn(max = 400.dp).fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(40.dp),
@@ -108,6 +104,31 @@ fun NumericalChallengeScreen(
     }
   }
 }
+
+// The launcher drawables are adaptive icon layers (108dp with a 72dp safe zone),
+// so they are stacked and cropped to the visible area, like a launcher would.
+@Composable
+private fun AppIcon() {
+  Box(
+    modifier = Modifier
+      .size(AppIconSize)
+      .clip(RoundedCornerShape(16.dp)),
+    contentAlignment = Alignment.Center,
+  ) {
+    Image(
+      painter = painterResource(R.drawable.ic_launcher_background),
+      contentDescription = null,
+      modifier = Modifier.requiredSize(AppIconSize * 1.5f),
+    )
+    Image(
+      painter = painterResource(R.drawable.ic_launcher),
+      contentDescription = null,
+      modifier = Modifier.requiredSize(AppIconSize * 1.5f),
+    )
+  }
+}
+
+private val AppIconSize = 64.dp
 
 @Preview(showSystemUi = true)
 @Preview(name = "Landscape", widthDp = 640, heightDp = 360)
