@@ -1,5 +1,12 @@
 package app.plugbrain.android.ui.challenges.compose
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,13 +30,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -42,15 +55,50 @@ import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChall
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonPrimary
 import app.plugbrain.android.ui.designsystem.components.card.PlugCard
 import app.plugbrain.android.ui.theme.MathlockAppTheme
+import kotlinx.coroutines.delay
+
+private enum class AnswerState { Idle, Wrong, Correct }
 
 @Composable
 fun NumericalChallengeScreen(
   modifier: Modifier = Modifier,
   challenge: NumericalChallenge,
-  checkAnswer: (Int?) -> Unit,
+  onCorrectAnswer: () -> Unit,
   onExitChallenge: () -> Unit,
 ) {
   var answer by rememberSaveable(challenge) { mutableStateOf("") }
+  var answerState by remember(challenge) { mutableStateOf(AnswerState.Idle) }
+  // Bumped on every wrong submission so submitting the same wrong answer shakes the card again.
+  var wrongAttempts by remember(challenge) { mutableIntStateOf(0) }
+
+  val shakeOffset = remember { Animatable(0f) }
+  val shakeDistance = with(LocalDensity.current) { 12.dp.toPx() }
+  LaunchedEffect(wrongAttempts) {
+    if (wrongAttempts == 0) return@LaunchedEffect
+    shakeOffset.animateTo(
+      targetValue = 0f,
+      animationSpec = keyframes {
+        durationMillis = SHAKE_DURATION_MILLIS
+        -shakeDistance at 60
+        shakeDistance at 120
+        -shakeDistance * 0.6f at 180
+        shakeDistance * 0.6f at 240
+        -shakeDistance * 0.3f at 300
+      },
+    )
+  }
+  LaunchedEffect(answerState) {
+    if (answerState == AnswerState.Correct) {
+      // Let the success state show before the challenge screen goes away.
+      delay(SUCCESS_HOLD_MILLIS)
+      onCorrectAnswer()
+    }
+  }
+
+  // Previews and screenshot tests render a single frame, so start fully visible there.
+  val inspectionMode = LocalInspectionMode.current
+  val entrance = remember { MutableTransitionState(inspectionMode) }
+  LaunchedEffect(Unit) { entrance.targetState = true }
 
   Scaffold(modifier = modifier) { innerPadding ->
     Column(
@@ -72,36 +120,75 @@ fun NumericalChallengeScreen(
         )
       }
       Spacer(Modifier.height(24.dp))
-      AppIcon()
+      EntranceItem(entrance, order = 0) { AppIcon() }
       Spacer(Modifier.height(16.dp))
-      Text(
-        text = stringResource(R.string.challenge_title),
-        style = MaterialTheme.typography.headlineMedium,
-        color = MaterialTheme.colorScheme.onBackground,
-        textAlign = TextAlign.Center,
-      )
+      EntranceItem(entrance, order = 1) {
+        Text(
+          text = stringResource(R.string.challenge_title),
+          style = MaterialTheme.typography.headlineMedium,
+          color = MaterialTheme.colorScheme.onBackground,
+          textAlign = TextAlign.Center,
+        )
+      }
       Spacer(Modifier.height(24.dp))
       Column(
         modifier = Modifier.widthIn(max = 400.dp).fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(40.dp),
       ) {
-        PlugCard(
-          challengeText = challenge.string(),
-          inputValue = answer,
-          onInputChange = { answer = it },
-          onCheckAnswer = checkAnswer,
-          placeholder = stringResource(R.string.challenge_answer_placeholder),
-          ctaText = stringResource(R.string.challenge_check_answer),
-          modifier = Modifier.fillMaxWidth(),
-        )
-        PlugButtonPrimary(
-          text = stringResource(R.string.challenge_leave_app),
-          onClick = onExitChallenge,
-          icon = Icons.AutoMirrored.Filled.ExitToApp,
-          modifier = Modifier.fillMaxWidth(),
-        )
+        EntranceItem(entrance, order = 2) {
+          PlugCard(
+            challengeText = challenge.string(),
+            inputValue = answer,
+            onInputChange = {
+              answer = it
+              if (answerState == AnswerState.Wrong) answerState = AnswerState.Idle
+            },
+            onCheckAnswer = { response ->
+              if (answerState != AnswerState.Correct) {
+                if (response != null && challenge.checkAnswer(response)) {
+                  answerState = AnswerState.Correct
+                } else {
+                  answerState = AnswerState.Wrong
+                  wrongAttempts++
+                }
+              }
+            },
+            placeholder = stringResource(R.string.challenge_answer_placeholder),
+            ctaText = stringResource(R.string.challenge_check_answer),
+            isSuccess = answerState == AnswerState.Correct,
+            isError = answerState == AnswerState.Wrong,
+            modifier = Modifier
+              .fillMaxWidth()
+              .graphicsLayer { translationX = shakeOffset.value },
+          )
+        }
+        EntranceItem(entrance, order = 3) {
+          PlugButtonPrimary(
+            text = stringResource(R.string.challenge_leave_app),
+            onClick = onExitChallenge,
+            icon = Icons.AutoMirrored.Filled.ExitToApp,
+            modifier = Modifier.fillMaxWidth(),
+          )
+        }
       }
     }
+  }
+}
+
+// Fades and lifts each block in one after the other, to set a calmer pace.
+@Composable
+private fun EntranceItem(
+  state: MutableTransitionState<Boolean>,
+  order: Int,
+  content: @Composable () -> Unit,
+) {
+  val delayMillis = order * ENTRANCE_STAGGER_MILLIS
+  AnimatedVisibility(
+    visibleState = state,
+    enter = fadeIn(tween(ENTRANCE_DURATION_MILLIS, delayMillis)) +
+      slideInVertically(tween(ENTRANCE_DURATION_MILLIS, delayMillis)) { it / 4 },
+  ) {
+    content()
   }
 }
 
@@ -129,6 +216,10 @@ private fun AppIcon() {
 }
 
 private val AppIconSize = 64.dp
+private const val ENTRANCE_DURATION_MILLIS = 500
+private const val ENTRANCE_STAGGER_MILLIS = 120
+private const val SHAKE_DURATION_MILLIS = 360
+private const val SUCCESS_HOLD_MILLIS = 600L
 
 @Preview(showSystemUi = true)
 @Preview(name = "Landscape", widthDp = 640, heightDp = 360)
@@ -137,7 +228,7 @@ private fun NumericalScreenPreview() {
   MathlockAppTheme(dynamicColor = false) {
     NumericalChallengeScreen(
       challenge = AdditionTwoDigitsCarryFreeChallenge(),
-      checkAnswer = {},
+      onCorrectAnswer = {},
       onExitChallenge = {},
     )
   }

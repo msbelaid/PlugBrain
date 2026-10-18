@@ -3,6 +3,7 @@ package app.plugbrain.android
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
@@ -16,15 +17,15 @@ class ArithChallengeScreenTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun testArithChallengeScreenDisplaysOperandsAndAcceptsInput() {
-        var result: Int? = null
+    fun testArithChallengeScreenDisplaysChallengeAndAcceptsCorrectAnswer() {
+        var solved = false
 
         val challenge = AdditionTwoDigitsWithCarryChallenge()
 
         composeTestRule.setContent {
             NumericalChallengeScreen(
                 challenge = challenge,
-                checkAnswer = { result = it },
+                onCorrectAnswer = { solved = true },
                 onExitChallenge = {},
             )
         }
@@ -34,24 +35,27 @@ class ArithChallengeScreenTest {
         composeTestRule.onNode(hasSetTextAction()).performTextInput((challenge.operand1 + challenge.operand2).toString())
 
         composeTestRule.onNodeWithText("Check Answer").performClick()
-        assert(result == challenge.operand1 + challenge.operand2)
+        composeTestRule.waitForIdle()
+        assert(solved)
     }
 
     @Test
-    fun testArithChallengeScreenHandlesNonNumericalInputGracefully() {
-        var result: Int? = null
+    fun testArithChallengeScreenRejectsNonNumericalInput() {
+        var solved = false
 
         val challenge = AdditionTwoDigitsWithCarryChallenge()
 
         composeTestRule.setContent {
             NumericalChallengeScreen(
                 challenge = challenge,
-                checkAnswer = { result = it },
+                onCorrectAnswer = { solved = true },
                 onExitChallenge = {},
             )
         }
         composeTestRule.onNode(hasSetTextAction()).performTextInput("...")
         composeTestRule.onNodeWithText("Check Answer").performClick()
-        assert(result == null)
+        composeTestRule.onNodeWithContentDescription("Input invalid").assertIsDisplayed()
+        composeTestRule.waitForIdle()
+        assert(!solved)
     }
 }
