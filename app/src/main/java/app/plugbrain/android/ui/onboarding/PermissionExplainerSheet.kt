@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -43,8 +44,8 @@ fun PermissionExplainerSheet(
   permission: OnboardingPermission,
   onUnderstood: () -> Unit,
   onDismiss: () -> Unit,
+  sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
-  val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
   val texts = permission.explainerTexts()
   PlugBottomSheetDrawer(
     title = {

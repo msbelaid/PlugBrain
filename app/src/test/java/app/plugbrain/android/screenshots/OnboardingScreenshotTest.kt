@@ -1,6 +1,9 @@
 package app.plugbrain.android.screenshots
 
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.plugbrain.android.appsusage.model.InstalledApp
@@ -121,12 +124,17 @@ class OnboardingScreenshotTest {
         )
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun explainerSheet(permission: OnboardingPermission) {
+        // The sheet animates in, so a snapshot of its first frame is blank unless it's expanded first.
+        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        LaunchedEffect(Unit) { sheetState.expand() }
         PermissionExplainerSheet(
             permission = permission,
             onUnderstood = {},
             onDismiss = {},
+            sheetState = sheetState,
         )
     }
 
