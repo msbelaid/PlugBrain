@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.selected
@@ -37,7 +38,9 @@ fun PlugPermissionListItem(
     clickModifier = Modifier
       .clickable(role = Role.Button, onClick = onClick)
       .semantics { selected = isGranted },
-    modifier = modifier,
+    // A granted permission fades out so the user's attention goes to the ones still missing.
+    modifier = modifier.alpha(if (isGranted) 0.5f else 1f),
+    highlightSelection = false,
   ) {
     LeadingIcon(
       icon = icon,

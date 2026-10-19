@@ -17,14 +17,16 @@ import androidx.compose.ui.unit.dp
 private val CardShape = RoundedCornerShape(8.dp)
 
 /**
- * Shared frame of the bordered cards (permissions, options): a selected card gets a primary border
- * and tint. [clickModifier] goes inside the clip so the ripple follows the rounded corners.
+ * Shared frame of the bordered cards (permissions, options): a selected card gets a tint, plus a
+ * primary border when [highlightSelection] is set. [clickModifier] goes inside the clip so the ripple
+ * follows the rounded corners.
  */
 @Composable
 internal fun PlugListCard(
   isSelected: Boolean,
   clickModifier: Modifier,
   modifier: Modifier = Modifier,
+  highlightSelection: Boolean = true,
   content: @Composable RowScope.() -> Unit,
 ) {
   Row(
@@ -34,7 +36,7 @@ internal fun PlugListCard(
       .clip(CardShape)
       .border(
         width = 1.dp,
-        color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+        color = if (isSelected && highlightSelection) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
         shape = CardShape,
       )
       .background(MaterialTheme.colorScheme.surface)
