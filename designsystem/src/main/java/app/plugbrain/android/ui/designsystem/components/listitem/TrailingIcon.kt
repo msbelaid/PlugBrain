@@ -22,7 +22,7 @@ internal fun TrailingIcon(isSelected: Boolean) {
     if (isSelected) MaterialTheme.colorScheme.primary else Color.Companion.Transparent
   Icon(
     imageVector = if (isSelected) Icons.Rounded.Check else Icons.AutoMirrored.Rounded.KeyboardArrowRight,
-    contentDescription = "",
+    contentDescription = null,
     tint = tint,
     modifier = Modifier.Companion
       .background(color = background, shape = RoundedCornerShape(50))
