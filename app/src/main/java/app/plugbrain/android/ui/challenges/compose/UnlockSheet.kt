@@ -12,7 +12,6 @@ import androidx.compose.material.icons.rounded.TrackChanges
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -38,7 +37,6 @@ fun UnlockSheet(
   onUnlockApp: () -> Unit,
   onStayFocused: () -> Unit,
   modifier: Modifier = Modifier,
-  sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
   PlugBottomSheetDrawer(
     modifier = modifier,
@@ -67,7 +65,7 @@ fun UnlockSheet(
     secondaryCtaAction = onUnlockApp,
     secondaryCtaIcon = Icons.Rounded.LockOpen,
     onDismiss = onStayFocused,
-    sheetState = sheetState,
+    sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
   ) {
     Text(
       text = pluralStringResource(R.plurals.challenge_unlock_message, unlockMinutes, unlockMinutes),
