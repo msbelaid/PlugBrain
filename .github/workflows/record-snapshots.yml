@@ -5,10 +5,6 @@ name: Record snapshots
 # re-run CI on the branch afterwards if you need verifyPaparazziDebug to pass.
 on:
   workflow_dispatch:
-  # TEMPORARY: records this PR's new snapshots; removed before merging.
-  push:
-    branches:
-      - claude/project-thread-el0cnu
 
 permissions:
   contents: write
