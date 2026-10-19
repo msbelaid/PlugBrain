@@ -23,7 +23,7 @@ internal fun LeadingIcon(
     if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
   Icon(
     imageVector = icon,
-    contentDescription = "",
+    contentDescription = null,
     tint = tint,
     modifier = modifier
       .background(

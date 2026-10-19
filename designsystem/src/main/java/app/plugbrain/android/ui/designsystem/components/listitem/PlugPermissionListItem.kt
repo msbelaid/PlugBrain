@@ -2,13 +2,10 @@ package app.plugbrain.android.ui.designsystem.components.listitem
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.Layers
@@ -17,8 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.ui.theme.MathlockAppTheme
@@ -30,24 +29,15 @@ fun PlugPermissionListItem(
   icon: ImageVector,
   isGranted: Boolean,
   onClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-  Row(
-    horizontalArrangement = Arrangement.spacedBy(12.dp),
-    verticalAlignment = Alignment.CenterVertically,
-    modifier = Modifier
-      .alpha(if (isGranted) 0.5f else 1f)
-      .border(
-        width = 1.dp,
-        color = MaterialTheme.colorScheme.outlineVariant,
-        shape = RoundedCornerShape(8.dp),
-      )
-      .background(MaterialTheme.colorScheme.surface)
-      .background(
-        color = if (isGranted) MaterialTheme.colorScheme.primary.copy(0.1f) else MaterialTheme.colorScheme.surface,
-        shape = RoundedCornerShape(8.dp),
-      )
-      .clickable(onClick = onClick)
-      .padding(vertical = 12.dp, horizontal = 16.dp),
+  PlugListCard(
+    isSelected = isGranted,
+    // Selected tells screen readers the permission is granted, since the check mark has no text.
+    clickModifier = Modifier
+      .clickable(role = Role.Button, onClick = onClick)
+      .semantics { selected = isGranted },
+    modifier = modifier,
   ) {
     LeadingIcon(
       icon = icon,
