@@ -56,6 +56,11 @@ fun NumericalChallengeScreen(
   // Bumped on every wrong submission so submitting the same wrong answer shakes the card again.
   var wrongAttempts by remember(challenge) { mutableIntStateOf(0) }
 
+  fun onAnswerChange(value: String) {
+    answer = value
+    if (answerState == AnswerState.Wrong) answerState = AnswerState.Idle
+  }
+
   fun submitAnswer(response: Int?) {
     if (answerState == AnswerState.Correct) return
     if (response != null && challenge.checkAnswer(response)) {
@@ -72,7 +77,7 @@ fun NumericalChallengeScreen(
     answer = answer,
     answerState = answerState,
     wrongAttempts = wrongAttempts,
-    onAnswerChange = { },
+    onAnswerChange = ::onAnswerChange,
     onSubmitAnswer = ::submitAnswer,
     onExitChallenge = onExitChallenge,
     modifier = modifier,
