@@ -17,10 +17,13 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
-import androidx.core.net.toUri
 import app.plugbrain.android.R
 import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
 import app.plugbrain.android.repository.model.PermissionsState
+import app.plugbrain.android.ui.permissions.openAccessibilitySettings
+import app.plugbrain.android.ui.permissions.openBatteryOptimizationSettings
+import app.plugbrain.android.ui.permissions.openOverlaySettings
+import app.plugbrain.android.ui.permissions.openUsageAccessSettings
 import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
 import app.plugbrain.android.ui.settings.compose.SettingsScreen
 import app.plugbrain.android.ui.settings.presentation.SettingsViewModel
@@ -75,13 +78,13 @@ class SettingsActivity : ComponentActivity() {
             settingsViewModel.displayAccessibilityDialog()
           },
           onUsageStatsClicked = {
-            openUsageStatsPermissionSettings()
+            openUsageAccessSettings()
           },
           batteryOptimizationClicked = {
-            openBatteryOptimizationExemptionSettings()
+            openBatteryOptimizationSettings()
           },
           onSystemAlertWindow = {
-            openManageAlertPermission()
+            openOverlaySettings()
           },
           onUpdateBlockInterval = {
             settingsViewModel.updateBlockInterval(it)
@@ -127,36 +130,6 @@ class SettingsActivity : ComponentActivity() {
         }
       }
     }
-  }
-
-  private fun openManageAlertPermission() {
-    val intent = Intent(
-      Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-      Uri.parse("package:$packageName"),
-    )
-    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-    startActivity(intent)
-  }
-
-  private fun openAccessibilitySettings() {
-    startActivity(
-      Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
-        flags = Intent.FLAG_ACTIVITY_NEW_TASK
-      },
-    )
-  }
-
-  private fun openUsageStatsPermissionSettings() {
-    val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
-    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-    startActivity(intent)
-  }
-
-  private fun openBatteryOptimizationExemptionSettings() {
-    val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-    intent.data = "package:$packageName".toUri()
-    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-    startActivity(intent)
   }
 
   // TODO add this for Me phones

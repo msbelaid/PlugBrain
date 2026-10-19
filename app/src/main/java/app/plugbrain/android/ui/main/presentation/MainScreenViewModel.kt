@@ -9,6 +9,9 @@ import app.plugbrain.android.appsusage.InstalledAppsRepository
 import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
+import app.plugbrain.android.datastore.isOnboardingCompleted
+import app.plugbrain.android.datastore.model.UserSettings
+import app.plugbrain.android.datastore.setOnboardingCompleted
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
 import kotlin.time.Duration.Companion.milliseconds
@@ -16,6 +19,7 @@ import kotlin.time.Duration.Companion.minutes
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -34,6 +38,20 @@ class MainScreenViewModel(
 
   private val _permissionsState = MutableStateFlow<PermissionsState?>(null)
   val permissionsState: StateFlow<PermissionsState?> = _permissionsState
+
+  /**
+   * True until the user finishes onboarding. Users of a version without onboarding, recognised by
+   * their blocked apps or granted permissions, are marked as done so they don't go through it again.
+   */
+  suspend fun needsOnboarding(): Boolean {
+    dataStore.isOnboardingCompleted().first()?.let { return !it }
+    val isExistingUser = isExistingUser(
+      settings = dataStore.getUserSettings().first(),
+      permissions = permissionsRepository.getPermissions().first(),
+    )
+    if (isExistingUser) dataStore.setOnboardingCompleted()
+    return !isExistingUser
+  }
 
   fun getAppsUsageStats() {
     Timber.d("getAppsUsageStats called")
@@ -76,3 +94,6 @@ class MainScreenViewModel(
     }
   }
 }
+
+internal fun isExistingUser(settings: UserSettings, permissions: PermissionsState): Boolean =
+  settings.distractiveApps.isNotEmpty() || permissions.areAllImportantPermissionsGranted()

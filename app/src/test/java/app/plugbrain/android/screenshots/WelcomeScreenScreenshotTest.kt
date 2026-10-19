@@ -32,7 +32,7 @@ class WelcomeScreenScreenshotTest {
     @Composable
     private fun welcomeScreenTest(darkTheme: Boolean = false) {
         MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
-            WelcomeScreen()
+            WelcomeScreen(onGetStarted = {})
         }
     }
 }

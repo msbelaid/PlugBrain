@@ -172,7 +172,7 @@ fun Timing(
   blockInterval: Int,
   onUpdateBlockInterval: (Int) -> Unit,
 ) {
-  val options = listOf(1, 2, 5, 10, 15, 20)
+  val options = listOf(1, 2, 5, 10, 15, 20, 30)
 
   Column {
     Text(

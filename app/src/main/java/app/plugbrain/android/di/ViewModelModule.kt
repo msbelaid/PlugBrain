@@ -2,6 +2,7 @@ package app.plugbrain.android.di
 
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
 import app.plugbrain.android.ui.main.presentation.MainScreenViewModel
+import app.plugbrain.android.ui.onboarding.presentation.OnboardingViewModel
 import app.plugbrain.android.ui.selectapps.presentation.AppsSelectionViewModel
 import app.plugbrain.android.ui.settings.presentation.SettingsViewModel
 import org.koin.core.module.dsl.viewModel
@@ -12,4 +13,5 @@ val viewModelModule = module {
   viewModel { SettingsViewModel(get(), get(), get(), get()) }
   viewModel { AppsSelectionViewModel(get(), get(), get()) }
   viewModel { ArithChallengeViewModel(get(), get()) }
+  viewModel { OnboardingViewModel(get(), get(), get()) }
 }
