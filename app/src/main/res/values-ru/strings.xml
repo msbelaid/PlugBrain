@@ -71,4 +71,13 @@
     <string name="challenge_answer_placeholder">Напиши свой ответ</string>
     <string name="challenge_check_answer">Проверить ответ</string>
     <string name="challenge_leave_app">Выйти из приложения</string>
+    <string name="challenge_correct_answer">Правильный ответ</string>
+    <string name="challenge_stay_focused">Сохранить фокус</string>
+    <string name="challenge_unlock_app">Разблокировать на %d мин</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="one">Отлично! Вы заработали %d минуту. Или закройте приложение и сохраните фокус.</item>
+        <item quantity="few">Отлично! Вы заработали %d минуты. Или закройте приложение и сохраните фокус.</item>
+        <item quantity="many">Отлично! Вы заработали %d минут. Или закройте приложение и сохраните фокус.</item>
+        <item quantity="other">Отлично! Вы заработали %d минуты. Или закройте приложение и сохраните фокус.</item>
+    </plurals>
 </resources>

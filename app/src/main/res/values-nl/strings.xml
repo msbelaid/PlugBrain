@@ -72,4 +72,11 @@
     <string name="challenge_answer_placeholder">Schrijf je antwoord</string>
     <string name="challenge_check_answer">Antwoord controleren</string>
     <string name="challenge_leave_app">App verlaten</string>
+    <string name="challenge_correct_answer">Juist antwoord</string>
+    <string name="challenge_stay_focused">Gefocust blijven</string>
+    <string name="challenge_unlock_app">App %d min ontgrendelen</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="one">Goed zo! Je hebt 1 minuut verdiend. Of sluit de app en blijf gefocust.</item>
+        <item quantity="other">Goed zo! Je hebt %d minuten verdiend. Of sluit de app en blijf gefocust.</item>
+    </plurals>
 </resources>

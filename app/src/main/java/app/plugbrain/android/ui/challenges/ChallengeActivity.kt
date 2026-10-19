@@ -43,12 +43,14 @@ class ChallengeActivity : ComponentActivity() {
       // Brand colors rather than the wallpaper's, so the screen matches the design in both themes.
       MathlockAppTheme(dynamicColor = false) {
         val challenge by challengeViewModel.challenge.collectAsState()
+        val blockInterval by challengeViewModel.blockInterval.collectAsState()
         challenge?.let {
           when (it) {
             is NumericalChallenge -> NumericalChallengeScreen(
               modifier = Modifier.fillMaxSize(),
               challenge = it,
-              onCorrectAnswer = {
+              unlockMinutes = blockInterval,
+              onUnlockApp = {
                 challengeViewModel.unblockApps()
                 finishAffinity()
               },

@@ -17,16 +17,18 @@ class ArithChallengeScreenTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun testArithChallengeScreenDisplaysChallengeAndAcceptsCorrectAnswer() {
-        var solved = false
+    fun testCorrectAnswerShowsUnlockSheetAndUnlocks() {
+        var unlocked = false
+        var exited = false
 
         val challenge = AdditionTwoDigitsWithCarryChallenge()
 
         composeTestRule.setContent {
             NumericalChallengeScreen(
                 challenge = challenge,
-                onCorrectAnswer = { solved = true },
-                onExitChallenge = {},
+                unlockMinutes = 5,
+                onUnlockApp = { unlocked = true },
+                onExitChallenge = { exited = true },
             )
         }
 
@@ -36,7 +38,38 @@ class ArithChallengeScreenTest {
 
         composeTestRule.onNodeWithText("Check Answer").performClick()
         composeTestRule.waitForIdle()
-        assert(solved)
+        assert(!unlocked)
+
+        composeTestRule.onNodeWithText("Unlock App for 5 min").performClick()
+        composeTestRule.waitForIdle()
+        assert(unlocked)
+        assert(!exited)
+    }
+
+    @Test
+    fun testCorrectAnswerThenStayFocusedLeavesWithoutUnlocking() {
+        var unlocked = false
+        var exited = false
+
+        val challenge = AdditionTwoDigitsWithCarryChallenge()
+
+        composeTestRule.setContent {
+            NumericalChallengeScreen(
+                challenge = challenge,
+                unlockMinutes = 5,
+                onUnlockApp = { unlocked = true },
+                onExitChallenge = { exited = true },
+            )
+        }
+
+        composeTestRule.onNode(hasSetTextAction()).performTextInput((challenge.operand1 + challenge.operand2).toString())
+        composeTestRule.onNodeWithText("Check Answer").performClick()
+        composeTestRule.waitForIdle()
+
+        composeTestRule.onNodeWithText("Stay Focused").performClick()
+        composeTestRule.waitForIdle()
+        assert(exited)
+        assert(!unlocked)
     }
 
     @Test
@@ -48,7 +81,8 @@ class ArithChallengeScreenTest {
         composeTestRule.setContent {
             NumericalChallengeScreen(
                 challenge = challenge,
-                onCorrectAnswer = { solved = true },
+                unlockMinutes = 5,
+                onUnlockApp = { solved = true },
                 onExitChallenge = {},
             )
         }

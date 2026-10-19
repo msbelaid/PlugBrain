@@ -17,6 +17,7 @@ import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.rounded.Quiz
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -26,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,20 +43,35 @@ import app.plugbrain.android.ui.challenges.compose.NumericalChallengeScreenDefau
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonPrimary
 import app.plugbrain.android.ui.designsystem.components.card.PlugCard
 import app.plugbrain.android.ui.theme.MathlockAppTheme
+import kotlinx.coroutines.delay
 
 internal enum class AnswerState { Idle, Wrong, Correct }
+
+// Lets the success state on the card register before the unlock sheet covers it.
+private const val UNLOCK_SHEET_DELAY_MILLIS = 600L
 
 @Composable
 fun NumericalChallengeScreen(
   modifier: Modifier = Modifier,
   challenge: NumericalChallenge,
-  onCorrectAnswer: () -> Unit,
+  unlockMinutes: Int,
+  onUnlockApp: () -> Unit,
   onExitChallenge: () -> Unit,
 ) {
   var answer by rememberSaveable(challenge) { mutableStateOf("") }
   var answerState by remember(challenge) { mutableStateOf(AnswerState.Idle) }
   // Bumped on every wrong submission so submitting the same wrong answer shakes the card again.
   var wrongAttempts by remember(challenge) { mutableIntStateOf(0) }
+  var showUnlockSheet by rememberSaveable(challenge) { mutableStateOf(false) }
+  val keyboardController = LocalSoftwareKeyboardController.current
+
+  LaunchedEffect(answerState) {
+    if (answerState == AnswerState.Correct) {
+      keyboardController?.hide()
+      delay(UNLOCK_SHEET_DELAY_MILLIS)
+      showUnlockSheet = true
+    }
+  }
 
   fun onAnswerChange(value: String) {
     answer = value
@@ -65,7 +82,6 @@ fun NumericalChallengeScreen(
     if (answerState == AnswerState.Correct) return
     if (response != null && challenge.checkAnswer(response)) {
       answerState = AnswerState.Correct
-      onCorrectAnswer()
     } else {
       answerState = AnswerState.Wrong
       wrongAttempts++
@@ -82,6 +98,14 @@ fun NumericalChallengeScreen(
     onExitChallenge = onExitChallenge,
     modifier = modifier,
   )
+
+  if (showUnlockSheet) {
+    UnlockSheet(
+      unlockMinutes = unlockMinutes,
+      onUnlockApp = onUnlockApp,
+      onStayFocused = onExitChallenge,
+    )
+  }
 }
 
 @Composable
@@ -162,7 +186,8 @@ private fun NumericalScreenPreview() {
   MathlockAppTheme(dynamicColor = false) {
     NumericalChallengeScreen(
       challenge = AdditionTwoDigitsCarryFreeChallenge(),
-      onCorrectAnswer = {},
+      unlockMinutes = 5,
+      onUnlockApp = {},
       onExitChallenge = {},
     )
   }

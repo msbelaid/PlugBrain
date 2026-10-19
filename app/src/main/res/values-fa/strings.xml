@@ -65,4 +65,11 @@
     <string name="challenge_answer_placeholder">پاسخت را بنویس</string>
     <string name="challenge_check_answer">بررسی پاسخ</string>
     <string name="challenge_leave_app">خروج از برنامه</string>
+    <string name="challenge_correct_answer">پاسخ درست</string>
+    <string name="challenge_stay_focused">متمرکز بمان</string>
+    <string name="challenge_unlock_app">باز کردن برنامه برای %d دقیقه</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="one">آفرین! %d دقیقه به دست آوردی. یا برنامه را ببند و متمرکز بمان.</item>
+        <item quantity="other">آفرین! %d دقیقه به دست آوردی. یا برنامه را ببند و متمرکز بمان.</item>
+    </plurals>
 </resources>

@@ -55,4 +55,10 @@
     <string name="challenge_answer_placeholder">答えを入力</string>
     <string name="challenge_check_answer">答えをチェック</string>
     <string name="challenge_leave_app">アプリを終了</string>
+    <string name="challenge_correct_answer">正解</string>
+    <string name="challenge_stay_focused">集中を続ける</string>
+    <string name="challenge_unlock_app">%d分間アプリのロックを解除</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="other">すごい！%d分間の利用を獲得しました。アプリを閉じて集中を続けることもできます。</item>
+    </plurals>
 </resources>

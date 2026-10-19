@@ -78,4 +78,15 @@
     <string name="challenge_answer_placeholder">اكتب إجابتك</string>
     <string name="challenge_check_answer">تحقق من الإجابة</string>
     <string name="challenge_leave_app">مغادرة التطبيق</string>
+    <string name="challenge_correct_answer">إجابة صحيحة</string>
+    <string name="challenge_stay_focused">ابقَ مركّزًا</string>
+    <string name="challenge_unlock_app">افتح التطبيق لمدة %d د</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="zero">أحسنت! لقد ربحت %d دقيقة. أو أغلق التطبيق وابقَ مركّزًا.</item>
+        <item quantity="one">أحسنت! لقد ربحت دقيقة واحدة. أو أغلق التطبيق وابقَ مركّزًا.</item>
+        <item quantity="two">أحسنت! لقد ربحت دقيقتين. أو أغلق التطبيق وابقَ مركّزًا.</item>
+        <item quantity="few">أحسنت! لقد ربحت %d دقائق. أو أغلق التطبيق وابقَ مركّزًا.</item>
+        <item quantity="many">أحسنت! لقد ربحت %d دقيقة. أو أغلق التطبيق وابقَ مركّزًا.</item>
+        <item quantity="other">أحسنت! لقد ربحت %d دقيقة. أو أغلق التطبيق وابقَ مركّزًا.</item>
+    </plurals>
 </resources>
