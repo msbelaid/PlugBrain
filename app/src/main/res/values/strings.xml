@@ -51,7 +51,6 @@
     <string name="usage_short_hours">%1$dh</string>
     <string name="usage_short_minutes">%1$dm</string>
     <string name="usage_short_less_than_minute">&lt;1m</string>
-    <string name="blocking_message">Time\'s up! Connect your brain to unlock the app!</string>
     <string name="minimal_difficulty">Minimal Difficulty</string>
     <string name="stats_hardness">Hardness: %1$s/%2$s</string>
     <string name="stats_last_usage_time">Last usage time: %1$s/%2$s</string>
@@ -60,8 +59,10 @@
     <string name="enable_accessibility_text">PlugBrain uses Android\'s Accessibility Service to block the apps you choose.\nThis allows PlugBrain to detect when you open one of those apps and show you a math challenge before access.\nWe do not collect or share any personal information.</string>
     <string name="continue_btn">Continue</string>
     <string name="cancel_btn">Cancel</string>
-    <string name="challenge_answer_hint">Your answer</string>
-    <string name="take_me_out_of_here">Take me out of here</string>
+    <string name="challenge_title">Let\'s slow down</string>
+    <string name="challenge_answer_placeholder">Write your answer</string>
+    <string name="challenge_check_answer">Check Answer</string>
+    <string name="challenge_leave_app">Leave App</string>
     <string name="welcome_title">Take back control of your attention.</string>
     <string name="welcome_feature_one_title">Focus your attention</string>
     <string name="welcome_feature_one_description">Spend less time on apps that distract you.</string>
@@ -70,7 +71,6 @@
     <string name="welcome_feature_three_title">Gets harder the longer you stay</string>
     <string name="welcome_feature_three_description">Challenges increase in difficulty the longer you keep scrolling.</string>
     <string name="welcome_cta_title">Get started</string>
-    <string name="wrong_answer">Wrong answer, try again!</string>
     <string name="calculator_warning">Please, don\'t use the calculator!</string>
     <string name="selected">Selected</string>
 </resources>

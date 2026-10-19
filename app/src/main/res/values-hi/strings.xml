@@ -50,7 +50,6 @@
     <string name="usage_short_hours">%1$dघं</string>
     <string name="usage_short_minutes">%1$dमि</string>
     <string name="usage_short_less_than_minute">&lt;1मि</string>
-    <string name="blocking_message">समय समाप्त! ऐप अनलॉक करने के लिए दिमाग़ लगाओ!</string>
     <string name="minimal_difficulty">न्यूनतम कठिनाई</string>
     <string name="stats_hardness">कठिनाई: %1$s/%2$s</string>
     <string name="stats_last_usage_time">आखिरी इस्तेमाल का समय: %1$s/%2$s</string>
@@ -59,6 +58,8 @@
     <string name="enable_accessibility_text">PlugBrain आपके चुने हुए ऐप्स को ब्लॉक करने के लिए एंड्रॉयड की एक्सेसिबिलिटी सर्विस का इस्तेमाल करता है। यह सर्विस PlugBrain को बताती है कि आपने कब कोई चुना हुआ ऐप खोला है, और उसे इस्तेमाल करने से पहले आपको एक गणित की चुनौती दिखाती है। हम आपकी कोई भी निजी जानकारी इकट्ठा या शेयर नहीं करते हैं।</string>
     <string name="continue_btn">आगे बढ़ें</string>
     <string name="cancel_btn">रद्द करें</string>
-    <string name="challenge_answer_hint">आपका उत्तर</string>
-    <string name="take_me_out_of_here">यहाँ से बाहर जाएँ</string>
+    <string name="challenge_title">चलो थोड़ा रुकते हैं</string>
+    <string name="challenge_answer_placeholder">अपना उत्तर लिखें</string>
+    <string name="challenge_check_answer">उत्तर जाँचें</string>
+    <string name="challenge_leave_app">ऐप छोड़ें</string>
 </resources>

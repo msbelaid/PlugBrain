@@ -9,9 +9,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -38,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.ElevationFeedback
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.ElevationFocused
+import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.IconSize
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.Shape
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 
@@ -60,7 +62,8 @@ fun PlugNumericalInput(
   val unfocusBorderColor = when {
     isError -> MaterialTheme.colorScheme.error
     isSuccess -> MaterialTheme.colorScheme.tertiary
-    else -> MaterialTheme.colorScheme.outline
+    // A subtle border keeps the filled field from reading like an outlined button.
+    else -> MaterialTheme.colorScheme.outlineVariant
   }
   val focusTextColor = when {
     isError -> MaterialTheme.colorScheme.error
@@ -127,20 +130,28 @@ fun PlugNumericalInput(
         if (value.isEmpty()) {
           Text(
             text = placeholder,
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Normal),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
           )
         }
-        Row(
-          modifier = Modifier.fillMaxWidth(),
-          verticalAlignment = Alignment.CenterVertically,
+        // The text is inset on both sides by the icon width so it stays centered and never runs under the icon.
+        Box(
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = IconSize),
+          contentAlignment = Alignment.Center,
+        ) { innerTextField() }
+        // Sized to the text row and allowed to overflow it, so showing the icon doesn't change the field's height.
+        Box(
+          modifier = Modifier.matchParentSize(),
+          contentAlignment = Alignment.CenterEnd,
         ) {
-          Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) { innerTextField() }
           PlugNumericalInputIcon(
             isSuccess = isSuccess,
             isError = isError,
+            modifier = Modifier.requiredSize(IconSize),
           )
         }
       }
@@ -150,6 +161,7 @@ fun PlugNumericalInput(
 
 private object PlugNumericalInputDefaults {
   val Shape = RoundedCornerShape(50)
+  val IconSize = 24.dp
   val ElevationFocused = 12.dp
   val ElevationFeedback = 6.dp
 }
@@ -158,17 +170,20 @@ private object PlugNumericalInputDefaults {
 private fun PlugNumericalInputIcon(
   isSuccess: Boolean,
   isError: Boolean,
+  modifier: Modifier = Modifier,
 ) {
   when {
     isSuccess -> Icon(
       imageVector = Icons.Default.Check,
       tint = MaterialTheme.colorScheme.tertiary,
       contentDescription = "Input valid",
+      modifier = modifier,
     )
     isError -> Icon(
       imageVector = Icons.Default.Clear,
       tint = MaterialTheme.colorScheme.error,
       contentDescription = "Input invalid",
+      modifier = modifier,
     )
     else -> null
   }

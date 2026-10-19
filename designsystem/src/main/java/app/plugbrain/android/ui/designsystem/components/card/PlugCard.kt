@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +34,7 @@ fun PlugCard(
   placeholder: String,
   ctaText: String,
   modifier: Modifier = Modifier,
+  ctaIcon: ImageVector? = null,
   isSuccess: Boolean = false,
   isError: Boolean = false,
 ) {
@@ -82,6 +84,7 @@ fun PlugCard(
         text = ctaText,
         onClick = { onCheckAnswer(inputValue.toIntOrNull()) },
         enabled = inputValue.isNotEmpty(),
+        icon = ctaIcon,
         modifier = Modifier.fillMaxWidth(),
       )
     }

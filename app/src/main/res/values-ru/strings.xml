@@ -59,7 +59,6 @@
     <string name="usage_short_hours">%1$d ч</string>
     <string name="usage_short_minutes">%1$d мин</string>
     <string name="usage_short_less_than_minute">&lt;1 мин</string>
-    <string name="blocking_message">Время вышло! Включи мозг, чтобы разблокировать приложение!</string>
     <string name="minimal_difficulty">Минимальная сложность</string>
     <string name="stats_hardness">Сложность: %1$s/%2$s</string>
     <string name="stats_last_usage_time">Последний запуск: %1$s/%2$s</string>
@@ -68,4 +67,8 @@
     <string name="enable_accessibility_text">PlugBrain использует специальные возможности Android для блокирования выбранных приложений.\С их помощью PlugBrain определяет когда вы открываете одно из приложений и показывает вам задачу, которую нужно решить для доступа.\nМы не собираем и не отправляем никакие персональные данные.</string>
     <string name="continue_btn">Продолжить</string>
     <string name="cancel_btn">Отмена</string>
+    <string name="challenge_title">Давай притормозим</string>
+    <string name="challenge_answer_placeholder">Напиши свой ответ</string>
+    <string name="challenge_check_answer">Проверить ответ</string>
+    <string name="challenge_leave_app">Выйти из приложения</string>
 </resources>

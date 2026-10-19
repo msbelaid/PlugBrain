@@ -53,7 +53,6 @@
     <string name="usage_short_hours">%1$d ساعت</string>
     <string name="usage_short_minutes">%1$d دقیقه</string>
     <string name="usage_short_less_than_minute">&lt;۱ دقیقه</string>
-    <string name="blocking_message">وقت تموم شد! برای باز کردن برنامه، مغزت رو وصل کن!</string>
     <string name="minimal_difficulty">حداقل سختی</string>
     <string name="stats_hardness">سختی: %1$s/%2$s</string>
     <string name="stats_last_usage_time">آخرین زمان استفاده: %1$s/%2$s</string>
@@ -62,6 +61,8 @@
     <string name="enable_accessibility_text">PlugBrain از سرویس دسترسی‌پذیری اندروید برای مسدود کردن برنامه‌های انتخاب‌شده استفاده می‌کند.\nاین امکان به PlugBrain می‌دهد تشخیص دهد چه زمانی یکی از آن برنامه‌ها را باز می‌کنید و قبل از دسترسی، یک چالش ریاضی نمایش دهد.\nما هیچ اطلاعات شخصی‌ای را جمع‌آوری یا به اشتراک نمی‌گذاریم.</string>
     <string name="continue_btn">ادامه</string>
     <string name="cancel_btn">لغو</string>
-    <string name="challenge_answer_hint">پاسخ شما</string>
-    <string name="take_me_out_of_here">منو از اینجا ببر بیرون</string>
+    <string name="challenge_title">بیا کمی آرام‌تر</string>
+    <string name="challenge_answer_placeholder">پاسخت را بنویس</string>
+    <string name="challenge_check_answer">بررسی پاسخ</string>
+    <string name="challenge_leave_app">خروج از برنامه</string>
 </resources>

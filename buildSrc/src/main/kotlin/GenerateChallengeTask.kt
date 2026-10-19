@@ -17,7 +17,6 @@ abstract class GenerateChallengeTask : DefaultTask() {
     private val parentClass = "NumericalChallenge"
 
     private val challengePackage = "$basePackage.challenges"
-    private val composePackage = "$basePackage.ui.challenges.compose"
     private val outputDir = File(project.projectDir, "app/src/main/java")
     private val challengesOutputDir = File(project.projectDir, "challenges/src/main/java")
 
@@ -26,15 +25,9 @@ abstract class GenerateChallengeTask : DefaultTask() {
     val challengeFile: File
         get() = File(challengesOutputDir, "${challengePackage.replace(".", "/")}/$challengeName.kt")
 
-    @get:OutputFile
-    val uiFile: File
-        get() = File(outputDir, "${composePackage.replace(".", "/")}/${challengeName}View.kt")
-
     @TaskAction
     fun generate() {
         generateChallengeClass()
-        generateUiComposable()
-        updateNumericalChallengeScreen()
         updateDiModule()
     }
 
@@ -65,64 +58,6 @@ abstract class GenerateChallengeTask : DefaultTask() {
             """.trimIndent()
         )
         println("Generated challenge class: ${challengeFile.absolutePath}")
-    }
-
-    private fun generateUiComposable() {
-        if (uiFile.exists()) {
-            println("UI Composable ${challengeName}View already exists at ${uiFile.absolutePath}")
-            return
-        }
-
-        uiFile.writeText(
-            """
-            package $composePackage
-
-            import androidx.compose.runtime.Composable
-            import androidx.compose.ui.Modifier
-            import $challengePackage.$challengeName
-
-            @Composable
-            fun ${challengeName}View(
-              modifier: Modifier = Modifier,
-              challenge: $challengeName,
-            ) {
-              TODO("Implement UI to display the $challengeName")
-            }
-            """.trimIndent()
-        )
-        println("Generated UI Composable: ${uiFile.absolutePath}")
-    }
-
-    private fun updateNumericalChallengeScreen() {
-        val screenFile =
-            File(outputDir, "app/plugbrain/android/ui/challenges/compose/NumericalChallengeScreen.kt")
-        if (!screenFile.exists()) {
-            throw GradleException("NumericalChallengeScreen.kt not found at ${screenFile.absolutePath}")
-        }
-
-        val content = screenFile.readText()
-
-        val updatedImports =
-            content.replaceFirst(
-                "import $basePackage.challenges.TwoOperandsChallenge",
-                "import $basePackage.challenges.TwoOperandsChallenge\nimport $challengePackage.$challengeName"
-            )
-
-        val whenCase =
-            """    is $challengeName -> ${challengeName}View(
-      modifier = Modifier.padding(16.dp),
-      challenge = challenge,
-    )"""
-
-        val placeholder = "    // Placeholder for generated challenges, do not remove"
-        val updatedWhen =
-            updatedImports.replace(
-                placeholder,
-                "$whenCase\n$placeholder"
-            )
-
-        screenFile.writeText(updatedWhen)
-        println("Updated NumericalChallengeScreen with $challengeName")
     }
 
     private fun updateDiModule() {

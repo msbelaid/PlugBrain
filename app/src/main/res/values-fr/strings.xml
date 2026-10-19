@@ -44,7 +44,6 @@
     <string name="usage_short_hours">%1$dh</string>
     <string name="usage_short_minutes">%1$dmin</string>
     <string name="usage_short_less_than_minute">&lt;1min</string>
-    <string name="blocking_message">Le temps est écoulé ! Connectez votre cerveau pour déverrouiller l\'application !</string>
 
     <plurals name="applications_blocked">
         <item quantity="zero">Aucune application bloquée</item>
@@ -60,4 +59,8 @@
     <string name="enable_accessibility_text">PlugBrain utilise le service d\'accessibilité pour bloquer les applications que vous choisissez.\nCela permet à PlugBrain de détecter lorsque vous ouvrez l\'une de ces applications et de vous afficher un défi mathématique avant d\'y accéder.\nNous ne collectons ni ne partageons aucune information personnelle.</string>
     <string name="continue_btn">Continuer</string>
     <string name="cancel_btn">Annuler</string>
+    <string name="challenge_title">Ralentissons un peu</string>
+    <string name="challenge_answer_placeholder">Écris ta réponse</string>
+    <string name="challenge_check_answer">Vérifier la réponse</string>
+    <string name="challenge_leave_app">Quitter l\'app</string>
 </resources>

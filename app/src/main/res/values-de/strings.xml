@@ -49,9 +49,12 @@
     <string name="usage_short_hours">%1$d Std.</string>
     <string name="usage_short_minutes">%1$d Min.</string>
     <string name="usage_short_less_than_minute">&lt;1 Min.</string>
-    <string name="blocking_message">Die Zeit ist um! Aktiviere dein Gehirn, um die App zu entsperren!</string>
     <string name="minimal_difficulty">Minimale Schwierigkeit</string>
     <string name="stats_hardness">Schwierigkeit: %1$s/%2$s</string>
     <string name="stats_last_usage_time">Letzte Nutzungsdauer: %1$s/%2$s</string>
     <string name="app_usage_description">Entsperre ablenkende Apps mit Mathematik\nJe weniger du sie nutzt -> desto einfacher die Rätsel.</string>
+    <string name="challenge_title">Lass uns langsamer machen</string>
+    <string name="challenge_answer_placeholder">Schreib deine Antwort</string>
+    <string name="challenge_check_answer">Antwort prüfen</string>
+    <string name="challenge_leave_app">App verlassen</string>
 </resources>
