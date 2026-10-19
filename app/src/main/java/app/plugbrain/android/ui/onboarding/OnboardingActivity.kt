@@ -12,6 +12,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -73,6 +74,7 @@ class OnboardingActivity : ComponentActivity() {
     }
   }
 
+  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   private fun OnboardingContent(
     step: OnboardingStep,
