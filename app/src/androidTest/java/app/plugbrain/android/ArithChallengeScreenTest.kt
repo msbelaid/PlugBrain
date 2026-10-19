@@ -3,6 +3,7 @@ package app.plugbrain.android
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -37,7 +38,7 @@ class ArithChallengeScreenTest {
         composeTestRule.onNode(hasSetTextAction()).performTextInput((challenge.operand1 + challenge.operand2).toString())
 
         composeTestRule.onNodeWithText("Check Answer").performClick()
-        composeTestRule.waitForIdle()
+        waitForUnlockSheet()
         assert(!unlocked)
 
         composeTestRule.onNodeWithText("Unlock App for 5 min").performClick()
@@ -64,7 +65,7 @@ class ArithChallengeScreenTest {
 
         composeTestRule.onNode(hasSetTextAction()).performTextInput((challenge.operand1 + challenge.operand2).toString())
         composeTestRule.onNodeWithText("Check Answer").performClick()
-        composeTestRule.waitForIdle()
+        waitForUnlockSheet()
 
         composeTestRule.onNodeWithText("Stay Focused").performClick()
         composeTestRule.waitForIdle()
@@ -91,5 +92,12 @@ class ArithChallengeScreenTest {
         composeTestRule.onNodeWithContentDescription("Input invalid").assertIsDisplayed()
         composeTestRule.waitForIdle()
         assert(!solved)
+    }
+
+    // The sheet opens after a short delay that lets the success state show first.
+    private fun waitForUnlockSheet() {
+        composeTestRule.waitUntil(timeoutMillis = 5_000) {
+            composeTestRule.onAllNodesWithText("Stay Focused").fetchSemanticsNodes().isNotEmpty()
+        }
     }
 }
