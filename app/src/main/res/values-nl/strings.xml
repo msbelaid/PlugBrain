@@ -76,7 +76,7 @@
     <string name="challenge_stay_focused">Gefocust blijven</string>
     <string name="challenge_unlock_app">App %d min ontgrendelen</string>
     <plurals name="challenge_unlock_message">
-        <item quantity="one">Goed zo! Je hebt 1 minuut verdiend. Of sluit de app en blijf gefocust.</item>
-        <item quantity="other">Goed zo! Je hebt %d minuten verdiend. Of sluit de app en blijf gefocust.</item>
+        <item quantity="one">Je kunt de app 1 minuut ontgrendelen, of hem sluiten en gefocust blijven.</item>
+        <item quantity="other">Je kunt de app %d minuten ontgrendelen, of hem sluiten en gefocust blijven.</item>
     </plurals>
 </resources>

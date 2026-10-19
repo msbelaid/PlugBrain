@@ -66,7 +66,7 @@
     <string name="challenge_stay_focused">ध्यान बनाए रखें</string>
     <string name="challenge_unlock_app">ऐप %d मिनट के लिए अनलॉक करें</string>
     <plurals name="challenge_unlock_message">
-        <item quantity="one">बहुत बढ़िया! आपने %d मिनट कमाया। या ऐप बंद करें और ध्यान बनाए रखें।</item>
-        <item quantity="other">बहुत बढ़िया! आपने %d मिनट कमाए। या ऐप बंद करें और ध्यान बनाए रखें।</item>
+        <item quantity="one">आप ऐप को %d मिनट के लिए अनलॉक कर सकते हैं, या इसे बंद करके ध्यान बनाए रख सकते हैं।</item>
+        <item quantity="other">आप ऐप को %d मिनट के लिए अनलॉक कर सकते हैं, या इसे बंद करके ध्यान बनाए रख सकते हैं।</item>
     </plurals>
 </resources>

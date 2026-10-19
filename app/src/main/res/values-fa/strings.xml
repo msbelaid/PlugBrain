@@ -69,7 +69,7 @@
     <string name="challenge_stay_focused">متمرکز بمان</string>
     <string name="challenge_unlock_app">باز کردن برنامه برای %d دقیقه</string>
     <plurals name="challenge_unlock_message">
-        <item quantity="one">آفرین! %d دقیقه به دست آوردی. یا برنامه را ببند و متمرکز بمان.</item>
-        <item quantity="other">آفرین! %d دقیقه به دست آوردی. یا برنامه را ببند و متمرکز بمان.</item>
+        <item quantity="one">می‌توانی برنامه را برای %d دقیقه باز کنی، یا آن را ببندی و متمرکز بمانی.</item>
+        <item quantity="other">می‌توانی برنامه را برای %d دقیقه باز کنی، یا آن را ببندی و متمرکز بمانی.</item>
     </plurals>
 </resources>

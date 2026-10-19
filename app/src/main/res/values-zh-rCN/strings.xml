@@ -82,6 +82,6 @@
     <string name="challenge_stay_focused">保持专注</string>
     <string name="challenge_unlock_app">解锁应用 %d 分钟</string>
     <plurals name="challenge_unlock_message">
-        <item quantity="other">太棒了！你赢得了 %d 分钟。或者关闭应用，保持专注。</item>
+        <item quantity="other">你可以解锁应用 %d 分钟，或者关闭它，保持专注。</item>
     </plurals>
 </resources>

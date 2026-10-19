@@ -67,8 +67,8 @@
     <string name="challenge_stay_focused">Stay Focused</string>
     <string name="challenge_unlock_app">Unlock App for %d min</string>
     <plurals name="challenge_unlock_message">
-        <item quantity="one">Nice! You\'ve earned 1 minute. Or close the app and stay focused.</item>
-        <item quantity="other">Nice! You\'ve earned %d minutes. Or close the app and stay focused.</item>
+        <item quantity="one">You can unlock the app for 1 minute, or close it and stay focused.</item>
+        <item quantity="other">You can unlock the app for %d minutes, or close it and stay focused.</item>
     </plurals>
     <string name="welcome_title">Take back control of your attention.</string>
     <string name="welcome_feature_one_title">Focus your attention</string>

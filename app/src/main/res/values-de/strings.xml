@@ -61,7 +61,7 @@
     <string name="challenge_stay_focused">Fokussiert bleiben</string>
     <string name="challenge_unlock_app">App für %d Min. entsperren</string>
     <plurals name="challenge_unlock_message">
-        <item quantity="one">Super! Du hast dir 1 Minute verdient. Oder schließ die App und bleib fokussiert.</item>
-        <item quantity="other">Super! Du hast dir %d Minuten verdient. Oder schließ die App und bleib fokussiert.</item>
+        <item quantity="one">Du kannst die App 1 Minute lang entsperren oder sie schließen und fokussiert bleiben.</item>
+        <item quantity="other">Du kannst die App %d Minuten lang entsperren oder sie schließen und fokussiert bleiben.</item>
     </plurals>
 </resources>

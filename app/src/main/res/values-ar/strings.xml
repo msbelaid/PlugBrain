@@ -82,11 +82,11 @@
     <string name="challenge_stay_focused">ابقَ مركّزًا</string>
     <string name="challenge_unlock_app">افتح التطبيق لمدة %d د</string>
     <plurals name="challenge_unlock_message">
-        <item quantity="zero">أحسنت! لقد ربحت %d دقيقة. أو أغلق التطبيق وابقَ مركّزًا.</item>
-        <item quantity="one">أحسنت! لقد ربحت دقيقة واحدة. أو أغلق التطبيق وابقَ مركّزًا.</item>
-        <item quantity="two">أحسنت! لقد ربحت دقيقتين. أو أغلق التطبيق وابقَ مركّزًا.</item>
-        <item quantity="few">أحسنت! لقد ربحت %d دقائق. أو أغلق التطبيق وابقَ مركّزًا.</item>
-        <item quantity="many">أحسنت! لقد ربحت %d دقيقة. أو أغلق التطبيق وابقَ مركّزًا.</item>
-        <item quantity="other">أحسنت! لقد ربحت %d دقيقة. أو أغلق التطبيق وابقَ مركّزًا.</item>
+        <item quantity="zero">يمكنك فتح التطبيق لمدة %d دقيقة، أو إغلاقه والبقاء مركّزًا.</item>
+        <item quantity="one">يمكنك فتح التطبيق لمدة دقيقة واحدة، أو إغلاقه والبقاء مركّزًا.</item>
+        <item quantity="two">يمكنك فتح التطبيق لمدة دقيقتين، أو إغلاقه والبقاء مركّزًا.</item>
+        <item quantity="few">يمكنك فتح التطبيق لمدة %d دقائق، أو إغلاقه والبقاء مركّزًا.</item>
+        <item quantity="many">يمكنك فتح التطبيق لمدة %d دقيقة، أو إغلاقه والبقاء مركّزًا.</item>
+        <item quantity="other">يمكنك فتح التطبيق لمدة %d دقيقة، أو إغلاقه والبقاء مركّزًا.</item>
     </plurals>
 </resources>

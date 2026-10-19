@@ -67,8 +67,8 @@
     <string name="challenge_stay_focused">Rester concentré</string>
     <string name="challenge_unlock_app">Débloquer l\'app pendant %d min</string>
     <plurals name="challenge_unlock_message">
-        <item quantity="one">Bravo ! Tu as gagné %d minute. Ou ferme l\'app et reste concentré.</item>
-        <item quantity="many">Bravo ! Tu as gagné %d minutes. Ou ferme l\'app et reste concentré.</item>
-        <item quantity="other">Bravo ! Tu as gagné %d minutes. Ou ferme l\'app et reste concentré.</item>
+        <item quantity="one">Tu peux débloquer l\'app pendant %d minute, ou la fermer et rester concentré.</item>
+        <item quantity="many">Tu peux débloquer l\'app pendant %d minutes, ou la fermer et rester concentré.</item>
+        <item quantity="other">Tu peux débloquer l\'app pendant %d minutes, ou la fermer et rester concentré.</item>
     </plurals>
 </resources>
