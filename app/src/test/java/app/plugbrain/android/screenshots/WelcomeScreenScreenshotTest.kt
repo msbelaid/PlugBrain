@@ -17,7 +17,7 @@ class WelcomeScreenScreenshotTest {
 
     @Test
     fun welcomeScreenTest() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             welcomeScreenTest(darkTheme = false)
         }
     }

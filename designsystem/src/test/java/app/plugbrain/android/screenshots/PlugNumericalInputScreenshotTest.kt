@@ -30,7 +30,7 @@ class PlugNumericalInputScreenshotTest {
 
     @Test
     fun plugNumericalInputTests() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             numericalInputTest()
         }
     }
@@ -39,21 +39,6 @@ class PlugNumericalInputScreenshotTest {
     fun plugNumericalInputDarkModeTests() {
         paparazzi.snapshot {
             numericalInputTest(darkTheme = true)
-        }
-    }
-}
-
-class PlugNumericalInputFontScaleScreenshotTest {
-    @get:Rule
-    val paparazziBigFontScale =
-        Paparazzi(
-            deviceConfig = DeviceConfig.PIXEL_5.copy(fontScale = 2f),
-        )
-
-    @Test
-    fun plugNumericalInputBigFontScaleTests() {
-        paparazziBigFontScale.snapshot {
-            numericalInputTest()
         }
     }
 }

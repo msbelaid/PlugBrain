@@ -1,0 +1,61 @@
+name: Record snapshots
+
+# Re-records the Paparazzi screenshots on the branch picked in "Run workflow"
+# and commits them back. Pushes made with GITHUB_TOKEN don't trigger CI, so
+# re-run CI on the branch afterwards if you need verifyPaparazziDebug to pass.
+on:
+  workflow_dispatch:
+  # TEMPORARY: records this PR's new snapshots; removed before merging.
+  push:
+    branches:
+      - claude/project-thread-el0cnu
+
+permissions:
+  contents: write
+
+concurrency:
+  group: record-snapshots-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  record:
+    name: Record Paparazzi snapshots
+    # Only branches can take the snapshot commit, not tags.
+    if: github.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Record snapshots
+        run: ./gradlew :app:recordPaparazziDebug :designsystem:recordPaparazziDebug
+
+      - name: Commit and push updated snapshots
+        run: |
+          git add --all app/src/test/snapshots designsystem/src/test/snapshots
+          if git diff --cached --quiet; then
+            echo "Snapshots are already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898341+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: record Paparazzi snapshots"
+          git push origin HEAD:${{ github.ref_name }}

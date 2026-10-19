@@ -27,7 +27,7 @@ class PermissionListItemScreenshotTest {
 
     @Test
     fun permissionListItemGrantedTest() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             permissionItemTest()
         }
     }
