@@ -62,4 +62,11 @@
     <string name="challenge_answer_placeholder">अपना उत्तर लिखें</string>
     <string name="challenge_check_answer">उत्तर जाँचें</string>
     <string name="challenge_leave_app">ऐप छोड़ें</string>
+    <string name="challenge_correct_answer">सही उत्तर</string>
+    <string name="challenge_stay_focused">ध्यान बनाए रखें</string>
+    <string name="challenge_unlock_app">ऐप %d मिनट के लिए अनलॉक करें</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="one">आप ऐप को %d मिनट के लिए अनलॉक कर सकते हैं, या इसे बंद करके ध्यान बनाए रख सकते हैं।</item>
+        <item quantity="other">आप ऐप को %d मिनट के लिए अनलॉक कर सकते हैं, या इसे बंद करके ध्यान बनाए रख सकते हैं।</item>
+    </plurals>
 </resources>

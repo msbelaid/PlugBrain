@@ -61,7 +61,8 @@ class NumericalChallengeScreenScreenshotTest {
         screenshotTheme(darkTheme = darkTheme) {
             NumericalChallengeScreen(
                 challenge = challenge,
-                onCorrectAnswer = {},
+                unlockMinutes = 5,
+                onUnlockApp = {},
                 onExitChallenge = {},
             )
         }

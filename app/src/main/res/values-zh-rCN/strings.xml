@@ -78,4 +78,10 @@
     <string name="challenge_answer_placeholder">写下你的答案</string>
     <string name="challenge_check_answer">检查答案</string>
     <string name="challenge_leave_app">离开应用</string>
+    <string name="challenge_correct_answer">回答正确</string>
+    <string name="challenge_stay_focused">保持专注</string>
+    <string name="challenge_unlock_app">解锁应用 %d 分钟</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="other">你可以解锁应用 %d 分钟，或者关闭它，保持专注。</item>
+    </plurals>
 </resources>

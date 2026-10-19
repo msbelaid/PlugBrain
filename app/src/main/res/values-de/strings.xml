@@ -57,4 +57,11 @@
     <string name="challenge_answer_placeholder">Schreib deine Antwort</string>
     <string name="challenge_check_answer">Antwort prüfen</string>
     <string name="challenge_leave_app">App verlassen</string>
+    <string name="challenge_correct_answer">Richtige Antwort</string>
+    <string name="challenge_stay_focused">Fokussiert bleiben</string>
+    <string name="challenge_unlock_app">App für %d Min. entsperren</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="one">Du kannst die App 1 Minute lang entsperren oder sie schließen und fokussiert bleiben.</item>
+        <item quantity="other">Du kannst die App %d Minuten lang entsperren oder sie schließen und fokussiert bleiben.</item>
+    </plurals>
 </resources>

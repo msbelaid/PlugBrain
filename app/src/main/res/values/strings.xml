@@ -63,6 +63,13 @@
     <string name="challenge_answer_placeholder">Write your answer</string>
     <string name="challenge_check_answer">Check Answer</string>
     <string name="challenge_leave_app">Leave App</string>
+    <string name="challenge_correct_answer">Correct Answer</string>
+    <string name="challenge_stay_focused">Stay Focused</string>
+    <string name="challenge_unlock_app">Unlock App for %d min</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="one">You can unlock the app for 1 minute, or close it and stay focused.</item>
+        <item quantity="other">You can unlock the app for %d minutes, or close it and stay focused.</item>
+    </plurals>
     <string name="welcome_title">Take back control of your attention.</string>
     <string name="welcome_feature_one_title">Focus your attention</string>
     <string name="welcome_feature_one_description">Spend less time on apps that distract you.</string>

@@ -63,4 +63,12 @@
     <string name="challenge_answer_placeholder">Écris ta réponse</string>
     <string name="challenge_check_answer">Vérifier la réponse</string>
     <string name="challenge_leave_app">Quitter l\'app</string>
+    <string name="challenge_correct_answer">Bonne réponse</string>
+    <string name="challenge_stay_focused">Rester concentré</string>
+    <string name="challenge_unlock_app">Débloquer l\'app pendant %d min</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="one">Tu peux débloquer l\'app pendant %d minute, ou la fermer et rester concentré.</item>
+        <item quantity="many">Tu peux débloquer l\'app pendant %d minutes, ou la fermer et rester concentré.</item>
+        <item quantity="other">Tu peux débloquer l\'app pendant %d minutes, ou la fermer et rester concentré.</item>
+    </plurals>
 </resources>
