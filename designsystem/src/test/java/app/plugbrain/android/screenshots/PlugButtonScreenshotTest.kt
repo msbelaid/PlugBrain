@@ -29,7 +29,7 @@ class PlugButtonScreenshotTest {
 
     @Test
     fun plugButtonTests() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             plugButtonsTest(darkTheme = false)
         }
     }

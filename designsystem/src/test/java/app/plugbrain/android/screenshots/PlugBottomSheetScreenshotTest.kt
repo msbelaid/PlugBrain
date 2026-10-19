@@ -33,7 +33,7 @@ class PlugBottomSheetScreenshotTest {
 
     @Test
     fun plugBottomSheetInputTests() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             bottomSheetTest()
         }
     }

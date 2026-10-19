@@ -30,7 +30,7 @@ class NumericalChallengeScreenScreenshotTest {
 
     @Test
     fun numericalChallengeScreenTest() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             numericalChallengeScreenTest(darkTheme = false)
         }
     }
@@ -44,14 +44,14 @@ class NumericalChallengeScreenScreenshotTest {
 
     @Test
     fun numericalChallengeScreenWrongAnswerTest() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             numericalChallengeContentTest(answer = "99", answerState = AnswerState.Wrong)
         }
     }
 
     @Test
     fun numericalChallengeScreenCorrectAnswerTest() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             numericalChallengeContentTest(answer = "42", answerState = AnswerState.Correct)
         }
     }

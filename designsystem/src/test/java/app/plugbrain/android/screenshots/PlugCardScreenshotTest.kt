@@ -23,7 +23,7 @@ class PlugCardScreenshotTest {
 
     @Test
     fun plugCardSmallNumbersLightMode() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             plugCardTest(challengeText = "12 + 34", darkTheme = false)
         }
     }
@@ -37,7 +37,7 @@ class PlugCardScreenshotTest {
 
     @Test
     fun plugCardBigNumbersLightMode() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             plugCardTest(challengeText = "9876 x 5432", darkTheme = false)
         }
     }
@@ -51,7 +51,7 @@ class PlugCardScreenshotTest {
 
     @Test
     fun plugCardWithInputLightMode() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             plugCardTest(
                 challengeText = "25 + 17",
                 inputValue = "42",
@@ -73,7 +73,7 @@ class PlugCardScreenshotTest {
 
     @Test
     fun plugCardSuccessLightMode() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             plugCardTest(
                 challengeText = "25 + 17",
                 inputValue = "42",
@@ -97,7 +97,7 @@ class PlugCardScreenshotTest {
 
     @Test
     fun plugCardErrorLightMode() {
-        paparazzi.snapshot {
+        paparazzi.snapshotWithLargeFont {
             plugCardTest(
                 challengeText = "25 + 17",
                 inputValue = "99",
