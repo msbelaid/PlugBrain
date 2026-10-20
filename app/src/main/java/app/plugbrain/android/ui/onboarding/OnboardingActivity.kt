@@ -136,7 +136,7 @@ class OnboardingActivity : ComponentActivity() {
           difficulty = DifficultyPreset.fromMinimalDifficulty(settings.selectedMinimalDifficulty),
           onBlockIntervalSelected = onboardingViewModel::updateBlockInterval,
           onDifficultySelected = onboardingViewModel::updateDifficulty,
-          onFinish = onboardingViewModel::finish,
+          onFinish = onboardingViewModel::completeSetup,
           onSkip = onboardingViewModel::finish,
         )
       }

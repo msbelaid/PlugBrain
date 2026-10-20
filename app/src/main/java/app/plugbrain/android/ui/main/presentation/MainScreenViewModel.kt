@@ -9,9 +9,7 @@ import app.plugbrain.android.appsusage.InstalledAppsRepository
 import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
-import app.plugbrain.android.datastore.isOnboardingCompleted
-import app.plugbrain.android.datastore.model.UserSettings
-import app.plugbrain.android.datastore.setOnboardingCompleted
+import app.plugbrain.android.datastore.hasSavedSetup
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
 import kotlin.time.Duration.Companion.milliseconds
@@ -43,15 +41,10 @@ class MainScreenViewModel(
    * True until the user finishes onboarding. Users of a version without onboarding, recognised by
    * their blocked apps or granted permissions, are marked as done so they don't go through it again.
    */
-  suspend fun needsOnboarding(): Boolean {
-    dataStore.isOnboardingCompleted().first()?.let { return !it }
-    val isExistingUser = isExistingUser(
-      settings = dataStore.getUserSettings().first(),
-      permissions = permissionsRepository.getPermissions().first(),
-    )
-    if (isExistingUser) dataStore.setOnboardingCompleted()
-    return !isExistingUser
-  }
+  suspend fun needsOnboarding(): Boolean = shouldShowOnboarding(
+    permissions = permissionsRepository.getPermissions().first(),
+    hasSavedSetup = dataStore.hasSavedSetup().first(),
+  )
 
   fun getAppsUsageStats() {
     Timber.d("getAppsUsageStats called")
@@ -95,5 +88,9 @@ class MainScreenViewModel(
   }
 }
 
-internal fun isExistingUser(settings: UserSettings, permissions: PermissionsState): Boolean =
-  settings.distractiveApps.isNotEmpty() || permissions.areAllImportantPermissionsGranted()
+/**
+ * Onboarding shows while a required permission is missing and nothing of the setup was saved yet,
+ * so users who already picked apps, an interval or a difficulty go straight to the main screen.
+ */
+internal fun shouldShowOnboarding(permissions: PermissionsState, hasSavedSetup: Boolean): Boolean =
+  !permissions.areAllImportantPermissionsGranted() && !hasSavedSetup

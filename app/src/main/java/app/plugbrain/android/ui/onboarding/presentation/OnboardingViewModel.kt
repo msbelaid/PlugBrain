@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.datastore.model.UserSettings
 import app.plugbrain.android.datastore.setBlockInterval
-import app.plugbrain.android.datastore.setOnboardingCompleted
 import app.plugbrain.android.datastore.setSelectedMinimalDifficulty
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
@@ -48,7 +47,7 @@ class OnboardingViewModel(
 
   fun next() {
     val next = step.value.next()
-    if (next == null) finish() else savedStateHandle[STEP_KEY] = next
+    if (next == null) completeSetup() else savedStateHandle[STEP_KEY] = next
   }
 
   /** Goes to the previous step; false on the first step, where Back leaves the app. */
@@ -66,11 +65,18 @@ class OnboardingViewModel(
     viewModelScope.launch { dataStore.setSelectedMinimalDifficulty(preset.minimalDifficulty) }
   }
 
-  /** Skipping keeps the defaults for whatever wasn't chosen yet. */
-  fun finish() {
+  /** Saves the interval and difficulty shown as selected, defaults included, then finishes. */
+  fun completeSetup() {
     viewModelScope.launch {
-      dataStore.setOnboardingCompleted()
+      val current = settings.value
+      dataStore.setBlockInterval(current.blockInterval)
+      dataStore.setSelectedMinimalDifficulty(current.selectedMinimalDifficulty)
       _isFinished.value = true
     }
+  }
+
+  /** Skipping saves nothing, so whatever wasn't chosen keeps its default. */
+  fun finish() {
+    _isFinished.value = true
   }
 }

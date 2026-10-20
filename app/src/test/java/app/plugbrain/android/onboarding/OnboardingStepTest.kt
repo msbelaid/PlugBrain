@@ -1,8 +1,7 @@
 package app.plugbrain.android.onboarding
 
-import app.plugbrain.android.datastore.model.UserSettings
 import app.plugbrain.android.repository.model.PermissionsState
-import app.plugbrain.android.ui.main.presentation.isExistingUser
+import app.plugbrain.android.ui.main.presentation.shouldShowOnboarding
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 import app.plugbrain.android.ui.onboarding.presentation.OnboardingStep
 import org.junit.Assert.assertEquals
@@ -42,21 +41,26 @@ class OnboardingStepTest {
     }
 
     @Test
-    fun `fresh installs are not existing users`() {
-        assertFalse(isExistingUser(UserSettings(), PermissionsState()))
+    fun `onboarding shows when a permission is missing and nothing was saved`() {
+        assertTrue(shouldShowOnboarding(PermissionsState(), hasSavedSetup = false))
+        assertTrue(shouldShowOnboarding(PermissionsState(usageStatsPermission = true), hasSavedSetup = false))
     }
 
     @Test
-    fun `users with blocked apps or granted permissions skip onboarding`() {
-        assertTrue(isExistingUser(UserSettings(distractiveApps = setOf("com.youtube")), PermissionsState()))
-        assertTrue(
-            isExistingUser(
-                UserSettings(),
+    fun `onboarding is skipped once the setup was saved`() {
+        assertFalse(shouldShowOnboarding(PermissionsState(), hasSavedSetup = true))
+    }
+
+    @Test
+    fun `onboarding is skipped when every required permission is granted`() {
+        assertFalse(
+            shouldShowOnboarding(
                 PermissionsState(
                     accessibilityPermission = true,
                     usageStatsPermission = true,
                     systemAlertWindow = true,
                 ),
+                hasSavedSetup = false,
             ),
         )
     }
