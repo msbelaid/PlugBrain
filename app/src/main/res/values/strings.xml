@@ -70,6 +70,7 @@
         <item quantity="one">You can unlock the app for 1 minute, or close it and stay focused.</item>
         <item quantity="other">You can unlock the app for %d minutes, or close it and stay focused.</item>
     </plurals>
+    <string name="welcome_title">Plug your brain back in.</string>
     <string name="welcome_feature_one_title">Focus your attention</string>
     <string name="welcome_feature_one_description">Spend less time on apps that distract you.</string>
     <string name="welcome_feature_two_title">Unlock with a challenge</string>
@@ -79,7 +80,6 @@
     <string name="welcome_cta_title">Get started</string>
     <string name="calculator_warning">Please, don\'t use the calculator!</string>
     <string name="selected">Selected</string>
-    <string name="welcome_headline">Beat procrastination &amp; stay focused</string>
 
     <string name="onboarding_skip">Skip</string>
     <string name="onboarding_permissions_title">Let\'s get set up</string>

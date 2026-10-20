@@ -33,4 +33,4 @@ enum class DifficultyPreset(val minimalDifficulty: Int) {
 }
 
 /** Block interval choices offered during onboarding, in minutes. */
-val OnboardingBlockIntervals = listOf(5, 15, 30)
+val OnboardingBlockIntervals = listOf(1, 2, 5)

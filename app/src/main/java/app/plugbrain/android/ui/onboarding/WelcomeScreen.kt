@@ -44,7 +44,7 @@ fun WelcomeScreen(onGetStarted: () -> Unit) {
         .align(Alignment.CenterHorizontally),
     )
     Text(
-      text = stringResource(R.string.welcome_headline),
+      text = stringResource(R.string.welcome_title),
       style = MaterialTheme.typography.headlineLarge,
       color = MaterialTheme.colorScheme.onSurface,
       modifier = Modifier

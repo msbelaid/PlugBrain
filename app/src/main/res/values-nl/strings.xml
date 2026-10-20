@@ -60,6 +60,7 @@
     <string name="enable_accessibility_text">PlugBrain gebruikt Android\'s Toegankelijkheid Service om de apps die je kiest te blokkeren.\nDit staat PlugBrain toe om te detecteren wanneer deze apps geopend worden, en een wiskundeprobleem te tonen voordat toegang gegeven wordt.\nWe verzamelen of delen geen persoonlijke informatie.</string>
     <string name="continue_btn">Doorgaan</string>
     <string name="cancel_btn">Annuleren</string>
+    <string name="welcome_title">Neem controle over je aandacht.</string>
     <string name="welcome_feature_one_title">Concentreer je aandacht</string>
     <string name="welcome_feature_one_description">Verlies minder tijd in afleidende apps.</string>
     <string name="welcome_feature_two_title">Ontgrendel met een uitdaging</string>

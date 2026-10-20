@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -24,6 +25,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -85,11 +87,7 @@ fun PermissionExplainerSheet(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically,
           ) {
-            Image(
-              painter = painterResource(R.drawable.ic_launcher),
-              contentDescription = null,
-              modifier = Modifier.size(24.dp),
-            )
+            AppIcon()
             Text(
               text = stringResource(R.string.app_name),
               style = MaterialTheme.typography.bodyMedium,
@@ -122,6 +120,31 @@ fun PermissionExplainerSheet(
   }
 }
 
+// The launcher drawables are adaptive icon layers (108dp with a 72dp safe zone),
+// so they are stacked and cropped to the visible area, like a launcher would.
+@Composable
+private fun AppIcon() {
+  Box(
+    contentAlignment = Alignment.Center,
+    modifier = Modifier
+      .size(AppIconSize)
+      .clip(CircleShape),
+  ) {
+    Image(
+      painter = painterResource(R.drawable.ic_launcher_background),
+      contentDescription = null,
+      modifier = Modifier.requiredSize(AppIconSize * 1.5f),
+    )
+    Image(
+      painter = painterResource(R.drawable.ic_launcher),
+      contentDescription = null,
+      modifier = Modifier.requiredSize(AppIconSize * 1.5f),
+    )
+  }
+}
+
+private val AppIconSize = 32.dp
+
 @Composable
 private fun SkeletonRow() {
   Row(
@@ -130,7 +153,7 @@ private fun SkeletonRow() {
   ) {
     Box(
       modifier = Modifier
-        .size(24.dp)
+        .size(AppIconSize)
         .background(MaterialTheme.colorScheme.surfaceVariant, CircleShape),
     )
     Box(

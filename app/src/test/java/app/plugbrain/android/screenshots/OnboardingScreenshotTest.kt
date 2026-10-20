@@ -145,9 +145,9 @@ class OnboardingScreenshotTest {
                 InstalledAppsState.Success(
                     apps =
                         listOf(
-                            InstalledApp(name = "Subway Surfers", packageName = "com.kiloo.subwaysurf"),
-                            InstalledApp(name = "Instagram", packageName = "com.instagram.android"),
-                            InstalledApp(name = "Facebook", packageName = "com.facebook.katana"),
+                            InstalledApp(name = "Subway Surfers", packageName = "com.kiloo.subwaysurf", usageMillis = 104 * 60_000L),
+                            InstalledApp(name = "Instagram", packageName = "com.instagram.android", usageMillis = 45 * 60_000L),
+                            InstalledApp(name = "Facebook", packageName = "com.facebook.katana", usageMillis = 12 * 60_000L),
                             InstalledApp(name = "Youtube", packageName = "com.google.android.youtube"),
                         ),
                 ),

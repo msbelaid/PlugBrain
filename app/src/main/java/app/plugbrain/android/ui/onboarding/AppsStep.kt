@@ -20,6 +20,7 @@ import app.plugbrain.android.ui.designsystem.components.layout.PlugStepScaffold
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugAppCheckboxRow
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugSearchField
 import app.plugbrain.android.ui.onboarding.presentation.OnboardingStep
+import app.plugbrain.android.ui.selectapps.UsageBar
 import app.plugbrain.android.ui.selectapps.presentation.InstalledAppsState
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import coil3.compose.rememberAsyncImagePainter
@@ -67,12 +68,18 @@ fun AppsStep(
           .weight(1f)
           .fillMaxWidth(),
       ) {
+        val maxUsageMillis = installedAppsState.apps.maxOfOrNull { it.usageMillis } ?: 0L
         items(installedAppsState.apps, key = { it.packageName }) { app ->
           PlugAppCheckboxRow(
             name = app.name,
             icon = rememberAsyncImagePainter(model = app.icon),
             isChecked = app.packageName in blockedApps,
             onCheckedChange = { isChecked -> onAppCheckedChange(app.packageName, isChecked) },
+            supportingContent = if (app.usageMillis > 0) {
+              { UsageBar(usageMillis = app.usageMillis, fraction = app.usageMillis.toFloat() / maxUsageMillis) }
+            } else {
+              null
+            },
             // The step's content is already inset, so the rows line up with the search field.
             contentPadding = PaddingValues(vertical = 8.dp),
           )
@@ -89,7 +96,7 @@ private fun AppsStepPreview() {
     AppsStep(
       installedAppsState = InstalledAppsState.Success(
         apps = listOf(
-          InstalledApp(name = "Instagram", packageName = "com.instagram.android"),
+          InstalledApp(name = "Instagram", packageName = "com.instagram.android", usageMillis = 104 * 60_000L),
           InstalledApp(name = "Youtube", packageName = "com.google.android.youtube"),
         ),
       ),
