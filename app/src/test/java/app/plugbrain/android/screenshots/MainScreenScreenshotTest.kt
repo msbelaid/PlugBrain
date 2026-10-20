@@ -1,10 +1,9 @@
 package app.plugbrain.android.screenshots
 
+import android.graphics.drawable.ColorDrawable
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
-import app.plugbrain.android.R
 import app.plugbrain.android.appsusage.model.InstalledApp
 import app.plugbrain.android.ui.main.compose.MainScreen
 import app.plugbrain.android.ui.main.presentation.DashboardStatus
@@ -63,6 +62,9 @@ class MainScreenScreenshotTest {
         }
     }
 
+    // Plain colors stand in for app icons: Paparazzi can't render the launcher's adaptive icon.
+    private val appColors = listOf(0xFFBD100C, 0xFF5B3FB8, 0xFF0C6B78, 0xFFB45309, 0xFF253A3A).map { it.toInt() }
+
     private val protectionOn =
         DashboardStatus.ProtectionOn(
             usedMinutes = 4,
@@ -77,13 +79,19 @@ class MainScreenScreenshotTest {
         darkTheme: Boolean = false,
         appCount: Int = 7,
     ) {
-        val icon = LocalContext.current.getDrawable(R.mipmap.ic_launcher)
         MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
             MainScreen(
                 state =
                     MainScreenState(
                         status = status,
-                        blockedApps = List(appCount) { InstalledApp(name = "App $it", packageName = "com.example.app$it", icon = icon) },
+                        blockedApps =
+                            List(appCount) {
+                                InstalledApp(
+                                    name = "App $it",
+                                    packageName = "com.example.app$it",
+                                    icon = ColorDrawable(appColors[it % appColors.size]),
+                                )
+                            },
                         blockInterval = 15,
                         minDifficulty = 1,
                     ),
