@@ -128,4 +128,39 @@
     <string name="onboarding_difficulty_math_master">Math master</string>
     <string name="onboarding_difficulty_math_master_description">Multi-digit multiplications.</string>
     <string name="onboarding_preferences_cta">Finish setup</string>
+    <!-- Main screen (dashboard) -->
+    <string name="dashboard_protection_on">Protection on</string>
+    <string name="dashboard_minutes_short">%d min</string>
+    <string name="dashboard_minutes_left">left before the next challenge</string>
+    <string name="dashboard_next_challenge_level">Next challenge: level %1$d of %2$d</string>
+    <string name="dashboard_apps_locked">Apps locked</string>
+    <string name="dashboard_away">Away %s</string>
+    <string name="dashboard_hours_minutes_short">%1$dh %2$dm</string>
+    <string name="dashboard_unlock_level">Solve a level %d challenge to unlock. The longer you stay away, the easier it gets.</string>
+    <string name="dashboard_protection_paused">Protection paused</string>
+    <string name="dashboard_paused_accessibility">Accessibility access was turned off, so PlugBrain can\'t block your apps.</string>
+    <string name="dashboard_paused_usage_access">Usage access was turned off, so PlugBrain can\'t tell when to block your apps.</string>
+    <string name="dashboard_paused_overlay">Display over other apps was turned off, so PlugBrain can\'t show challenges.</string>
+    <string name="dashboard_turn_back_on">Turn it back on</string>
+    <string name="dashboard_nothing_to_block">Nothing to block yet</string>
+    <plurals name="dashboard_nothing_to_block_description">
+        <item quantity="one">Pick the apps that pull you in, and PlugBrain will ask for a challenge after %d minute on them.</item>
+        <item quantity="other">Pick the apps that pull you in, and PlugBrain will ask for a challenge after %d minutes on them.</item>
+    </plurals>
+    <string name="dashboard_choose_apps">Choose apps</string>
+    <string name="dashboard_your_setup">Your setup</string>
+    <string name="dashboard_blocked_apps_title">Blocked apps</string>
+    <string name="dashboard_blocked_apps_none">None selected</string>
+    <plurals name="dashboard_blocked_apps_count">
+        <item quantity="one">%d blocked app</item>
+        <item quantity="other">%d blocked apps</item>
+    </plurals>
+    <string name="dashboard_block_interval">Block interval</string>
+    <plurals name="dashboard_block_interval_value">
+        <item quantity="one">Every %d minute of use</item>
+        <item quantity="other">Every %d minutes of use</item>
+    </plurals>
+    <string name="dashboard_min_difficulty">Minimum difficulty</string>
+    <string name="dashboard_min_difficulty_preset">%1$s · level %2$d</string>
+    <string name="dashboard_min_difficulty_level">Level %d</string>
 </resources>

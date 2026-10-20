@@ -1,0 +1,80 @@
+package app.plugbrain.android.main
+
+import app.plugbrain.android.repository.model.PermissionsState
+import app.plugbrain.android.ui.main.presentation.DashboardStatus
+import app.plugbrain.android.ui.main.presentation.RequiredPermission
+import app.plugbrain.android.ui.main.presentation.dashboardStatus
+import org.junit.Assert.assertEquals
+import org.junit.Test
+
+class DashboardStatusTest {
+    private val allGranted =
+        PermissionsState(
+            accessibilityPermission = true,
+            usageStatsPermission = true,
+            systemAlertWindow = true,
+        )
+
+    private fun status(
+        permissions: PermissionsState = allGranted,
+        hasBlockedApps: Boolean = true,
+        isBlocked: Boolean = false,
+        usedMinutes: Long = 4,
+        awayMinutes: Long? = 6,
+    ) = dashboardStatus(
+        permissions = permissions,
+        hasBlockedApps = hasBlockedApps,
+        isBlocked = isBlocked,
+        usedMinutes = usedMinutes,
+        awayMinutes = awayMinutes,
+        blockInterval = 15,
+        challengeLevel = 4,
+        maxChallengeLevel = 15,
+    )
+
+    @Test
+    fun `a missing permission pauses protection whatever else is true`() {
+        assertEquals(
+            DashboardStatus.ProtectionPaused(RequiredPermission.Accessibility),
+            status(permissions = allGranted.copy(accessibilityPermission = false), hasBlockedApps = false, isBlocked = true),
+        )
+        assertEquals(
+            DashboardStatus.ProtectionPaused(RequiredPermission.UsageAccess),
+            status(permissions = allGranted.copy(usageStatsPermission = false)),
+        )
+        assertEquals(
+            DashboardStatus.ProtectionPaused(RequiredPermission.Overlay),
+            status(permissions = allGranted.copy(systemAlertWindow = false)),
+        )
+    }
+
+    @Test
+    fun `battery optimisation alone does not pause protection`() {
+        assertEquals(
+            DashboardStatus.ProtectionOn(usedMinutes = 4, blockInterval = 15, nextChallengeLevel = 4, maxChallengeLevel = 15),
+            status(permissions = allGranted.copy(batteryOptimizationExemption = false)),
+        )
+    }
+
+    @Test
+    fun `no blocked apps asks the user to choose some`() {
+        assertEquals(DashboardStatus.NothingToBlock(blockInterval = 15), status(hasBlockedApps = false, isBlocked = true))
+    }
+
+    @Test
+    fun `blocked apps show how long the user stayed away`() {
+        assertEquals(DashboardStatus.AppsLocked(awayMinutes = 6, challengeLevel = 4), status(isBlocked = true))
+        assertEquals(DashboardStatus.AppsLocked(awayMinutes = null, challengeLevel = 4), status(isBlocked = true, awayMinutes = null))
+    }
+
+    @Test
+    fun `protection on counts the minutes left and never goes below zero`() {
+        val on = status(usedMinutes = 4) as DashboardStatus.ProtectionOn
+        assertEquals(11L, on.minutesLeft)
+        assertEquals(4f / 15f, on.usedFraction, 0.001f)
+
+        val over = status(usedMinutes = 20) as DashboardStatus.ProtectionOn
+        assertEquals(0L, over.minutesLeft)
+        assertEquals(1f, over.usedFraction, 0.001f)
+    }
+}
