@@ -3,6 +3,7 @@ package app.plugbrain.android.ui.designsystem.components.layout
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -19,9 +20,15 @@ import androidx.compose.material.icons.rounded.Layers
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -34,6 +41,9 @@ import app.plugbrain.android.ui.designsystem.components.progress.PlugStepProgres
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 
 private val HorizontalPadding = 24.dp
+
+// Height of the fade above the call to action.
+private val BottomBarFadeHeight = 32.dp
 
 /**
  * Page layout for one step of a flow: an optional progress bar and top action, a title and
@@ -86,55 +96,85 @@ fun PlugStepScaffold(
         topAction?.invoke()
       }
     }
-    Column(
-      verticalArrangement = Arrangement.spacedBy(16.dp),
+    // The bar overlays the bottom of the content, so content scrolling under it fades out.
+    var bottomBarHeight by remember { mutableStateOf(0.dp) }
+    val density = LocalDensity.current
+    Box(
       modifier = Modifier
         .weight(1f)
-        .fillMaxWidth()
-        .then(if (isScrollable) Modifier.verticalScroll(rememberScrollState()) else Modifier)
-        .padding(horizontal = HorizontalPadding, vertical = 24.dp),
+        .fillMaxWidth(),
     ) {
-      if (title != null || subtitle != null) {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-          if (title != null) {
-            Text(
-              text = title,
-              style = MaterialTheme.typography.headlineLarge,
-              color = MaterialTheme.colorScheme.onSurface,
-              modifier = Modifier.semantics { heading() },
-            )
-          }
-          if (subtitle != null) {
-            Text(
-              text = subtitle,
-              style = MaterialTheme.typography.bodyLarge,
-              color = MaterialTheme.colorScheme.onSurface,
-            )
+      Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier
+          .fillMaxSize()
+          .then(
+            if (isScrollable) {
+              // Inside the scroll, so the last item can scroll clear of the bar.
+              Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(start = HorizontalPadding, end = HorizontalPadding, top = 24.dp)
+                .padding(bottom = bottomBarHeight)
+            } else {
+              // A lazy list scrolls on its own, so only its last few dp sit under the fade.
+              Modifier
+                .padding(start = HorizontalPadding, end = HorizontalPadding, top = 24.dp)
+                .padding(bottom = (bottomBarHeight - BottomBarFadeHeight).coerceAtLeast(0.dp))
+            },
+          ),
+      ) {
+        if (title != null || subtitle != null) {
+          Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (title != null) {
+              Text(
+                text = title,
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.semantics { heading() },
+              )
+            }
+            if (subtitle != null) {
+              Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+              )
+            }
           }
         }
+        content()
       }
-      content()
-    }
-    Column(
-      verticalArrangement = Arrangement.spacedBy(8.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(start = HorizontalPadding, end = HorizontalPadding, bottom = 16.dp),
-    ) {
-      PlugButtonPrimary(
-        text = primaryCtaText,
-        onClick = onPrimaryCtaClick,
-        enabled = isPrimaryCtaEnabled,
-        modifier = Modifier.fillMaxWidth(),
-      )
-      if (helperText != null) {
-        Text(
-          text = helperText,
-          style = MaterialTheme.typography.bodyMedium,
-          color = MaterialTheme.colorScheme.onSurfaceVariant,
-          textAlign = TextAlign.Center,
+      val surface = MaterialTheme.colorScheme.surface
+      Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+          .align(Alignment.BottomCenter)
+          .fillMaxWidth()
+          .onSizeChanged { bottomBarHeight = with(density) { it.height.toDp() } }
+          .background(
+            Brush.verticalGradient(
+              0f to surface.copy(alpha = 0f),
+              0.35f to surface,
+              1f to surface,
+            ),
+          )
+          .padding(start = HorizontalPadding, end = HorizontalPadding, top = BottomBarFadeHeight, bottom = 16.dp),
+      ) {
+        PlugButtonPrimary(
+          text = primaryCtaText,
+          onClick = onPrimaryCtaClick,
+          enabled = isPrimaryCtaEnabled,
+          modifier = Modifier.fillMaxWidth(),
         )
+        if (helperText != null) {
+          Text(
+            text = helperText,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+          )
+        }
       }
     }
   }
