@@ -1,5 +1,6 @@
 package app.plugbrain.android.ui.main.compose
 
+import android.graphics.drawable.Drawable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Android
 import androidx.compose.material.icons.rounded.Apps
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Schedule
@@ -24,12 +26,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
 import app.plugbrain.android.ui.designsystem.components.card.PlugStatusCard
 import app.plugbrain.android.ui.designsystem.components.card.PlugStatusCardVariant
@@ -39,7 +47,6 @@ import app.plugbrain.android.ui.main.presentation.DashboardStatus
 import app.plugbrain.android.ui.main.presentation.MainScreenState
 import app.plugbrain.android.ui.main.presentation.RequiredPermission
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
-import coil3.compose.rememberAsyncImagePainter
 
 /**
  * The dashboard: what PlugBrain is doing right now, then the user's setup. [onSettingsClicked]
@@ -185,7 +192,11 @@ private fun SetupSection(
         icon = Icons.Rounded.Apps,
         onClick = onAppsClicked,
         supportingContent = {
-          PlugAppIconStack(icons = state.blockedApps.map { rememberAsyncImagePainter(model = it.icon) })
+          PlugAppIconStack(
+            icons = state.blockedApps.take(MAX_VISIBLE_ICONS).map { appIconPainter(it.icon) },
+            totalCount = state.blockedApps.size,
+            maxVisible = MAX_VISIBLE_ICONS,
+          )
         },
       )
     }
@@ -206,6 +217,19 @@ private fun SetupSection(
       onClick = onSettingsClicked,
     )
   }
+}
+
+// The stack shows five icons and "+N" for the rest, so only those five are drawn.
+private const val MAX_VISIBLE_ICONS = 5
+private const val ICON_SIZE_PX = 96
+
+/** App icons are already loaded drawables, so they are drawn right away instead of loading async. */
+@Composable
+private fun appIconPainter(icon: Drawable?): Painter {
+  val fallback = rememberVectorPainter(Icons.Rounded.Android)
+  return remember(icon) {
+    icon?.let { BitmapPainter(it.toBitmap(ICON_SIZE_PX, ICON_SIZE_PX).asImageBitmap()) }
+  } ?: fallback
 }
 
 @Composable

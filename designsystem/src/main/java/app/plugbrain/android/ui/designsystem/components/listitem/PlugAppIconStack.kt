@@ -27,13 +27,15 @@ import androidx.compose.ui.unit.dp
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 
 /**
- * Overlapping app icons, at most [maxVisible] of them, then "+N" for the rest. It is decorative:
- * the text next to it should already say how many apps there are.
+ * Overlapping app icons, at most [maxVisible] of them, then "+N" for the rest of [totalCount]. Pass
+ * [totalCount] when [icons] holds only the first few. It is decorative: the text next to it should
+ * already say how many apps there are.
  */
 @Composable
 fun PlugAppIconStack(
   icons: List<Painter>,
   modifier: Modifier = Modifier,
+  totalCount: Int = icons.size,
   maxVisible: Int = 5,
 ) {
   val ringColor = MaterialTheme.colorScheme.surface
@@ -57,7 +59,7 @@ fun PlugAppIconStack(
         )
       }
     }
-    val hidden = icons.size - maxVisible
+    val hidden = totalCount - icons.size.coerceAtMost(maxVisible)
     if (hidden > 0) {
       Text(
         text = "+$hidden",
