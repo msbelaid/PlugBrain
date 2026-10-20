@@ -30,8 +30,8 @@ fun PlugInfoListItem(
   Row(
     horizontalArrangement = Arrangement.spacedBy(24.dp),
     verticalAlignment = Alignment.CenterVertically,
-    modifier = modifier
-      .background(MaterialTheme.colorScheme.surface),
+    // No background of its own, so the row sits on whatever is behind it, like the welcome gradient.
+    modifier = modifier,
   ) {
     LeadingIcon(
       icon = icon,
