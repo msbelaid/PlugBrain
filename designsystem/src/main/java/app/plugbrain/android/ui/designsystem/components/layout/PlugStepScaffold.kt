@@ -153,10 +153,10 @@ fun PlugStepScaffold(
           .fillMaxWidth()
           .onSizeChanged { bottomBarHeight = with(density) { it.height.toDp() } }
           .background(
+            // Fully opaque from the top of the button down, so content never shows through it.
             Brush.verticalGradient(
-              0f to surface.copy(alpha = 0f),
-              0.35f to surface,
-              1f to surface,
+              colors = listOf(surface.copy(alpha = 0f), surface),
+              endY = with(density) { BottomBarFadeHeight.toPx() },
             ),
           )
           .padding(start = HorizontalPadding, end = HorizontalPadding, top = BottomBarFadeHeight, bottom = 16.dp),
