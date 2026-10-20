@@ -19,14 +19,14 @@ enum class RequiredPermission {
 
 /** What the status card at the top of the main screen says. */
 sealed interface DashboardStatus {
-  data class ProtectionPaused(val missingPermission: RequiredPermission) : DashboardStatus
+  data class Paused(val missingPermission: RequiredPermission) : DashboardStatus
 
   data class NothingToBlock(val blockInterval: Int) : DashboardStatus
 
   /** [awayMinutes] is null when no blocked app was ever opened. */
   data class AppsLocked(val awayMinutes: Long?, val challengeLevel: Int) : DashboardStatus
 
-  data class ProtectionOn(
+  data class Active(
     val usedMinutes: Long,
     val blockInterval: Int,
     val nextChallengeLevel: Int,
@@ -56,9 +56,9 @@ internal fun dashboardStatus(
     else -> null
   }
   return when {
-    missingPermission != null -> DashboardStatus.ProtectionPaused(missingPermission)
+    missingPermission != null -> DashboardStatus.Paused(missingPermission)
     !hasBlockedApps -> DashboardStatus.NothingToBlock(blockInterval)
     isBlocked -> DashboardStatus.AppsLocked(awayMinutes, challengeLevel)
-    else -> DashboardStatus.ProtectionOn(usedMinutes, blockInterval, challengeLevel, maxChallengeLevel)
+    else -> DashboardStatus.Active(usedMinutes, blockInterval, challengeLevel, maxChallengeLevel)
   }
 }

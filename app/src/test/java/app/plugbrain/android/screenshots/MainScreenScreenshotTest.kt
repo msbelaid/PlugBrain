@@ -21,16 +21,16 @@ class MainScreenScreenshotTest {
         )
 
     @Test
-    fun protectionOnTest() {
+    fun activeTest() {
         paparazzi.snapshotWithLargeFont {
-            mainScreen(status = protectionOn)
+            mainScreen(status = active)
         }
     }
 
     @Test
-    fun protectionOnDarkTest() {
+    fun activeDarkTest() {
         paparazzi.snapshot {
-            mainScreen(status = protectionOn, darkTheme = true)
+            mainScreen(status = active, darkTheme = true)
         }
     }
 
@@ -42,16 +42,16 @@ class MainScreenScreenshotTest {
     }
 
     @Test
-    fun protectionPausedTest() {
+    fun pausedTest() {
         paparazzi.snapshotWithLargeFont {
-            mainScreen(status = DashboardStatus.ProtectionPaused(RequiredPermission.Accessibility))
+            mainScreen(status = DashboardStatus.Paused(RequiredPermission.Accessibility))
         }
     }
 
     @Test
-    fun protectionPausedDarkTest() {
+    fun pausedDarkTest() {
         paparazzi.snapshot {
-            mainScreen(status = DashboardStatus.ProtectionPaused(RequiredPermission.Accessibility), darkTheme = true)
+            mainScreen(status = DashboardStatus.Paused(RequiredPermission.Accessibility), darkTheme = true)
         }
     }
 
@@ -65,8 +65,8 @@ class MainScreenScreenshotTest {
     // Plain colors stand in for app icons: Paparazzi can't render the launcher's adaptive icon.
     private val appColors = listOf(0xFFBD100C, 0xFF5B3FB8, 0xFF0C6B78, 0xFFB45309, 0xFF253A3A).map { it.toInt() }
 
-    private val protectionOn =
-        DashboardStatus.ProtectionOn(
+    private val active =
+        DashboardStatus.Active(
             usedMinutes = 4,
             blockInterval = 15,
             nextChallengeLevel = 4,

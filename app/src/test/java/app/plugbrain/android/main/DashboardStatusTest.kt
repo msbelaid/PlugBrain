@@ -33,25 +33,25 @@ class DashboardStatusTest {
     )
 
     @Test
-    fun `a missing permission pauses protection whatever else is true`() {
+    fun `a missing permission pauses PlugBrain whatever else is true`() {
         assertEquals(
-            DashboardStatus.ProtectionPaused(RequiredPermission.Accessibility),
+            DashboardStatus.Paused(RequiredPermission.Accessibility),
             status(permissions = allGranted.copy(accessibilityPermission = false), hasBlockedApps = false, isBlocked = true),
         )
         assertEquals(
-            DashboardStatus.ProtectionPaused(RequiredPermission.UsageAccess),
+            DashboardStatus.Paused(RequiredPermission.UsageAccess),
             status(permissions = allGranted.copy(usageStatsPermission = false)),
         )
         assertEquals(
-            DashboardStatus.ProtectionPaused(RequiredPermission.Overlay),
+            DashboardStatus.Paused(RequiredPermission.Overlay),
             status(permissions = allGranted.copy(systemAlertWindow = false)),
         )
     }
 
     @Test
-    fun `battery optimisation alone does not pause protection`() {
+    fun `battery optimisation alone does not pause PlugBrain`() {
         assertEquals(
-            DashboardStatus.ProtectionOn(usedMinutes = 4, blockInterval = 15, nextChallengeLevel = 4, maxChallengeLevel = 15),
+            DashboardStatus.Active(usedMinutes = 4, blockInterval = 15, nextChallengeLevel = 4, maxChallengeLevel = 15),
             status(permissions = allGranted.copy(batteryOptimizationExemption = false)),
         )
     }
@@ -68,12 +68,12 @@ class DashboardStatusTest {
     }
 
     @Test
-    fun `protection on counts the minutes left and never goes below zero`() {
-        val on = status(usedMinutes = 4) as DashboardStatus.ProtectionOn
+    fun `the active state counts the minutes left and never goes below zero`() {
+        val on = status(usedMinutes = 4) as DashboardStatus.Active
         assertEquals(11L, on.minutesLeft)
         assertEquals(4f / 15f, on.usedFraction, 0.001f)
 
-        val over = status(usedMinutes = 20) as DashboardStatus.ProtectionOn
+        val over = status(usedMinutes = 20) as DashboardStatus.Active
         assertEquals(0L, over.minutesLeft)
         assertEquals(1f, over.usedFraction, 0.001f)
     }

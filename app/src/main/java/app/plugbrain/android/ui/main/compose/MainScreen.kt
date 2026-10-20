@@ -12,10 +12,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Android
 import androidx.compose.material.icons.rounded.Apps
 import androidx.compose.material.icons.rounded.Lock
+import androidx.compose.material.icons.rounded.Psychology
 import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.SignalCellularAlt
-import androidx.compose.material.icons.rounded.VerifiedUser
 import androidx.compose.material.icons.rounded.WarningAmber
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -49,7 +49,7 @@ import app.plugbrain.android.ui.main.presentation.RequiredPermission
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 
 /**
- * The dashboard: what PlugBrain is doing right now, then the user's setup. When protection is
+ * The dashboard: what PlugBrain is doing right now, then the user's setup. When PlugBrain is
  * paused, [onTurnBackOn] gets the missing permission so the caller can explain and request it.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -115,9 +115,9 @@ private fun StatusCard(
 ) {
   val modifier = Modifier.fillMaxWidth()
   when (status) {
-    is DashboardStatus.ProtectionOn -> PlugStatusCard(
-      label = stringResource(R.string.dashboard_protection_on),
-      icon = Icons.Rounded.VerifiedUser,
+    is DashboardStatus.Active -> PlugStatusCard(
+      label = stringResource(R.string.dashboard_active),
+      icon = Icons.Rounded.Psychology,
       headline = stringResource(R.string.dashboard_minutes_short, status.minutesLeft),
       headlineSupportingText = stringResource(R.string.dashboard_minutes_left),
       progress = status.usedFraction,
@@ -131,8 +131,8 @@ private fun StatusCard(
       body = stringResource(R.string.dashboard_unlock_level, status.challengeLevel),
       modifier = modifier,
     )
-    is DashboardStatus.ProtectionPaused -> PlugStatusCard(
-      label = stringResource(R.string.dashboard_protection_paused),
+    is DashboardStatus.Paused -> PlugStatusCard(
+      label = stringResource(R.string.dashboard_paused),
       icon = Icons.Rounded.WarningAmber,
       variant = PlugStatusCardVariant.Warning,
       body = stringResource(
