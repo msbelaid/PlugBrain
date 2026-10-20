@@ -71,6 +71,8 @@
     <string name="onboarding_accessibility_title">Accessibility permission</string>
     <string name="onboarding_accessibility_description">Allows PlugBrain to detect when apps are open.</string>
     <string name="onboarding_battery_title">Battery optimization (optional)</string>
+    <string name="onboarding_background_popups_title">Pop-ups in the background</string>
+    <string name="onboarding_background_popups_description">Xiaomi phones only show the challenge if you allow “Display pop-up windows while running in the background” for PlugBrain.</string>
     <string name="onboarding_battery_description">Ensures that PlugBrain keeps running reliably even when your device tries to save battery.</string>
 
     <string name="onboarding_sheet_cta">Understood</string>
@@ -122,6 +124,7 @@
     <string name="dashboard_paused_accessibility">Accessibility access was turned off, so PlugBrain can\'t block your apps.</string>
     <string name="dashboard_paused_usage_access">Usage access was turned off, so PlugBrain can\'t tell when to block your apps.</string>
     <string name="dashboard_paused_overlay">Display over other apps was turned off, so PlugBrain can\'t show challenges.</string>
+    <string name="dashboard_paused_background_popups">Pop-ups in the background are off, so PlugBrain can\'t show challenges on this phone.</string>
     <string name="dashboard_turn_back_on">Turn it back on</string>
     <string name="dashboard_nothing_to_block">Nothing to block yet</string>
     <plurals name="dashboard_nothing_to_block_description">

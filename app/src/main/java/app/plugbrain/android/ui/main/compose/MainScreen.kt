@@ -147,6 +147,7 @@ private fun StatusCard(
           RequiredPermission.Accessibility -> R.string.dashboard_paused_accessibility
           RequiredPermission.UsageAccess -> R.string.dashboard_paused_usage_access
           RequiredPermission.Overlay -> R.string.dashboard_paused_overlay
+          RequiredPermission.BackgroundPopups -> R.string.dashboard_paused_background_popups
         },
       ),
       actionText = stringResource(R.string.dashboard_turn_back_on),

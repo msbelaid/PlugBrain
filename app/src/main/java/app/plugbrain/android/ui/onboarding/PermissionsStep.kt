@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccessibilityNew
 import androidx.compose.material.icons.rounded.BatteryChargingFull
+import androidx.compose.material.icons.rounded.FlipToFront
 import androidx.compose.material.icons.rounded.Layers
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
@@ -49,6 +50,13 @@ fun PermissionsStep(
         isGranted = permissions.systemAlertWindow,
         onClick = onPermissionClick,
       )
+      permissions.backgroundPopups?.let { isGranted ->
+        PermissionItem(
+          permission = OnboardingPermission.BackgroundPopups,
+          isGranted = isGranted,
+          onClick = onPermissionClick,
+        )
+      }
       PermissionItem(
         permission = OnboardingPermission.Accessibility,
         isGranted = permissions.accessibilityPermission,
@@ -79,6 +87,11 @@ private fun PermissionItem(
       R.string.onboarding_overlay_title,
       R.string.onboarding_overlay_description,
       Icons.Rounded.Layers,
+    )
+    OnboardingPermission.BackgroundPopups -> Triple(
+      R.string.onboarding_background_popups_title,
+      R.string.onboarding_background_popups_description,
+      Icons.Rounded.FlipToFront,
     )
     OnboardingPermission.Accessibility -> Triple(
       R.string.onboarding_accessibility_title,

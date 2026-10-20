@@ -19,6 +19,7 @@ enum class RequiredPermission {
   Accessibility,
   UsageAccess,
   Overlay,
+  BackgroundPopups,
 }
 
 /** What the status card at the top of the main screen says. */
@@ -58,6 +59,7 @@ internal fun dashboardStatus(
     !permissions.accessibilityPermission -> RequiredPermission.Accessibility
     !permissions.usageStatsPermission -> RequiredPermission.UsageAccess
     !permissions.systemAlertWindow -> RequiredPermission.Overlay
+    permissions.backgroundPopups == false -> RequiredPermission.BackgroundPopups
     else -> null
   }
   return when {

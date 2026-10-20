@@ -27,6 +27,7 @@ import app.plugbrain.android.ui.onboarding.OnboardingActivity
 import app.plugbrain.android.ui.onboarding.OnboardingPermission
 import app.plugbrain.android.ui.onboarding.PermissionExplainerSheet
 import app.plugbrain.android.ui.permissions.openAccessibilitySettings
+import app.plugbrain.android.ui.permissions.openBackgroundPopupsSettings
 import app.plugbrain.android.ui.permissions.openBatteryOptimizationSettings
 import app.plugbrain.android.ui.permissions.openOverlaySettings
 import app.plugbrain.android.ui.permissions.openUsageAccessSettings
@@ -86,7 +87,14 @@ class MainActivity : ComponentActivity() {
       onMinDifficultyClick = { isEditingMinDifficulty = true },
       // Like onboarding: the system dialog explains itself, so no sheet first.
       onBatteryOptimizationClick = { openBatteryOptimizationSettings() },
-      onTurnBackOn = { explainedPermission = it },
+      onTurnBackOn = { permission ->
+        // Like onboarding: Xiaomi's permission page opens on PlugBrain, so no sheet first.
+        if (permission == RequiredPermission.BackgroundPopups) {
+          openBackgroundPopupsSettings()
+        } else {
+          explainedPermission = permission
+        }
+      },
       onAboutClick = { isShowingAbout = true },
     )
 
@@ -100,6 +108,7 @@ class MainActivity : ComponentActivity() {
             RequiredPermission.Accessibility -> openAccessibilitySettings()
             RequiredPermission.UsageAccess -> openUsageAccessSettings()
             RequiredPermission.Overlay -> openOverlaySettings()
+            RequiredPermission.BackgroundPopups -> openBackgroundPopupsSettings()
           }
         },
         onDismiss = { explainedPermission = null },
@@ -159,4 +168,5 @@ private fun RequiredPermission.toOnboardingPermission() = when (this) {
   RequiredPermission.Accessibility -> OnboardingPermission.Accessibility
   RequiredPermission.UsageAccess -> OnboardingPermission.UsageAccess
   RequiredPermission.Overlay -> OnboardingPermission.Overlay
+  RequiredPermission.BackgroundPopups -> OnboardingPermission.BackgroundPopups
 }

@@ -46,6 +46,18 @@ class DashboardStatusTest {
             DashboardStatus.Paused(RequiredPermission.Overlay),
             status(permissions = allGranted.copy(systemAlertWindow = false)),
         )
+        assertEquals(
+            DashboardStatus.Paused(RequiredPermission.BackgroundPopups),
+            status(permissions = allGranted.copy(backgroundPopups = false)),
+        )
+    }
+
+    @Test
+    fun `phones without the background pop-ups setting are not paused`() {
+        assertEquals(
+            DashboardStatus.Active(usedMinutes = 4, blockInterval = 15, nextChallengeLevel = 4, maxChallengeLevel = 15),
+            status(permissions = allGranted.copy(backgroundPopups = null)),
+        )
     }
 
     @Test

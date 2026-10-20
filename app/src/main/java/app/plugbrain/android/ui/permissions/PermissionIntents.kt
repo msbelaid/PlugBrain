@@ -51,3 +51,25 @@ fun Context.openBatteryOptimizationSettings() {
     },
   )
 }
+
+// Xiaomi's own permission page for PlugBrain, where the background pop-ups setting lives. Phones
+// without it get PlugBrain's app info page, whose "Other permissions" leads to the same setting.
+fun Context.openBackgroundPopupsSettings() {
+  try {
+    startActivity(
+      Intent("miui.intent.action.APP_PERM_EDITOR").apply {
+        setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity")
+        putExtra("extra_pkgname", packageName)
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+      },
+    )
+  } catch (e: RuntimeException) {
+    // Missing, or not exported, depending on the MIUI version.
+    Timber.d(e, "Can't open the Xiaomi permission page, opening the app info")
+    startActivity(
+      Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:$packageName".toUri()).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+      },
+    )
+  }
+}

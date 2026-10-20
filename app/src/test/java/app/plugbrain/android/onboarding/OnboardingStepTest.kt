@@ -70,4 +70,16 @@ class OnboardingStepTest {
             ),
         )
     }
+
+    @Test
+    fun `onboarding shows on Xiaomi phones until background pop-ups are allowed`() {
+        val granted =
+            PermissionsState(
+                accessibilityPermission = true,
+                usageStatsPermission = true,
+                systemAlertWindow = true,
+            )
+        assertTrue(shouldShowOnboarding(granted.copy(backgroundPopups = false), hasSavedSetup = false))
+        assertFalse(shouldShowOnboarding(granted.copy(backgroundPopups = true), hasSavedSetup = false))
+    }
 }

@@ -27,6 +27,7 @@ import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 import app.plugbrain.android.ui.onboarding.presentation.OnboardingStep
 import app.plugbrain.android.ui.onboarding.presentation.OnboardingViewModel
 import app.plugbrain.android.ui.permissions.openAccessibilitySettings
+import app.plugbrain.android.ui.permissions.openBackgroundPopupsSettings
 import app.plugbrain.android.ui.permissions.openBatteryOptimizationSettings
 import app.plugbrain.android.ui.permissions.openOverlaySettings
 import app.plugbrain.android.ui.permissions.openUsageAccessSettings
@@ -99,11 +100,12 @@ class OnboardingActivity : ComponentActivity() {
         OnboardingStep.Permissions -> PermissionsStep(
           permissions = permissions,
           onPermissionClick = { permission ->
-            // Battery optimization asks through a system dialog that explains itself.
-            if (permission == OnboardingPermission.BatteryOptimization) {
-              openBatteryOptimizationSettings()
-            } else {
-              explainedPermission = permission
+            when (permission) {
+              // Battery optimization asks through a system dialog that explains itself.
+              OnboardingPermission.BatteryOptimization -> openBatteryOptimizationSettings()
+              // Xiaomi's permission page opens on PlugBrain, and the item says which setting to allow.
+              OnboardingPermission.BackgroundPopups -> openBackgroundPopupsSettings()
+              else -> explainedPermission = permission
             }
           },
           onProceed = onboardingViewModel::next,
@@ -152,6 +154,7 @@ class OnboardingActivity : ComponentActivity() {
             OnboardingPermission.Overlay -> openOverlaySettings()
             OnboardingPermission.Accessibility -> openAccessibilitySettings()
             OnboardingPermission.BatteryOptimization -> openBatteryOptimizationSettings()
+            OnboardingPermission.BackgroundPopups -> openBackgroundPopupsSettings()
           }
         },
         onDismiss = { explainedPermission = null },
