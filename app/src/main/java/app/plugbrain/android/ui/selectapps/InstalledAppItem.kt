@@ -10,6 +10,7 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -64,20 +65,27 @@ fun InstalledAppItem(
   )
 }
 
+/** The app's usage in the last 24h as a bar scaled to the most used app, followed by a short time. */
 @Composable
-private fun UsageBar(usageMillis: Long, fraction: Float) {
+internal fun UsageBar(usageMillis: Long, fraction: Float) {
   Row(verticalAlignment = Alignment.CenterVertically) {
     LinearProgressIndicator(
       progress = { fraction },
       gapSize = 0.dp,
       drawStopIndicator = {},
       // Fixed width so every row's track has the same length, whatever the time text says.
+      // In a narrow row it shrinks to leave room for the time.
       modifier = Modifier
+        .weight(1f, fill = false)
         .width(160.dp)
         .height(6.dp),
     )
     Spacer(modifier = Modifier.width(8.dp))
-    Text(text = shortUsage(usageMillis.milliseconds))
+    Text(
+      text = shortUsage(usageMillis.milliseconds),
+      style = MaterialTheme.typography.bodyMedium,
+      color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
   }
 }
 

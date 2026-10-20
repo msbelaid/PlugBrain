@@ -70,7 +70,7 @@
         <item quantity="one">You can unlock the app for 1 minute, or close it and stay focused.</item>
         <item quantity="other">You can unlock the app for %d minutes, or close it and stay focused.</item>
     </plurals>
-    <string name="welcome_title">Take back control of your attention.</string>
+    <string name="welcome_title">Plug your brain back in.</string>
     <string name="welcome_feature_one_title">Focus your attention</string>
     <string name="welcome_feature_one_description">Spend less time on apps that distract you.</string>
     <string name="welcome_feature_two_title">Unlock with a challenge</string>
@@ -80,4 +80,52 @@
     <string name="welcome_cta_title">Get started</string>
     <string name="calculator_warning">Please, don\'t use the calculator!</string>
     <string name="selected">Selected</string>
+
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_permissions_title">Let\'s get set up</string>
+    <string name="onboarding_permissions_subtitle">PlugBrain needs the following permissions to work correctly.</string>
+    <string name="onboarding_permissions_cta">Proceed</string>
+    <string name="onboarding_permissions_helper">Allow the required permissions to proceed.</string>
+    <string name="onboarding_usage_access_title">App usage access</string>
+    <string name="onboarding_usage_access_description">Lets PlugBrain track app usage so it can block distracting apps at the right time.</string>
+    <string name="onboarding_overlay_title">Display over other apps</string>
+    <string name="onboarding_overlay_description">Allows PlugBrain to display a challenge while you use a distracting app.</string>
+    <string name="onboarding_accessibility_title">Accessibility permission</string>
+    <string name="onboarding_accessibility_description">Allows PlugBrain to detect when apps are open.</string>
+    <string name="onboarding_battery_title">Battery optimization (optional)</string>
+    <string name="onboarding_battery_description">Ensures that PlugBrain keeps running reliably even when your device tries to save battery.</string>
+
+    <string name="onboarding_sheet_cta">Understood</string>
+    <string name="onboarding_sheet_find_app">First, find and select PlugBrain in the list of apps.</string>
+    <string name="onboarding_usage_access_sheet_title">Turn usage access on</string>
+    <string name="onboarding_usage_access_sheet_switch">Permit usage access</string>
+    <string name="onboarding_usage_access_sheet_toggle">Then turn on the usage access switch.</string>
+    <string name="onboarding_overlay_sheet_title">Turn display over other apps on</string>
+    <string name="onboarding_overlay_sheet_switch">Allow display over other apps</string>
+    <string name="onboarding_overlay_sheet_toggle">Then turn on the display over other apps switch.</string>
+    <string name="onboarding_accessibility_sheet_title">Turn the accessibility service on</string>
+    <string name="onboarding_accessibility_sheet_find_app">First, find and select PlugBrain under installed apps.</string>
+    <string name="onboarding_accessibility_sheet_switch">Use PlugBrain</string>
+    <string name="onboarding_accessibility_sheet_toggle">Then turn on the switch and confirm.</string>
+
+    <string name="onboarding_apps_title">What\'s distracting you?</string>
+    <string name="onboarding_apps_subtitle">Don\'t worry, you can change this list later.</string>
+    <string name="onboarding_apps_search">Search</string>
+    <string name="onboarding_apps_clear_search">Clear search</string>
+    <string name="onboarding_apps_cta">Block apps</string>
+
+    <string name="onboarding_preferences_title">Set your preferences</string>
+    <string name="onboarding_preferences_interval">How often should we block?</string>
+    <plurals name="onboarding_preferences_interval_option">
+        <item quantity="one">Every minute</item>
+        <item quantity="other">Every %d minutes</item>
+    </plurals>
+    <string name="onboarding_preferences_difficulty">Starting challenge difficulty</string>
+    <string name="onboarding_difficulty_beginner">Beginner</string>
+    <string name="onboarding_difficulty_beginner_description">Simple additions and subtractions.</string>
+    <string name="onboarding_difficulty_intermediate">Intermediate</string>
+    <string name="onboarding_difficulty_intermediate_description">Multiplications and missing numbers.</string>
+    <string name="onboarding_difficulty_math_master">Math master</string>
+    <string name="onboarding_difficulty_math_master_description">Multi-digit multiplications.</string>
+    <string name="onboarding_preferences_cta">Finish setup</string>
 </resources>

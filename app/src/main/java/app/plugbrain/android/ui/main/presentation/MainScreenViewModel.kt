@@ -9,6 +9,7 @@ import app.plugbrain.android.appsusage.InstalledAppsRepository
 import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
+import app.plugbrain.android.datastore.hasSavedSetup
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
 import kotlin.time.Duration.Companion.milliseconds
@@ -16,6 +17,7 @@ import kotlin.time.Duration.Companion.minutes
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -34,6 +36,15 @@ class MainScreenViewModel(
 
   private val _permissionsState = MutableStateFlow<PermissionsState?>(null)
   val permissionsState: StateFlow<PermissionsState?> = _permissionsState
+
+  /**
+   * True until the user finishes onboarding. Users of a version without onboarding, recognised by
+   * their blocked apps or granted permissions, are marked as done so they don't go through it again.
+   */
+  suspend fun needsOnboarding(): Boolean = shouldShowOnboarding(
+    permissions = permissionsRepository.getPermissions().first(),
+    hasSavedSetup = dataStore.hasSavedSetup().first(),
+  )
 
   fun getAppsUsageStats() {
     Timber.d("getAppsUsageStats called")
@@ -76,3 +87,10 @@ class MainScreenViewModel(
     }
   }
 }
+
+/**
+ * Onboarding shows while a required permission is missing and nothing of the setup was saved yet,
+ * so users who already picked apps, an interval or a difficulty go straight to the main screen.
+ */
+internal fun shouldShowOnboarding(permissions: PermissionsState, hasSavedSetup: Boolean): Boolean =
+  !permissions.areAllImportantPermissionsGranted() && !hasSavedSetup

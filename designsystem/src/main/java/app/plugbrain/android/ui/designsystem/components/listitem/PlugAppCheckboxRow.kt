@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,7 +29,8 @@ import app.plugbrain.android.ui.theme.MathlockAppTheme
 
 /**
  * An installed app the user can pick. The whole row toggles, and [supportingContent] goes under
- * the name (for example a usage bar).
+ * the name (for example a usage bar). Pass a [contentPadding] without horizontal space to line the
+ * row up with content that is already inset.
  */
 @Composable
 fun PlugAppCheckboxRow(
@@ -38,6 +40,7 @@ fun PlugAppCheckboxRow(
   onCheckedChange: (Boolean) -> Unit,
   modifier: Modifier = Modifier,
   supportingContent: (@Composable () -> Unit)? = null,
+  contentPadding: PaddingValues = PaddingValues(horizontal = 24.dp, vertical = 8.dp),
 ) {
   Row(
     horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -49,7 +52,7 @@ fun PlugAppCheckboxRow(
         role = Role.Checkbox,
         onValueChange = onCheckedChange,
       )
-      .padding(horizontal = 24.dp, vertical = 8.dp),
+      .padding(contentPadding),
   ) {
     // The name is read out with the row, so the icon is decorative.
     Image(
