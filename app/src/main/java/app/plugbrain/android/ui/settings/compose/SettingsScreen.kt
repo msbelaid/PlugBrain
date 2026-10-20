@@ -70,6 +70,7 @@ fun SettingsScreen(
   onUsageStatsClicked: () -> Unit,
   batteryOptimizationClicked: () -> Unit,
   onSystemAlertWindow: () -> Unit,
+  onBackgroundPopupsClicked: () -> Unit,
   onUpdateBlockInterval: (Int) -> Unit,
   onMinDifficultySelected: (Int) -> Unit,
 ) {
@@ -89,6 +90,7 @@ fun SettingsScreen(
           onUsageStatsClicked = onUsageStatsClicked,
           batteryOptimizationClicked = batteryOptimizationClicked,
           onSystemAlertWindow = onSystemAlertWindow,
+          onBackgroundPopupsClicked = onBackgroundPopupsClicked,
         )
       }
       item { HorizontalDivider(thickness = 8.dp) }
@@ -291,6 +293,7 @@ fun Authorizations(
   onUsageStatsClicked: () -> Unit,
   batteryOptimizationClicked: () -> Unit,
   onSystemAlertWindow: () -> Unit,
+  onBackgroundPopupsClicked: () -> Unit,
 ) {
   if (permissionsState.areAllPermissionsGranted()) {
     Text(
@@ -328,6 +331,15 @@ fun Authorizations(
       icon = R.drawable.baseline_apps_outage_24,
       onClick = onSystemAlertWindow,
     )
+    permissionsState.backgroundPopups?.let { granted ->
+      PermissionItem(
+        title = stringResource(R.string.background_popups_permission),
+        subtitle = stringResource(R.string.background_popups_permission_description),
+        granted = granted,
+        icon = R.drawable.baseline_open_in_new_24,
+        onClick = onBackgroundPopupsClicked,
+      )
+    }
     PermissionItem(
       title = stringResource(R.string.battery_optimization_exemption_permission),
       subtitle = stringResource(R.string.battery_optimization_exemption_permission_description),
@@ -376,6 +388,7 @@ private fun SettingsScreenPreview() {
     onUsageStatsClicked = { },
     batteryOptimizationClicked = { },
     onSystemAlertWindow = { },
+    onBackgroundPopupsClicked = { },
     onUpdateBlockInterval = { },
     onMinDifficultySelected = { },
   )
