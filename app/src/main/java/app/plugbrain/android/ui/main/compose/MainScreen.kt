@@ -49,8 +49,8 @@ import app.plugbrain.android.ui.main.presentation.RequiredPermission
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 
 /**
- * The dashboard: what PlugBrain is doing right now, then the user's setup. [onSettingsClicked]
- * opens the settings screen, which also explains and requests missing permissions.
+ * The dashboard: what PlugBrain is doing right now, then the user's setup. When protection is
+ * paused, [onTurnBackOn] gets the missing permission so the caller can explain and request it.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,6 +58,7 @@ fun MainScreen(
   state: MainScreenState?,
   onSettingsClicked: () -> Unit,
   onAppsClicked: () -> Unit,
+  onTurnBackOn: (RequiredPermission) -> Unit,
 ) {
   Scaffold(
     modifier = Modifier.fillMaxSize(),
@@ -93,8 +94,8 @@ fun MainScreen(
       ) {
         StatusCard(
           status = state.status,
-          onSettingsClicked = onSettingsClicked,
           onAppsClicked = onAppsClicked,
+          onTurnBackOn = onTurnBackOn,
         )
         SetupSection(
           state = state,
@@ -109,8 +110,8 @@ fun MainScreen(
 @Composable
 private fun StatusCard(
   status: DashboardStatus,
-  onSettingsClicked: () -> Unit,
   onAppsClicked: () -> Unit,
+  onTurnBackOn: (RequiredPermission) -> Unit,
 ) {
   val modifier = Modifier.fillMaxWidth()
   when (status) {
@@ -142,7 +143,7 @@ private fun StatusCard(
         },
       ),
       actionText = stringResource(R.string.dashboard_turn_back_on),
-      onAction = onSettingsClicked,
+      onAction = { onTurnBackOn(status.missingPermission) },
       modifier = modifier,
     )
     is DashboardStatus.NothingToBlock -> PlugStatusCard(

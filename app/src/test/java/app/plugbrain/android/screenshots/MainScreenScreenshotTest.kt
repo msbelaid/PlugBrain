@@ -97,6 +97,7 @@ class MainScreenScreenshotTest {
                     ),
                 onSettingsClicked = {},
                 onAppsClicked = {},
+                onTurnBackOn = {},
             )
         }
     }
