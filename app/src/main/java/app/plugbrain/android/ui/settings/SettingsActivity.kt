@@ -1,9 +1,7 @@
 package app.plugbrain.android.ui.settings
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -21,6 +19,7 @@ import app.plugbrain.android.R
 import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
 import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.permissions.openAccessibilitySettings
+import app.plugbrain.android.ui.permissions.openBackgroundPopupsSettings
 import app.plugbrain.android.ui.permissions.openBatteryOptimizationSettings
 import app.plugbrain.android.ui.permissions.openOverlaySettings
 import app.plugbrain.android.ui.permissions.openUsageAccessSettings
@@ -86,6 +85,9 @@ class SettingsActivity : ComponentActivity() {
           onSystemAlertWindow = {
             openOverlaySettings()
           },
+          onBackgroundPopupsClicked = {
+            openBackgroundPopupsSettings()
+          },
           onUpdateBlockInterval = {
             settingsViewModel.updateBlockInterval(it)
           },
@@ -129,25 +131,6 @@ class SettingsActivity : ComponentActivity() {
           )
         }
       }
-    }
-  }
-
-  // TODO add this for Me phones
-  fun openMiuiPermissions() {
-    try {
-      val intent = Intent("miui.intent.action.APP_PERM_EDITOR").apply {
-        setClassName(
-          "com.miui.securitycenter",
-          "com.miui.permcenter.permissions.PermissionsEditorActivity",
-        )
-        putExtra("extra_pkgname", packageName)
-      }
-      startActivity(intent)
-    } catch (e: Exception) {
-      val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-        data = Uri.fromParts("package", packageName, null)
-      }
-      startActivity(intent)
     }
   }
 }

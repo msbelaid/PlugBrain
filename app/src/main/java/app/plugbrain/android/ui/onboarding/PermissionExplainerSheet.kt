@@ -185,8 +185,11 @@ private fun OnboardingPermission.explainerTexts() = when (this) {
     switchLabel = R.string.onboarding_overlay_sheet_switch,
     toggle = R.string.onboarding_overlay_sheet_toggle,
   )
-  // Battery optimization opens a system dialog directly, so it never shows this sheet.
-  OnboardingPermission.Accessibility, OnboardingPermission.BatteryOptimization -> ExplainerTexts(
+  // Battery optimization and background pop-ups open their settings directly, so they never show this sheet.
+  OnboardingPermission.Accessibility,
+  OnboardingPermission.BatteryOptimization,
+  OnboardingPermission.BackgroundPopups,
+  -> ExplainerTexts(
     title = R.string.onboarding_accessibility_sheet_title,
     findApp = R.string.onboarding_accessibility_sheet_find_app,
     switchLabel = R.string.onboarding_accessibility_sheet_switch,

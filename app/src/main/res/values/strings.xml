@@ -11,6 +11,8 @@
     <string name="display_over_apps_permission_description">Allows the app to display over other apps</string>
     <string name="battery_optimization_exemption_permission">Battery Optimization Exemption</string>
     <string name="battery_optimization_exemption_permission_description">Prevents the system from killing the app.</string>
+    <string name="background_popups_permission">Background Pop-ups</string>
+    <string name="background_popups_permission_description">Allow “Display pop-up windows while running in the background” so the challenge can show</string>
     <string name="refresh">Refresh</string>
     <plurals name="applications_blocked">
         <item quantity="zero">No application blocked, tap to select apps</item>
@@ -93,6 +95,8 @@
     <string name="onboarding_accessibility_title">Accessibility permission</string>
     <string name="onboarding_accessibility_description">Allows PlugBrain to detect when apps are open.</string>
     <string name="onboarding_battery_title">Battery optimization (optional)</string>
+    <string name="onboarding_background_popups_title">Pop-ups in the background</string>
+    <string name="onboarding_background_popups_description">Xiaomi phones only show the challenge if you allow “Display pop-up windows while running in the background” for PlugBrain.</string>
     <string name="onboarding_battery_description">Ensures that PlugBrain keeps running reliably even when your device tries to save battery.</string>
 
     <string name="onboarding_sheet_cta">Understood</string>
