@@ -11,6 +11,7 @@ import app.plugbrain.android.datastore.getBlockAppsToggle
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.datastore.hasSavedSetup
+import app.plugbrain.android.datastore.setBlockInterval
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
 import kotlinx.coroutines.Job
@@ -82,6 +83,13 @@ class MainScreenViewModel(
       }.collect {
         _mainScreenState.value = it
       }
+    }
+  }
+
+  /** Saves a new block interval; the dashboard picks it up from the settings flow. */
+  fun updateBlockInterval(interval: Int) {
+    viewModelScope.launch {
+      dataStore.setBlockInterval(interval)
     }
   }
 }

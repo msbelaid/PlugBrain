@@ -58,6 +58,7 @@ fun MainScreen(
   state: MainScreenState?,
   onSettingsClicked: () -> Unit,
   onAppsClicked: () -> Unit,
+  onBlockIntervalClicked: () -> Unit,
   onTurnBackOn: (RequiredPermission) -> Unit,
 ) {
   Scaffold(
@@ -101,6 +102,7 @@ fun MainScreen(
           state = state,
           onSettingsClicked = onSettingsClicked,
           onAppsClicked = onAppsClicked,
+          onBlockIntervalClicked = onBlockIntervalClicked,
         )
       }
     }
@@ -166,6 +168,7 @@ private fun SetupSection(
   state: MainScreenState,
   onSettingsClicked: () -> Unit,
   onAppsClicked: () -> Unit,
+  onBlockIntervalClicked: () -> Unit,
 ) {
   Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
     Text(
@@ -209,7 +212,7 @@ private fun SetupSection(
         state.blockInterval,
       ),
       icon = Icons.Rounded.Schedule,
-      onClick = onSettingsClicked,
+      onClick = onBlockIntervalClicked,
     )
     PlugNavigationListItem(
       title = stringResource(R.string.dashboard_min_difficulty),

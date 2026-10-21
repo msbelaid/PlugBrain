@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
+import app.plugbrain.android.ui.blockinterval.BlockIntervalSheet
 import app.plugbrain.android.ui.main.compose.MainScreen
 import app.plugbrain.android.ui.main.presentation.MainScreenViewModel
 import app.plugbrain.android.ui.main.presentation.RequiredPermission
@@ -57,12 +58,14 @@ class MainActivity : ComponentActivity() {
     setContent {
       val state by mainScreenViewModel.mainScreenState.collectAsState()
       var explainedPermission by rememberSaveable { mutableStateOf<RequiredPermission?>(null) }
+      var isEditingBlockInterval by rememberSaveable { mutableStateOf(false) }
       MathlockAppTheme {
         MainScreen(
           state = state,
-          // Settings holds the interval and difficulty pickers.
+          // Settings holds the difficulty picker.
           onSettingsClicked = { navigateTo(SettingsActivity::class.java) },
           onAppsClicked = { navigateTo(AppsSelectionActivity::class.java) },
+          onBlockIntervalClicked = { isEditingBlockInterval = true },
           onTurnBackOn = { explainedPermission = it },
         )
 
@@ -79,6 +82,18 @@ class MainActivity : ComponentActivity() {
               }
             },
             onDismiss = { explainedPermission = null },
+          )
+        }
+
+        val blockInterval = state?.blockInterval
+        if (isEditingBlockInterval && blockInterval != null) {
+          BlockIntervalSheet(
+            blockInterval = blockInterval,
+            onSave = {
+              mainScreenViewModel.updateBlockInterval(it)
+              isEditingBlockInterval = false
+            },
+            onDismiss = { isEditingBlockInterval = false },
           )
         }
       }

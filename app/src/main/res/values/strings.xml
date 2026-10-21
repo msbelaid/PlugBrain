@@ -163,4 +163,11 @@
     <string name="dashboard_min_difficulty">Minimum difficulty</string>
     <string name="dashboard_min_difficulty_preset">%1$s · level %2$d</string>
     <string name="dashboard_min_difficulty_level">Level %d</string>
+    <!-- Block interval sheet -->
+    <string name="block_interval_sheet_description">How long you can use your blocked apps before PlugBrain asks for a challenge.</string>
+    <plurals name="block_interval_sheet_value">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <string name="block_interval_sheet_save">Save</string>
 </resources>
