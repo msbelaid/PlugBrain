@@ -5,8 +5,10 @@ import app.plugbrain.android.datastore.model.DifficultyChange
 private const val ONE_MINUTE = 60_000L
 
 /** The challenge level drops by one for every two block intervals without a challenge. */
-fun difficultyDecaySteps(minutesSinceLastChallenge: Long, blockInterval: Int): Int =
-  if (blockInterval <= 0 || minutesSinceLastChallenge <= 0) 0 else (minutesSinceLastChallenge / (blockInterval * 2)).toInt()
+fun difficultyDecaySteps(minutesSinceLastChallenge: Long, blockInterval: Int): Int {
+  if (blockInterval <= 0 || minutesSinceLastChallenge <= 0) return 0
+  return (minutesSinceLastChallenge / (blockInterval * 2)).toInt()
+}
 
 /** The level a challenge would have at [time], when the level was last set to [change]. */
 fun decayedDifficulty(change: DifficultyChange, time: Long, blockInterval: Int, minDifficulty: Int): Int {

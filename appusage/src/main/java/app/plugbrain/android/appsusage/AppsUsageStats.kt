@@ -77,8 +77,7 @@ class AppsUsageStats(
     return phoneEvents
   }
 
-  private fun UsageEvents.Event.toAppPhoneEvent(type: EventType) =
-    PhoneEvent.App(AppEvent(packageName, className.orEmpty(), type, timeStamp))
+  private fun UsageEvents.Event.toAppPhoneEvent(type: EventType) = PhoneEvent.App(AppEvent(packageName, className.orEmpty(), type, timeStamp))
 
   private fun UsageEvents.toAppEvents(filterPackages: Set<String>): List<AppEvent> {
     val event = UsageEvents.Event()

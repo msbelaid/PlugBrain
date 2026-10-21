@@ -72,12 +72,13 @@ class DifficultyHistoryDataManagerTest {
     @Test
     fun `old changes are dropped except the last one before the kept period`() {
         val now = 100 * hour
-        val history = listOf(
-            DifficultyChange(now - 60 * hour, 2),
-            DifficultyChange(now - 50 * hour, 3),
-            DifficultyChange(now - 10 * hour, 4),
-            DifficultyChange(now, 5),
-        )
+        val history =
+            listOf(
+                DifficultyChange(now - 60 * hour, 2),
+                DifficultyChange(now - 50 * hour, 3),
+                DifficultyChange(now - 10 * hour, 4),
+                DifficultyChange(now, 5),
+            )
 
         assertEquals(history.drop(1), pruneDifficultyHistory(history, now))
     }

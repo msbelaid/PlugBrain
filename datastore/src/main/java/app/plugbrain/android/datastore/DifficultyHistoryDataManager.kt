@@ -14,8 +14,7 @@ private val DIFFICULTY_HISTORY_KEY = stringPreferencesKey("difficulty_history")
 const val DIFFICULTY_HISTORY_RETENTION = 48 * 60 * 60_000L
 
 /** Every change of the challenge level in the last [DIFFICULTY_HISTORY_RETENTION], oldest first. */
-fun DataStore<Preferences>.getDifficultyHistory(): Flow<List<DifficultyChange>> =
-  data.map { decodeDifficultyHistory(it[DIFFICULTY_HISTORY_KEY]) }
+fun DataStore<Preferences>.getDifficultyHistory(): Flow<List<DifficultyChange>> = data.map { decodeDifficultyHistory(it[DIFFICULTY_HISTORY_KEY]) }
 
 /** Called from the same edit that changes the level, so the history can't miss a change. */
 internal fun MutablePreferences.appendDifficultyChange(change: DifficultyChange) {
@@ -38,13 +37,14 @@ internal fun pruneDifficultyHistory(history: List<DifficultyChange>, now: Long):
 }
 
 // Stored as "timestamp:level" pairs separated by ";", which keeps the datastore dependency-free.
-internal fun encodeDifficultyHistory(history: List<DifficultyChange>): String =
-  history.joinToString(";") { "${it.timestamp}:${it.level}" }
+internal fun encodeDifficultyHistory(history: List<DifficultyChange>): String = history.joinToString(";") { "${it.timestamp}:${it.level}" }
 
-internal fun decodeDifficultyHistory(value: String?): List<DifficultyChange> =
-  value.orEmpty()
-    .split(';')
-    .mapNotNull { entry ->
-      val (timestamp, level) = entry.split(':').takeIf { it.size == 2 } ?: return@mapNotNull null
-      DifficultyChange(timestamp.toLongOrNull() ?: return@mapNotNull null, level.toIntOrNull() ?: return@mapNotNull null)
-    }
+internal fun decodeDifficultyHistory(value: String?): List<DifficultyChange> = value.orEmpty()
+  .split(';')
+  .mapNotNull { entry ->
+    val (timestamp, level) = entry.split(':').takeIf { it.size == 2 } ?: return@mapNotNull null
+    DifficultyChange(
+      timestamp = timestamp.toLongOrNull() ?: return@mapNotNull null,
+      level = level.toIntOrNull() ?: return@mapNotNull null,
+    )
+  }

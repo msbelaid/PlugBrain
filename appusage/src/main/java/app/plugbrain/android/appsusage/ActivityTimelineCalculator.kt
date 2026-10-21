@@ -69,12 +69,14 @@ object ActivityTimelineCalculator {
    * The screen state before the first event: the opposite of the first screen change. Without
    * any screen change, the screen stayed on if an app was used and off otherwise.
    */
-  private fun initialScreenOn(events: List<PhoneEvent>): Boolean =
-    when (events.firstOrNull { it is PhoneEvent.ScreenOn || it is PhoneEvent.ScreenOff }) {
+  private fun initialScreenOn(events: List<PhoneEvent>): Boolean {
+    val firstScreenChange = events.firstOrNull { it is PhoneEvent.ScreenOn || it is PhoneEvent.ScreenOff }
+    return when (firstScreenChange) {
       is PhoneEvent.ScreenOn -> false
       is PhoneEvent.ScreenOff -> true
       else -> events.any { it is PhoneEvent.App }
     }
+  }
 
   private fun merge(spans: List<ActivitySpan>): List<ActivitySpan> {
     val merged = mutableListOf<ActivitySpan>()

@@ -101,16 +101,42 @@ class MainScreenScreenshotTest {
         val start = now - TIMELINE_DURATION
         val challenges =
             listOf(
-                -60 to 2, 74 to 2, 89 to 3, 104 to 4, 314 to 2, 329 to 3, 554 to 2, 569 to 3, 584 to 4, 599 to 5,
-                614 to 6, 629 to 7, 644 to 8, 659 to 9, 734 to 8, 749 to 9, 764 to 10, 1424 to 2, 1439 to 3,
+                -60 to 2,
+                74 to 2,
+                89 to 3,
+                104 to 4,
+                314 to 2,
+                329 to 3,
+                554 to 2,
+                569 to 3,
+                584 to 4,
+                599 to 5,
+                614 to 6,
+                629 to 7,
+                644 to 8,
+                659 to 9,
+                734 to 8,
+                749 to 9,
+                764 to 10,
+                1424 to 2,
+                1439 to 3,
             )
         val activity =
             listOf(
-                0 to PhoneActivity.OtherApp, 60 to PhoneActivity.DistractingApp, 105 to PhoneActivity.OtherApp,
-                180 to PhoneActivity.Away, 240 to PhoneActivity.OtherApp, 300 to PhoneActivity.DistractingApp,
-                330 to PhoneActivity.Away, 420 to PhoneActivity.OtherApp, 540 to PhoneActivity.DistractingApp,
-                660 to PhoneActivity.OtherApp, 720 to PhoneActivity.DistractingApp, 765 to PhoneActivity.Away,
-                1380 to PhoneActivity.OtherApp, 1410 to PhoneActivity.DistractingApp,
+                0 to PhoneActivity.OtherApp,
+                60 to PhoneActivity.DistractingApp,
+                105 to PhoneActivity.OtherApp,
+                180 to PhoneActivity.Away,
+                240 to PhoneActivity.OtherApp,
+                300 to PhoneActivity.DistractingApp,
+                330 to PhoneActivity.Away,
+                420 to PhoneActivity.OtherApp,
+                540 to PhoneActivity.DistractingApp,
+                660 to PhoneActivity.OtherApp,
+                720 to PhoneActivity.DistractingApp,
+                765 to PhoneActivity.Away,
+                1380 to PhoneActivity.OtherApp,
+                1410 to PhoneActivity.DistractingApp,
             )
         val spanEnds = activity.drop(1).map { it.first } + 1440
         difficultyTimeline(

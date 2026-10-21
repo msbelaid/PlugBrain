@@ -54,14 +54,16 @@ class DifficultyTimelineTest {
 
     @Test
     fun `lowest, highest and time spent come from the steps and spans`() {
-        val result = timeline(
-            history = listOf(DifficultyChange(now - 3 * hour, 6), DifficultyChange(now - 2 * hour, 2)),
-            activity = listOf(
-                ActivitySpan(now - 3 * hour, now - hour, PhoneActivity.Away),
-                ActivitySpan(now - hour, now - 30 * minute, PhoneActivity.DistractingApp),
-                ActivitySpan(now - 30 * minute, now, PhoneActivity.Away),
-            ),
-        )
+        val result =
+            timeline(
+                history = listOf(DifficultyChange(now - 3 * hour, 6), DifficultyChange(now - 2 * hour, 2)),
+                activity =
+                    listOf(
+                        ActivitySpan(now - 3 * hour, now - hour, PhoneActivity.Away),
+                        ActivitySpan(now - hour, now - 30 * minute, PhoneActivity.DistractingApp),
+                        ActivitySpan(now - 30 * minute, now, PhoneActivity.Away),
+                    ),
+            )
 
         assertEquals(1, result.lowestLevel)
         assertEquals(6, result.highestLevel)
