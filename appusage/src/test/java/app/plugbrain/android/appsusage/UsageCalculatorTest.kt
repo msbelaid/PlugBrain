@@ -21,6 +21,8 @@ class UsageCalculatorTest {
         pkg: String = app,
     ) = AppEvent(pkg, activity, EventType.APP_STOPPED, timestamp)
 
+    private fun screenOff(timestamp: Long) = AppEvent("android", "", EventType.SCREEN_OFF, timestamp)
+
     private fun total(vararg events: AppEvent) = UsageCalculator.totalTimePerPackage(events.toList(), startTime, endTime)
 
     @Test
@@ -95,5 +97,57 @@ class UsageCalculatorTest {
                 stopped(3_500, pkg = otherApp),
             ),
         )
+    }
+
+    @Test
+    fun `resume without a pause ends when another app is resumed`() {
+        assertEquals(
+            mapOf(app to 1_000L, otherApp to 1_000L),
+            total(started(2_000), started(3_000, pkg = otherApp), stopped(4_000, pkg = otherApp)),
+        )
+    }
+
+    @Test
+    fun `pause with another class name ends when another app is resumed`() {
+        assertEquals(
+            mapOf(app to 2_000L, otherApp to 500L),
+            total(
+                started(2_000, "Gallery"),
+                stopped(3_000, "GalleryAlias"),
+                started(4_000, pkg = otherApp),
+                stopped(4_500, pkg = otherApp),
+            ),
+        )
+    }
+
+    @Test
+    fun `resume without a pause ends when the screen turns off`() {
+        assertEquals(mapOf(app to 1_000L), total(started(2_000), screenOff(3_000)))
+    }
+
+    @Test
+    fun `late pause after another app was resumed is ignored`() {
+        assertEquals(
+            mapOf(app to 1_000L, otherApp to 7_000L),
+            total(started(2_000), started(3_000, pkg = otherApp), stopped(3_100)),
+        )
+    }
+
+    @Test
+    fun `app in foreground at window start ends when another app is resumed first`() {
+        assertEquals(
+            mapOf(app to 1_000L, otherApp to 500L),
+            total(started(2_000, pkg = otherApp), stopped(2_500, pkg = otherApp), stopped(5_000)),
+        )
+    }
+
+    @Test
+    fun `app in foreground at window start ends when the screen turns off`() {
+        assertEquals(mapOf(app to 500L), total(screenOff(1_500), stopped(5_000)))
+    }
+
+    @Test
+    fun `screen off alone counts nothing`() {
+        assertEquals(emptyMap<String, Long>(), total(screenOff(2_000)))
     }
 }
