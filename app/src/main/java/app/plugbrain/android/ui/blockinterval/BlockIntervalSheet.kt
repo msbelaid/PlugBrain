@@ -24,8 +24,8 @@ import app.plugbrain.android.R
 import app.plugbrain.android.ui.designsystem.components.sheetdrawer.PlugBottomSheetDrawer
 import app.plugbrain.android.ui.designsystem.components.slider.PlugSnapSlider
 
-/** Block intervals the slider snaps to and labels, in minutes; any minute between 1 and 20 can be picked. */
-val BlockIntervalSnapValues = listOf(1, 2, 5, 10, 15, 20)
+/** Block intervals the slider snaps to and labels, in minutes; any minute between 1 and 15 can be picked. */
+val BlockIntervalSnapValues = listOf(1, 2, 5, 10, 15)
 
 /** [minutes] kept within the slider's range, so an interval saved outside it still opens on the slider. */
 fun sliderBlockInterval(minutes: Int): Int = minutes.coerceIn(BlockIntervalSnapValues.first(), BlockIntervalSnapValues.last())

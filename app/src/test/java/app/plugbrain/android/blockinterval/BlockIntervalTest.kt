@@ -7,12 +7,12 @@ import org.junit.Test
 class BlockIntervalTest {
     @Test
     fun intervalsInRangeAreKeptAsIs() {
-        (1..20).forEach { assertEquals(it, sliderBlockInterval(it)) }
+        (1..15).forEach { assertEquals(it, sliderBlockInterval(it)) }
     }
 
     @Test
     fun outOfRangeIntervalsOpenOnTheEnds() {
         assertEquals(1, sliderBlockInterval(0))
-        assertEquals(20, sliderBlockInterval(21))
+        assertEquals(15, sliderBlockInterval(20))
     }
 }
