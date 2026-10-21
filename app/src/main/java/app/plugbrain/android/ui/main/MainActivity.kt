@@ -5,14 +5,23 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
-import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.main.compose.MainScreen
-import app.plugbrain.android.ui.main.presentation.MainScreenState
 import app.plugbrain.android.ui.main.presentation.MainScreenViewModel
+import app.plugbrain.android.ui.main.presentation.RequiredPermission
 import app.plugbrain.android.ui.onboarding.OnboardingActivity
+import app.plugbrain.android.ui.onboarding.OnboardingPermission
+import app.plugbrain.android.ui.onboarding.PermissionExplainerSheet
+import app.plugbrain.android.ui.permissions.openAccessibilitySettings
+import app.plugbrain.android.ui.permissions.openOverlaySettings
+import app.plugbrain.android.ui.permissions.openUsageAccessSettings
+import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
 import app.plugbrain.android.ui.settings.SettingsActivity
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import kotlinx.coroutines.launch
@@ -24,12 +33,9 @@ class MainActivity : ComponentActivity() {
   // Set once we know onboarding is done; until then nothing is shown or refreshed.
   private var isReady = false
 
-  // Missing permissions send the user to Settings once, so Back from Settings doesn't bounce them there again.
-  private var hasRedirectedToSettings = false
-
   override fun onResume() {
     super.onResume()
-    if (isReady) refresh()
+    if (isReady) mainScreenViewModel.refresh()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,36 +51,48 @@ class MainActivity : ComponentActivity() {
     }
   }
 
+  @OptIn(ExperimentalMaterial3Api::class)
   private fun showMainScreen() {
     isReady = true
     setContent {
-      val state by mainScreenViewModel.mainScreenState.collectAsState(MainScreenState())
-      val permissionsState by mainScreenViewModel.permissionsState.collectAsState(PermissionsState())
+      val state by mainScreenViewModel.mainScreenState.collectAsState()
+      var explainedPermission by rememberSaveable { mutableStateOf<RequiredPermission?>(null) }
       MathlockAppTheme {
         MainScreen(
           state = state,
-          permissionsState = permissionsState,
-          onSettingsClicked = { navigateToSettings() },
+          // Settings holds the interval and difficulty pickers.
+          onSettingsClicked = { navigateTo(SettingsActivity::class.java) },
+          onAppsClicked = { navigateTo(AppsSelectionActivity::class.java) },
+          onTurnBackOn = { explainedPermission = it },
         )
-      }
-    }
-    lifecycleScope.launch {
-      mainScreenViewModel.permissionsState.collect { permissions ->
-        if (permissions != null && permissions.areAllImportantPermissionsGranted().not() && !hasRedirectedToSettings) {
-          hasRedirectedToSettings = true
-          navigateToSettings()
+
+        // The same sheet as onboarding: where to find PlugBrain, then the system settings screen.
+        explainedPermission?.let { permission ->
+          PermissionExplainerSheet(
+            permission = permission.toOnboardingPermission(),
+            onUnderstood = {
+              explainedPermission = null
+              when (permission) {
+                RequiredPermission.Accessibility -> openAccessibilitySettings()
+                RequiredPermission.UsageAccess -> openUsageAccessSettings()
+                RequiredPermission.Overlay -> openOverlaySettings()
+              }
+            },
+            onDismiss = { explainedPermission = null },
+          )
         }
       }
     }
-    refresh()
+    mainScreenViewModel.refresh()
   }
 
-  private fun refresh() {
-    mainScreenViewModel.getPermissions()
-    mainScreenViewModel.getAppsUsageStats()
+  private fun navigateTo(activity: Class<*>) {
+    startActivity(Intent(this, activity))
   }
+}
 
-  private fun navigateToSettings() {
-    startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
-  }
+private fun RequiredPermission.toOnboardingPermission() = when (this) {
+  RequiredPermission.Accessibility -> OnboardingPermission.Accessibility
+  RequiredPermission.UsageAccess -> OnboardingPermission.UsageAccess
+  RequiredPermission.Overlay -> OnboardingPermission.Overlay
 }

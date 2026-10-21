@@ -7,13 +7,13 @@ import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.appsusage.AppsUsageStats
 import app.plugbrain.android.appsusage.InstalledAppsRepository
 import app.plugbrain.android.challenges.factory.ChallengeFactory
+import app.plugbrain.android.datastore.getBlockAppsToggle
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.datastore.hasSavedSetup
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
-import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.minutes
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -23,6 +23,7 @@ import timber.log.Timber
 
 // TODO Create a separate constants file
 private const val ONE_HOUR = 60 * 60_000
+private const val ONE_MINUTE = 60_000
 
 class MainScreenViewModel(
   private val installedAppsRepository: InstalledAppsRepository,
@@ -34,8 +35,7 @@ class MainScreenViewModel(
   private val _mainScreenState: MutableStateFlow<MainScreenState?> = MutableStateFlow(null)
   val mainScreenState: StateFlow<MainScreenState?> = _mainScreenState
 
-  private val _permissionsState = MutableStateFlow<PermissionsState?>(null)
-  val permissionsState: StateFlow<PermissionsState?> = _permissionsState
+  private var refreshJob: Job? = null
 
   /**
    * True until the user finishes onboarding. Users of a version without onboarding, recognised by
@@ -46,43 +46,41 @@ class MainScreenViewModel(
     hasSavedSetup = dataStore.hasSavedSetup().first(),
   )
 
-  fun getAppsUsageStats() {
-    Timber.d("getAppsUsageStats called")
-
-    viewModelScope.launch {
+  /** Reads permissions, settings and usage again, for example when the user comes back to the app. */
+  fun refresh() {
+    Timber.d("refresh called")
+    refreshJob?.cancel()
+    refreshJob = viewModelScope.launch {
       combine(
+        permissionsRepository.getPermissions(),
         dataStore.getUserSettings(),
         dataStore.getTimestamps(),
+        dataStore.getBlockAppsToggle(),
         installedAppsRepository.getInstalledApps(),
-      ) { settings, timestamps, installedApps ->
-        Timber.d("getAppsUsageStats launched")
-        val blockedAppsUsage = appsUsageStats.getTotalAppsUsageDuration(
-          startTime = timestamps.lastBlock ?: (System.currentTimeMillis() - ONE_HOUR),
-          endTime = System.currentTimeMillis(),
+      ) { permissions, settings, timestamps, isBlocked, installedApps ->
+        val now = System.currentTimeMillis()
+        val usedMinutes = appsUsageStats.getTotalAppsUsageDuration(
+          startTime = timestamps.lastBlock ?: (now - ONE_HOUR),
+          endTime = now,
           filterPackages = settings.distractiveApps,
         )
         MainScreenState(
-          usageFreeDuration =
-          timestamps.lastUsage?.takeIf { it > 0 }?.let { (System.currentTimeMillis() - it).milliseconds },
-          lastUsageDuration = blockedAppsUsage.minutes,
-          blockedApps = installedApps.filter {
-            it.packageName in settings.distractiveApps
-          }.toSet(),
+          status = dashboardStatus(
+            permissions = permissions,
+            hasBlockedApps = settings.distractiveApps.isNotEmpty(),
+            isBlocked = isBlocked == true,
+            usedMinutes = usedMinutes,
+            awayMinutes = timestamps.lastUsage?.takeIf { it > 0 }?.let { (now - it) / ONE_MINUTE },
+            blockInterval = settings.blockInterval,
+            challengeLevel = settings.currentDifficultyLevel,
+            maxChallengeLevel = challengeFactory.maxDifficulty(),
+          ),
+          blockedApps = installedApps.filter { it.packageName in settings.distractiveApps },
           blockInterval = settings.blockInterval,
-          difficultyLevel = settings.currentDifficultyLevel,
-          minDifficulty = challengeFactory.minDifficulty(),
-          maxDifficulty = challengeFactory.maxDifficulty(),
+          minDifficulty = settings.selectedMinimalDifficulty,
         )
       }.collect {
         _mainScreenState.value = it
-      }
-    }
-  }
-
-  fun getPermissions() {
-    viewModelScope.launch {
-      permissionsRepository.getPermissions().collect { state ->
-        _permissionsState.value = state
       }
     }
   }
