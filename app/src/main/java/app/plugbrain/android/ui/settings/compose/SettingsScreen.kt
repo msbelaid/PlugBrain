@@ -23,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Clear
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
@@ -165,6 +166,7 @@ fun SettingsTitle() {
 }
 
 /** Shows the block interval; tapping it opens the same slider sheet as the dashboard. */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Timing(
   blockInterval: Int,
