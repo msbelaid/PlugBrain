@@ -172,14 +172,14 @@ internal fun List<Int>.positionOf(value: Int): Float {
 
 internal fun List<Int>.valueAt(position: Float): Int {
   val nearest = position.roundToInt().coerceIn(0, size - 1)
-  if (abs(position - nearest) < MagnetRadius) return this[nearest]
+  if (abs(position - nearest) < MAGNET_RADIUS) return this[nearest]
   val section = position.toInt().coerceIn(0, size - 2)
   val start = this[section]
   return (start + (position - section) * (this[section + 1] - start)).roundToInt()
 }
 
 // How close to a snap value, in sections, the thumb has to be to be pulled onto it.
-private const val MagnetRadius = 0.12f
+private const val MAGNET_RADIUS = 0.12f
 
 private val ThumbSize = DpSize(4.dp, 44.dp)
 private val TrackHeight = 8.dp
