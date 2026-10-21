@@ -23,17 +23,16 @@ import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
 import app.plugbrain.android.ui.designsystem.components.sheetdrawer.PlugBottomSheetDrawer
 import app.plugbrain.android.ui.designsystem.components.slider.PlugSnapSlider
-import kotlin.math.abs
 
-/** Block intervals the slider snaps to, in minutes: the Fibonacci numbers up to 21. */
-val BlockIntervalSnapValues = listOf(1, 2, 3, 5, 8, 13, 21)
+/** Block intervals the slider snaps to and labels, in minutes; any minute between 1 and 20 can be picked. */
+val BlockIntervalSnapValues = listOf(1, 2, 5, 10, 15, 20)
 
-/** The snap value closest to [minutes], so intervals saved before the slider (10, 15…) still open on a stop. */
-fun nearestBlockInterval(minutes: Int): Int = BlockIntervalSnapValues.minBy { abs(it - minutes) }
+/** [minutes] kept within the slider's range, so an interval saved outside it still opens on the slider. */
+fun sliderBlockInterval(minutes: Int): Int = minutes.coerceIn(BlockIntervalSnapValues.first(), BlockIntervalSnapValues.last())
 
 /**
  * Lets the user pick how many minutes of use come before a challenge, on a slider that snaps to
- * [BlockIntervalSnapValues]. Nothing is saved until [onSave].
+ * [BlockIntervalSnapValues] and stops on every minute in between. Nothing is saved until [onSave].
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,7 +42,7 @@ fun BlockIntervalSheet(
   onDismiss: () -> Unit,
   sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
-  var selected by rememberSaveable { mutableIntStateOf(nearestBlockInterval(blockInterval)) }
+  var selected by rememberSaveable { mutableIntStateOf(sliderBlockInterval(blockInterval)) }
   PlugBottomSheetDrawer(
     title = {
       Text(

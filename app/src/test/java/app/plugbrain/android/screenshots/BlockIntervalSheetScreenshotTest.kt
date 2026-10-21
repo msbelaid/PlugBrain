@@ -21,7 +21,7 @@ class BlockIntervalSheetScreenshotTest {
     @Test
     fun blockIntervalSheetTest() {
         paparazzi.snapshotWithLargeFont {
-            blockIntervalSheet(blockInterval = 8)
+            blockIntervalSheet(blockInterval = 12)
         }
     }
 

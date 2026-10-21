@@ -46,10 +46,10 @@ class PlugSnapSliderScreenshotTest {
                         .background(MaterialTheme.colorScheme.surface)
                         .padding(24.dp),
             ) {
-                listOf(1, 5, 21).forEach { value ->
+                listOf(1, 5, 12, 20).forEach { value ->
                     PlugSnapSlider(
                         value = value,
-                        snapValues = listOf(1, 2, 3, 5, 8, 13, 21),
+                        snapValues = listOf(1, 2, 5, 10, 15, 20),
                         onValueChange = {},
                     )
                 }

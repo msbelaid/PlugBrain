@@ -5,8 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
@@ -18,6 +21,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -30,15 +34,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import app.plugbrain.android.ui.theme.GradientEnd
 import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PrimaryGradient
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
 /**
- * A slider over the range of [snapValues] whose thumb only rests on those values: while dragging,
- * it jumps to the nearest one, like a magnet, with a light haptic tick. The values are labelled
- * under the track at their place on the scale, so uneven steps (1, 2, 3, 5, 8…) read as such.
- * [valueDescription] is what TalkBack reads for a value, for example "8 minutes".
+ * A slider over every whole number from the first to the last of [snapValues]. The snap values sit
+ * evenly spaced along the track, with their labels under it, and the numbers between two of them
+ * share that section evenly. Near a snap value the thumb is pulled onto it, like a magnet, with a
+ * haptic tick. [valueDescription] is what TalkBack reads for a value, for example "8 minutes".
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,60 +59,78 @@ fun PlugSnapSlider(
   val max = snapValues.last()
   val haptics = LocalHapticFeedback.current
   val interactionSource = remember { MutableInteractionSource() }
-  val colors = SliderDefaults.colors(
-    thumbColor = MaterialTheme.colorScheme.primary,
-    activeTrackColor = MaterialTheme.colorScheme.primary,
-    inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
-  )
   val description = valueDescription(value)
+  val position = snapValues.positionOf(value)
+  val lastPosition = (snapValues.size - 1).toFloat()
+
+  fun select(newValue: Int) {
+    if (newValue == value) return
+    if (newValue in snapValues) haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+    onValueChange(newValue)
+  }
 
   Column(modifier = modifier.fillMaxWidth()) {
-    // The slider's own accessibility steps are too small to reach the next snap value, so
-    // TalkBack gets a slider that moves one snap value at a time instead.
+    // TalkBack gets a slider over the values themselves, one per step, instead of positions.
     Box(
       modifier = Modifier
         .fillMaxWidth()
         .clearAndSetSemantics {
           stateDescription = description
-          progressBarRangeInfo = ProgressBarRangeInfo(value.toFloat(), min.toFloat()..max.toFloat())
+          progressBarRangeInfo = ProgressBarRangeInfo(value.toFloat(), min.toFloat()..max.toFloat(), steps = max - min - 1)
           setProgress { target ->
-            val next = snapValues.nearestTo(target).takeIf { it != value }
-              ?: if (target > value) snapValues.firstOrNull { it > value } else snapValues.lastOrNull { it < value }
-            next?.let(onValueChange)
-            next != null
+            val rounded = target.roundToInt().coerceIn(min, max)
+            val next = when {
+              rounded != value -> rounded
+              target > value -> (value + 1).coerceAtMost(max)
+              else -> (value - 1).coerceAtLeast(min)
+            }
+            select(next)
+            next != value
           }
         },
     ) {
       Slider(
-        value = value.toFloat(),
-        onValueChange = { raw ->
-          val snapped = snapValues.nearestTo(raw)
-          if (snapped != value) {
-            haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-            onValueChange(snapped)
-          }
-        },
-        valueRange = min.toFloat()..max.toFloat(),
-        colors = colors,
+        value = position,
+        onValueChange = { select(snapValues.valueAt(it)) },
+        valueRange = 0f..lastPosition,
         interactionSource = interactionSource,
         thumb = {
           SliderDefaults.Thumb(
             interactionSource = interactionSource,
-            colors = colors,
+            colors = SliderDefaults.colors(thumbColor = GradientEnd),
             thumbSize = ThumbSize,
           )
         },
+        track = { SnapTrack(fraction = position / lastPosition) },
       )
     }
     SnapLabels(snapValues = snapValues, selected = value)
   }
 }
 
-/** The labels sit under the track, centred on where the thumb rests for each value. */
+/** The same bar as the design system's progress bars: the primary gradient over surfaceVariant. */
+@Composable
+private fun SnapTrack(fraction: Float) {
+  Box(
+    modifier = Modifier
+      .fillMaxWidth()
+      .height(TrackHeight)
+      .clip(TrackShape)
+      .background(MaterialTheme.colorScheme.surfaceVariant),
+  ) {
+    Box(
+      modifier = Modifier
+        .fillMaxWidth(fraction.coerceIn(0f, 1f))
+        .fillMaxHeight()
+        .clip(TrackShape)
+        .background(PrimaryGradient),
+    )
+  }
+}
+
+/** The labels sit under the track, centred on where the thumb rests for each snap value. */
 @Composable
 private fun SnapLabels(snapValues: List<Int>, selected: Int) {
-  val min = snapValues.first()
-  val max = snapValues.last()
   Layout(
     content = {
       snapValues.forEach { snapValue ->
@@ -131,7 +155,7 @@ private fun SnapLabels(snapValues: List<Int>, selected: Int) {
     val height = placeables.maxOfOrNull { it.height } ?: 0
     layout(width, height) {
       placeables.forEachIndexed { index, placeable ->
-        val fraction = (snapValues[index] - min).toFloat() / (max - min)
+        val fraction = index.toFloat() / (placeables.size - 1)
         val centre = inset + ((width - 2 * inset) * fraction).roundToInt()
         placeable.placeRelative((centre - placeable.width / 2).coerceIn(0, width - placeable.width), 0)
       }
@@ -139,9 +163,27 @@ private fun SnapLabels(snapValues: List<Int>, selected: Int) {
   }
 }
 
-private fun List<Int>.nearestTo(raw: Float): Int = minBy { abs(it - raw) }
+// Snap value i sits at position i; values between two snap values share that section evenly.
+internal fun List<Int>.positionOf(value: Int): Float {
+  val clamped = value.coerceIn(first(), last())
+  val section = indexOfLast { it <= clamped }.coerceAtMost(size - 2)
+  return section + (clamped - this[section]).toFloat() / (this[section + 1] - this[section])
+}
+
+internal fun List<Int>.valueAt(position: Float): Int {
+  val nearest = position.roundToInt().coerceIn(0, size - 1)
+  if (abs(position - nearest) < MagnetRadius) return this[nearest]
+  val section = position.toInt().coerceIn(0, size - 2)
+  val start = this[section]
+  return (start + (position - section) * (this[section + 1] - start)).roundToInt()
+}
+
+// How close to a snap value, in sections, the thumb has to be to be pulled onto it.
+private const val MagnetRadius = 0.12f
 
 private val ThumbSize = DpSize(4.dp, 44.dp)
+private val TrackHeight = 8.dp
+private val TrackShape = RoundedCornerShape(50)
 
 @Preview(
   name = "Light Mode",
@@ -156,10 +198,10 @@ private val ThumbSize = DpSize(4.dp, 44.dp)
 @Composable
 private fun PlugSnapSliderPreview() {
   MathlockAppTheme(dynamicColor = false) {
-    var value by remember { mutableIntStateOf(8) }
+    var value by remember { mutableIntStateOf(10) }
     PlugSnapSlider(
       value = value,
-      snapValues = listOf(1, 2, 3, 5, 8, 13, 21),
+      snapValues = listOf(1, 2, 5, 10, 15, 20),
       onValueChange = { value = it },
       modifier = Modifier
         .background(MaterialTheme.colorScheme.surface)
