@@ -69,7 +69,8 @@ data class PlugTimelineLabel(
 /**
  * A value over time, drawn as a step line with a soft area under it, colored by [bands].
  * Times are in milliseconds; the chart spans [startTime] to [endTime] and marks the value at
- * [endTime] with a dot. Parts covered by no band or before the first step are left empty.
+ * [endTime] with a dot. Parts covered by no band or before the first step are left empty. Time
+ * labels that would overlap a later one are left out.
  *
  * @param valueTicks values that get a dashed grid line and a label on the left.
  * @param contentDescription what the chart shows, for screen readers.
@@ -143,10 +144,15 @@ fun PlugTimelineChart(
       drawCircle(colors.line(last.tone), radius = dotRadius, center = center)
     }
 
-    timeLabels.forEach { label ->
+    // From the last label back, so the latest one, such as "Now", wins when two would overlap.
+    var nextLabelLeft = Float.MAX_VALUE
+    timeLabels.sortedByDescending { it.time }.forEach { label ->
       val layout = textMeasurer.measure(label.text, labelStyle)
       val labelLeft = (x(label.time) - layout.size.width / 2f).coerceIn(0f, (size.width - layout.size.width).coerceAtLeast(0f))
-      drawText(layout, topLeft = Offset(labelLeft, bottom + LabelGap.toPx()))
+      if (labelLeft + layout.size.width + LabelGap.toPx() <= nextLabelLeft) {
+        drawText(layout, topLeft = Offset(labelLeft, bottom + LabelGap.toPx()))
+        nextLabelLeft = labelLeft
+      }
     }
   }
 }

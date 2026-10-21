@@ -43,14 +43,14 @@ class MainScreenScreenshotTest {
     @Test
     fun activeWithTimelineTest() {
         paparazzi.snapshotWithLargeFont {
-            mainScreen(status = active, timeline = timeline)
+            mainScreen(status = activeAtLevel3, timeline = timeline)
         }
     }
 
     @Test
     fun activeWithTimelineDarkTest() {
         paparazzi.snapshot {
-            mainScreen(status = active, darkTheme = true, timeline = timeline)
+            mainScreen(status = activeAtLevel3, darkTheme = true, timeline = timeline)
         }
     }
 
@@ -92,6 +92,9 @@ class MainScreenScreenshotTest {
             nextChallengeLevel = 4,
             maxChallengeLevel = 15,
         )
+
+    // Matches the level the timeline ends on.
+    private val activeAtLevel3 = active.copy(nextChallengeLevel = 3)
 
     // A day that climbs during evening scrolling and comes back down overnight.
     private val timeline: DifficultyTimeline by lazy {

@@ -186,8 +186,8 @@ private fun DifficultyTimelineCard(timeline: DifficultyTimeline) {
       PlugTimelineLabel(timeline.end, now)
   }
   val highest = timeline.highestLevel ?: 0
-  // Room above the highest level for the line and the dot, in steps of five like the grid.
-  val maxValue = ((highest / VALUE_TICK_STEP) + 1) * VALUE_TICK_STEP
+  // One level of room above the highest for the line and the dot.
+  val maxValue = maxOf(highest + 1, VALUE_TICK_STEP)
   PlugChartCard(
     title = stringResource(R.string.dashboard_difficulty_title),
     subtitle = stringResource(R.string.dashboard_difficulty_last_24_hours),
