@@ -4,6 +4,7 @@ import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Context.USAGE_STATS_SERVICE
+import app.plugbrain.android.appsusage.model.ActivitySpan
 import timber.log.Timber
 
 private const val TAG = "AppsUsageStats"
@@ -44,6 +45,40 @@ class AppsUsageStats(
     val events = usageStatsManager.queryEvents(startTime, endTime).toAppEvents(filterPackages)
     return UsageCalculator.totalTimePerPackage(events, startTime, endTime)
   }
+
+  /**
+   * @return what the user was doing between startTime and endTime: away from the phone, on one
+   * of distractiveApps, or on another app, as consecutive spans.
+   */
+  fun getActivityTimeline(
+    startTime: Long,
+    endTime: Long,
+    distractiveApps: Set<String>,
+  ): List<ActivitySpan> {
+    val usageStatsManager = context.getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
+    val events = usageStatsManager.queryEvents(startTime, endTime).toPhoneEvents()
+    return ActivityTimelineCalculator.timeline(events, distractiveApps, startTime, endTime)
+  }
+
+  private fun UsageEvents.toPhoneEvents(): List<PhoneEvent> {
+    val event = UsageEvents.Event()
+    val phoneEvents = mutableListOf<PhoneEvent>()
+
+    while (hasNextEvent()) {
+      getNextEvent(event)
+      phoneEvents += when (event.eventType) {
+        UsageEvents.Event.SCREEN_INTERACTIVE -> PhoneEvent.ScreenOn(event.timeStamp)
+        UsageEvents.Event.SCREEN_NON_INTERACTIVE -> PhoneEvent.ScreenOff(event.timeStamp)
+        in STARTED_EVENTS -> event.toAppPhoneEvent(EventType.APP_STARTED)
+        in STOPPED_EVENTS -> event.toAppPhoneEvent(EventType.APP_STOPPED)
+        else -> continue
+      }
+    }
+    return phoneEvents
+  }
+
+  private fun UsageEvents.Event.toAppPhoneEvent(type: EventType) =
+    PhoneEvent.App(AppEvent(packageName, className.orEmpty(), type, timeStamp))
 
   private fun UsageEvents.toAppEvents(filterPackages: Set<String>): List<AppEvent> {
     val event = UsageEvents.Event()

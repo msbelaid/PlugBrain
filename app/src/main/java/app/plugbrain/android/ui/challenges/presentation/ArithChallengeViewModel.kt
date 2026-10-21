@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.challenges.Challenge
 import app.plugbrain.android.datastore.DEFAULT_BLOCK_INTERVAL
 import app.plugbrain.android.datastore.decrementProgressiveDifficulty
+import app.plugbrain.android.datastore.difficultyDecaySteps
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.datastore.incrementProgressiveDifficulty
@@ -55,9 +56,9 @@ class ArithChallengeViewModel(
 
     val durationSinceLastChallenge = (
       System.currentTimeMillis() - (timestamps.lastChallenge ?: 0)
-      ).milliseconds.inWholeMinutes.toInt()
-    if (durationSinceLastChallenge >= settings.blockInterval * 2) {
-      val nbDecLevels = durationSinceLastChallenge / (settings.blockInterval * 2)
+      ).milliseconds.inWholeMinutes
+    val nbDecLevels = difficultyDecaySteps(durationSinceLastChallenge, settings.blockInterval)
+    if (nbDecLevels > 0) {
       dataStore.decrementProgressiveDifficulty(nbDecLevels)
       dataStore.setLastChallengeTime(System.currentTimeMillis())
     }

@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
+import app.plugbrain.android.datastore.model.DifficultyChange
 import app.plugbrain.android.datastore.model.UserSettings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -66,20 +67,24 @@ fun DataStore<Preferences>.getProgressiveDifficulty() = data
     preferences[PROGRESSIVE_DIFFICULTY_KEY] ?: preferences[MINIMAL_DIFFICULTY_KEY] ?: DEFAULT_MINIMAL_DIFFICULTY
   }
 
-suspend fun DataStore<Preferences>.decrementProgressiveDifficulty(steps: Int = 1) {
+// Both changes are logged even when the level stays the same: the time of each one is where
+// the level starts dropping again, see projectDifficulty.
+suspend fun DataStore<Preferences>.decrementProgressiveDifficulty(steps: Int = 1, now: Long = System.currentTimeMillis()) {
   edit { prefs ->
     val minDifficulty = prefs[MINIMAL_DIFFICULTY_KEY] ?: DEFAULT_MINIMAL_DIFFICULTY
     val current = prefs[PROGRESSIVE_DIFFICULTY_KEY] ?: minDifficulty
 
     val newValue = (current - steps).coerceAtLeast(minDifficulty)
     prefs[PROGRESSIVE_DIFFICULTY_KEY] = newValue
+    prefs.appendDifficultyChange(DifficultyChange(now, newValue))
   }
 }
 
-suspend fun DataStore<Preferences>.incrementProgressiveDifficulty(maxDifficulty: Int) {
+suspend fun DataStore<Preferences>.incrementProgressiveDifficulty(maxDifficulty: Int, now: Long = System.currentTimeMillis()) {
   edit { prefs ->
     val current = prefs[PROGRESSIVE_DIFFICULTY_KEY] ?: prefs[MINIMAL_DIFFICULTY_KEY] ?: DEFAULT_MINIMAL_DIFFICULTY
     val newValue = (current + 1).coerceAtMost(maxDifficulty)
     prefs[PROGRESSIVE_DIFFICULTY_KEY] = newValue
+    prefs.appendDifficultyChange(DifficultyChange(now, newValue))
   }
 }

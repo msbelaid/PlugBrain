@@ -6,18 +6,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.appsusage.AppsUsageStats
 import app.plugbrain.android.appsusage.InstalledAppsRepository
+import app.plugbrain.android.appsusage.model.InstalledApp
 import app.plugbrain.android.challenges.factory.ChallengeFactory
+import app.plugbrain.android.datastore.decayedDifficulty
 import app.plugbrain.android.datastore.getBlockAppsToggle
+import app.plugbrain.android.datastore.getDifficultyHistory
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.datastore.hasSavedSetup
+import app.plugbrain.android.datastore.model.DifficultyChange
+import app.plugbrain.android.datastore.model.Timestamps
+import app.plugbrain.android.datastore.model.UserSettings
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -52,39 +60,77 @@ class MainScreenViewModel(
     refreshJob?.cancel()
     refreshJob = viewModelScope.launch {
       combine(
-        permissionsRepository.getPermissions(),
-        dataStore.getUserSettings(),
-        dataStore.getTimestamps(),
-        dataStore.getBlockAppsToggle(),
-        installedAppsRepository.getInstalledApps(),
-      ) { permissions, settings, timestamps, isBlocked, installedApps ->
+        combine(
+          permissionsRepository.getPermissions(),
+          dataStore.getUserSettings(),
+          dataStore.getTimestamps(),
+          dataStore.getBlockAppsToggle(),
+          installedAppsRepository.getInstalledApps(),
+        ) { permissions, settings, timestamps, isBlocked, installedApps ->
+          DashboardInputs(permissions, settings, timestamps, isBlocked == true, installedApps)
+        },
+        dataStore.getDifficultyHistory(),
+      ) { (permissions, settings, timestamps, isBlocked, installedApps), history ->
         val now = System.currentTimeMillis()
         val usedMinutes = appsUsageStats.getTotalAppsUsageDuration(
           startTime = timestamps.lastBlock ?: (now - ONE_HOUR),
           endTime = now,
           filterPackages = settings.distractiveApps,
         )
-        MainScreenState(
-          status = dashboardStatus(
-            permissions = permissions,
-            hasBlockedApps = settings.distractiveApps.isNotEmpty(),
-            isBlocked = isBlocked == true,
-            usedMinutes = usedMinutes,
-            awayMinutes = timestamps.lastUsage?.takeIf { it > 0 }?.let { (now - it) / ONE_MINUTE },
-            blockInterval = settings.blockInterval,
-            challengeLevel = settings.currentDifficultyLevel,
-            maxChallengeLevel = challengeFactory.maxDifficulty(),
-          ),
-          blockedApps = installedApps.filter { it.packageName in settings.distractiveApps },
+        // The next challenge first lowers the stored level for the time since the last one.
+        val challengeLevel = decayedDifficulty(
+          change = DifficultyChange(timestamps.lastChallenge ?: 0, settings.currentDifficultyLevel),
+          time = now,
           blockInterval = settings.blockInterval,
           minDifficulty = settings.selectedMinimalDifficulty,
         )
-      }.collect {
+        val status = dashboardStatus(
+          permissions = permissions,
+          hasBlockedApps = settings.distractiveApps.isNotEmpty(),
+          isBlocked = isBlocked,
+          usedMinutes = usedMinutes,
+          awayMinutes = timestamps.lastUsage?.takeIf { it > 0 }?.let { (now - it) / ONE_MINUTE },
+          blockInterval = settings.blockInterval,
+          challengeLevel = challengeLevel,
+          maxChallengeLevel = challengeFactory.maxDifficulty(),
+        )
+        MainScreenState(
+          status = status,
+          blockedApps = installedApps.filter { it.packageName in settings.distractiveApps },
+          blockInterval = settings.blockInterval,
+          minDifficulty = settings.selectedMinimalDifficulty,
+          difficultyTimeline = if (status is DashboardStatus.Active || status is DashboardStatus.AppsLocked) {
+            difficultyTimeline(
+              history = history,
+              storedLevel = settings.currentDifficultyLevel,
+              lastChallenge = timestamps.lastChallenge,
+              activity = appsUsageStats.getActivityTimeline(
+                startTime = now - TIMELINE_DURATION,
+                endTime = now,
+                distractiveApps = settings.distractiveApps,
+              ),
+              now = now,
+              blockInterval = settings.blockInterval,
+              minDifficulty = settings.selectedMinimalDifficulty,
+            )
+          } else {
+            null
+          },
+        )
+      }.flowOn(Dispatchers.Default).collect {
         _mainScreenState.value = it
       }
     }
   }
 }
+
+private data class DashboardInputs(
+  val permissions: PermissionsState,
+  val settings: UserSettings,
+  val timestamps: Timestamps,
+  val isBlocked: Boolean,
+  val installedApps: List<InstalledApp>,
+)
 
 /**
  * Onboarding shows while a required permission is missing and nothing of the setup was saved yet,

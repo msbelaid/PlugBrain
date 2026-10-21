@@ -163,4 +163,12 @@
     <string name="dashboard_min_difficulty">Minimum difficulty</string>
     <string name="dashboard_min_difficulty_preset">%1$s · level %2$d</string>
     <string name="dashboard_min_difficulty_level">Level %d</string>
+    <string name="dashboard_difficulty_title">Challenge difficulty</string>
+    <string name="dashboard_difficulty_last_24_hours">Last 24 hours</string>
+    <string name="dashboard_difficulty_level_now">Level %d now</string>
+    <string name="dashboard_difficulty_now">Now</string>
+    <string name="dashboard_difficulty_away">Away from phone</string>
+    <string name="dashboard_difficulty_distracting">Distracting apps</string>
+    <string name="dashboard_difficulty_other">Other apps</string>
+    <string name="dashboard_difficulty_description">Challenge difficulty over the last 24 hours: lowest level %1$d, highest level %2$d, level %3$d now. %4$s away from your phone, %5$s on distracting apps.</string>
 </resources>

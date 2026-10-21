@@ -1,6 +1,7 @@
 package app.plugbrain.android.ui.main.compose
 
 import android.graphics.drawable.Drawable
+import android.text.format.DateFormat
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,14 +40,27 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
+import app.plugbrain.android.appsusage.model.PhoneActivity
 import app.plugbrain.android.ui.designsystem.components.card.PlugStatusCard
 import app.plugbrain.android.ui.designsystem.components.card.PlugStatusCardVariant
+import app.plugbrain.android.ui.designsystem.components.chart.PlugChartCard
+import app.plugbrain.android.ui.designsystem.components.chart.PlugTimelineBand
+import app.plugbrain.android.ui.designsystem.components.chart.PlugTimelineChart
+import app.plugbrain.android.ui.designsystem.components.chart.PlugTimelineLabel
+import app.plugbrain.android.ui.designsystem.components.chart.PlugTimelineLegend
+import app.plugbrain.android.ui.designsystem.components.chart.PlugTimelineStep
+import app.plugbrain.android.ui.designsystem.components.chart.PlugTimelineTone
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugAppIconStack
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugNavigationListItem
 import app.plugbrain.android.ui.main.presentation.DashboardStatus
+import app.plugbrain.android.ui.main.presentation.DifficultyTimeline
 import app.plugbrain.android.ui.main.presentation.MainScreenState
 import app.plugbrain.android.ui.main.presentation.RequiredPermission
+import app.plugbrain.android.ui.main.presentation.timelineHourTicks
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /**
  * The dashboard: what PlugBrain is doing right now, then the user's setup. When PlugBrain is
@@ -97,6 +111,7 @@ fun MainScreen(
           onAppsClicked = onAppsClicked,
           onTurnBackOn = onTurnBackOn,
         )
+        state.difficultyTimeline?.let { DifficultyTimelineCard(it) }
         SetupSection(
           state = state,
           onSettingsClicked = onSettingsClicked,
@@ -160,6 +175,60 @@ private fun StatusCard(
     )
   }
 }
+
+@Composable
+private fun DifficultyTimelineCard(timeline: DifficultyTimeline) {
+  val currentLevel = timeline.currentLevel
+  val timeFormat = remember { SimpleDateFormat(DateFormat.getBestDateTimePattern(Locale.getDefault(), "j"), Locale.getDefault()) }
+  val now = stringResource(R.string.dashboard_difficulty_now)
+  val timeLabels = remember(timeline, now) {
+    timelineHourTicks(timeline.start, timeline.end).map { PlugTimelineLabel(it, timeFormat.format(Date(it))) } +
+      PlugTimelineLabel(timeline.end, now)
+  }
+  val highest = timeline.highestLevel ?: 0
+  // Room above the highest level for the line and the dot, in steps of five like the grid.
+  val maxValue = ((highest / VALUE_TICK_STEP) + 1) * VALUE_TICK_STEP
+  PlugChartCard(
+    title = stringResource(R.string.dashboard_difficulty_title),
+    subtitle = stringResource(R.string.dashboard_difficulty_last_24_hours),
+    badge = currentLevel?.let { stringResource(R.string.dashboard_difficulty_level_now, it) },
+    modifier = Modifier.fillMaxWidth(),
+  ) {
+    PlugTimelineChart(
+      startTime = timeline.start,
+      endTime = timeline.end,
+      steps = timeline.levels.map { PlugTimelineStep(it.timestamp, it.level) },
+      bands = timeline.activity.map { PlugTimelineBand(it.start, it.end, it.activity.tone()) },
+      maxValue = maxValue,
+      valueTicks = listOf(1) + (VALUE_TICK_STEP..maxValue step VALUE_TICK_STEP),
+      timeLabels = timeLabels,
+      contentDescription = stringResource(
+        R.string.dashboard_difficulty_description,
+        timeline.lowestLevel ?: 0,
+        highest,
+        currentLevel ?: 0,
+        shortDuration(timeline.millisSpent(PhoneActivity.Away) / ONE_MINUTE),
+        shortDuration(timeline.millisSpent(PhoneActivity.DistractingApp) / ONE_MINUTE),
+      ),
+    )
+    PlugTimelineLegend(
+      items = listOf(
+        PlugTimelineTone.Positive to stringResource(R.string.dashboard_difficulty_away),
+        PlugTimelineTone.Negative to stringResource(R.string.dashboard_difficulty_distracting),
+        PlugTimelineTone.Neutral to stringResource(R.string.dashboard_difficulty_other),
+      ),
+    )
+  }
+}
+
+private fun PhoneActivity.tone() = when (this) {
+  PhoneActivity.Away -> PlugTimelineTone.Positive
+  PhoneActivity.DistractingApp -> PlugTimelineTone.Negative
+  PhoneActivity.OtherApp -> PlugTimelineTone.Neutral
+}
+
+private const val VALUE_TICK_STEP = 5
+private const val ONE_MINUTE = 60_000L
 
 @Composable
 private fun SetupSection(

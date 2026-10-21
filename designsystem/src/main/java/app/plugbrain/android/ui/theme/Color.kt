@@ -57,6 +57,10 @@ val Warning700 = Color(0xFF92400E)
 val Warning800 = Color(0xFF78350F)
 val Warning900 = Color(0xFF5A2A0C)
 
+// Green has no scale yet: it only marks time away from the phone on charts.
+val Green300 = Color(0xFF5CD38F)
+val Green500 = Color(0xFF1F9D57)
+
 // Gradient Colors
 val GradientStart = Color(0xFF2497AE)
 val GradientEnd = Color(0xFF0D7777)

@@ -8,6 +8,8 @@ data class MainScreenState(
   val blockedApps: List<InstalledApp> = emptyList(),
   val blockInterval: Int,
   val minDifficulty: Int,
+  /** Shown while PlugBrain is on or apps are locked, null otherwise. */
+  val difficultyTimeline: DifficultyTimeline? = null,
 )
 
 /** A permission PlugBrain can't block apps without. */
