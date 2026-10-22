@@ -38,7 +38,6 @@
         <item quantity="other"> %d minutes</item>
     </plurals>
 
-    <string name="enable_accessibility_text">PlugBrain utilise le service d\'accessibilité pour bloquer les applications que vous choisissez.\nCela permet à PlugBrain de détecter lorsque vous ouvrez l\'une de ces applications et de vous afficher un défi mathématique avant d\'y accéder.\nNous ne collectons ni ne partageons aucune information personnelle.</string>
     <string name="challenge_title">Ralentissons un peu</string>
     <string name="challenge_answer_placeholder">Écris ta réponse</string>
     <string name="challenge_check_answer">Vérifier la réponse</string>

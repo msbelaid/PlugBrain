@@ -39,7 +39,6 @@
     <string name="stats_hardness">سختی: %1$s/%2$s</string>
     <string name="stats_last_usage_time">آخرین زمان استفاده: %1$s/%2$s</string>
     <string name="app_usage_description">باز کردن برنامه‌های حواس‌پرت‌کن با ریاضی\nهرچه کمتر استفاده کنی → چالش‌ها ساده‌تر می‌شوند.</string>
-    <string name="enable_accessibility_text">PlugBrain از سرویس دسترسی‌پذیری اندروید برای مسدود کردن برنامه‌های انتخاب‌شده استفاده می‌کند.\nاین امکان به PlugBrain می‌دهد تشخیص دهد چه زمانی یکی از آن برنامه‌ها را باز می‌کنید و قبل از دسترسی، یک چالش ریاضی نمایش دهد.\nما هیچ اطلاعات شخصی‌ای را جمع‌آوری یا به اشتراک نمی‌گذاریم.</string>
     <string name="challenge_title">بیا کمی آرام‌تر</string>
     <string name="challenge_answer_placeholder">پاسخت را بنویس</string>
     <string name="challenge_check_answer">بررسی پاسخ</string>

@@ -37,7 +37,6 @@
     <string name="stats_hardness">Hardness: %1$s/%2$s</string>
     <string name="stats_last_usage_time">Last usage time: %1$s/%2$s</string>
     <string name="app_usage_description">Unlock distraction apps with math\nThe less you use them -> the easier the challenges.</string>
-    <string name="enable_accessibility_text">PlugBrain uses Android\'s Accessibility Service to block the apps you choose.\nThis allows PlugBrain to detect when you open one of those apps and show you a math challenge before access.\nWe do not collect or share any personal information.</string>
     <string name="challenge_title">Let\'s slow down</string>
     <string name="challenge_answer_placeholder">Write your answer</string>
     <string name="challenge_check_answer">Check Answer</string>
@@ -75,6 +74,10 @@
     <string name="onboarding_battery_description">Ensures that PlugBrain keeps running reliably even when your device tries to save battery.</string>
 
     <string name="onboarding_sheet_cta">Understood</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain uses the Accessibility service to see which app is open. When you open an app you chose to block, or a calculator during a challenge, PlugBrain shows a math challenge first.\n\nPlugBrain only reads the app\'s name. It doesn\'t read what\'s on your screen or what you type, and nothing leaves your phone.</string>
+    <string name="onboarding_accessibility_accept">Agree and continue</string>
+    <string name="onboarding_accessibility_decline">Not now</string>
+    <string name="accessibility_service_description">Detects when you open an app you chose to block so PlugBrain can show a math challenge. Only the app\'s name is read.</string>
     <string name="onboarding_sheet_find_app">First, find and select PlugBrain in the list of apps.</string>
     <string name="onboarding_usage_access_sheet_title">Turn usage access on</string>
     <string name="onboarding_usage_access_sheet_switch">Permit usage access</string>

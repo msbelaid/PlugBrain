@@ -36,7 +36,6 @@
     <string name="stats_hardness">कठिनाई: %1$s/%2$s</string>
     <string name="stats_last_usage_time">आखिरी इस्तेमाल का समय: %1$s/%2$s</string>
     <string name="app_usage_description">ध्यान भटकाने वाले ऐप्स को गणित से अनलॉक करें। आप इनका जितना कम इस्तेमाल करेंगे, चुनौतियाँ उतनी ही आसान होती जाएँगी।</string>
-    <string name="enable_accessibility_text">PlugBrain आपके चुने हुए ऐप्स को ब्लॉक करने के लिए एंड्रॉयड की एक्सेसिबिलिटी सर्विस का इस्तेमाल करता है। यह सर्विस PlugBrain को बताती है कि आपने कब कोई चुना हुआ ऐप खोला है, और उसे इस्तेमाल करने से पहले आपको एक गणित की चुनौती दिखाती है। हम आपकी कोई भी निजी जानकारी इकट्ठा या शेयर नहीं करते हैं।</string>
     <string name="challenge_title">चलो थोड़ा रुकते हैं</string>
     <string name="challenge_answer_placeholder">अपना उत्तर लिखें</string>
     <string name="challenge_check_answer">उत्तर जाँचें</string>
