@@ -104,8 +104,8 @@
     <string name="onboarding_difficulty_beginner_description">Simple additions and subtractions.</string>
     <string name="onboarding_difficulty_intermediate">Intermediate</string>
     <string name="onboarding_difficulty_intermediate_description">Multiplications and missing numbers.</string>
-    <string name="onboarding_difficulty_math_master">Math master</string>
-    <string name="onboarding_difficulty_math_master_description">Multi-digit multiplications.</string>
+    <string name="onboarding_difficulty_expert">Expert</string>
+    <string name="onboarding_difficulty_expert_description">Multi-digit multiplications.</string>
     <string name="onboarding_preferences_cta">Finish setup</string>
     <!-- Main screen (dashboard) -->
     <string name="dashboard_active">PlugBrain is on</string>

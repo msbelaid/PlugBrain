@@ -44,7 +44,8 @@ import kotlin.math.roundToInt
  * A slider over every whole number from the first to the last of [snapValues]. The snap values sit
  * evenly spaced along the track, with their labels under it, and the numbers between two of them
  * share that section evenly. Near a snap value the thumb is pulled onto it, like a magnet, with a
- * haptic tick. [valueDescription] is what TalkBack reads for a value, for example "8 minutes".
+ * haptic tick. [valueDescription] is what TalkBack reads for a value, for example "8 minutes", and
+ * [label] is the text shown under a snap value, the number itself by default.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,6 +55,7 @@ fun PlugSnapSlider(
   onValueChange: (Int) -> Unit,
   modifier: Modifier = Modifier,
   valueDescription: (Int) -> String = { it.toString() },
+  label: (Int) -> String = { it.toString() },
 ) {
   val min = snapValues.first()
   val max = snapValues.last()
@@ -104,7 +106,7 @@ fun PlugSnapSlider(
         track = { SnapTrack(fraction = position / lastPosition) },
       )
     }
-    SnapLabels(snapValues = snapValues, selected = value)
+    SnapLabels(snapValues = snapValues, selected = value, label = label)
   }
 }
 
@@ -130,13 +132,13 @@ private fun SnapTrack(fraction: Float) {
 
 /** The labels sit under the track, centred on where the thumb rests for each snap value. */
 @Composable
-private fun SnapLabels(snapValues: List<Int>, selected: Int) {
+private fun SnapLabels(snapValues: List<Int>, selected: Int, label: (Int) -> String) {
   Layout(
     content = {
       snapValues.forEach { snapValue ->
         val isSelected = snapValue == selected
         Text(
-          text = snapValue.toString(),
+          text = label(snapValue),
           style = MaterialTheme.typography.labelMedium,
           fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
           color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,

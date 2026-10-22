@@ -14,7 +14,6 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -28,30 +27,26 @@ import app.plugbrain.android.ui.designsystem.components.sheetdrawer.PlugBottomSh
 import app.plugbrain.android.ui.designsystem.components.slider.PlugSnapSlider
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 
-/** The levels the slider snaps to and labels: both ends of [levels] and the onboarding presets. */
-fun difficultySnapValues(levels: IntRange): List<Int> =
-  (listOf(levels.first, levels.last) + DifficultyPreset.entries.map { it.minimalDifficulty })
-    .filter { it in levels }
-    .distinct()
-    .sorted()
+/** The levels the slider snaps to, one per preset, labelled with the preset's name. */
+val DifficultySnapValues = DifficultyPreset.entries.map { it.minimalDifficulty }
 
 /**
- * Lets the user pick the level challenges start at, on a slider over [levels] that snaps to the
- * onboarding presets. [sampleChallenge] gives an example challenge for a level, shown as the
- * slider moves. Nothing is saved until [onSave].
+ * Lets the user pick the level challenges start at, on a slider from Beginner to Expert that stops
+ * on every level between them. [sampleChallenge] gives an example challenge for a level, shown as
+ * the slider moves. Nothing is saved until [onSave].
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MinDifficultySheet(
   minDifficulty: Int,
-  levels: IntRange,
   sampleChallenge: (Int) -> String?,
   onSave: (Int) -> Unit,
   onDismiss: () -> Unit,
   sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
-  var selected by rememberSaveable { mutableIntStateOf(minDifficulty.coerceIn(levels)) }
-  val snapValues = remember(levels) { difficultySnapValues(levels) }
+  var selected by rememberSaveable {
+    mutableIntStateOf(minDifficulty.coerceIn(DifficultySnapValues.first(), DifficultySnapValues.last()))
+  }
   // A new example only when the level changes, not on every recomposition.
   val sample = remember(selected) { sampleChallenge(selected) }
   PlugBottomSheetDrawer(
@@ -89,9 +84,12 @@ fun MinDifficultySheet(
       val context = LocalContext.current
       PlugSnapSlider(
         value = selected,
-        snapValues = snapValues,
+        snapValues = DifficultySnapValues,
         onValueChange = { selected = it },
         valueDescription = { context.getString(R.string.dashboard_min_difficulty_level, it) },
+        label = { level ->
+          DifficultyPreset.fromMinimalDifficulty(level)?.let { context.getString(it.nameRes) }.orEmpty()
+        },
       )
     }
   }
@@ -102,7 +100,6 @@ private fun SampleChallenge(challenge: String) {
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier
-      .fillMaxWidth()
       .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp))
       .padding(vertical = 12.dp, horizontal = 16.dp),
   ) {
@@ -119,17 +116,19 @@ private fun SampleChallenge(challenge: String) {
   }
 }
 
+private val DifficultyPreset.nameRes: Int
+  get() = when (this) {
+    DifficultyPreset.Beginner -> R.string.onboarding_difficulty_beginner
+    DifficultyPreset.Intermediate -> R.string.onboarding_difficulty_intermediate
+    DifficultyPreset.Expert -> R.string.onboarding_difficulty_expert
+  }
+
 /** "Intermediate · level 5" for a preset's level, "Level 7" otherwise; the dashboard row says the same. */
 @Composable
 fun difficultyLevelText(level: Int): String {
-  val presetName = when (DifficultyPreset.fromMinimalDifficulty(level)) {
-    DifficultyPreset.Beginner -> R.string.onboarding_difficulty_beginner
-    DifficultyPreset.Intermediate -> R.string.onboarding_difficulty_intermediate
-    DifficultyPreset.MathMaster -> R.string.onboarding_difficulty_math_master
-    null -> null
-  }
-  return if (presetName != null) {
-    stringResource(R.string.dashboard_min_difficulty_preset, stringResource(presetName), level)
+  val preset = DifficultyPreset.fromMinimalDifficulty(level)
+  return if (preset != null) {
+    stringResource(R.string.dashboard_min_difficulty_preset, stringResource(preset.nameRes), level)
   } else {
     stringResource(R.string.dashboard_min_difficulty_level, level)
   }

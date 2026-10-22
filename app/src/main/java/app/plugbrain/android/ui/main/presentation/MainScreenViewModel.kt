@@ -95,9 +95,6 @@ class MainScreenViewModel(
     }
   }
 
-  /** Every level a challenge exists for, from the easiest to the hardest. */
-  val difficultyLevels: IntRange get() = challengeFactory.minDifficulty()..challengeFactory.maxDifficulty()
-
   /** A random challenge of [level], to show what that level looks like; null if there is none. */
   fun sampleChallenge(level: Int): String? = challengeFactory.getChallengesByDifficulty(level).randomOrNull()?.string()
 

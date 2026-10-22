@@ -71,8 +71,8 @@ fun PreferencesStep(
             R.string.onboarding_difficulty_beginner to R.string.onboarding_difficulty_beginner_description
           DifficultyPreset.Intermediate ->
             R.string.onboarding_difficulty_intermediate to R.string.onboarding_difficulty_intermediate_description
-          DifficultyPreset.MathMaster ->
-            R.string.onboarding_difficulty_math_master to R.string.onboarding_difficulty_math_master_description
+          DifficultyPreset.Expert ->
+            R.string.onboarding_difficulty_expert to R.string.onboarding_difficulty_expert_description
         }
         PlugSelectableCard(
           title = stringResource(title),

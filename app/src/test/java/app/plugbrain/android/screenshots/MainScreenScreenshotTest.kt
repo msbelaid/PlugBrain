@@ -101,7 +101,7 @@ class MainScreenScreenshotTest {
                                 )
                             },
                         blockInterval = 15,
-                        minDifficulty = 1,
+                        minDifficulty = 0,
                         isBatteryOptimized = isBatteryOptimized,
                     ),
                 onAppsClicked = {},
