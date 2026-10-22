@@ -50,7 +50,6 @@
 
     <string name="app_usage_description">用数学题解锁分心应用\n使用得越少 → 挑战越简单。</string>
 
-    <string name="enable_accessibility_text">PlugBrain 使用 Android 的无障碍服务来屏蔽你选择的应用。\n这使 PlugBrain 能够在你打开这些应用时检测到，并在允许访问前显示一道数学挑战。\n我们不会收集或分享任何个人信息。</string>
 
 
     <string name="challenge_title">我们慢一点</string>

@@ -49,6 +49,9 @@ fun PermissionExplainerSheet(
   sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
   val texts = permission.explainerTexts()
+  // Google Play asks for an explicit accept and a way to decline next to the accessibility
+  // disclosure, so that sheet gets its own buttons.
+  val isAccessibility = permission == OnboardingPermission.Accessibility
   PlugBottomSheetDrawer(
     title = {
       Text(
@@ -57,9 +60,12 @@ fun PermissionExplainerSheet(
         textAlign = TextAlign.Center,
       )
     },
-    primaryCtaText = stringResource(R.string.onboarding_sheet_cta),
+    primaryCtaText = stringResource(
+      if (isAccessibility) R.string.onboarding_accessibility_accept else R.string.onboarding_sheet_cta,
+    ),
     primaryCtaAction = onUnderstood,
-    secondaryCtaText = null,
+    secondaryCtaText = if (isAccessibility) stringResource(R.string.onboarding_accessibility_decline) else null,
+    secondaryCtaAction = onDismiss,
     onDismiss = onDismiss,
     sheetState = sheetState,
   ) {
@@ -69,9 +75,9 @@ fun PermissionExplainerSheet(
         .weight(1f, fill = false)
         .verticalScroll(rememberScrollState()),
     ) {
-      if (permission == OnboardingPermission.Accessibility) {
+      if (isAccessibility) {
         Text(
-          text = stringResource(R.string.enable_accessibility_text),
+          text = stringResource(R.string.onboarding_accessibility_disclosure),
           style = MaterialTheme.typography.bodyMedium,
           color = MaterialTheme.colorScheme.onSurface,
         )
