@@ -6,6 +6,11 @@ package app.plugbrain.android.appsusage
  * Events are tracked per activity: a package is in the foreground while at least one of its
  * activities is resumed. This matters for in-app navigation, where Android reports
  * "A paused → B resumed → A stopped": the late stop of A must not end the session of B.
+ *
+ * Android does not always report the pause matching a resume (the process is killed, the screen
+ * turns off, or the pause comes with another class name, as seen with Samsung Gallery). To keep
+ * such a session from running until the end of the window, a session also ends when another
+ * package is resumed or when the screen turns off.
  */
 object UsageCalculator {
   /**
@@ -15,34 +20,63 @@ object UsageCalculator {
     events: List<AppEvent>,
     startTime: Long,
     endTime: Long,
-  ): Map<String, Long> = events
-    .groupBy { it.packageName }
-    .mapValues { (_, packageEvents) -> foregroundTime(packageEvents, startTime, endTime) }
+  ): Map<String, Long> {
+    val sessions = mutableMapOf<String, Session>()
+    // When the foreground first changed in the window, which ends any session already open at
+    // startTime.
+    var firstForegroundChange: Long? = null
 
-  private fun foregroundTime(events: List<AppEvent>, startTime: Long, endTime: Long): Long {
-    val resumedActivities = mutableSetOf<String>()
-    var sessionStart = startTime
-    var totalTime = 0L
+    fun endAllSessions(timestamp: Long, except: String? = null) {
+      sessions.forEach { (packageName, session) ->
+        if (packageName != except) session.end(timestamp)
+      }
+      if (firstForegroundChange == null) firstForegroundChange = timestamp
+    }
 
-    events.forEachIndexed { index, event ->
+    events.forEach { event ->
       when (event.type) {
+        EventType.SCREEN_OFF -> endAllSessions(event.timestamp)
+
         EventType.APP_STARTED -> {
-          if (resumedActivities.isEmpty()) sessionStart = event.timestamp
-          resumedActivities += event.className
+          endAllSessions(event.timestamp, except = event.packageName)
+          sessions.getOrPut(event.packageName) { Session() }.start(event.className, event.timestamp)
         }
 
         EventType.APP_STOPPED -> {
-          if (resumedActivities.remove(event.className)) {
-            if (resumedActivities.isEmpty()) totalTime += event.timestamp - sessionStart
-          } else if (index == 0) {
+          val session = sessions[event.packageName]
+          if (session == null) {
             // The app was already in the foreground when the window started.
-            totalTime += event.timestamp - startTime
+            val sessionEnd = minOf(event.timestamp, firstForegroundChange ?: event.timestamp)
+            sessions[event.packageName] = Session(totalTime = sessionEnd - startTime)
+          } else {
+            session.stop(event.className, event.timestamp)
           }
         }
       }
     }
-    if (resumedActivities.isNotEmpty()) totalTime += endTime - sessionStart
-    return totalTime
+    return sessions.mapValues { (_, session) -> session.end(endTime).totalTime }
+  }
+
+  private class Session(var totalTime: Long = 0L) {
+    private val resumedActivities = mutableSetOf<String>()
+    private var sessionStart = 0L
+
+    fun start(className: String, timestamp: Long) {
+      if (resumedActivities.isEmpty()) sessionStart = timestamp
+      resumedActivities += className
+    }
+
+    fun stop(className: String, timestamp: Long) {
+      if (resumedActivities.remove(className) && resumedActivities.isEmpty()) {
+        totalTime += timestamp - sessionStart
+      }
+    }
+
+    fun end(timestamp: Long): Session {
+      if (resumedActivities.isNotEmpty()) totalTime += timestamp - sessionStart
+      resumedActivities.clear()
+      return this
+    }
   }
 }
 
@@ -56,4 +90,5 @@ data class AppEvent(
 enum class EventType {
   APP_STARTED,
   APP_STOPPED,
+  SCREEN_OFF,
 }
