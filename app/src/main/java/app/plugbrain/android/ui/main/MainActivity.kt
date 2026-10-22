@@ -104,7 +104,6 @@ class MainActivity : ComponentActivity() {
         if (isEditingMinDifficulty && minDifficulty != null) {
           MinDifficultySheet(
             minDifficulty = minDifficulty,
-            levels = mainScreenViewModel.difficultyLevels,
             sampleChallenge = mainScreenViewModel::sampleChallenge,
             onSave = {
               mainScreenViewModel.updateMinDifficulty(it)

@@ -28,4 +28,20 @@ class PlugSnapSliderPositionTest {
         assertEquals(10, snapValues.valueAt(3.1f))
         assertEquals(11, snapValues.valueAt(3.2f))
     }
+
+    @Test
+    fun shortLabelsAreCentredOnTheirSnapValues() {
+        assertEquals(listOf(0, 145, 290), labelPositions(listOf(5, 150, 295), listOf(10, 10, 10), width = 300, gap = 8))
+    }
+
+    @Test
+    fun longLabelsArePushedApartInsteadOfOverlapping() {
+        assertEquals(listOf(0, 108, 240), labelPositions(listOf(0, 150, 300), listOf(100, 120, 60), width = 300, gap = 8))
+    }
+
+    @Test
+    fun labelsTooWideForOneLineDontFit() {
+        val widths = listOf(120, 160, 100)
+        assertEquals(false, labelsFit(labelPositions(listOf(0, 150, 300), widths, width = 300, gap = 8), widths, gap = 8))
+    }
 }

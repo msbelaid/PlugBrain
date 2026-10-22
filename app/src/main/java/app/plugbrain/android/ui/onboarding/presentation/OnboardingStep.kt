@@ -20,11 +20,11 @@ enum class OnboardingStep {
   }
 }
 
-/** Starting difficulty choices, mapped to the challenges' minimal difficulty level (1 to 15). */
+/** Starting difficulty choices, mapped to the challenges' minimal difficulty level (0 to 15). */
 enum class DifficultyPreset(val minimalDifficulty: Int) {
-  Beginner(1),
+  Beginner(0),
   Intermediate(5),
-  MathMaster(10),
+  Expert(10),
   ;
 
   companion object {

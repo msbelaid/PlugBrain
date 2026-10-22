@@ -44,7 +44,8 @@ import kotlin.math.roundToInt
  * A slider over every whole number from the first to the last of [snapValues]. The snap values sit
  * evenly spaced along the track, with their labels under it, and the numbers between two of them
  * share that section evenly. Near a snap value the thumb is pulled onto it, like a magnet, with a
- * haptic tick. [valueDescription] is what TalkBack reads for a value, for example "8 minutes".
+ * haptic tick. [valueDescription] is what TalkBack reads for a value, for example "8 minutes", and
+ * [label] is the text shown under a snap value, the number itself by default.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,6 +55,7 @@ fun PlugSnapSlider(
   onValueChange: (Int) -> Unit,
   modifier: Modifier = Modifier,
   valueDescription: (Int) -> String = { it.toString() },
+  label: (Int) -> String = { it.toString() },
 ) {
   val min = snapValues.first()
   val max = snapValues.last()
@@ -104,7 +106,7 @@ fun PlugSnapSlider(
         track = { SnapTrack(fraction = position / lastPosition) },
       )
     }
-    SnapLabels(snapValues = snapValues, selected = value)
+    SnapLabels(snapValues = snapValues, selected = value, label = label)
   }
 }
 
@@ -130,13 +132,13 @@ private fun SnapTrack(fraction: Float) {
 
 /** The labels sit under the track, centred on where the thumb rests for each snap value. */
 @Composable
-private fun SnapLabels(snapValues: List<Int>, selected: Int) {
+private fun SnapLabels(snapValues: List<Int>, selected: Int, label: (Int) -> String) {
   Layout(
     content = {
       snapValues.forEach { snapValue ->
         val isSelected = snapValue == selected
         Text(
-          text = snapValue.toString(),
+          text = label(snapValue),
           style = MaterialTheme.typography.labelMedium,
           fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
           color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -153,15 +155,51 @@ private fun SnapLabels(snapValues: List<Int>, selected: Int) {
     // The thumb's centre travels between half a thumb from each edge.
     val inset = ThumbSize.width.roundToPx() / 2
     val height = placeables.maxOfOrNull { it.height } ?: 0
-    layout(width, height) {
+    val centres = placeables.indices.map { index ->
+      inset + ((width - 2 * inset) * index.toFloat() / (placeables.size - 1)).roundToInt()
+    }
+    val widths = placeables.map { it.width }
+    val gap = LabelGap.roundToPx()
+    val xs = labelPositions(centres, widths, width, gap)
+    // When even pushed apart they don't fit on one line, every other label drops to a second line.
+    val staggered = !labelsFit(xs, widths, gap)
+    val rowXs = if (staggered) {
+      fun row(parity: Int): List<Int> {
+        val indices = placeables.indices.filter { it % 2 == parity }
+        return labelPositions(indices.map { centres[it] }, indices.map { widths[it] }, width, gap)
+      }
+      val top = row(0)
+      val bottom = row(1)
+      placeables.indices.map { if (it % 2 == 0) top[it / 2] else bottom[it / 2] }
+    } else {
+      xs
+    }
+    layout(width, if (staggered) height * 2 else height) {
       placeables.forEachIndexed { index, placeable ->
-        val fraction = index.toFloat() / (placeables.size - 1)
-        val centre = inset + ((width - 2 * inset) * fraction).roundToInt()
-        placeable.placeRelative((centre - placeable.width / 2).coerceIn(0, width - placeable.width), 0)
+        placeable.placeRelative(rowXs[index], if (staggered && index % 2 == 1) height else 0)
       }
     }
   }
 }
+
+/**
+ * Where each label starts: centred on its snap value, kept inside [width], and pushed apart so long
+ * labels, like words at a large font size, don't overlap their neighbours.
+ */
+internal fun labelPositions(centres: List<Int>, widths: List<Int>, width: Int, gap: Int): List<Int> {
+  val xs = centres.indices
+    .map { (centres[it] - widths[it] / 2).coerceIn(0, (width - widths[it]).coerceAtLeast(0)) }
+    .toMutableList()
+  for (i in 1 until xs.size) xs[i] = maxOf(xs[i], xs[i - 1] + widths[i - 1] + gap)
+  if (xs.isNotEmpty()) xs[xs.lastIndex] = minOf(xs.last(), width - widths.last())
+  for (i in xs.lastIndex - 1 downTo 0) xs[i] = minOf(xs[i], xs[i + 1] - widths[i] - gap)
+  if (xs.isNotEmpty()) xs[0] = maxOf(xs[0], 0)
+  return xs
+}
+
+/** True when no label placed at [xs] overlaps the next one. */
+internal fun labelsFit(xs: List<Int>, widths: List<Int>, gap: Int): Boolean =
+  (1 until xs.size).all { xs[it] >= xs[it - 1] + widths[it - 1] + gap }
 
 // Snap value i sits at position i; values between two snap values share that section evenly.
 internal fun List<Int>.positionOf(value: Int): Float {
@@ -183,6 +221,7 @@ private const val MAGNET_RADIUS = 0.12f
 
 private val ThumbSize = DpSize(4.dp, 44.dp)
 private val TrackHeight = 8.dp
+private val LabelGap = 8.dp
 private val TrackShape = RoundedCornerShape(50)
 
 @Preview(

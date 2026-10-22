@@ -44,7 +44,6 @@ class MinDifficultySheetScreenshotTest {
             LaunchedEffect(Unit) { sheetState.expand() }
             MinDifficultySheet(
                 minDifficulty = minDifficulty,
-                levels = 0..15,
                 // A fixed example, so the snapshot doesn't change with a random challenge.
                 sampleChallenge = { "27 + 48" },
                 onSave = {},
