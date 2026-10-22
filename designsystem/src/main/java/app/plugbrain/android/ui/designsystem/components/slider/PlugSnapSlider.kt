@@ -155,14 +155,29 @@ private fun SnapLabels(snapValues: List<Int>, selected: Int, label: (Int) -> Str
     // The thumb's centre travels between half a thumb from each edge.
     val inset = ThumbSize.width.roundToPx() / 2
     val height = placeables.maxOfOrNull { it.height } ?: 0
+    val centres = placeables.indices.map { index ->
+      inset + ((width - 2 * inset) * index.toFloat() / (placeables.size - 1)).roundToInt()
+    }
+    val xs = labelPositions(centres, placeables.map { it.width }, width, LabelGap.roundToPx())
     layout(width, height) {
-      placeables.forEachIndexed { index, placeable ->
-        val fraction = index.toFloat() / (placeables.size - 1)
-        val centre = inset + ((width - 2 * inset) * fraction).roundToInt()
-        placeable.placeRelative((centre - placeable.width / 2).coerceIn(0, width - placeable.width), 0)
-      }
+      placeables.forEachIndexed { index, placeable -> placeable.placeRelative(xs[index], 0) }
     }
   }
+}
+
+/**
+ * Where each label starts: centred on its snap value, kept inside [width], and pushed apart so long
+ * labels, like words at a large font size, don't overlap their neighbours.
+ */
+internal fun labelPositions(centres: List<Int>, widths: List<Int>, width: Int, gap: Int): List<Int> {
+  val xs = centres.indices
+    .map { (centres[it] - widths[it] / 2).coerceIn(0, (width - widths[it]).coerceAtLeast(0)) }
+    .toMutableList()
+  for (i in 1 until xs.size) xs[i] = maxOf(xs[i], xs[i - 1] + widths[i - 1] + gap)
+  if (xs.isNotEmpty()) xs[xs.lastIndex] = minOf(xs.last(), width - widths.last())
+  for (i in xs.lastIndex - 1 downTo 0) xs[i] = minOf(xs[i], xs[i + 1] - widths[i] - gap)
+  if (xs.isNotEmpty()) xs[0] = maxOf(xs[0], 0)
+  return xs
 }
 
 // Snap value i sits at position i; values between two snap values share that section evenly.
@@ -185,6 +200,7 @@ private const val MAGNET_RADIUS = 0.12f
 
 private val ThumbSize = DpSize(4.dp, 44.dp)
 private val TrackHeight = 8.dp
+private val LabelGap = 8.dp
 private val TrackShape = RoundedCornerShape(50)
 
 @Preview(
