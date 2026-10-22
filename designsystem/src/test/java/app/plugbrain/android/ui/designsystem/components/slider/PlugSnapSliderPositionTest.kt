@@ -38,4 +38,10 @@ class PlugSnapSliderPositionTest {
     fun longLabelsArePushedApartInsteadOfOverlapping() {
         assertEquals(listOf(0, 108, 240), labelPositions(listOf(0, 150, 300), listOf(100, 120, 60), width = 300, gap = 8))
     }
+
+    @Test
+    fun labelsTooWideForOneLineDontFit() {
+        val widths = listOf(120, 160, 100)
+        assertEquals(false, labelsFit(labelPositions(listOf(0, 150, 300), widths, width = 300, gap = 8), widths, gap = 8))
+    }
 }

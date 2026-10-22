@@ -158,9 +158,26 @@ private fun SnapLabels(snapValues: List<Int>, selected: Int, label: (Int) -> Str
     val centres = placeables.indices.map { index ->
       inset + ((width - 2 * inset) * index.toFloat() / (placeables.size - 1)).roundToInt()
     }
-    val xs = labelPositions(centres, placeables.map { it.width }, width, LabelGap.roundToPx())
-    layout(width, height) {
-      placeables.forEachIndexed { index, placeable -> placeable.placeRelative(xs[index], 0) }
+    val widths = placeables.map { it.width }
+    val gap = LabelGap.roundToPx()
+    val xs = labelPositions(centres, widths, width, gap)
+    // When even pushed apart they don't fit on one line, every other label drops to a second line.
+    val staggered = !labelsFit(xs, widths, gap)
+    val rowXs = if (staggered) {
+      fun row(parity: Int): List<Int> {
+        val indices = placeables.indices.filter { it % 2 == parity }
+        return labelPositions(indices.map { centres[it] }, indices.map { widths[it] }, width, gap)
+      }
+      val top = row(0)
+      val bottom = row(1)
+      placeables.indices.map { if (it % 2 == 0) top[it / 2] else bottom[it / 2] }
+    } else {
+      xs
+    }
+    layout(width, if (staggered) height * 2 else height) {
+      placeables.forEachIndexed { index, placeable ->
+        placeable.placeRelative(rowXs[index], if (staggered && index % 2 == 1) height else 0)
+      }
     }
   }
 }
@@ -179,6 +196,10 @@ internal fun labelPositions(centres: List<Int>, widths: List<Int>, width: Int, g
   if (xs.isNotEmpty()) xs[0] = maxOf(xs[0], 0)
   return xs
 }
+
+/** True when no label placed at [xs] overlaps the next one. */
+internal fun labelsFit(xs: List<Int>, widths: List<Int>, gap: Int): Boolean =
+  (1 until xs.size).all { xs[it] >= xs[it - 1] + widths[it - 1] + gap }
 
 // Snap value i sits at position i; values between two snap values share that section evenly.
 internal fun List<Int>.positionOf(value: Int): Float {
