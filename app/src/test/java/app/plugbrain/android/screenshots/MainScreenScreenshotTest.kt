@@ -62,6 +62,13 @@ class MainScreenScreenshotTest {
         }
     }
 
+    @Test
+    fun batteryOptimizedTest() {
+        paparazzi.snapshot {
+            mainScreen(status = active, isBatteryOptimized = true)
+        }
+    }
+
     // Plain colors stand in for app icons: Paparazzi can't render the launcher's adaptive icon.
     private val appColors = listOf(0xFFBD100C, 0xFF5B3FB8, 0xFF0C6B78, 0xFFB45309, 0xFF253A3A).map { it.toInt() }
 
@@ -78,6 +85,7 @@ class MainScreenScreenshotTest {
         status: DashboardStatus,
         darkTheme: Boolean = false,
         appCount: Int = 7,
+        isBatteryOptimized: Boolean = false,
     ) {
         MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
             MainScreen(
@@ -94,10 +102,12 @@ class MainScreenScreenshotTest {
                             },
                         blockInterval = 15,
                         minDifficulty = 1,
+                        isBatteryOptimized = isBatteryOptimized,
                     ),
-                onSettingsClicked = {},
                 onAppsClicked = {},
                 onBlockIntervalClicked = {},
+                onMinDifficultyClicked = {},
+                onBatteryOptimizationClicked = {},
                 onTurnBackOn = {},
             )
         }
