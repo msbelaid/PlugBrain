@@ -1,0 +1,18 @@
+package app.plugbrain.android.blockinterval
+
+import app.plugbrain.android.ui.blockinterval.sliderBlockInterval
+import org.junit.Assert.assertEquals
+import org.junit.Test
+
+class BlockIntervalTest {
+    @Test
+    fun intervalsInRangeAreKeptAsIs() {
+        (1..15).forEach { assertEquals(it, sliderBlockInterval(it)) }
+    }
+
+    @Test
+    fun outOfRangeIntervalsOpenOnTheEnds() {
+        assertEquals(1, sliderBlockInterval(0))
+        assertEquals(15, sliderBlockInterval(20))
+    }
+}
