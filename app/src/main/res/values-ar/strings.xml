@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="permissions_title">الصلاحيات</string>
-    <string name="all_permissions_granted">تم منح جميع الصلاحيات!</string>
-    <string name="accessibility_permission">صلاحية الوصول</string>
-    <string name="accessibility_permission_description">تسمح بالكشف عند فتح التطبيقات.</string>
-    <string name="usage_access_permission"> استخدام التطبيقات</string>
-    <string name="usage_access_permission_description">يمنح التطبيق صلاحية الوصول إلى بيانات الاستخدام</string>
-    <string name="display_over_apps_permission">الظهور فوق التطبيقات الأخرى</string>
-    <string name="display_over_apps_permission_description">يسمح للتطبيق بالظهور فوق التطبيقات الأخرى</string>
-    <string name="battery_optimization_exemption_permission">استثناء من تحسين البطارية</string>
-    <string name="battery_optimization_exemption_permission_description">يمنع النظام من إغلاق التطبيق.</string>
     <string name="refresh">تحديث</string>
-    <string name="blocking_interval">وقت الحظر</string>
     <string name="minutes_short">د</string>
-    <string name="settings_title">الإعدادات</string>
     <string name="usage_free_duration_message">أحسنت! لقد ابتعدت عن التطبيقات المشتتة لأكثر من %1$s. تابع العمل الجيد!</string>
     <string name="apps_usage_duration_message">لقد استخدمت التطبيقات المشتتة لأكثر من %1$s خلال %2$s الماضية.</string>
     
@@ -54,14 +42,6 @@
     <string name="usage_short_minutes">%1$d د</string>
     <string name="usage_short_less_than_minute">&lt;1 د</string>
 
-    <plurals name="applications_blocked">
-        <item quantity="zero">لا توجد تطبيقات محجوبة</item>
-        <item quantity="one">تطبيق واحد محجوب</item>
-        <item quantity="two">تطبيقان محجوبان</item>
-        <item quantity="few">%d تطبيقات محجوبة</item>
-        <item quantity="many">%d تطبيقًا محجوبًا</item>
-        <item quantity="other">%d تطبيق محجوب</item>
-    </plurals>
     <plurals name="blocked_every_x_minutes">
         <item quantity="zero">0</item>
         <item quantity="one"> كل دقيقة</item>
@@ -70,10 +50,7 @@
         <item quantity="many"> كل %d دقيقة</item>
         <item quantity="other"> كل %d دقيقة</item>
     </plurals>
-    <string name="enable_accessibility_title">تفعيل خدمة إمكانية الوصول</string>
     <string name="enable_accessibility_text">يستخدم تطبيق PlugBrain خدمة إمكانية الوصول في نظام أندرويد لحظر التطبيقات التي تختارها.\nيتيح ذلك لـ PlugBrain اكتشاف متى تفتح أحد هذه التطبيقات وعرض تحدي رياضي قبل السماح بالدخول.\nنحن لا نجمع أو نشارك أي معلومات شخصية.</string>
-    <string name="continue_btn">متابعة</string>
-    <string name="cancel_btn">إلغاء</string>
     <string name="challenge_title">لنبطئ قليلاً</string>
     <string name="challenge_answer_placeholder">اكتب إجابتك</string>
     <string name="challenge_check_answer">تحقق من الإجابة</string>

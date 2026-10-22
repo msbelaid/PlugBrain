@@ -1,29 +1,12 @@
 <resources>
     <string name="app_name" translatable="false">PlugBrain</string>
     <string name="app_name_with_brain_icon" translatable="false">PlugBrain 🧠</string>
-    <string name="permissions_title">Permissions</string>
-    <string name="all_permissions_granted">All permissions have been granted!</string>
-    <string name="accessibility_permission">Accessibility Permission</string>
-    <string name="accessibility_permission_description">Allows To detect when apps are opened.</string>
-    <string name="usage_access_permission">App Usage Access</string>
-    <string name="usage_access_permission_description">Grants the app access to app usage data</string>
-    <string name="display_over_apps_permission">Display Over Other Apps</string>
-    <string name="display_over_apps_permission_description">Allows the app to display over other apps</string>
-    <string name="battery_optimization_exemption_permission">Battery Optimization Exemption</string>
-    <string name="battery_optimization_exemption_permission_description">Prevents the system from killing the app.</string>
     <string name="refresh">Refresh</string>
-    <plurals name="applications_blocked">
-        <item quantity="zero">No application blocked, tap to select apps</item>
-        <item quantity="one">Blocks one application</item>
-        <item quantity="other">Blocks %d applications</item>
-    </plurals>
     <plurals name="blocked_every_x_minutes">
         <item quantity="one"> every one minute</item>
         <item quantity="other"> every %d minutes</item>
     </plurals>
-    <string name="blocking_interval">Blocking Frequency</string>
     <string name="minutes_short">min</string>
-    <string name="settings_title">Settings</string>
     <string name="usage_free_duration_message">Nice! You\'ve stayed away from distracting apps for over %1$s. Keep it up!</string>
     <string name="apps_usage_duration_message">You\'ve used distracting apps for over %1$s in the last %2$s.</string>
     
@@ -51,14 +34,10 @@
     <string name="usage_short_hours">%1$dh</string>
     <string name="usage_short_minutes">%1$dm</string>
     <string name="usage_short_less_than_minute">&lt;1m</string>
-    <string name="minimal_difficulty">Minimal Difficulty</string>
     <string name="stats_hardness">Hardness: %1$s/%2$s</string>
     <string name="stats_last_usage_time">Last usage time: %1$s/%2$s</string>
     <string name="app_usage_description">Unlock distraction apps with math\nThe less you use them -> the easier the challenges.</string>
-    <string name="enable_accessibility_title">Enable Accessibility Service</string>
     <string name="enable_accessibility_text">PlugBrain uses Android\'s Accessibility Service to block the apps you choose.\nThis allows PlugBrain to detect when you open one of those apps and show you a math challenge before access.\nWe do not collect or share any personal information.</string>
-    <string name="continue_btn">Continue</string>
-    <string name="cancel_btn">Cancel</string>
     <string name="challenge_title">Let\'s slow down</string>
     <string name="challenge_answer_placeholder">Write your answer</string>
     <string name="challenge_check_answer">Check Answer</string>
@@ -170,4 +149,9 @@
         <item quantity="other">%d minutes</item>
     </plurals>
     <string name="block_interval_sheet_save">Save</string>
+    <string name="min_difficulty_sheet_description">Challenges start at this level and get harder the longer you keep using your blocked apps.</string>
+    <string name="min_difficulty_sheet_example">For example</string>
+    <string name="min_difficulty_sheet_save">Save</string>
+    <string name="dashboard_battery_title">Run in the background</string>
+    <string name="dashboard_battery_description">Stop Android from closing PlugBrain to save battery.</string>
 </resources>

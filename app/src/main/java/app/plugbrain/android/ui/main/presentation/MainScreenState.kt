@@ -8,6 +8,8 @@ data class MainScreenState(
   val blockedApps: List<InstalledApp> = emptyList(),
   val blockInterval: Int,
   val minDifficulty: Int,
+  /** True while Android may stop PlugBrain in the background to save battery; granting it is optional. */
+  val isBatteryOptimized: Boolean = false,
 )
 
 /** A permission PlugBrain can't block apps without. */

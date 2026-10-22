@@ -32,7 +32,7 @@ class OnboardingViewModel(
   private val _permissions = MutableStateFlow(PermissionsState())
   val permissions: StateFlow<PermissionsState> = _permissions.asStateFlow()
 
-  // Choices are saved as soon as they are made, like in Settings, so leaving mid-flow keeps them.
+  // Choices are saved as soon as they are made, so leaving mid-flow keeps them.
   val settings: StateFlow<UserSettings> = dataStore.getUserSettings()
     .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UserSettings())
 

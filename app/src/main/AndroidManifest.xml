@@ -40,10 +40,6 @@
             android:launchMode="singleTask"
             android:theme="@style/Theme.MathlockApp" />
         <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MathlockApp" />
-        <activity
             android:name=".ui.onboarding.OnboardingActivity"
             android:exported="false"
             android:theme="@style/Theme.MathlockApp" />

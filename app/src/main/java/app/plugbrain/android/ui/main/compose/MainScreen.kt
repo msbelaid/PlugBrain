@@ -11,15 +11,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Android
 import androidx.compose.material.icons.rounded.Apps
+import androidx.compose.material.icons.rounded.BatteryChargingFull
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Psychology
 import androidx.compose.material.icons.rounded.Schedule
-import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.SignalCellularAlt
 import androidx.compose.material.icons.rounded.WarningAmber
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -46,7 +44,7 @@ import app.plugbrain.android.ui.designsystem.components.listitem.PlugNavigationL
 import app.plugbrain.android.ui.main.presentation.DashboardStatus
 import app.plugbrain.android.ui.main.presentation.MainScreenState
 import app.plugbrain.android.ui.main.presentation.RequiredPermission
-import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
+import app.plugbrain.android.ui.mindifficulty.difficultyLevelText
 
 /**
  * The dashboard: what PlugBrain is doing right now, then the user's setup. When PlugBrain is
@@ -56,9 +54,10 @@ import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 @Composable
 fun MainScreen(
   state: MainScreenState?,
-  onSettingsClicked: () -> Unit,
   onAppsClicked: () -> Unit,
   onBlockIntervalClicked: () -> Unit,
+  onMinDifficultyClicked: () -> Unit,
+  onBatteryOptimizationClicked: () -> Unit,
   onTurnBackOn: (RequiredPermission) -> Unit,
 ) {
   Scaffold(
@@ -70,15 +69,6 @@ fun MainScreen(
             text = stringResource(R.string.app_name),
             style = MaterialTheme.typography.headlineMedium,
           )
-        },
-        actions = {
-          IconButton(onClick = onSettingsClicked) {
-            Icon(
-              imageVector = Icons.Rounded.Settings,
-              contentDescription = stringResource(R.string.settings_title),
-              tint = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-          }
         },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
       )
@@ -100,9 +90,10 @@ fun MainScreen(
         )
         SetupSection(
           state = state,
-          onSettingsClicked = onSettingsClicked,
           onAppsClicked = onAppsClicked,
           onBlockIntervalClicked = onBlockIntervalClicked,
+          onMinDifficultyClicked = onMinDifficultyClicked,
+          onBatteryOptimizationClicked = onBatteryOptimizationClicked,
         )
       }
     }
@@ -166,9 +157,10 @@ private fun StatusCard(
 @Composable
 private fun SetupSection(
   state: MainScreenState,
-  onSettingsClicked: () -> Unit,
   onAppsClicked: () -> Unit,
   onBlockIntervalClicked: () -> Unit,
+  onMinDifficultyClicked: () -> Unit,
+  onBatteryOptimizationClicked: () -> Unit,
 ) {
   Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
     Text(
@@ -216,10 +208,19 @@ private fun SetupSection(
     )
     PlugNavigationListItem(
       title = stringResource(R.string.dashboard_min_difficulty),
-      description = minDifficultyText(state.minDifficulty),
+      description = difficultyLevelText(state.minDifficulty),
       icon = Icons.Rounded.SignalCellularAlt,
-      onClick = onSettingsClicked,
+      onClick = onMinDifficultyClicked,
     )
+    // Optional, so it only shows until the user lets PlugBrain run in the background.
+    if (state.isBatteryOptimized) {
+      PlugNavigationListItem(
+        title = stringResource(R.string.dashboard_battery_title),
+        description = stringResource(R.string.dashboard_battery_description),
+        icon = Icons.Rounded.BatteryChargingFull,
+        onClick = onBatteryOptimizationClicked,
+      )
+    }
   }
 }
 
@@ -234,21 +235,6 @@ private fun appIconPainter(icon: Drawable?): Painter {
   return remember(icon) {
     icon?.let { BitmapPainter(it.toBitmap(ICON_SIZE_PX, ICON_SIZE_PX).asImageBitmap()) }
   } ?: fallback
-}
-
-@Composable
-private fun minDifficultyText(level: Int): String {
-  val presetName = when (DifficultyPreset.fromMinimalDifficulty(level)) {
-    DifficultyPreset.Beginner -> R.string.onboarding_difficulty_beginner
-    DifficultyPreset.Intermediate -> R.string.onboarding_difficulty_intermediate
-    DifficultyPreset.MathMaster -> R.string.onboarding_difficulty_math_master
-    null -> null
-  }
-  return if (presetName != null) {
-    stringResource(R.string.dashboard_min_difficulty_preset, stringResource(presetName), level)
-  } else {
-    stringResource(R.string.dashboard_min_difficulty_level, level)
-  }
 }
 
 @Composable

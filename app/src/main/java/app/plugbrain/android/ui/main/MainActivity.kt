@@ -16,14 +16,15 @@ import app.plugbrain.android.ui.blockinterval.BlockIntervalSheet
 import app.plugbrain.android.ui.main.compose.MainScreen
 import app.plugbrain.android.ui.main.presentation.MainScreenViewModel
 import app.plugbrain.android.ui.main.presentation.RequiredPermission
+import app.plugbrain.android.ui.mindifficulty.MinDifficultySheet
 import app.plugbrain.android.ui.onboarding.OnboardingActivity
 import app.plugbrain.android.ui.onboarding.OnboardingPermission
 import app.plugbrain.android.ui.onboarding.PermissionExplainerSheet
 import app.plugbrain.android.ui.permissions.openAccessibilitySettings
+import app.plugbrain.android.ui.permissions.openBatteryOptimizationSettings
 import app.plugbrain.android.ui.permissions.openOverlaySettings
 import app.plugbrain.android.ui.permissions.openUsageAccessSettings
 import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
-import app.plugbrain.android.ui.settings.SettingsActivity
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -59,13 +60,15 @@ class MainActivity : ComponentActivity() {
       val state by mainScreenViewModel.mainScreenState.collectAsState()
       var explainedPermission by rememberSaveable { mutableStateOf<RequiredPermission?>(null) }
       var isEditingBlockInterval by rememberSaveable { mutableStateOf(false) }
+      var isEditingMinDifficulty by rememberSaveable { mutableStateOf(false) }
       MathlockAppTheme {
         MainScreen(
           state = state,
-          // Settings holds the difficulty picker.
-          onSettingsClicked = { navigateTo(SettingsActivity::class.java) },
           onAppsClicked = { navigateTo(AppsSelectionActivity::class.java) },
           onBlockIntervalClicked = { isEditingBlockInterval = true },
+          onMinDifficultyClicked = { isEditingMinDifficulty = true },
+          // Like onboarding: the system dialog explains itself, so no sheet first.
+          onBatteryOptimizationClicked = { openBatteryOptimizationSettings() },
           onTurnBackOn = { explainedPermission = it },
         )
 
@@ -94,6 +97,20 @@ class MainActivity : ComponentActivity() {
               isEditingBlockInterval = false
             },
             onDismiss = { isEditingBlockInterval = false },
+          )
+        }
+
+        val minDifficulty = state?.minDifficulty
+        if (isEditingMinDifficulty && minDifficulty != null) {
+          MinDifficultySheet(
+            minDifficulty = minDifficulty,
+            levels = mainScreenViewModel.difficultyLevels,
+            sampleChallenge = mainScreenViewModel::sampleChallenge,
+            onSave = {
+              mainScreenViewModel.updateMinDifficulty(it)
+              isEditingMinDifficulty = false
+            },
+            onDismiss = { isEditingMinDifficulty = false },
           )
         }
       }

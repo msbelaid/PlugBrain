@@ -12,6 +12,7 @@ import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.datastore.hasSavedSetup
 import app.plugbrain.android.datastore.setBlockInterval
+import app.plugbrain.android.datastore.setSelectedMinimalDifficulty
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
 import kotlinx.coroutines.Job
@@ -79,6 +80,7 @@ class MainScreenViewModel(
           blockedApps = installedApps.filter { it.packageName in settings.distractiveApps },
           blockInterval = settings.blockInterval,
           minDifficulty = settings.selectedMinimalDifficulty,
+          isBatteryOptimized = !permissions.batteryOptimizationExemption,
         )
       }.collect {
         _mainScreenState.value = it
@@ -90,6 +92,19 @@ class MainScreenViewModel(
   fun updateBlockInterval(interval: Int) {
     viewModelScope.launch {
       dataStore.setBlockInterval(interval)
+    }
+  }
+
+  /** Every level a challenge exists for, from the easiest to the hardest. */
+  val difficultyLevels: IntRange get() = challengeFactory.minDifficulty()..challengeFactory.maxDifficulty()
+
+  /** A random challenge of [level], to show what that level looks like; null if there is none. */
+  fun sampleChallenge(level: Int): String? = challengeFactory.getChallengesByDifficulty(level).randomOrNull()?.string()
+
+  /** Saves the level challenges start at; the dashboard picks it up from the settings flow. */
+  fun updateMinDifficulty(level: Int) {
+    viewModelScope.launch {
+      dataStore.setSelectedMinimalDifficulty(level)
     }
   }
 }
