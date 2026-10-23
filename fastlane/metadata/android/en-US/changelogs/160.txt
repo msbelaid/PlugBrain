@@ -1,0 +1,7 @@
+- New step-by-step onboarding
+- Redesigned, simpler dashboard: every setting is a tap away (the Settings screen is gone)
+- New sliders for time between challenges and minimum difficulty (Beginner, Intermediate, Expert)
+- Optional challenge when you open a distracting app
+- Clearer accessibility permission screen
+- Fixed app usage times that could show far too high
+- Full translations in all 9 languages

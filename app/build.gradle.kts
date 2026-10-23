@@ -22,8 +22,8 @@ android {
         applicationId = "app.plugbrain.android"
         minSdk = 28
         targetSdk = 36
-        versionCode = 154
-        versionName = "1.5.4"
+        versionCode = 160
+        versionName = "1.6.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
