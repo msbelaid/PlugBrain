@@ -35,6 +35,7 @@ private const val ONE_MINUTE = 60_000L
 private const val ONE_HOUR = 60 * ONE_MINUTE
 private const val USAGE_CHECK_STEP = 10_000L
 private const val SYSTEM_UI_PACKAGE = "com.android.systemui"
+private const val CHALLENGE_RECHECK_DELAY = 700L
 
 class MathLockService : AccessibilityService() {
   private val dataStore: DataStore<Preferences> by inject()
@@ -55,6 +56,8 @@ class MathLockService : AccessibilityService() {
   // When the last open challenge was shown. Until it's solved, every event of a distractive app
   // brings it back, so leaving it through recents doesn't skip it.
   private var openChallengeShownAt: Long? = null
+
+  private var challengeRecheckJob: Job? = null
 
   override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
     Timber.tag(TAG).i("onStart")
@@ -125,9 +128,17 @@ class MathLockService : AccessibilityService() {
   private fun isCalculator(packageName: String): Boolean =
     packageName in resources.getStringArray(R.array.calculator_packages) || "calc" in packageName
 
+  private fun isChallengeDue(): Boolean =
+    isBlocked == true || (isOpenChallengeUnsolved() && shouldChallengeOnOpen())
+
   private fun launchChallenge() {
     Timber.tag(TAG).i("Launch Challenge ...")
-    if (ChallengeActivity.isInForeground) return
+    if (ChallengeActivity.isInForeground) {
+      // An app that is still starting up can bring itself back over a challenge that just opened,
+      // before the challenge screen is paused. Look again once that settles.
+      scheduleChallengeRecheck()
+      return
+    }
 
     val intent = Intent(this@MathLockService, ChallengeActivity::class.java)
     intent.addFlags(
@@ -137,6 +148,19 @@ class MathLockService : AccessibilityService() {
         Intent.FLAG_ACTIVITY_SINGLE_TOP,
     )
     startActivity(intent)
+  }
+
+  private fun scheduleChallengeRecheck() {
+    challengeRecheckJob?.cancel()
+    challengeRecheckJob = serviceScope.launch(Dispatchers.Main) {
+      delay(CHALLENGE_RECHECK_DELAY)
+      // Still showing means the challenge won; only a blocked app back on top needs it again.
+      if (ChallengeActivity.isInForeground) return@launch
+      val foreground = appOpenDetector.foregroundPackage ?: return@launch
+      if (foreground in userSettings.distractiveApps && isChallengeDue()) {
+        launchChallenge()
+      }
+    }
   }
 
   override fun onInterrupt() {}
