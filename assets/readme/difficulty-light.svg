@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-label="Difficulty rises while you keep scrolling and eases when you step away">
+<rect width="900" height="420" rx="24" fill="#F9F5F4"/>
+<line x1="74" y1="320" x2="826" y2="320" stroke="#E4ECEB" stroke-width="2"/>
+<rect x="84" y="283" width="50" height="37" rx="8" fill="#20DFD9" stroke="#0D7777" stroke-width="2"/>
+<text x="109.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">1</text>
+<rect x="67.0" y="220" width="84" height="34" rx="10" fill="#004852"/>
+<text x="109.0" y="243" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#FFFFFF">3 + 1</text>
+<line x1="109.0" y1="254" x2="109.0" y2="283" stroke="#004852" stroke-width="2"/>
+<rect x="146" y="268" width="50" height="52" rx="8" fill="#20DFD9" stroke="#0D7777" stroke-width="2"/>
+<text x="171.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">2</text>
+<rect x="208" y="253" width="50" height="67" rx="8" fill="#20DFD9" stroke="#0D7777" stroke-width="2"/>
+<text x="233.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">3</text>
+<rect x="270" y="238" width="50" height="82" rx="8" fill="#20DFD9" stroke="#0D7777" stroke-width="2"/>
+<text x="295.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">4</text>
+<rect x="332" y="208" width="50" height="112" rx="8" fill="#20DFD9" stroke="#0D7777" stroke-width="2"/>
+<text x="357.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">6</text>
+<rect x="315.0" y="130" width="84" height="34" rx="10" fill="#004852"/>
+<text x="357.0" y="153" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#FFFFFF">7 × 8</text>
+<line x1="357.0" y1="164" x2="357.0" y2="208" stroke="#004852" stroke-width="2"/>
+<rect x="394" y="178" width="50" height="142" rx="8" fill="#20DFD9" stroke="#0D7777" stroke-width="2"/>
+<text x="419.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">8</text>
+<rect x="456" y="163" width="50" height="157" rx="8" fill="#20DFD9" stroke="#0D7777" stroke-width="2"/>
+<text x="481.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">9</text>
+<rect x="518" y="133" width="50" height="187" rx="8" fill="#20DFD9" stroke="#0D7777" stroke-width="2"/>
+<text x="543.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">11</text>
+<rect x="489.0" y="85" width="108" height="34" rx="10" fill="#004852"/>
+<text x="543.0" y="108" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#FFFFFF">48 × 37</text>
+<line x1="543.0" y1="119" x2="543.0" y2="133" stroke="#004852" stroke-width="2"/>
+<rect x="580" y="178" width="50" height="142" rx="8" fill="#ADFEFD" stroke="#20DFD9" stroke-width="2"/>
+<text x="605.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">8</text>
+<rect x="642" y="223" width="50" height="97" rx="8" fill="#ADFEFD" stroke="#20DFD9" stroke-width="2"/>
+<text x="667.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">5</text>
+<rect x="704" y="253" width="50" height="67" rx="8" fill="#ADFEFD" stroke="#20DFD9" stroke-width="2"/>
+<text x="729.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">3</text>
+<rect x="681.0" y="175" width="96" height="34" rx="10" fill="#004852"/>
+<text x="729.0" y="198" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#FFFFFF">12 + 7</text>
+<line x1="729.0" y1="209" x2="729.0" y2="253" stroke="#004852" stroke-width="2"/>
+<rect x="766" y="268" width="50" height="52" rx="8" fill="#ADFEFD" stroke="#20DFD9" stroke-width="2"/>
+<text x="791.0" y="312" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#004852">2</text>
+<path d="M84 346 H568" stroke="#20DFD9" stroke-width="3" stroke-linecap="round"/>
+<path d="M558 339 L568 346 L558 353" fill="none" stroke="#20DFD9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="326.0" y="380" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#004852">Keep scrolling: harder challenges</text>
+<path d="M580 346 H816" stroke="#20DFD9" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 8"/>
+<path d="M806 339 L816 346 L806 353" fill="none" stroke="#20DFD9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="698.0" y="380" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#004852">Step away: easier</text>
+<text x="74" y="40" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="600" fill="#3B5A5F" letter-spacing="1">DIFFICULTY LEVEL (1 TO 15)</text>
+</svg>

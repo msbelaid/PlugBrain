@@ -29,6 +29,17 @@ The more you scroll, the harder it gets. Step away, and it gets easier again.
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.png" alt="Dashboard in dark mode" width="24%" />
 </div>
 
+## The more you scroll, the harder it gets
+
+Every challenge has a level from 1 to 15. Each time you solve one to keep using a distracting app, the next one is a level harder. Stay away and PlugBrain drops a level for every two challenge intervals you skip, down to the minimum you chose.
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/difficulty-dark.svg">
+    <img src="assets/readme/difficulty-light.svg" alt="Bar chart: difficulty climbs from 3 + 1 to 7 × 8 to 48 × 37 while you keep scrolling, then drops back to 12 + 7 when you step away" width="100%">
+  </picture>
+</p>
+
 ## Why PlugBrain?
 
 Most app blockers give you a timer you can tap past without thinking. PlugBrain makes you think.
