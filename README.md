@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Banner: to try another cover, replace assets/readme/banner.png (1024×500). Nothing else needs to change. -->
-<img src="assets/readme/banner.png" alt="PlugBrain: Solve a little math. Scroll a lot less." width="100%" />
+<img src="assets/readme/banner.png" alt="PlugBrain: Solve a little math. Scroll a lot less. The more you scroll, the harder the math. Step away, and it gets easier again." width="100%" />
 
 # Plug your brain back in.
 
@@ -29,17 +29,6 @@ The more you scroll, the harder it gets. Step away, and it gets easier again.
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.png" alt="Dashboard in dark mode" width="24%" />
 </div>
 
-## The more you scroll, the harder it gets
-
-Every challenge has a level from 1 to 15. Each time you solve one to keep using a distracting app, the next one is a level harder. Stay away and PlugBrain drops a level for every two challenge intervals you skip, down to the minimum you chose.
-
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/difficulty-dark.svg">
-    <img src="assets/readme/difficulty-light.svg" alt="Bar chart: difficulty climbs from 3 + 1 to 7 × 8 to 48 × 37 while you keep scrolling, then drops back to 12 + 7 when you step away" width="100%">
-  </picture>
-</p>
-
 ## Why PlugBrain?
 
 Most app blockers give you a timer you can tap past without thinking. PlugBrain makes you think.
@@ -59,7 +48,7 @@ Most app blockers give you a timer you can tap past without thinking. PlugBrain 
 
 You can also ask PlugBrain to challenge you **as soon as a distracting app opens**, not only after a while.
 
-Challenges climb through 15 levels and more than 40 types: from simple additions to five-digit sums, subtraction, multiplication tables up to 4×4 digits, squares, and missing-number equations like `? × 7 = 56`.
+Each challenge you solve makes the next one a level harder, up to level 15. Stay away and PlugBrain drops a level for every two challenge intervals you skip, down to the minimum you chose. More than 40 challenge types cover the range: from simple additions to five-digit sums, subtraction, multiplication tables up to 4×4 digits, squares, and missing-number equations like `? × 7 = 56`.
 
 <div align="center">
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="Choosing which apps to block" width="24%" />
