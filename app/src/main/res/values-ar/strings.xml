@@ -2,57 +2,57 @@
 <resources>
     <string name="refresh">تحديث</string>
     <string name="minutes_short">د</string>
-    <string name="usage_free_duration_message">أحسنت! لقد ابتعدت عن التطبيقات المشتتة لأكثر من %1$s. تابع العمل الجيد!</string>
-    <string name="apps_usage_duration_message">لقد استخدمت التطبيقات المشتتة لأكثر من %1$s خلال %2$s الماضية.</string>
+    <string name="usage_free_duration_message">أحسنت! لقد ابتعدت عن التطبيقات المشتتة لأكثر من %1$s. واصل على هذا النحو!</string>
+    <string name="apps_usage_duration_message">لقد استخدمت التطبيقات المشتتة لأكثر من %1$s خلال آخر %2$s.</string>
     
     <!-- Duration formatting strings -->
-    <string name="duration_hours_minutes">%1$s و %2$s</string>
-    <string name="duration_days_hours">%1$s و %2$s</string>
+    <string name="duration_hours_minutes">%1$s و%2$s</string>
+    <string name="duration_days_hours">%1$s و%2$s</string>
     
     <plurals name="duration_minutes">
-        <item quantity="zero">%d دقائق</item>
-        <item quantity="one">%d دقيقة</item>
-        <item quantity="two">%d دقيقتان</item>
+        <item quantity="zero">%d دقيقة</item>
+        <item quantity="one">دقيقة واحدة</item>
+        <item quantity="two">دقيقتان</item>
         <item quantity="few">%d دقائق</item>
         <item quantity="many">%d دقيقة</item>
         <item quantity="other">%d دقيقة</item>
     </plurals>
     
     <plurals name="duration_hours">
-        <item quantity="zero">%d ساعات</item>
-        <item quantity="one">%d ساعة</item>
-        <item quantity="two">%d ساعتان</item>
+        <item quantity="zero">%d ساعة</item>
+        <item quantity="one">ساعة واحدة</item>
+        <item quantity="two">ساعتان</item>
         <item quantity="few">%d ساعات</item>
         <item quantity="many">%d ساعة</item>
         <item quantity="other">%d ساعة</item>
     </plurals>
     
     <plurals name="duration_days">
-        <item quantity="zero">%d أيام</item>
-        <item quantity="one">%d يوم</item>
-        <item quantity="two">%d يومان</item>
+        <item quantity="zero">%d يوم</item>
+        <item quantity="one">يوم واحد</item>
+        <item quantity="two">يومان</item>
         <item quantity="few">%d أيام</item>
         <item quantity="many">%d يوماً</item>
         <item quantity="other">%d يوم</item>
     </plurals>
     
-    <string name="duration_zero_minutes">0 دقائق</string>
+    <string name="duration_zero_minutes">0 دقيقة</string>
     <string name="usage_short_hours_minutes">%1$d س %2$d د</string>
     <string name="usage_short_hours">%1$d س</string>
     <string name="usage_short_minutes">%1$d د</string>
     <string name="usage_short_less_than_minute">&lt;1 د</string>
 
     <plurals name="blocked_every_x_minutes">
-        <item quantity="zero">0</item>
+        <item quantity="zero"> كل %d دقيقة</item>
         <item quantity="one"> كل دقيقة</item>
-        <item quantity="two"> كل دقيقتان</item>
+        <item quantity="two"> كل دقيقتين</item>
         <item quantity="few"> كل %d دقائق</item>
         <item quantity="many"> كل %d دقيقة</item>
         <item quantity="other"> كل %d دقيقة</item>
     </plurals>
-    <string name="challenge_title">لنبطئ قليلاً</string>
+    <string name="challenge_title">لنتمهّل قليلًا</string>
     <string name="challenge_answer_placeholder">اكتب إجابتك</string>
-    <string name="challenge_check_answer">تحقق من الإجابة</string>
+    <string name="challenge_check_answer">تحقّق من الإجابة</string>
     <string name="challenge_leave_app">مغادرة التطبيق</string>
     <string name="challenge_correct_answer">إجابة صحيحة</string>
     <string name="challenge_stay_focused">ابقَ مركّزًا</string>
@@ -71,30 +71,30 @@
     <string name="app_usage_description">افتح التطبيقات المشتتة بحل مسائل رياضية\nكلما قلّ استخدامك لها -> أصبحت التحديات أسهل.</string>
     <string name="welcome_title">شغّل عقلك من جديد.</string>
     <string name="welcome_feature_one_title">ركّز انتباهك</string>
-    <string name="welcome_feature_one_description">اقضِ وقتًا أقل على التطبيقات التي تشتتك.</string>
+    <string name="welcome_feature_one_description">اقضِ وقتًا أقل في التطبيقات التي تشتّت انتباهك.</string>
     <string name="welcome_feature_two_title">افتح القفل بتحدٍّ</string>
-    <string name="welcome_feature_two_description">حُلّ تحديًا رياضيًا سريعًا لمواصلة استخدام التطبيق.</string>
-    <string name="welcome_feature_three_title">يزداد صعوبة كلما بقيت أطول</string>
+    <string name="welcome_feature_two_description">حُلّ تحديًا رياضيًا قصيرًا لتواصل استخدام التطبيق.</string>
+    <string name="welcome_feature_three_title">كلما أطلت البقاء، زادت الصعوبة</string>
     <string name="welcome_feature_three_description">تزداد صعوبة التحديات كلما واصلت التمرير.</string>
     <string name="welcome_cta_title">لنبدأ</string>
     <string name="calculator_warning">من فضلك، لا تستخدم الآلة الحاسبة!</string>
-    <string name="selected">محدد</string>
-    <string name="onboarding_skip">تخطي</string>
-    <string name="onboarding_permissions_title">لنبدأ الإعداد</string>
+    <string name="selected">محدَّد</string>
+    <string name="onboarding_skip">تخطٍّ</string>
+    <string name="onboarding_permissions_title">لنُجهّز كل شيء</string>
     <string name="onboarding_permissions_subtitle">يحتاج PlugBrain إلى الأذونات التالية ليعمل بشكل صحيح.</string>
     <string name="onboarding_permissions_cta">متابعة</string>
     <string name="onboarding_permissions_helper">امنح الأذونات المطلوبة للمتابعة.</string>
     <string name="onboarding_usage_access_title">الوصول إلى بيانات الاستخدام</string>
     <string name="onboarding_usage_access_description">يتيح لـ PlugBrain تتبّع استخدام التطبيقات ليحظر التطبيقات المشتتة في الوقت المناسب.</string>
     <string name="onboarding_overlay_title">الظهور فوق التطبيقات الأخرى</string>
-    <string name="onboarding_overlay_description">يتيح لـ PlugBrain عرض تحدٍّ أثناء استخدامك لتطبيق مشتت.</string>
+    <string name="onboarding_overlay_description">يتيح لـ PlugBrain عرض تحدٍّ أثناء استخدامك تطبيقًا مشتتًا.</string>
     <string name="onboarding_accessibility_title">إذن تسهيل الاستخدام</string>
     <string name="onboarding_accessibility_description">يتيح لـ PlugBrain معرفة متى تُفتح التطبيقات.</string>
     <string name="onboarding_battery_title">تحسين البطارية (اختياري)</string>
-    <string name="onboarding_battery_description">يضمن استمرار PlugBrain في العمل بشكل موثوق حتى عندما يحاول جهازك توفير البطارية.</string>
+    <string name="onboarding_battery_description">يضمن بقاء PlugBrain قيد التشغيل دون انقطاع، حتى عندما يحاول جهازك توفير البطارية.</string>
     <string name="onboarding_sheet_cta">فهمت</string>
-    <string name="onboarding_accessibility_disclosure">يستخدم PlugBrain خدمة تسهيل الاستخدام لمعرفة التطبيق المفتوح. عندما تفتح تطبيقًا اخترت حظره، أو آلة حاسبة أثناء تحدٍّ، يعرض PlugBrain تحديًا رياضيًا أولًا.\n\nيقرأ PlugBrain اسم التطبيق فقط. لا يقرأ ما يظهر على شاشتك أو ما تكتبه، ولا يغادر أي شيء هاتفك.</string>
-    <string name="onboarding_accessibility_accept">موافق ومتابعة</string>
+    <string name="onboarding_accessibility_disclosure">يستخدم PlugBrain خدمة تسهيل الاستخدام لمعرفة التطبيق المفتوح. عندما تفتح تطبيقًا اخترت حظره، أو آلة حاسبة أثناء تحدٍّ، يعرض PlugBrain تحديًا رياضيًا أولًا.\n\nيقرأ PlugBrain اسم التطبيق فقط. لا يقرأ ما يظهر على شاشتك ولا ما تكتبه، ولا تخرج أي بيانات من هاتفك.</string>
+    <string name="onboarding_accessibility_accept">قبول ومتابعة</string>
     <string name="onboarding_accessibility_decline">ليس الآن</string>
     <string name="accessibility_service_description">يكتشف متى تفتح تطبيقًا اخترت حظره حتى يتمكن PlugBrain من عرض تحدٍّ رياضي. لا يُقرأ سوى اسم التطبيق.</string>
     <string name="onboarding_sheet_find_app">أولًا، ابحث عن PlugBrain في قائمة التطبيقات واختره.</string>
@@ -107,7 +107,7 @@
     <string name="onboarding_accessibility_sheet_title">فعّل خدمة تسهيل الاستخدام</string>
     <string name="onboarding_accessibility_sheet_switch">استخدام PlugBrain</string>
     <string name="onboarding_accessibility_sheet_toggle">ابحث عن PlugBrain، ثم فعّل المفتاح وأكّد.</string>
-    <string name="onboarding_apps_title">ما الذي يشتتك؟</string>
+    <string name="onboarding_apps_title">ما الذي يشتّت انتباهك؟</string>
     <string name="onboarding_apps_subtitle">لا تقلق، يمكنك تغيير هذه القائمة لاحقًا.</string>
     <string name="onboarding_apps_search">بحث</string>
     <string name="onboarding_apps_clear_search">مسح البحث</string>
@@ -122,35 +122,35 @@
         <item quantity="many">كل %d دقيقة</item>
         <item quantity="other">كل %d دقيقة</item>
     </plurals>
-    <string name="onboarding_preferences_difficulty">صعوبة التحدي في البداية</string>
+    <string name="onboarding_preferences_difficulty">صعوبة التحديات في البداية</string>
     <string name="onboarding_difficulty_beginner">مبتدئ</string>
     <string name="onboarding_difficulty_beginner_description">عمليات جمع وطرح بسيطة.</string>
     <string name="onboarding_difficulty_intermediate">متوسط</string>
-    <string name="onboarding_difficulty_intermediate_description">عمليات ضرب وأرقام ناقصة.</string>
+    <string name="onboarding_difficulty_intermediate_description">ضرب وإيجاد العدد الناقص.</string>
     <string name="onboarding_difficulty_expert">خبير</string>
-    <string name="onboarding_difficulty_expert_description">ضرب أعداد متعددة الأرقام.</string>
+    <string name="onboarding_difficulty_expert_description">ضرب أعداد من عدة أرقام.</string>
     <string name="onboarding_preferences_cta">إنهاء الإعداد</string>
     <string name="dashboard_active">PlugBrain يعمل</string>
     <string name="dashboard_minutes_short">%d د</string>
     <string name="dashboard_minutes_left">متبقية قبل التحدي التالي</string>
     <string name="dashboard_next_challenge_level">التحدي التالي: المستوى %1$d من %2$d</string>
     <string name="dashboard_apps_locked">التطبيقات مقفلة</string>
-    <string name="dashboard_away">بعيد منذ %s</string>
+    <string name="dashboard_away">ابتعدت منذ %s</string>
     <string name="dashboard_hours_minutes_short">%1$d س %2$d د</string>
-    <string name="dashboard_unlock_level">حُلّ تحديًا من المستوى %d لفتح القفل. كلما ابتعدت أكثر، أصبح أسهل.</string>
+    <string name="dashboard_unlock_level">حُلّ تحديًا من المستوى %d لفتح القفل. كلما طالت مدة ابتعادك، أصبح التحدي أسهل.</string>
     <string name="dashboard_paused">PlugBrain متوقف مؤقتًا</string>
-    <string name="dashboard_paused_accessibility">تم إيقاف الوصول إلى تسهيل الاستخدام، لذا لا يستطيع PlugBrain حظر تطبيقاتك.</string>
+    <string name="dashboard_paused_accessibility">تم إيقاف خدمة تسهيل الاستخدام، لذا لا يستطيع PlugBrain حظر تطبيقاتك.</string>
     <string name="dashboard_paused_usage_access">تم إيقاف الوصول إلى بيانات الاستخدام، لذا لا يعرف PlugBrain متى يحظر تطبيقاتك.</string>
     <string name="dashboard_paused_overlay">تم إيقاف الظهور فوق التطبيقات الأخرى، لذا لا يستطيع PlugBrain عرض التحديات.</string>
-    <string name="dashboard_turn_back_on">أعِد تفعيله</string>
-    <string name="dashboard_nothing_to_block">لا شيء للحظر بعد</string>
+    <string name="dashboard_turn_back_on">أعِد التفعيل</string>
+    <string name="dashboard_nothing_to_block">لا توجد تطبيقات للحظر بعد</string>
     <plurals name="dashboard_nothing_to_block_description">
-        <item quantity="zero">اختر التطبيقات التي تجذبك، وسيطلب PlugBrain تحديًا بعد %d دقيقة من استخدامها.</item>
-        <item quantity="one">اختر التطبيقات التي تجذبك، وسيطلب PlugBrain تحديًا بعد دقيقة واحدة من استخدامها.</item>
-        <item quantity="two">اختر التطبيقات التي تجذبك، وسيطلب PlugBrain تحديًا بعد دقيقتين من استخدامها.</item>
-        <item quantity="few">اختر التطبيقات التي تجذبك، وسيطلب PlugBrain تحديًا بعد %d دقائق من استخدامها.</item>
-        <item quantity="many">اختر التطبيقات التي تجذبك، وسيطلب PlugBrain تحديًا بعد %d دقيقة من استخدامها.</item>
-        <item quantity="other">اختر التطبيقات التي تجذبك، وسيطلب PlugBrain تحديًا بعد %d دقيقة من استخدامها.</item>
+        <item quantity="zero">اختر التطبيقات التي تستهلك وقتك، وسيطلب منك PlugBrain حلّ تحدٍّ بعد %d دقيقة من استخدامها.</item>
+        <item quantity="one">اختر التطبيقات التي تستهلك وقتك، وسيطلب منك PlugBrain حلّ تحدٍّ بعد دقيقة واحدة من استخدامها.</item>
+        <item quantity="two">اختر التطبيقات التي تستهلك وقتك، وسيطلب منك PlugBrain حلّ تحدٍّ بعد دقيقتين من استخدامها.</item>
+        <item quantity="few">اختر التطبيقات التي تستهلك وقتك، وسيطلب منك PlugBrain حلّ تحدٍّ بعد %d دقائق من استخدامها.</item>
+        <item quantity="many">اختر التطبيقات التي تستهلك وقتك، وسيطلب منك PlugBrain حلّ تحدٍّ بعد %d دقيقة من استخدامها.</item>
+        <item quantity="other">اختر التطبيقات التي تستهلك وقتك، وسيطلب منك PlugBrain حلّ تحدٍّ بعد %d دقيقة من استخدامها.</item>
     </plurals>
     <string name="dashboard_choose_apps">اختر التطبيقات</string>
     <string name="dashboard_your_setup">إعداداتك</string>
@@ -184,7 +184,7 @@
     <string name="dashboard_min_difficulty">الحد الأدنى للصعوبة</string>
     <string name="dashboard_min_difficulty_preset">%1$s · المستوى %2$d</string>
     <string name="dashboard_min_difficulty_level">المستوى %d</string>
-    <string name="block_interval_sheet_title">متى نتحداك</string>
+    <string name="block_interval_sheet_title">متى يظهر لك التحدي</string>
     <string name="block_interval_sheet_description">المدة التي يمكنك فيها استخدام تطبيقاتك المحظورة قبل أن يطلب PlugBrain تحديًا.</string>
     <string name="block_interval_sheet_slider_label">الوقت بين التحديات</string>
     <string name="block_interval_sheet_on_open">عند فتح التطبيق أيضًا</string>
