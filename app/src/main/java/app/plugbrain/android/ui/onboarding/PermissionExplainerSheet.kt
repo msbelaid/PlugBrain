@@ -82,25 +82,28 @@ fun PermissionExplainerSheet(
           color = MaterialTheme.colorScheme.onSurface,
         )
       }
-      PlugIllustrationCard(caption = stringResource(texts.findApp)) {
-        // A mock settings list: the illustration is decorative, the caption says what to do.
-        Column(
-          verticalArrangement = Arrangement.spacedBy(12.dp),
-          modifier = Modifier.clearAndSetSemantics { },
-        ) {
-          SkeletonRow()
-          Row(
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically,
+      // The accessibility sheet has no app list step, its switch caption covers finding PlugBrain.
+      texts.findApp?.let { findApp ->
+        PlugIllustrationCard(caption = stringResource(findApp)) {
+          // A mock settings list: the illustration is decorative, the caption says what to do.
+          Column(
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.clearAndSetSemantics { },
           ) {
-            AppIcon()
-            Text(
-              text = stringResource(R.string.app_name),
-              style = MaterialTheme.typography.bodyMedium,
-              color = MaterialTheme.colorScheme.onSurface,
-            )
+            SkeletonRow()
+            Row(
+              horizontalArrangement = Arrangement.spacedBy(12.dp),
+              verticalAlignment = Alignment.CenterVertically,
+            ) {
+              AppIcon()
+              Text(
+                text = stringResource(R.string.app_name),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+              )
+            }
+            SkeletonRow()
           }
-          SkeletonRow()
         }
       }
       PlugIllustrationCard(caption = stringResource(texts.toggle)) {
@@ -173,7 +176,7 @@ private fun SkeletonRow() {
 
 private class ExplainerTexts(
   val title: Int,
-  val findApp: Int,
+  val findApp: Int?,
   val switchLabel: Int,
   val toggle: Int,
 )
@@ -194,7 +197,7 @@ private fun OnboardingPermission.explainerTexts() = when (this) {
   // Battery optimization opens a system dialog directly, so it never shows this sheet.
   OnboardingPermission.Accessibility, OnboardingPermission.BatteryOptimization -> ExplainerTexts(
     title = R.string.onboarding_accessibility_sheet_title,
-    findApp = R.string.onboarding_accessibility_sheet_find_app,
+    findApp = null,
     switchLabel = R.string.onboarding_accessibility_sheet_switch,
     toggle = R.string.onboarding_accessibility_sheet_toggle,
   )

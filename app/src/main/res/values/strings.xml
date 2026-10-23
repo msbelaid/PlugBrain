@@ -86,9 +86,8 @@
     <string name="onboarding_overlay_sheet_switch">Allow display over other apps</string>
     <string name="onboarding_overlay_sheet_toggle">Then turn on the display over other apps switch.</string>
     <string name="onboarding_accessibility_sheet_title">Turn the accessibility service on</string>
-    <string name="onboarding_accessibility_sheet_find_app">First, find and select PlugBrain under installed apps.</string>
     <string name="onboarding_accessibility_sheet_switch">Use PlugBrain</string>
-    <string name="onboarding_accessibility_sheet_toggle">Then turn on the switch and confirm.</string>
+    <string name="onboarding_accessibility_sheet_toggle">Find PlugBrain, then turn on the switch and confirm.</string>
 
     <string name="onboarding_apps_title">What\'s distracting you?</string>
     <string name="onboarding_apps_subtitle">Don\'t worry, you can change this list later.</string>
