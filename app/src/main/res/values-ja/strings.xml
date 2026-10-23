@@ -6,12 +6,12 @@
         <item quantity="other">%d分ごと</item>
     </plurals>
     <string name="minutes_short">分</string>
-    <string name="usage_free_duration_message">すごい！魅力的なアプリたちから %1$s 以上距離を置けました。 その調子！</string>
-    <string name="apps_usage_duration_message">直近 %2$s 分のうち魅力的なアプリを %1$s 以上使用しました</string>
+    <string name="usage_free_duration_message">すごい！気が散るアプリから%1$s以上離れられました。その調子！</string>
+    <string name="apps_usage_duration_message">直近%2$sのうち、気が散るアプリを%1$s以上使いました。</string>
     
     <!-- Duration formatting strings -->
-    <string name="duration_hours_minutes">%1$s と %2$s</string>
-    <string name="duration_days_hours">%1$s と %2$s</string>
+    <string name="duration_hours_minutes">%1$s%2$s</string>
+    <string name="duration_days_hours">%1$s%2$s</string>
     
     <plurals name="duration_minutes">
         <item quantity="other">%d分</item>
@@ -36,11 +36,116 @@
     <string name="challenge_title">少しペースを落とそう</string>
     <string name="challenge_answer_placeholder">答えを入力</string>
     <string name="challenge_check_answer">答えをチェック</string>
-    <string name="challenge_leave_app">アプリを終了</string>
+    <string name="challenge_leave_app">アプリを閉じる</string>
     <string name="challenge_correct_answer">正解</string>
     <string name="challenge_stay_focused">集中を続ける</string>
     <string name="challenge_unlock_app">%d分間アプリのロックを解除</string>
     <plurals name="challenge_unlock_message">
         <item quantity="other">アプリのロックを%d分間解除するか、アプリを閉じて集中を続けることができます。</item>
     </plurals>
+
+    <string name="welcome_title">頭のスイッチを入れ直そう。</string>
+    <string name="welcome_feature_one_title">集中力を取り戻す</string>
+    <string name="welcome_feature_one_description">気が散るアプリに使う時間を減らしましょう。</string>
+    <string name="welcome_feature_two_title">チャレンジで解除</string>
+    <string name="welcome_feature_two_description">簡単な計算問題を解くと、アプリを使い続けられます。</string>
+    <string name="welcome_feature_three_title">使うほど難しくなる</string>
+    <string name="welcome_feature_three_description">スクロールを続けるほど、問題が難しくなります。</string>
+    <string name="welcome_cta_title">はじめる</string>
+    <string name="calculator_warning">電卓は使わずに解きましょう！</string>
+    <string name="selected">選択済み</string>
+    <string name="onboarding_skip">スキップ</string>
+    <string name="onboarding_permissions_title">セットアップしましょう</string>
+    <string name="onboarding_permissions_subtitle">PlugBrain が正しく動作するには、次の権限が必要です。</string>
+    <string name="onboarding_permissions_cta">次へ</string>
+    <string name="onboarding_permissions_helper">続行するには、必要な権限を許可してください。</string>
+    <string name="onboarding_usage_access_title">使用状況へのアクセス</string>
+    <string name="onboarding_usage_access_description">アプリの使用状況を把握し、適切なタイミングで気が散るアプリをブロックできるようにします。</string>
+    <string name="onboarding_overlay_title">他のアプリの上に重ねて表示</string>
+    <string name="onboarding_overlay_description">気が散るアプリの使用中に、PlugBrain がチャレンジを表示できるようにします。</string>
+    <string name="onboarding_accessibility_title">ユーザー補助の権限</string>
+    <string name="onboarding_accessibility_description">アプリが開かれたことを PlugBrain が検出できるようにします。</string>
+    <string name="onboarding_battery_title">電池の最適化（任意）</string>
+    <string name="onboarding_battery_description">端末が電池を節約しようとしても、PlugBrain が安定して動作し続けるようにします。</string>
+    <string name="onboarding_sheet_cta">わかりました</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain はユーザー補助サービスを使って、どのアプリが開いているかを確認します。ブロックすると決めたアプリや、チャレンジ中に電卓を開くと、PlugBrain が先に計算問題を表示します。\n\nPlugBrain が読み取るのはアプリの名前だけです。画面の内容や入力した文字は読み取らず、データが端末の外に送られることはありません。</string>
+    <string name="onboarding_accessibility_accept">同意して続行</string>
+    <string name="onboarding_accessibility_decline">後で</string>
+    <string name="accessibility_service_description">ブロックすると決めたアプリを開いたことを検出し、PlugBrain が計算問題を表示できるようにします。読み取るのはアプリの名前だけです。</string>
+    <string name="onboarding_sheet_find_app">まず、アプリの一覧から PlugBrain を探して選択します。</string>
+    <string name="onboarding_usage_access_sheet_title">使用状況へのアクセスをオンにする</string>
+    <string name="onboarding_usage_access_sheet_switch">使用状況へのアクセスを許可</string>
+    <string name="onboarding_usage_access_sheet_toggle">次に、「使用状況へのアクセスを許可」のスイッチをオンにします。</string>
+    <string name="onboarding_overlay_sheet_title">他のアプリの上に重ねて表示をオンにする</string>
+    <string name="onboarding_overlay_sheet_switch">他のアプリの上に重ねて表示できるようにする</string>
+    <string name="onboarding_overlay_sheet_toggle">次に、「他のアプリの上に重ねて表示できるようにする」のスイッチをオンにします。</string>
+    <string name="onboarding_accessibility_sheet_title">ユーザー補助サービスをオンにする</string>
+    <string name="onboarding_accessibility_sheet_switch">PlugBrain を使用</string>
+    <string name="onboarding_accessibility_sheet_toggle">PlugBrain を探して、スイッチをオンにし、確認します。</string>
+    <string name="onboarding_apps_title">気が散るのはどのアプリ？</string>
+    <string name="onboarding_apps_subtitle">このリストは後から変更できます。</string>
+    <string name="onboarding_apps_search">検索</string>
+    <string name="onboarding_apps_clear_search">検索をクリア</string>
+    <string name="onboarding_apps_cta">アプリをブロック</string>
+    <string name="onboarding_preferences_title">好みに合わせて設定しよう</string>
+    <string name="onboarding_preferences_interval">どのくらいの頻度でブロックしますか？</string>
+    <plurals name="onboarding_preferences_interval_option">
+        <item quantity="other">%d分ごと</item>
+    </plurals>
+    <string name="onboarding_preferences_difficulty">チャレンジの初期難易度</string>
+    <string name="onboarding_difficulty_beginner">初級</string>
+    <string name="onboarding_difficulty_beginner_description">簡単な足し算と引き算。</string>
+    <string name="onboarding_difficulty_intermediate">中級</string>
+    <string name="onboarding_difficulty_intermediate_description">掛け算と穴埋め問題。</string>
+    <string name="onboarding_difficulty_expert">上級</string>
+    <string name="onboarding_difficulty_expert_description">複数桁の掛け算。</string>
+    <string name="onboarding_preferences_cta">セットアップを完了</string>
+    <string name="dashboard_active">PlugBrain 作動中</string>
+    <string name="dashboard_minutes_short">%d分</string>
+    <string name="dashboard_minutes_left">次のチャレンジまで</string>
+    <string name="dashboard_next_challenge_level">次のチャレンジ：レベル %1$d / %2$d</string>
+    <string name="dashboard_apps_locked">アプリをロック中</string>
+    <string name="dashboard_away">%s離れています</string>
+    <string name="dashboard_hours_minutes_short">%1$d時間%2$d分</string>
+    <string name="dashboard_unlock_level">ロックを解除するには、レベル %d のチャレンジを解いてください。離れている時間が長いほど簡単になります。</string>
+    <string name="dashboard_paused">PlugBrain は一時停止中です</string>
+    <string name="dashboard_paused_accessibility">ユーザー補助サービスがオフになったため、PlugBrain はアプリをブロックできません。</string>
+    <string name="dashboard_paused_usage_access">使用状況へのアクセスがオフになったため、PlugBrain はアプリをブロックするタイミングがわかりません。</string>
+    <string name="dashboard_paused_overlay">「他のアプリの上に重ねて表示」がオフになったため、PlugBrain はチャレンジを表示できません。</string>
+    <string name="dashboard_turn_back_on">もう一度オンにする</string>
+    <string name="dashboard_nothing_to_block">ブロックするアプリはまだありません</string>
+    <plurals name="dashboard_nothing_to_block_description">
+        <item quantity="other">ついつい開いてしまうアプリを選ぶと、%d分使ったところで PlugBrain がチャレンジを出します。</item>
+    </plurals>
+    <string name="dashboard_choose_apps">アプリを選ぶ</string>
+    <string name="dashboard_your_setup">現在の設定</string>
+    <string name="dashboard_blocked_apps_title">ブロック中のアプリ</string>
+    <string name="dashboard_blocked_apps_none">未選択</string>
+    <plurals name="dashboard_blocked_apps_count">
+        <item quantity="other">%d個のアプリをブロック中</item>
+    </plurals>
+    <string name="dashboard_challenges">チャレンジ</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="other">%d分ごと</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="other">起動時と、その後%d分ごと</item>
+    </plurals>
+    <string name="dashboard_min_difficulty">最低難易度</string>
+    <string name="dashboard_min_difficulty_preset">%1$s · レベル %2$d</string>
+    <string name="dashboard_min_difficulty_level">レベル %d</string>
+    <string name="block_interval_sheet_title">チャレンジのタイミング</string>
+    <string name="block_interval_sheet_description">PlugBrain がチャレンジを出すまでに、ブロック中のアプリを使える時間です。</string>
+    <string name="block_interval_sheet_slider_label">チャレンジの間隔</string>
+    <string name="block_interval_sheet_on_open">アプリを開いたときにも</string>
+    <string name="block_interval_sheet_on_open_description">気が散るアプリを開くときにも、先にチャレンジを解きます。</string>
+    <plurals name="block_interval_sheet_value">
+        <item quantity="other">%d分</item>
+    </plurals>
+    <string name="block_interval_sheet_save">保存</string>
+    <string name="min_difficulty_sheet_description">チャレンジはこのレベルから始まり、ブロック中のアプリを長く使うほど難しくなります。</string>
+    <string name="min_difficulty_sheet_example">例</string>
+    <string name="min_difficulty_sheet_save">保存</string>
+    <string name="dashboard_battery_title">バックグラウンドで実行</string>
+    <string name="dashboard_battery_description">電池を節約するために Android が PlugBrain を終了しないようにします。</string>
 </resources>

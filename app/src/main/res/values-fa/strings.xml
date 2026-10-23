@@ -9,7 +9,7 @@
     </plurals>
 
     <string name="minutes_short">دقیقه</string>
-    <string name="usage_free_duration_message">عالیه! بیش از %1$s از برنامه‌های حواس‌پرت‌کن دور موندی. ادامه بده!</string>
+    <string name="usage_free_duration_message">عالی است! بیش از %1$s از برنامه‌های حواس‌پرت‌کن دور ماندی. همین‌طور ادامه بده!</string>
     <string name="apps_usage_duration_message">در %2$s گذشته بیش از %1$s از برنامه‌های حواس‌پرت‌کن استفاده کرده‌ای.</string>
 
     <!-- Duration formatting strings -->
@@ -39,7 +39,7 @@
     <string name="stats_hardness">سختی: %1$s/%2$s</string>
     <string name="stats_last_usage_time">آخرین زمان استفاده: %1$s/%2$s</string>
     <string name="app_usage_description">باز کردن برنامه‌های حواس‌پرت‌کن با ریاضی\nهرچه کمتر استفاده کنی → چالش‌ها ساده‌تر می‌شوند.</string>
-    <string name="challenge_title">بیا کمی آرام‌تر</string>
+    <string name="challenge_title">بیا کمی آهسته‌تر پیش برویم</string>
     <string name="challenge_answer_placeholder">پاسخت را بنویس</string>
     <string name="challenge_check_answer">بررسی پاسخ</string>
     <string name="challenge_leave_app">خروج از برنامه</string>
@@ -50,4 +50,115 @@
         <item quantity="one">می‌توانی برنامه را برای %d دقیقه باز کنی، یا آن را ببندی و متمرکز بمانی.</item>
         <item quantity="other">می‌توانی برنامه را برای %d دقیقه باز کنی، یا آن را ببندی و متمرکز بمانی.</item>
     </plurals>
+
+    <string name="welcome_title">ذهنت را دوباره به کار بینداز.</string>
+    <string name="welcome_feature_one_title">تمرکزت را برگردان</string>
+    <string name="welcome_feature_one_description">زمان کمتری را صرف برنامه‌هایی کن که حواست را پرت می‌کنند.</string>
+    <string name="welcome_feature_two_title">با یک چالش باز کن</string>
+    <string name="welcome_feature_two_description">یک مسئلهٔ ریاضی کوتاه حل کن تا بتوانی از برنامه استفاده کنی.</string>
+    <string name="welcome_feature_three_title">هرچه بیشتر بمانی، سخت‌تر می‌شود</string>
+    <string name="welcome_feature_three_description">هرچه بیشتر اسکرول کنی، چالش‌ها سخت‌تر می‌شوند.</string>
+    <string name="welcome_cta_title">شروع کنیم</string>
+    <string name="calculator_warning">بدون ماشین‌حساب، لطفاً!</string>
+    <string name="selected">انتخاب‌شده</string>
+    <string name="onboarding_skip">رد کردن</string>
+    <string name="onboarding_permissions_title">بیا راه‌اندازی کنیم</string>
+    <string name="onboarding_permissions_subtitle">PlugBrain برای اینکه درست کار کند، به مجوزهای زیر نیاز دارد.</string>
+    <string name="onboarding_permissions_cta">ادامه</string>
+    <string name="onboarding_permissions_helper">برای ادامه، مجوزهای لازم را بده.</string>
+    <string name="onboarding_usage_access_title">دسترسی به داده‌های استفاده</string>
+    <string name="onboarding_usage_access_description">به PlugBrain اجازه می‌دهد استفاده از برنامه‌ها را دنبال کند تا برنامه‌های حواس‌پرت‌کن را در زمان مناسب مسدود کند.</string>
+    <string name="onboarding_overlay_title">نمایش روی برنامه‌های دیگر</string>
+    <string name="onboarding_overlay_description">به PlugBrain اجازه می‌دهد وقتی از یک برنامهٔ حواس‌پرت‌کن استفاده می‌کنی، یک چالش نشان دهد.</string>
+    <string name="onboarding_accessibility_title">مجوز دسترس‌پذیری</string>
+    <string name="onboarding_accessibility_description">به PlugBrain اجازه می‌دهد تشخیص دهد چه زمانی برنامه‌ها باز می‌شوند.</string>
+    <string name="onboarding_battery_title">بهینه‌سازی باتری (اختیاری)</string>
+    <string name="onboarding_battery_description">کمک می‌کند PlugBrain حتی وقتی دستگاهت در حال صرفه‌جویی در باتری است، بی‌وقفه کار کند.</string>
+    <string name="onboarding_sheet_cta">متوجه شدم</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain از سرویس دسترس‌پذیری استفاده می‌کند تا ببیند کدام برنامه باز است. وقتی برنامه‌ای را باز می‌کنی که برای مسدود شدن انتخاب کرده‌ای، یا در طول یک چالش ماشین‌حساب را باز می‌کنی، PlugBrain اول یک چالش ریاضی نشان می‌دهد.\n\nPlugBrain فقط نام برنامه را می‌خواند. محتوای صفحه یا چیزی را که تایپ می‌کنی نمی‌خواند و هیچ داده‌ای از گوشی‌ات خارج نمی‌شود.</string>
+    <string name="onboarding_accessibility_accept">قبول و ادامه</string>
+    <string name="onboarding_accessibility_decline">الان نه</string>
+    <string name="accessibility_service_description">تشخیص می‌دهد چه زمانی برنامه‌ای را که برای مسدود شدن انتخاب کرده‌ای باز می‌کنی تا PlugBrain بتواند یک چالش ریاضی نشان دهد. فقط نام برنامه خوانده می‌شود.</string>
+    <string name="onboarding_sheet_find_app">اول، PlugBrain را در فهرست برنامه‌ها پیدا و انتخاب کن.</string>
+    <string name="onboarding_usage_access_sheet_title">دسترسی به داده‌های استفاده را روشن کن</string>
+    <string name="onboarding_usage_access_sheet_switch">اجازهٔ دسترسی به داده‌های استفاده</string>
+    <string name="onboarding_usage_access_sheet_toggle">سپس کلید دسترسی به داده‌های استفاده را روشن کن.</string>
+    <string name="onboarding_overlay_sheet_title">نمایش روی برنامه‌های دیگر را روشن کن</string>
+    <string name="onboarding_overlay_sheet_switch">اجازهٔ نمایش روی برنامه‌های دیگر</string>
+    <string name="onboarding_overlay_sheet_toggle">سپس کلید نمایش روی برنامه‌های دیگر را روشن کن.</string>
+    <string name="onboarding_accessibility_sheet_title">سرویس دسترس‌پذیری را روشن کن</string>
+    <string name="onboarding_accessibility_sheet_switch">استفاده از PlugBrain</string>
+    <string name="onboarding_accessibility_sheet_toggle">PlugBrain را پیدا کن، سپس کلید را روشن کن و تأیید کن.</string>
+    <string name="onboarding_apps_title">چه چیزی حواست را پرت می‌کند؟</string>
+    <string name="onboarding_apps_subtitle">نگران نباش، بعداً می‌توانی این فهرست را تغییر دهی.</string>
+    <string name="onboarding_apps_search">جستجو</string>
+    <string name="onboarding_apps_clear_search">پاک کردن جستجو</string>
+    <string name="onboarding_apps_cta">مسدود کردن برنامه‌ها</string>
+    <string name="onboarding_preferences_title">ترجیحاتت را تنظیم کن</string>
+    <string name="onboarding_preferences_interval">هر چند وقت یک بار مسدود کنیم؟</string>
+    <plurals name="onboarding_preferences_interval_option">
+        <item quantity="one">هر %d دقیقه</item>
+        <item quantity="other">هر %d دقیقه</item>
+    </plurals>
+    <string name="onboarding_preferences_difficulty">سختی اولیهٔ چالش‌ها</string>
+    <string name="onboarding_difficulty_beginner">مبتدی</string>
+    <string name="onboarding_difficulty_beginner_description">جمع و تفریق ساده.</string>
+    <string name="onboarding_difficulty_intermediate">متوسط</string>
+    <string name="onboarding_difficulty_intermediate_description">ضرب و پیدا کردن عدد جاافتاده.</string>
+    <string name="onboarding_difficulty_expert">حرفه‌ای</string>
+    <string name="onboarding_difficulty_expert_description">ضرب اعداد چندرقمی.</string>
+    <string name="onboarding_preferences_cta">پایان راه‌اندازی</string>
+    <string name="dashboard_active">PlugBrain روشن است</string>
+    <string name="dashboard_minutes_short">%d دقیقه</string>
+    <string name="dashboard_minutes_left">تا چالش بعدی مانده</string>
+    <string name="dashboard_next_challenge_level">چالش بعدی: سطح %1$d از %2$d</string>
+    <string name="dashboard_apps_locked">برنامه‌ها قفل‌اند</string>
+    <string name="dashboard_away">%s دور بوده‌ای</string>
+    <string name="dashboard_hours_minutes_short">%1$d ساعت %2$d دقیقه</string>
+    <string name="dashboard_unlock_level">برای باز کردن قفل، یک چالش سطح %d را حل کن. هرچه بیشتر دور بمانی، آسان‌تر می‌شود.</string>
+    <string name="dashboard_paused">PlugBrain متوقف شده است</string>
+    <string name="dashboard_paused_accessibility">سرویس دسترس‌پذیری خاموش شد، پس PlugBrain نمی‌تواند برنامه‌هایت را مسدود کند.</string>
+    <string name="dashboard_paused_usage_access">دسترسی به داده‌های استفاده خاموش شد، پس PlugBrain نمی‌داند چه زمانی برنامه‌هایت را مسدود کند.</string>
+    <string name="dashboard_paused_overlay">نمایش روی برنامه‌های دیگر خاموش شد، پس PlugBrain نمی‌تواند چالش‌ها را نشان دهد.</string>
+    <string name="dashboard_turn_back_on">دوباره روشنش کن</string>
+    <string name="dashboard_nothing_to_block">هنوز چیزی برای مسدود کردن نیست</string>
+    <plurals name="dashboard_nothing_to_block_description">
+        <item quantity="one">برنامه‌هایی را که وقتت را می‌گیرند انتخاب کن تا PlugBrain بعد از %d دقیقه استفاده، یک چالش جلویت بگذارد.</item>
+        <item quantity="other">برنامه‌هایی را که وقتت را می‌گیرند انتخاب کن تا PlugBrain بعد از %d دقیقه استفاده، یک چالش جلویت بگذارد.</item>
+    </plurals>
+    <string name="dashboard_choose_apps">انتخاب برنامه‌ها</string>
+    <string name="dashboard_your_setup">تنظیمات تو</string>
+    <string name="dashboard_blocked_apps_title">برنامه‌های مسدود</string>
+    <string name="dashboard_blocked_apps_none">هیچ‌کدام انتخاب نشده</string>
+    <plurals name="dashboard_blocked_apps_count">
+        <item quantity="one">%d برنامهٔ مسدود</item>
+        <item quantity="other">%d برنامهٔ مسدود</item>
+    </plurals>
+    <string name="dashboard_challenges">چالش‌ها</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="one">هر %d دقیقه</item>
+        <item quantity="other">هر %d دقیقه</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="one">هنگام باز شدن، و بعد هر %d دقیقه</item>
+        <item quantity="other">هنگام باز شدن، و بعد هر %d دقیقه</item>
+    </plurals>
+    <string name="dashboard_min_difficulty">حداقل سختی</string>
+    <string name="dashboard_min_difficulty_preset">%1$s · سطح %2$d</string>
+    <string name="dashboard_min_difficulty_level">سطح %d</string>
+    <string name="block_interval_sheet_title">چالش کی ظاهر شود</string>
+    <string name="block_interval_sheet_description">مدت زمانی که می‌توانی از برنامه‌های مسدودت استفاده کنی، پیش از اینکه PlugBrain چالشی جلویت بگذارد.</string>
+    <string name="block_interval_sheet_slider_label">فاصلهٔ بین چالش‌ها</string>
+    <string name="block_interval_sheet_on_open">هنگام باز کردن برنامه هم</string>
+    <string name="block_interval_sheet_on_open_description">قبل از باز شدن یک برنامهٔ حواس‌پرت‌کن هم یک چالش حل کن.</string>
+    <plurals name="block_interval_sheet_value">
+        <item quantity="one">%d دقیقه</item>
+        <item quantity="other">%d دقیقه</item>
+    </plurals>
+    <string name="block_interval_sheet_save">ذخیره</string>
+    <string name="min_difficulty_sheet_description">چالش‌ها از این سطح شروع می‌شوند و هرچه بیشتر از برنامه‌های مسدودت استفاده کنی، سخت‌تر می‌شوند.</string>
+    <string name="min_difficulty_sheet_example">برای مثال</string>
+    <string name="min_difficulty_sheet_save">ذخیره</string>
+    <string name="dashboard_battery_title">اجرا در پس‌زمینه</string>
+    <string name="dashboard_battery_description">نگذار Android برای صرفه‌جویی در باتری، PlugBrain را ببندد.</string>
 </resources>

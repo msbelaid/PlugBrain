@@ -1,15 +1,13 @@
 
 <resources>
-    <string name="app_name" translatable="false">PlugBrain</string>
-    <string name="app_name_with_brain_icon" translatable="false">PlugBrain 🧠</string>
     <string name="refresh">Vernieuwen</string>
     <plurals name="blocked_every_x_minutes">
         <item quantity="one"> elke minuut</item>
         <item quantity="other"> elke %d minuten</item>
     </plurals>
     <string name="minutes_short">min</string>
-    <string name="usage_free_duration_message">Nice! Je hebt langer dan %1$s geen afleidende apps gebruikt. Ga zo door!</string>
-    <string name="apps_usage_duration_message">Je hebt langer dan %1$s afleidende apps gebruikt in de laatste %2$s.</string>
+    <string name="usage_free_duration_message">Top! Je hebt al meer dan %1$s geen afleidende apps gebruikt. Ga zo door!</string>
+    <string name="apps_usage_duration_message">Je hebt de afgelopen %2$s meer dan %1$s aan afleidende apps besteed.</string>
     
     <!-- Duration formatting strings -->
     <string name="duration_hours_minutes">%1$s en %2$s</string>
@@ -22,7 +20,7 @@
     
     <plurals name="duration_hours">
         <item quantity="one">%d uur</item>
-        <item quantity="other">%d uren</item>
+        <item quantity="other">%d uur</item>
     </plurals>
     
     <plurals name="duration_days">
@@ -36,25 +34,128 @@
     <string name="usage_short_minutes">%1$dm</string>
     <string name="usage_short_less_than_minute">&lt;1m</string>
     <string name="stats_hardness">Moeilijkheid: %1$s/%2$s</string>
-    <string name="stats_last_usage_time">Laatste tijd van gebruik: %1$s/%2$s</string>
-    <string name="app_usage_description">Ontgrendel afleidende apps met wiskune\Meer gebruik -> makkelijkere problemen.</string>
-    <string name="welcome_title">Neem controle over je aandacht.</string>
-    <string name="welcome_feature_one_title">Concentreer je aandacht</string>
-    <string name="welcome_feature_one_description">Verlies minder tijd in afleidende apps.</string>
+    <string name="stats_last_usage_time">Laatst gebruikt: %1$s/%2$s</string>
+    <string name="app_usage_description">Ontgrendel afleidende apps met rekensommen\nHoe minder je ze gebruikt -> hoe makkelijker de uitdagingen.</string>
+    <string name="welcome_title">Zet je brein weer aan.</string>
+    <string name="welcome_feature_one_title">Richt je aandacht</string>
+    <string name="welcome_feature_one_description">Besteed minder tijd aan apps die je afleiden.</string>
     <string name="welcome_feature_two_title">Ontgrendel met een uitdaging</string>
-    <string name="welcome_feature_two_description">Los een snel wiskundeprobleem op om door te gaan met de app.</string>
-    <string name="welcome_feature_three_title">Moeilijker des te langer je blijft</string>
-    <string name="welcome_feature_three_description">Uitdagingen worden moeilijker des te meer je scrollt.</string>
-    <string name="welcome_cta_title">Begin nu</string>
+    <string name="welcome_feature_two_description">Los een korte rekensom op om de app te blijven gebruiken.</string>
+    <string name="welcome_feature_three_title">Hoe langer je blijft, hoe moeilijker</string>
+    <string name="welcome_feature_three_description">Uitdagingen worden moeilijker naarmate je langer scrolt.</string>
+    <string name="welcome_cta_title">Aan de slag</string>
     <string name="challenge_title">Even rustig aan</string>
     <string name="challenge_answer_placeholder">Schrijf je antwoord</string>
     <string name="challenge_check_answer">Antwoord controleren</string>
     <string name="challenge_leave_app">App verlaten</string>
-    <string name="challenge_correct_answer">Juist antwoord</string>
+    <string name="challenge_correct_answer">Goed antwoord</string>
     <string name="challenge_stay_focused">Gefocust blijven</string>
     <string name="challenge_unlock_app">App %d min ontgrendelen</string>
     <plurals name="challenge_unlock_message">
         <item quantity="one">Je kunt de app 1 minuut ontgrendelen, of hem sluiten en gefocust blijven.</item>
         <item quantity="other">Je kunt de app %d minuten ontgrendelen, of hem sluiten en gefocust blijven.</item>
     </plurals>
+
+    <string name="calculator_warning">Geen rekenmachine gebruiken, alsjeblieft!</string>
+    <string name="selected">Geselecteerd</string>
+    <string name="onboarding_skip">Overslaan</string>
+    <string name="onboarding_permissions_title">Laten we alles instellen</string>
+    <string name="onboarding_permissions_subtitle">PlugBrain heeft de volgende rechten nodig om goed te werken.</string>
+    <string name="onboarding_permissions_cta">Doorgaan</string>
+    <string name="onboarding_permissions_helper">Geef de benodigde rechten om door te gaan.</string>
+    <string name="onboarding_usage_access_title">Toegang tot gebruiksgegevens</string>
+    <string name="onboarding_usage_access_description">Hiermee kan PlugBrain app-gebruik bijhouden, zodat afleidende apps op het juiste moment worden geblokkeerd.</string>
+    <string name="onboarding_overlay_title">Weergeven over andere apps</string>
+    <string name="onboarding_overlay_description">Hiermee kan PlugBrain een uitdaging tonen terwijl je een afleidende app gebruikt.</string>
+    <string name="onboarding_accessibility_title">Toestemming voor toegankelijkheid</string>
+    <string name="onboarding_accessibility_description">Hiermee kan PlugBrain zien wanneer apps worden geopend.</string>
+    <string name="onboarding_battery_title">Batterijoptimalisatie (optioneel)</string>
+    <string name="onboarding_battery_description">Zorgt ervoor dat PlugBrain betrouwbaar blijft werken, ook als je apparaat batterij probeert te besparen.</string>
+    <string name="onboarding_sheet_cta">Begrepen</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain gebruikt de toegankelijkheidsservice om te zien welke app open is. Als je een app opent die je hebt gekozen om te blokkeren, of een rekenmachine tijdens een uitdaging, toont PlugBrain eerst een rekenuitdaging.\n\nPlugBrain leest alleen de naam van de app. Het leest niet wat er op je scherm staat of wat je typt, en er gaan geen gegevens van je telefoon af.</string>
+    <string name="onboarding_accessibility_accept">Akkoord en doorgaan</string>
+    <string name="onboarding_accessibility_decline">Niet nu</string>
+    <string name="accessibility_service_description">Ziet wanneer je een app opent die je hebt gekozen om te blokkeren, zodat PlugBrain een rekenuitdaging kan tonen. Alleen de naam van de app wordt gelezen.</string>
+    <string name="onboarding_sheet_find_app">Zoek en selecteer eerst PlugBrain in de lijst met apps.</string>
+    <string name="onboarding_usage_access_sheet_title">Zet gebruikstoegang aan</string>
+    <string name="onboarding_usage_access_sheet_switch">Gebruikstoegang toestaan</string>
+    <string name="onboarding_usage_access_sheet_toggle">Zet daarna de schakelaar voor gebruikstoegang aan.</string>
+    <string name="onboarding_overlay_sheet_title">Zet weergeven over andere apps aan</string>
+    <string name="onboarding_overlay_sheet_switch">Weergeven over andere apps toestaan</string>
+    <string name="onboarding_overlay_sheet_toggle">Zet daarna de schakelaar voor weergeven over andere apps aan.</string>
+    <string name="onboarding_accessibility_sheet_title">Zet de toegankelijkheidsservice aan</string>
+    <string name="onboarding_accessibility_sheet_switch">PlugBrain gebruiken</string>
+    <string name="onboarding_accessibility_sheet_toggle">Zoek PlugBrain, zet daarna de schakelaar aan en bevestig.</string>
+    <string name="onboarding_apps_title">Wat leidt je af?</string>
+    <string name="onboarding_apps_subtitle">Geen zorgen, je kunt deze lijst later wijzigen.</string>
+    <string name="onboarding_apps_search">Zoeken</string>
+    <string name="onboarding_apps_clear_search">Zoekopdracht wissen</string>
+    <string name="onboarding_apps_cta">Apps blokkeren</string>
+    <string name="onboarding_preferences_title">Stel je voorkeuren in</string>
+    <string name="onboarding_preferences_interval">Hoe vaak moeten we blokkeren?</string>
+    <plurals name="onboarding_preferences_interval_option">
+        <item quantity="one">Elke minuut</item>
+        <item quantity="other">Elke %d minuten</item>
+    </plurals>
+    <string name="onboarding_preferences_difficulty">Beginniveau van de uitdagingen</string>
+    <string name="onboarding_difficulty_beginner">Beginner</string>
+    <string name="onboarding_difficulty_beginner_description">Eenvoudig optellen en aftrekken.</string>
+    <string name="onboarding_difficulty_intermediate">Gemiddeld</string>
+    <string name="onboarding_difficulty_intermediate_description">Vermenigvuldigen en ontbrekende getallen invullen.</string>
+    <string name="onboarding_difficulty_expert">Expert</string>
+    <string name="onboarding_difficulty_expert_description">Vermenigvuldigen met getallen van meerdere cijfers.</string>
+    <string name="onboarding_preferences_cta">Instellen voltooien</string>
+    <string name="dashboard_active">PlugBrain staat aan</string>
+    <string name="dashboard_minutes_short">%d min</string>
+    <string name="dashboard_minutes_left">tot de volgende uitdaging</string>
+    <string name="dashboard_next_challenge_level">Volgende uitdaging: niveau %1$d van %2$d</string>
+    <string name="dashboard_apps_locked">Apps vergrendeld</string>
+    <string name="dashboard_away">Al %s weg</string>
+    <string name="dashboard_hours_minutes_short">%1$du %2$dm</string>
+    <string name="dashboard_unlock_level">Los een uitdaging van niveau %d op om te ontgrendelen. Hoe langer je wegblijft, hoe makkelijker het wordt.</string>
+    <string name="dashboard_paused">PlugBrain is gepauzeerd</string>
+    <string name="dashboard_paused_accessibility">De toegankelijkheidsservice is uitgezet, dus PlugBrain kan je apps niet blokkeren.</string>
+    <string name="dashboard_paused_usage_access">Gebruikstoegang is uitgezet, dus PlugBrain weet niet wanneer je apps geblokkeerd moeten worden.</string>
+    <string name="dashboard_paused_overlay">Weergeven over andere apps is uitgezet, dus PlugBrain kan geen uitdagingen tonen.</string>
+    <string name="dashboard_turn_back_on">Weer aanzetten</string>
+    <string name="dashboard_nothing_to_block">Nog niets om te blokkeren</string>
+    <plurals name="dashboard_nothing_to_block_description">
+        <item quantity="one">Kies de apps die je opslokken, dan geeft PlugBrain je na %d minuut daarin een uitdaging.</item>
+        <item quantity="other">Kies de apps die je opslokken, dan geeft PlugBrain je na %d minuten daarin een uitdaging.</item>
+    </plurals>
+    <string name="dashboard_choose_apps">Apps kiezen</string>
+    <string name="dashboard_your_setup">Jouw instellingen</string>
+    <string name="dashboard_blocked_apps_title">Geblokkeerde apps</string>
+    <string name="dashboard_blocked_apps_none">Niets geselecteerd</string>
+    <plurals name="dashboard_blocked_apps_count">
+        <item quantity="one">%d geblokkeerde app</item>
+        <item quantity="other">%d geblokkeerde apps</item>
+    </plurals>
+    <string name="dashboard_challenges">Uitdagingen</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="one">Elke minuut</item>
+        <item quantity="other">Elke %d min</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="one">Bij openen, daarna elke minuut</item>
+        <item quantity="other">Bij openen, daarna elke %d min</item>
+    </plurals>
+    <string name="dashboard_min_difficulty">Minimale moeilijkheid</string>
+    <string name="dashboard_min_difficulty_preset">%1$s · niveau %2$d</string>
+    <string name="dashboard_min_difficulty_level">Niveau %d</string>
+    <string name="block_interval_sheet_title">Wanneer je een uitdaging krijgt</string>
+    <string name="block_interval_sheet_description">Hoe lang je je geblokkeerde apps kunt gebruiken voordat PlugBrain je een uitdaging geeft.</string>
+    <string name="block_interval_sheet_slider_label">Tijd tussen uitdagingen</string>
+    <string name="block_interval_sheet_on_open">Ook bij het openen van een app</string>
+    <string name="block_interval_sheet_on_open_description">Los ook een uitdaging op voordat een afleidende app opent.</string>
+    <plurals name="block_interval_sheet_value">
+        <item quantity="one">%d minuut</item>
+        <item quantity="other">%d minuten</item>
+    </plurals>
+    <string name="block_interval_sheet_save">Opslaan</string>
+    <string name="min_difficulty_sheet_description">Uitdagingen beginnen op dit niveau en worden moeilijker naarmate je je geblokkeerde apps langer gebruikt.</string>
+    <string name="min_difficulty_sheet_example">Bijvoorbeeld</string>
+    <string name="min_difficulty_sheet_save">Opslaan</string>
+    <string name="dashboard_battery_title">Op de achtergrond draaien</string>
+    <string name="dashboard_battery_description">Voorkomt dat Android PlugBrain afsluit om batterij te sparen.</string>
 </resources>

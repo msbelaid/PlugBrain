@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="refresh">Rafraîchir</string>
+    <string name="refresh">Actualiser</string>
     <string name="minutes_short">min</string>
-    <string name="usage_free_duration_message">Bravo! Vous êtes resté éloigné des applications distrayantes pendant plus de %1$s. Continuez comme ça!</string>
-    <string name="apps_usage_duration_message">Vous avez utilisé des applications distrayantes pendant plus de %1$s au cours des %2$s dernières.</string>
+    <string name="usage_free_duration_message">Bravo ! Plus de %1$s sans applis distrayantes. Continue comme ça !</string>
+    <string name="apps_usage_duration_message">Tu as passé plus de %1$s sur des applis distrayantes sur une période de %2$s.</string>
     
     <!-- Duration formatting strings -->
     <string name="duration_hours_minutes">%1$s et %2$s</string>
@@ -34,20 +34,140 @@
     <string name="usage_short_less_than_minute">&lt;1min</string>
 
     <plurals name="blocked_every_x_minutes">
-        <item quantity="one"> une minute</item>
-        <item quantity="other"> %d minutes</item>
+        <item quantity="one"> chaque minute</item>
+        <item quantity="other"> toutes les %d minutes</item>
     </plurals>
 
     <string name="challenge_title">Ralentissons un peu</string>
     <string name="challenge_answer_placeholder">Écris ta réponse</string>
     <string name="challenge_check_answer">Vérifier la réponse</string>
-    <string name="challenge_leave_app">Quitter l\'app</string>
+    <string name="challenge_leave_app">Quitter l\'appli</string>
     <string name="challenge_correct_answer">Bonne réponse</string>
     <string name="challenge_stay_focused">Rester concentré</string>
-    <string name="challenge_unlock_app">Débloquer l\'app pendant %d min</string>
+    <string name="challenge_unlock_app">Débloquer l\'appli pendant %d min</string>
     <plurals name="challenge_unlock_message">
-        <item quantity="one">Tu peux débloquer l\'app pendant %d minute, ou la fermer et rester concentré.</item>
-        <item quantity="many">Tu peux débloquer l\'app pendant %d minutes, ou la fermer et rester concentré.</item>
-        <item quantity="other">Tu peux débloquer l\'app pendant %d minutes, ou la fermer et rester concentré.</item>
+        <item quantity="one">Tu peux débloquer l\'appli pendant %d minute, ou la fermer et rester concentré.</item>
+        <item quantity="many">Tu peux débloquer l\'appli pendant %d minutes, ou la fermer et rester concentré.</item>
+        <item quantity="other">Tu peux débloquer l\'appli pendant %d minutes, ou la fermer et rester concentré.</item>
     </plurals>
+
+    <string name="stats_hardness">Difficulté : %1$s/%2$s</string>
+    <string name="stats_last_usage_time">Dernière utilisation : %1$s/%2$s</string>
+    <string name="app_usage_description">Débloque les applis distrayantes avec des maths\nMoins tu les utilises -> plus les défis sont faciles.</string>
+    <string name="welcome_title">Rebranche ton cerveau.</string>
+    <string name="welcome_feature_one_title">Reprends le contrôle de ton attention</string>
+    <string name="welcome_feature_one_description">Passe moins de temps sur les applis qui te distraient.</string>
+    <string name="welcome_feature_two_title">Un défi pour débloquer</string>
+    <string name="welcome_feature_two_description">Résous un petit défi de maths pour continuer à utiliser l\'appli.</string>
+    <string name="welcome_feature_three_title">Plus tu restes, plus c\'est dur</string>
+    <string name="welcome_feature_three_description">Les défis deviennent plus difficiles à mesure que tu continues à scroller.</string>
+    <string name="welcome_cta_title">Commencer</string>
+    <string name="calculator_warning">Pas de calculatrice, s\'il te plaît !</string>
+    <string name="selected">Sélectionné</string>
+    <string name="onboarding_skip">Passer</string>
+    <string name="onboarding_permissions_title">Passons à la configuration</string>
+    <string name="onboarding_permissions_subtitle">PlugBrain a besoin des autorisations suivantes pour fonctionner correctement.</string>
+    <string name="onboarding_permissions_cta">Continuer</string>
+    <string name="onboarding_permissions_helper">Accorde les autorisations requises pour continuer.</string>
+    <string name="onboarding_usage_access_title">Accès aux données d\'utilisation</string>
+    <string name="onboarding_usage_access_description">Permet à PlugBrain de suivre ton utilisation des applis, pour bloquer au bon moment celles qui te distraient.</string>
+    <string name="onboarding_overlay_title">Affichage par-dessus d\'autres applis</string>
+    <string name="onboarding_overlay_description">Permet à PlugBrain d\'afficher un défi pendant que tu utilises une appli distrayante.</string>
+    <string name="onboarding_accessibility_title">Autorisation d\'accessibilité</string>
+    <string name="onboarding_accessibility_description">Permet à PlugBrain de détecter l\'ouverture d\'une appli.</string>
+    <string name="onboarding_battery_title">Optimisation de la batterie (facultatif)</string>
+    <string name="onboarding_battery_description">Permet à PlugBrain de fonctionner sans interruption, même quand ton appareil essaie d\'économiser la batterie.</string>
+    <string name="onboarding_sheet_cta">Compris</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain utilise le service d\'accessibilité pour savoir quelle appli est ouverte. Quand tu ouvres une appli que tu as choisi de bloquer, ou une calculatrice pendant un défi, PlugBrain affiche d\'abord un défi de maths.\n\nPlugBrain lit uniquement le nom de l\'appli. Il ne lit ni le contenu de ton écran ni ce que tu tapes, et aucune donnée ne quitte ton téléphone.</string>
+    <string name="onboarding_accessibility_accept">Accepter et continuer</string>
+    <string name="onboarding_accessibility_decline">Pas maintenant</string>
+    <string name="accessibility_service_description">Détecte quand tu ouvres une appli que tu as choisi de bloquer, pour que PlugBrain puisse afficher un défi de maths. Seul le nom de l\'appli est lu.</string>
+    <string name="onboarding_sheet_find_app">D\'abord, trouve et sélectionne PlugBrain dans la liste des applis.</string>
+    <string name="onboarding_usage_access_sheet_title">Active l\'accès aux données d\'utilisation</string>
+    <string name="onboarding_usage_access_sheet_switch">Autoriser l\'accès aux données d\'utilisation</string>
+    <string name="onboarding_usage_access_sheet_toggle">Ensuite, active l\'option d\'accès aux données d\'utilisation.</string>
+    <string name="onboarding_overlay_sheet_title">Active l\'affichage par-dessus d\'autres applis</string>
+    <string name="onboarding_overlay_sheet_switch">Autoriser l\'affichage par-dessus d\'autres applis</string>
+    <string name="onboarding_overlay_sheet_toggle">Ensuite, active l\'option d\'affichage par-dessus d\'autres applis.</string>
+    <string name="onboarding_accessibility_sheet_title">Active le service d\'accessibilité</string>
+    <string name="onboarding_accessibility_sheet_switch">Utiliser PlugBrain</string>
+    <string name="onboarding_accessibility_sheet_toggle">Trouve PlugBrain, puis active l\'option et confirme.</string>
+    <string name="onboarding_apps_title">Qu\'est-ce qui te distrait ?</string>
+    <string name="onboarding_apps_subtitle">Pas d\'inquiétude, tu pourras modifier cette liste plus tard.</string>
+    <string name="onboarding_apps_search">Rechercher</string>
+    <string name="onboarding_apps_clear_search">Effacer la recherche</string>
+    <string name="onboarding_apps_cta">Bloquer les applis</string>
+    <string name="onboarding_preferences_title">Choisis tes préférences</string>
+    <string name="onboarding_preferences_interval">À quelle fréquence bloquer ?</string>
+    <plurals name="onboarding_preferences_interval_option">
+        <item quantity="one">Chaque minute</item>
+        <item quantity="many">Toutes les %d minutes</item>
+        <item quantity="other">Toutes les %d minutes</item>
+    </plurals>
+    <string name="onboarding_preferences_difficulty">Difficulté de départ</string>
+    <string name="onboarding_difficulty_beginner">Débutant</string>
+    <string name="onboarding_difficulty_beginner_description">Additions et soustractions simples.</string>
+    <string name="onboarding_difficulty_intermediate">Intermédiaire</string>
+    <string name="onboarding_difficulty_intermediate_description">Multiplications et nombres à trouver.</string>
+    <string name="onboarding_difficulty_expert">Expert</string>
+    <string name="onboarding_difficulty_expert_description">Multiplications à plusieurs chiffres.</string>
+    <string name="onboarding_preferences_cta">Terminer la configuration</string>
+    <string name="dashboard_active">PlugBrain est activé</string>
+    <string name="dashboard_minutes_short">%d min</string>
+    <string name="dashboard_minutes_left">avant le prochain défi</string>
+    <string name="dashboard_next_challenge_level">Prochain défi : niveau %1$d sur %2$d</string>
+    <string name="dashboard_apps_locked">Applis verrouillées</string>
+    <string name="dashboard_away">Hors des applis depuis %s</string>
+    <string name="dashboard_hours_minutes_short">%1$d h %2$d min</string>
+    <string name="dashboard_unlock_level">Résous un défi de niveau %d pour débloquer. Plus tu restes à l\'écart, plus il est facile.</string>
+    <string name="dashboard_paused">PlugBrain est en pause</string>
+    <string name="dashboard_paused_accessibility">Le service d\'accessibilité a été désactivé, PlugBrain ne peut donc plus bloquer tes applis.</string>
+    <string name="dashboard_paused_usage_access">L\'accès aux données d\'utilisation a été désactivé, PlugBrain ne sait donc plus quand bloquer tes applis.</string>
+    <string name="dashboard_paused_overlay">L\'affichage par-dessus d\'autres applis a été désactivé, PlugBrain ne peut donc plus afficher de défis.</string>
+    <string name="dashboard_turn_back_on">Réactiver</string>
+    <string name="dashboard_nothing_to_block">Rien à bloquer pour l\'instant</string>
+    <plurals name="dashboard_nothing_to_block_description">
+        <item quantity="one">Choisis les applis qui t\'accaparent, et PlugBrain te lancera un défi après %d minute passée dessus.</item>
+        <item quantity="many">Choisis les applis qui t\'accaparent, et PlugBrain te lancera un défi après %d minutes passées dessus.</item>
+        <item quantity="other">Choisis les applis qui t\'accaparent, et PlugBrain te lancera un défi après %d minutes passées dessus.</item>
+    </plurals>
+    <string name="dashboard_choose_apps">Choisir des applis</string>
+    <string name="dashboard_your_setup">Tes réglages</string>
+    <string name="dashboard_blocked_apps_title">Applis bloquées</string>
+    <string name="dashboard_blocked_apps_none">Aucune appli sélectionnée</string>
+    <plurals name="dashboard_blocked_apps_count">
+        <item quantity="one">%d appli bloquée</item>
+        <item quantity="many">%d applis bloquées</item>
+        <item quantity="other">%d applis bloquées</item>
+    </plurals>
+    <string name="dashboard_challenges">Défis</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="one">Chaque minute</item>
+        <item quantity="many">Toutes les %d min</item>
+        <item quantity="other">Toutes les %d min</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="one">À l\'ouverture, puis chaque minute</item>
+        <item quantity="many">À l\'ouverture, puis toutes les %d min</item>
+        <item quantity="other">À l\'ouverture, puis toutes les %d min</item>
+    </plurals>
+    <string name="dashboard_min_difficulty">Difficulté minimale</string>
+    <string name="dashboard_min_difficulty_preset">%1$s · niveau %2$d</string>
+    <string name="dashboard_min_difficulty_level">Niveau %d</string>
+    <string name="block_interval_sheet_title">Quand te lancer un défi</string>
+    <string name="block_interval_sheet_description">Combien de temps tu peux utiliser tes applis bloquées avant que PlugBrain te lance un défi.</string>
+    <string name="block_interval_sheet_slider_label">Temps entre les défis</string>
+    <string name="block_interval_sheet_on_open">Aussi à l\'ouverture d\'une appli</string>
+    <string name="block_interval_sheet_on_open_description">Résous aussi un défi avant qu\'une appli distrayante s\'ouvre.</string>
+    <plurals name="block_interval_sheet_value">
+        <item quantity="one">%d minute</item>
+        <item quantity="many">%d minutes</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <string name="block_interval_sheet_save">Enregistrer</string>
+    <string name="min_difficulty_sheet_description">Les défis commencent à ce niveau et deviennent plus difficiles à mesure que tu continues à utiliser tes applis bloquées.</string>
+    <string name="min_difficulty_sheet_example">Par exemple</string>
+    <string name="min_difficulty_sheet_save">Enregistrer</string>
+    <string name="dashboard_battery_title">Fonctionner en arrière-plan</string>
+    <string name="dashboard_battery_description">Empêche Android de fermer PlugBrain pour économiser la batterie.</string>
 </resources>
