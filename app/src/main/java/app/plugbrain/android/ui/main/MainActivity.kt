@@ -88,12 +88,13 @@ class MainActivity : ComponentActivity() {
           )
         }
 
-        val blockInterval = state?.blockInterval
-        if (isEditingBlockInterval && blockInterval != null) {
+        val currentState = state
+        if (isEditingBlockInterval && currentState != null) {
           BlockIntervalSheet(
-            blockInterval = blockInterval,
-            onSave = {
-              mainScreenViewModel.updateBlockInterval(it)
+            blockInterval = currentState.blockInterval,
+            challengeOnAppOpen = currentState.challengeOnAppOpen,
+            onSave = { interval, onOpen ->
+              mainScreenViewModel.updateChallengeTiming(interval, onOpen)
               isEditingBlockInterval = false
             },
             onDismiss = { isEditingBlockInterval = false },

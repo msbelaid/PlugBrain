@@ -197,9 +197,9 @@ private fun SetupSection(
       )
     }
     PlugNavigationListItem(
-      title = stringResource(R.string.dashboard_block_interval),
+      title = stringResource(R.string.dashboard_challenges),
       description = pluralStringResource(
-        R.plurals.dashboard_block_interval_value,
+        if (state.challengeOnAppOpen) R.plurals.dashboard_challenges_on_open else R.plurals.dashboard_challenges_every,
         state.blockInterval,
         state.blockInterval,
       ),

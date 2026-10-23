@@ -86,9 +86,8 @@
     <string name="onboarding_overlay_sheet_switch">Allow display over other apps</string>
     <string name="onboarding_overlay_sheet_toggle">Then turn on the display over other apps switch.</string>
     <string name="onboarding_accessibility_sheet_title">Turn the accessibility service on</string>
-    <string name="onboarding_accessibility_sheet_find_app">First, find and select PlugBrain under installed apps.</string>
     <string name="onboarding_accessibility_sheet_switch">Use PlugBrain</string>
-    <string name="onboarding_accessibility_sheet_toggle">Then turn on the switch and confirm.</string>
+    <string name="onboarding_accessibility_sheet_toggle">Find PlugBrain, then turn on the switch and confirm.</string>
 
     <string name="onboarding_apps_title">What\'s distracting you?</string>
     <string name="onboarding_apps_subtitle">Don\'t worry, you can change this list later.</string>
@@ -137,16 +136,24 @@
         <item quantity="one">%d blocked app</item>
         <item quantity="other">%d blocked apps</item>
     </plurals>
-    <string name="dashboard_block_interval">Block interval</string>
-    <plurals name="dashboard_block_interval_value">
-        <item quantity="one">Every %d minute of use</item>
-        <item quantity="other">Every %d minutes of use</item>
+    <string name="dashboard_challenges">Challenges</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="one">Every %d min</item>
+        <item quantity="other">Every %d min</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="one">On open, then every %d min</item>
+        <item quantity="other">On open, then every %d min</item>
     </plurals>
     <string name="dashboard_min_difficulty">Minimum difficulty</string>
     <string name="dashboard_min_difficulty_preset">%1$s · level %2$d</string>
     <string name="dashboard_min_difficulty_level">Level %d</string>
-    <!-- Block interval sheet -->
+    <!-- Challenges sheet -->
+    <string name="block_interval_sheet_title">When to challenge you</string>
     <string name="block_interval_sheet_description">How long you can use your blocked apps before PlugBrain asks for a challenge.</string>
+    <string name="block_interval_sheet_slider_label">Time between challenges</string>
+    <string name="block_interval_sheet_on_open">Also on app open</string>
+    <string name="block_interval_sheet_on_open_description">Also solve a challenge before a distracting app opens.</string>
     <plurals name="block_interval_sheet_value">
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>

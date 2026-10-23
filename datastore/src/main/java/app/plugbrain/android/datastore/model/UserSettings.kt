@@ -8,4 +8,6 @@ data class UserSettings(
   val distractiveApps: Set<String> = emptySet(),
   val selectedMinimalDifficulty: Int = DEFAULT_MINIMAL_DIFFICULTY,
   val currentDifficultyLevel: Int = DEFAULT_MINIMAL_DIFFICULTY,
+  /** Also challenge when a distractive app opens, not only after [blockInterval] minutes of use. */
+  val challengeOnAppOpen: Boolean = false,
 )

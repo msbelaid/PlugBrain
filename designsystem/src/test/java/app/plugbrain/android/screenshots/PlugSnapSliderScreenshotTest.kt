@@ -36,8 +36,18 @@ class PlugSnapSliderScreenshotTest {
         }
     }
 
+    @Test
+    fun plugSnapSliderFillFromEndTest() {
+        paparazzi.snapshot {
+            snapSliderTest(fillFromEnd = true)
+        }
+    }
+
     @Composable
-    private fun snapSliderTest(darkTheme: Boolean = false) {
+    private fun snapSliderTest(
+        darkTheme: Boolean = false,
+        fillFromEnd: Boolean = false,
+    ) {
         MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -51,6 +61,7 @@ class PlugSnapSliderScreenshotTest {
                         value = value,
                         snapValues = listOf(1, 2, 5, 10, 15, 20),
                         onValueChange = {},
+                        fillFromEnd = fillFromEnd,
                     )
                 }
             }
