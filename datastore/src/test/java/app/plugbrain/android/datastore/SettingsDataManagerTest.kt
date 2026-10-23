@@ -114,4 +114,20 @@ class SettingsDataManagerTest {
             assertEquals(false, dataStore.getBlockAppsToggle().first())
         }
     }
+
+    @Test
+    fun `challengeOnAppOpen is off on a fresh install`() {
+        runBlocking {
+            assertEquals(false, dataStore.getUserSettings().first().challengeOnAppOpen)
+        }
+    }
+
+    @Test
+    fun `setChallengeOnAppOpen saves the choice`() {
+        runBlocking {
+            dataStore.setChallengeOnAppOpen(true)
+
+            assertEquals(true, dataStore.getUserSettings().first().challengeOnAppOpen)
+        }
+    }
 }

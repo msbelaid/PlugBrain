@@ -15,6 +15,7 @@ val BLOCK_INTERVAL_KEY = intPreferencesKey("block_interval")
 val MINIMAL_DIFFICULTY_KEY = intPreferencesKey("minimal_difficulty")
 val PROGRESSIVE_DIFFICULTY_KEY = intPreferencesKey("progressive_difficulty")
 val BLOCK_APPS_TOGGLE_KEY = booleanPreferencesKey("block_apps_toggle")
+val CHALLENGE_ON_APP_OPEN_KEY = booleanPreferencesKey("challenge_on_app_open")
 
 const val DEFAULT_BLOCK_INTERVAL = 5
 const val DEFAULT_MINIMAL_DIFFICULTY = 1
@@ -26,11 +27,16 @@ fun DataStore<Preferences>.getUserSettings(): Flow<UserSettings> =
       distractiveApps = it[BLOCKED_APPS_KEY] ?: emptySet(),
       selectedMinimalDifficulty = it[MINIMAL_DIFFICULTY_KEY] ?: DEFAULT_MINIMAL_DIFFICULTY,
       currentDifficultyLevel = it[PROGRESSIVE_DIFFICULTY_KEY] ?: it[MINIMAL_DIFFICULTY_KEY] ?: DEFAULT_MINIMAL_DIFFICULTY,
+      challengeOnAppOpen = it[CHALLENGE_ON_APP_OPEN_KEY] ?: false,
     )
   }
 
 suspend fun DataStore<Preferences>.setBlockInterval(interval: Int) {
   edit { prefs -> prefs[BLOCK_INTERVAL_KEY] = interval }
+}
+
+suspend fun DataStore<Preferences>.setChallengeOnAppOpen(enabled: Boolean) {
+  edit { prefs -> prefs[CHALLENGE_ON_APP_OPEN_KEY] = enabled }
 }
 
 suspend fun DataStore<Preferences>.setSelectedMinimalDifficulty(minDifficulty: Int) {

@@ -12,6 +12,7 @@ import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.datastore.hasSavedSetup
 import app.plugbrain.android.datastore.setBlockInterval
+import app.plugbrain.android.datastore.setChallengeOnAppOpen
 import app.plugbrain.android.datastore.setSelectedMinimalDifficulty
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
@@ -79,6 +80,7 @@ class MainScreenViewModel(
           ),
           blockedApps = installedApps.filter { it.packageName in settings.distractiveApps },
           blockInterval = settings.blockInterval,
+          challengeOnAppOpen = settings.challengeOnAppOpen,
           minDifficulty = settings.selectedMinimalDifficulty,
           isBatteryOptimized = !permissions.batteryOptimizationExemption,
         )
@@ -88,10 +90,11 @@ class MainScreenViewModel(
     }
   }
 
-  /** Saves a new block interval; the dashboard picks it up from the settings flow. */
-  fun updateBlockInterval(interval: Int) {
+  /** Saves when to challenge the user; the dashboard picks it up from the settings flow. */
+  fun updateChallengeTiming(interval: Int, challengeOnAppOpen: Boolean) {
     viewModelScope.launch {
       dataStore.setBlockInterval(interval)
+      dataStore.setChallengeOnAppOpen(challengeOnAppOpen)
     }
   }
 

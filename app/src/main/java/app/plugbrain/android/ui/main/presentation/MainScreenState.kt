@@ -7,6 +7,8 @@ data class MainScreenState(
   val status: DashboardStatus,
   val blockedApps: List<InstalledApp> = emptyList(),
   val blockInterval: Int,
+  /** Opening a blocked app is challenged too, not only [blockInterval] minutes of use. */
+  val challengeOnAppOpen: Boolean = false,
   val minDifficulty: Int,
   /** True while Android may stop PlugBrain in the background to save battery; granting it is optional. */
   val isBatteryOptimized: Boolean = false,

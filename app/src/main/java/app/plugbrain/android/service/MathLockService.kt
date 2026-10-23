@@ -2,6 +2,7 @@ package app.plugbrain.android.service
 
 import android.accessibilityservice.AccessibilityService
 import android.content.Intent
+import android.provider.Settings
 import android.view.accessibility.AccessibilityEvent
 import android.widget.Toast
 import androidx.datastore.core.DataStore
@@ -33,6 +34,7 @@ const val TAG = "MathLockService"
 private const val ONE_MINUTE = 60_000L
 private const val ONE_HOUR = 60 * ONE_MINUTE
 private const val USAGE_CHECK_STEP = 10_000L
+private const val SYSTEM_UI_PACKAGE = "com.android.systemui"
 
 class MathLockService : AccessibilityService() {
   private val dataStore: DataStore<Preferences> by inject()
@@ -47,6 +49,12 @@ class MathLockService : AccessibilityService() {
   // Only one pending usage check at a time, otherwise every window event of a
   // distractive app would start a new polling loop.
   private var usageCheckJob: Job? = null
+
+  private val appOpenDetector = AppOpenDetector { ignoredPackages() }
+
+  // When the last open challenge was shown. Until it's solved, every event of a distractive app
+  // brings it back, so leaving it through recents doesn't skip it.
+  private var openChallengeShownAt: Long? = null
 
   override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
     Timber.tag(TAG).i("onStart")
@@ -79,8 +87,12 @@ class MathLockService : AccessibilityService() {
     if (event?.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
       val eventPackageName = event.packageName?.toString() ?: return
       Timber.tag(TAG).i("Event: $eventPackageName state changed")
+      val isAppOpening = appOpenDetector.isAppOpening(eventPackageName, userSettings.distractiveApps)
       if (eventPackageName in userSettings.distractiveApps) {
         if (isBlocked == true) {
+          launchChallenge()
+        } else if ((isAppOpening || isOpenChallengeUnsolved()) && shouldChallengeOnOpen()) {
+          openChallengeShownAt = System.currentTimeMillis()
           launchChallenge()
         } else {
           serviceScope.launch {
@@ -94,6 +106,20 @@ class MathLockService : AccessibilityService() {
         launchChallenge()
       }
     }
+  }
+
+  private fun shouldChallengeOnOpen(): Boolean = userSettings.challengeOnAppOpen &&
+    isOpenChallengeDue(timestamps.lastUnblock, userSettings.blockInterval, System.currentTimeMillis())
+
+  private fun isOpenChallengeUnsolved(): Boolean {
+    val shownAt = openChallengeShownAt ?: return false
+    return (timestamps.lastUnblock ?: 0L) < shownAt
+  }
+
+  private fun ignoredPackages(): Set<String> {
+    val keyboardPackage = Settings.Secure.getString(contentResolver, Settings.Secure.DEFAULT_INPUT_METHOD)
+      ?.substringBefore('/')
+    return setOfNotNull(packageName, SYSTEM_UI_PACKAGE, keyboardPackage)
   }
 
   private fun isCalculator(packageName: String): Boolean =
