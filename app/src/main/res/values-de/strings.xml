@@ -47,8 +47,8 @@
         <item quantity="other">Du kannst die App %d Minuten lang entsperren oder sie schließen und fokussiert bleiben.</item>
     </plurals>
 
-    <string name="welcome_title">Schließ dein Gehirn wieder an.</string>
-    <string name="welcome_feature_one_title">Lenke deine Aufmerksamkeit</string>
+    <string name="welcome_title">Schalte dein Gehirn wieder ein.</string>
+    <string name="welcome_feature_one_title">Konzentriere dich aufs Wesentliche</string>
     <string name="welcome_feature_one_description">Verbringe weniger Zeit mit Apps, die dich ablenken.</string>
     <string name="welcome_feature_two_title">Mit einer Aufgabe entsperren</string>
     <string name="welcome_feature_two_description">Löse eine kurze Matheaufgabe, um die App weiter zu nutzen.</string>
@@ -83,9 +83,8 @@
     <string name="onboarding_overlay_sheet_switch">Einblenden über anderen Apps erlauben</string>
     <string name="onboarding_overlay_sheet_toggle">Aktiviere dann den Schalter für das Einblenden über anderen Apps.</string>
     <string name="onboarding_accessibility_sheet_title">Bedienungshilfen-Dienst aktivieren</string>
-    <string name="onboarding_accessibility_sheet_find_app">Suche zuerst PlugBrain unter den installierten Apps und wähle es aus.</string>
     <string name="onboarding_accessibility_sheet_switch">PlugBrain verwenden</string>
-    <string name="onboarding_accessibility_sheet_toggle">Aktiviere dann den Schalter und bestätige.</string>
+    <string name="onboarding_accessibility_sheet_toggle">Suche PlugBrain, aktiviere dann den Schalter und bestätige.</string>
     <string name="onboarding_apps_title">Was lenkt dich ab?</string>
     <string name="onboarding_apps_subtitle">Keine Sorge, du kannst diese Liste später ändern.</string>
     <string name="onboarding_apps_search">Suchen</string>
@@ -131,15 +130,23 @@
         <item quantity="one">%d blockierte App</item>
         <item quantity="other">%d blockierte Apps</item>
     </plurals>
-    <string name="dashboard_block_interval">Blockierintervall</string>
-    <plurals name="dashboard_block_interval_value">
-        <item quantity="one">Jede Minute Nutzung</item>
-        <item quantity="other">Alle %d Minuten Nutzung</item>
+    <string name="dashboard_challenges">Aufgaben</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="one">Alle %d Min.</item>
+        <item quantity="other">Alle %d Min.</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="one">Beim Öffnen, dann alle %d Min.</item>
+        <item quantity="other">Beim Öffnen, dann alle %d Min.</item>
     </plurals>
     <string name="dashboard_min_difficulty">Mindestschwierigkeit</string>
     <string name="dashboard_min_difficulty_preset">%1$s · Stufe %2$d</string>
     <string name="dashboard_min_difficulty_level">Stufe %d</string>
+    <string name="block_interval_sheet_title">Wann du eine Aufgabe bekommst</string>
     <string name="block_interval_sheet_description">Wie lange du deine blockierten Apps nutzen kannst, bevor PlugBrain eine Aufgabe verlangt.</string>
+    <string name="block_interval_sheet_slider_label">Zeit zwischen den Aufgaben</string>
+    <string name="block_interval_sheet_on_open">Auch beim Öffnen einer App</string>
+    <string name="block_interval_sheet_on_open_description">Löse auch eine Aufgabe, bevor sich eine ablenkende App öffnet.</string>
     <plurals name="block_interval_sheet_value">
         <item quantity="one">%d Minute</item>
         <item quantity="other">%d Minuten</item>

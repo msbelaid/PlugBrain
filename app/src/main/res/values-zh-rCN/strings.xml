@@ -93,15 +93,14 @@
     <string name="accessibility_service_description">检测你何时打开了选择屏蔽的应用，以便 PlugBrain 显示数学挑战。仅读取应用名称。</string>
     <string name="onboarding_sheet_find_app">首先，在应用列表中找到并选择 PlugBrain。</string>
     <string name="onboarding_usage_access_sheet_title">开启使用情况访问权限</string>
-    <string name="onboarding_usage_access_sheet_switch">允许访问使用情况</string>
+    <string name="onboarding_usage_access_sheet_switch">允许访问使用记录</string>
     <string name="onboarding_usage_access_sheet_toggle">然后打开使用情况访问权限开关。</string>
     <string name="onboarding_overlay_sheet_title">开启显示在其他应用的上层</string>
     <string name="onboarding_overlay_sheet_switch">允许显示在其他应用的上层</string>
     <string name="onboarding_overlay_sheet_toggle">然后打开“显示在其他应用的上层”开关。</string>
     <string name="onboarding_accessibility_sheet_title">开启无障碍服务</string>
-    <string name="onboarding_accessibility_sheet_find_app">首先，在已安装的应用中找到并选择 PlugBrain。</string>
     <string name="onboarding_accessibility_sheet_switch">使用 PlugBrain</string>
-    <string name="onboarding_accessibility_sheet_toggle">然后打开开关并确认。</string>
+    <string name="onboarding_accessibility_sheet_toggle">找到 PlugBrain，然后打开开关并确认。</string>
     <string name="onboarding_apps_title">什么让你分心？</string>
     <string name="onboarding_apps_subtitle">别担心，你之后可以更改此列表。</string>
     <string name="onboarding_apps_search">搜索</string>
@@ -116,7 +115,7 @@
     <string name="onboarding_difficulty_beginner">初级</string>
     <string name="onboarding_difficulty_beginner_description">简单的加法和减法。</string>
     <string name="onboarding_difficulty_intermediate">中级</string>
-    <string name="onboarding_difficulty_intermediate_description">乘法和填空数字。</string>
+    <string name="onboarding_difficulty_intermediate_description">乘法和填空题。</string>
     <string name="onboarding_difficulty_expert">专家</string>
     <string name="onboarding_difficulty_expert_description">多位数乘法。</string>
     <string name="onboarding_preferences_cta">完成设置</string>
@@ -144,14 +143,21 @@
     <plurals name="dashboard_blocked_apps_count">
         <item quantity="other">已屏蔽 %d 个应用</item>
     </plurals>
-    <string name="dashboard_block_interval">屏蔽间隔</string>
-    <plurals name="dashboard_block_interval_value">
-        <item quantity="other">每使用 %d 分钟</item>
+    <string name="dashboard_challenges">挑战</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="other">每 %d 分钟</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="other">打开时，之后每 %d 分钟</item>
     </plurals>
     <string name="dashboard_min_difficulty">最低难度</string>
     <string name="dashboard_min_difficulty_preset">%1$s · %2$d 级</string>
     <string name="dashboard_min_difficulty_level">%d 级</string>
+    <string name="block_interval_sheet_title">何时向你发起挑战</string>
     <string name="block_interval_sheet_description">在 PlugBrain 要求你完成挑战之前，你可以使用已屏蔽应用的时长。</string>
+    <string name="block_interval_sheet_slider_label">两次挑战的间隔</string>
+    <string name="block_interval_sheet_on_open">打开应用时也要挑战</string>
+    <string name="block_interval_sheet_on_open_description">在分心应用打开前，也要先完成一道挑战。</string>
     <plurals name="block_interval_sheet_value">
         <item quantity="other">%d 分钟</item>
     </plurals>

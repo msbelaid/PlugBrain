@@ -36,13 +36,13 @@
     <string name="stats_hardness">Moeilijkheid: %1$s/%2$s</string>
     <string name="stats_last_usage_time">Laatste tijd van gebruik: %1$s/%2$s</string>
     <string name="app_usage_description">Ontgrendel afleidende apps met wiskune\Meer gebruik -> makkelijkere problemen.</string>
-    <string name="welcome_title">Neem controle over je aandacht.</string>
+    <string name="welcome_title">Zet je brein weer aan.</string>
     <string name="welcome_feature_one_title">Concentreer je aandacht</string>
     <string name="welcome_feature_one_description">Verlies minder tijd in afleidende apps.</string>
     <string name="welcome_feature_two_title">Ontgrendel met een uitdaging</string>
-    <string name="welcome_feature_two_description">Los een snel wiskundeprobleem op om door te gaan met de app.</string>
-    <string name="welcome_feature_three_title">Moeilijker des te langer je blijft</string>
-    <string name="welcome_feature_three_description">Uitdagingen worden moeilijker des te meer je scrollt.</string>
+    <string name="welcome_feature_two_description">Los een korte rekensom op om de app te blijven gebruiken.</string>
+    <string name="welcome_feature_three_title">Hoe langer je blijft, hoe moeilijker</string>
+    <string name="welcome_feature_three_description">Uitdagingen worden moeilijker naarmate je langer scrolt.</string>
     <string name="welcome_cta_title">Begin nu</string>
     <string name="challenge_title">Even rustig aan</string>
     <string name="challenge_answer_placeholder">Schrijf je antwoord</string>
@@ -67,7 +67,7 @@
     <string name="onboarding_usage_access_description">Hiermee kan PlugBrain app-gebruik bijhouden, zodat afleidende apps op het juiste moment worden geblokkeerd.</string>
     <string name="onboarding_overlay_title">Weergeven over andere apps</string>
     <string name="onboarding_overlay_description">Hiermee kan PlugBrain een uitdaging tonen terwijl je een afleidende app gebruikt.</string>
-    <string name="onboarding_accessibility_title">Toegankelijkheidsrecht</string>
+    <string name="onboarding_accessibility_title">Toestemming voor toegankelijkheid</string>
     <string name="onboarding_accessibility_description">Hiermee kan PlugBrain zien wanneer apps worden geopend.</string>
     <string name="onboarding_battery_title">Batterijoptimalisatie (optioneel)</string>
     <string name="onboarding_battery_description">Zorgt ervoor dat PlugBrain betrouwbaar blijft werken, ook als je apparaat batterij probeert te besparen.</string>
@@ -84,9 +84,8 @@
     <string name="onboarding_overlay_sheet_switch">Weergeven over andere apps toestaan</string>
     <string name="onboarding_overlay_sheet_toggle">Zet daarna de schakelaar voor weergeven over andere apps aan.</string>
     <string name="onboarding_accessibility_sheet_title">Zet de toegankelijkheidsservice aan</string>
-    <string name="onboarding_accessibility_sheet_find_app">Zoek en selecteer eerst PlugBrain onder geïnstalleerde apps.</string>
     <string name="onboarding_accessibility_sheet_switch">PlugBrain gebruiken</string>
-    <string name="onboarding_accessibility_sheet_toggle">Zet daarna de schakelaar aan en bevestig.</string>
+    <string name="onboarding_accessibility_sheet_toggle">Zoek PlugBrain, zet daarna de schakelaar aan en bevestig.</string>
     <string name="onboarding_apps_title">Wat leidt je af?</string>
     <string name="onboarding_apps_subtitle">Geen zorgen, je kunt deze lijst later wijzigen.</string>
     <string name="onboarding_apps_search">Zoeken</string>
@@ -121,8 +120,8 @@
     <string name="dashboard_turn_back_on">Weer aanzetten</string>
     <string name="dashboard_nothing_to_block">Nog niets om te blokkeren</string>
     <plurals name="dashboard_nothing_to_block_description">
-        <item quantity="one">Kies de apps die je meeslepen, en PlugBrain vraagt na %d minuut om een uitdaging.</item>
-        <item quantity="other">Kies de apps die je meeslepen, en PlugBrain vraagt na %d minuten om een uitdaging.</item>
+        <item quantity="one">Kies de apps die je opslokken, en PlugBrain vraagt na %d minuut om een uitdaging.</item>
+        <item quantity="other">Kies de apps die je opslokken, en PlugBrain vraagt na %d minuten om een uitdaging.</item>
     </plurals>
     <string name="dashboard_choose_apps">Apps kiezen</string>
     <string name="dashboard_your_setup">Jouw instellingen</string>
@@ -132,15 +131,23 @@
         <item quantity="one">%d geblokkeerde app</item>
         <item quantity="other">%d geblokkeerde apps</item>
     </plurals>
-    <string name="dashboard_block_interval">Blokkeerinterval</string>
-    <plurals name="dashboard_block_interval_value">
-        <item quantity="one">Elke minuut gebruik</item>
-        <item quantity="other">Elke %d minuten gebruik</item>
+    <string name="dashboard_challenges">Uitdagingen</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="one">Elke %d min</item>
+        <item quantity="other">Elke %d min</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="one">Bij openen, daarna elke %d min</item>
+        <item quantity="other">Bij openen, daarna elke %d min</item>
     </plurals>
     <string name="dashboard_min_difficulty">Minimale moeilijkheid</string>
     <string name="dashboard_min_difficulty_preset">%1$s · niveau %2$d</string>
     <string name="dashboard_min_difficulty_level">Niveau %d</string>
+    <string name="block_interval_sheet_title">Wanneer je een uitdaging krijgt</string>
     <string name="block_interval_sheet_description">Hoe lang je je geblokkeerde apps kunt gebruiken voordat PlugBrain om een uitdaging vraagt.</string>
+    <string name="block_interval_sheet_slider_label">Tijd tussen uitdagingen</string>
+    <string name="block_interval_sheet_on_open">Ook bij het openen van een app</string>
+    <string name="block_interval_sheet_on_open_description">Los ook een uitdaging op voordat een afleidende app opent.</string>
     <plurals name="block_interval_sheet_value">
         <item quantity="one">%d minuut</item>
         <item quantity="other">%d minuten</item>

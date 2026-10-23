@@ -44,7 +44,7 @@
         <item quantity="other">アプリのロックを%d分間解除するか、アプリを閉じて集中を続けることができます。</item>
     </plurals>
 
-    <string name="welcome_title">脳をもう一度つなごう。</string>
+    <string name="welcome_title">頭のスイッチを入れ直そう。</string>
     <string name="welcome_feature_one_title">集中力を取り戻す</string>
     <string name="welcome_feature_one_description">気が散るアプリに使う時間を減らしましょう。</string>
     <string name="welcome_feature_two_title">チャレンジで解除</string>
@@ -80,15 +80,14 @@
     <string name="onboarding_overlay_sheet_switch">他のアプリの上に重ねて表示できるようにする</string>
     <string name="onboarding_overlay_sheet_toggle">次に、他のアプリの上に重ねて表示のスイッチをオンにします。</string>
     <string name="onboarding_accessibility_sheet_title">ユーザー補助サービスをオンにする</string>
-    <string name="onboarding_accessibility_sheet_find_app">まず、インストール済みアプリから PlugBrain を探して選択します。</string>
     <string name="onboarding_accessibility_sheet_switch">PlugBrain を使用</string>
-    <string name="onboarding_accessibility_sheet_toggle">次に、スイッチをオンにして確認します。</string>
+    <string name="onboarding_accessibility_sheet_toggle">PlugBrain を探して、スイッチをオンにし、確認します。</string>
     <string name="onboarding_apps_title">何に気を取られていますか？</string>
     <string name="onboarding_apps_subtitle">このリストは後から変更できます。</string>
     <string name="onboarding_apps_search">検索</string>
     <string name="onboarding_apps_clear_search">検索をクリア</string>
     <string name="onboarding_apps_cta">アプリをブロック</string>
-    <string name="onboarding_preferences_title">設定を選ぶ</string>
+    <string name="onboarding_preferences_title">好みに合わせて設定しよう</string>
     <string name="onboarding_preferences_interval">どのくらいの頻度でブロックしますか？</string>
     <plurals name="onboarding_preferences_interval_option">
         <item quantity="other">%d分ごと</item>
@@ -106,7 +105,7 @@
     <string name="dashboard_minutes_left">次のチャレンジまで</string>
     <string name="dashboard_next_challenge_level">次のチャレンジ：レベル %1$d / %2$d</string>
     <string name="dashboard_apps_locked">アプリはロック中</string>
-    <string name="dashboard_away">離れて %s</string>
+    <string name="dashboard_away">%s離れています</string>
     <string name="dashboard_hours_minutes_short">%1$d時間%2$d分</string>
     <string name="dashboard_unlock_level">ロックを解除するには、レベル %d のチャレンジを解いてください。離れている時間が長いほど簡単になります。</string>
     <string name="dashboard_paused">PlugBrain は一時停止中です</string>
@@ -125,14 +124,21 @@
     <plurals name="dashboard_blocked_apps_count">
         <item quantity="other">%d個のアプリをブロック中</item>
     </plurals>
-    <string name="dashboard_block_interval">ブロック間隔</string>
-    <plurals name="dashboard_block_interval_value">
-        <item quantity="other">%d分の使用ごと</item>
+    <string name="dashboard_challenges">チャレンジ</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="other">%d分ごと</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="other">開いたとき、その後%d分ごと</item>
     </plurals>
     <string name="dashboard_min_difficulty">最低難易度</string>
     <string name="dashboard_min_difficulty_preset">%1$s · レベル %2$d</string>
     <string name="dashboard_min_difficulty_level">レベル %d</string>
+    <string name="block_interval_sheet_title">チャレンジのタイミング</string>
     <string name="block_interval_sheet_description">PlugBrain がチャレンジを出すまでに、ブロック中のアプリを使える時間です。</string>
+    <string name="block_interval_sheet_slider_label">チャレンジの間隔</string>
+    <string name="block_interval_sheet_on_open">アプリを開いたときにも</string>
+    <string name="block_interval_sheet_on_open_description">気が散るアプリが開く前にも、チャレンジを解きます。</string>
     <plurals name="block_interval_sheet_value">
         <item quantity="other">%d分</item>
     </plurals>

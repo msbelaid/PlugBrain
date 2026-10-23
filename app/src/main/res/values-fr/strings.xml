@@ -90,9 +90,8 @@
     <string name="onboarding_overlay_sheet_switch">Autoriser l\'affichage par-dessus les autres applis</string>
     <string name="onboarding_overlay_sheet_toggle">Ensuite, active l\'interrupteur d\'affichage par-dessus les autres applis.</string>
     <string name="onboarding_accessibility_sheet_title">Active le service d\'accessibilité</string>
-    <string name="onboarding_accessibility_sheet_find_app">D\'abord, trouve et sélectionne PlugBrain dans les applis installées.</string>
     <string name="onboarding_accessibility_sheet_switch">Utiliser PlugBrain</string>
-    <string name="onboarding_accessibility_sheet_toggle">Ensuite, active l\'interrupteur et confirme.</string>
+    <string name="onboarding_accessibility_sheet_toggle">Trouve PlugBrain, puis active l\'interrupteur et confirme.</string>
     <string name="onboarding_apps_title">Qu\'est-ce qui te distrait ?</string>
     <string name="onboarding_apps_subtitle">Pas d\'inquiétude, tu pourras modifier cette liste plus tard.</string>
     <string name="onboarding_apps_search">Rechercher</string>
@@ -118,7 +117,7 @@
     <string name="dashboard_minutes_left">avant le prochain défi</string>
     <string name="dashboard_next_challenge_level">Prochain défi : niveau %1$d sur %2$d</string>
     <string name="dashboard_apps_locked">Applis verrouillées</string>
-    <string name="dashboard_away">Absent depuis %s</string>
+    <string name="dashboard_away">Hors des applis depuis %s</string>
     <string name="dashboard_hours_minutes_short">%1$d h %2$d min</string>
     <string name="dashboard_unlock_level">Résous un défi de niveau %d pour débloquer. Plus tu restes loin, plus c\'est facile.</string>
     <string name="dashboard_paused">PlugBrain est en pause</string>
@@ -141,16 +140,25 @@
         <item quantity="many">%d applis bloquées</item>
         <item quantity="other">%d applis bloquées</item>
     </plurals>
-    <string name="dashboard_block_interval">Intervalle de blocage</string>
-    <plurals name="dashboard_block_interval_value">
-        <item quantity="one">Chaque minute d\'utilisation</item>
-        <item quantity="many">Toutes les %d minutes d\'utilisation</item>
-        <item quantity="other">Toutes les %d minutes d\'utilisation</item>
+    <string name="dashboard_challenges">Défis</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="one">Toutes les %d min</item>
+        <item quantity="many">Toutes les %d min</item>
+        <item quantity="other">Toutes les %d min</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="one">À l\'ouverture, puis toutes les %d min</item>
+        <item quantity="many">À l\'ouverture, puis toutes les %d min</item>
+        <item quantity="other">À l\'ouverture, puis toutes les %d min</item>
     </plurals>
     <string name="dashboard_min_difficulty">Difficulté minimale</string>
     <string name="dashboard_min_difficulty_preset">%1$s · niveau %2$d</string>
     <string name="dashboard_min_difficulty_level">Niveau %d</string>
+    <string name="block_interval_sheet_title">Quand te lancer un défi</string>
     <string name="block_interval_sheet_description">Combien de temps tu peux utiliser tes applis bloquées avant que PlugBrain te demande un défi.</string>
+    <string name="block_interval_sheet_slider_label">Temps entre les défis</string>
+    <string name="block_interval_sheet_on_open">Aussi à l\'ouverture d\'une appli</string>
+    <string name="block_interval_sheet_on_open_description">Résous aussi un défi avant qu\'une appli distrayante s\'ouvre.</string>
     <plurals name="block_interval_sheet_value">
         <item quantity="one">%d minute</item>
         <item quantity="many">%d minutes</item>

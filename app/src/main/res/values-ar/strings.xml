@@ -69,7 +69,7 @@
     <string name="stats_hardness">الصعوبة: %1$s/%2$s</string>
     <string name="stats_last_usage_time">آخر وقت استخدام: %1$s/%2$s</string>
     <string name="app_usage_description">افتح التطبيقات المشتتة بحل مسائل رياضية\nكلما قلّ استخدامك لها -> أصبحت التحديات أسهل.</string>
-    <string name="welcome_title">أعِد توصيل عقلك.</string>
+    <string name="welcome_title">شغّل عقلك من جديد.</string>
     <string name="welcome_feature_one_title">ركّز انتباهك</string>
     <string name="welcome_feature_one_description">اقضِ وقتًا أقل على التطبيقات التي تشتتك.</string>
     <string name="welcome_feature_two_title">افتح القفل بتحدٍّ</string>
@@ -105,9 +105,8 @@
     <string name="onboarding_overlay_sheet_switch">السماح بالظهور فوق التطبيقات الأخرى</string>
     <string name="onboarding_overlay_sheet_toggle">ثم فعّل مفتاح الظهور فوق التطبيقات الأخرى.</string>
     <string name="onboarding_accessibility_sheet_title">فعّل خدمة تسهيل الاستخدام</string>
-    <string name="onboarding_accessibility_sheet_find_app">أولًا، ابحث عن PlugBrain ضمن التطبيقات المثبتة واختره.</string>
     <string name="onboarding_accessibility_sheet_switch">استخدام PlugBrain</string>
-    <string name="onboarding_accessibility_sheet_toggle">ثم فعّل المفتاح وأكّد.</string>
+    <string name="onboarding_accessibility_sheet_toggle">ابحث عن PlugBrain، ثم فعّل المفتاح وأكّد.</string>
     <string name="onboarding_apps_title">ما الذي يشتتك؟</string>
     <string name="onboarding_apps_subtitle">لا تقلق، يمكنك تغيير هذه القائمة لاحقًا.</string>
     <string name="onboarding_apps_search">بحث</string>
@@ -165,19 +164,31 @@
         <item quantity="many">%d تطبيقًا محظورًا</item>
         <item quantity="other">%d تطبيق محظور</item>
     </plurals>
-    <string name="dashboard_block_interval">فترة الحظر</string>
-    <plurals name="dashboard_block_interval_value">
-        <item quantity="zero">كل %d دقيقة من الاستخدام</item>
-        <item quantity="one">كل دقيقة من الاستخدام</item>
-        <item quantity="two">كل دقيقتين من الاستخدام</item>
-        <item quantity="few">كل %d دقائق من الاستخدام</item>
-        <item quantity="many">كل %d دقيقة من الاستخدام</item>
-        <item quantity="other">كل %d دقيقة من الاستخدام</item>
+    <string name="dashboard_challenges">التحديات</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="zero">كل %d د</item>
+        <item quantity="one">كل %d د</item>
+        <item quantity="two">كل %d د</item>
+        <item quantity="few">كل %d د</item>
+        <item quantity="many">كل %d د</item>
+        <item quantity="other">كل %d د</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="zero">عند الفتح، ثم كل %d د</item>
+        <item quantity="one">عند الفتح، ثم كل %d د</item>
+        <item quantity="two">عند الفتح، ثم كل %d د</item>
+        <item quantity="few">عند الفتح، ثم كل %d د</item>
+        <item quantity="many">عند الفتح، ثم كل %d د</item>
+        <item quantity="other">عند الفتح، ثم كل %d د</item>
     </plurals>
     <string name="dashboard_min_difficulty">الحد الأدنى للصعوبة</string>
     <string name="dashboard_min_difficulty_preset">%1$s · المستوى %2$d</string>
     <string name="dashboard_min_difficulty_level">المستوى %d</string>
+    <string name="block_interval_sheet_title">متى نتحداك</string>
     <string name="block_interval_sheet_description">المدة التي يمكنك فيها استخدام تطبيقاتك المحظورة قبل أن يطلب PlugBrain تحديًا.</string>
+    <string name="block_interval_sheet_slider_label">الوقت بين التحديات</string>
+    <string name="block_interval_sheet_on_open">عند فتح التطبيق أيضًا</string>
+    <string name="block_interval_sheet_on_open_description">حُلّ تحديًا أيضًا قبل أن يُفتح تطبيق مشتت.</string>
     <plurals name="block_interval_sheet_value">
         <item quantity="zero">%d دقيقة</item>
         <item quantity="one">دقيقة واحدة</item>
