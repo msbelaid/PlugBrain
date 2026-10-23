@@ -17,8 +17,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalInspectionMode
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
-import app.cash.paparazzi.Snapshot
-import app.cash.paparazzi.SnapshotHandler
 import app.plugbrain.android.appsusage.model.InstalledApp
 import app.plugbrain.android.challenges.addition.AdditionChallenge
 import app.plugbrain.android.ui.blockinterval.BlockIntervalSheet
@@ -39,24 +37,33 @@ import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.awt.image.BufferedImage
-import java.io.File
-import javax.imageio.ImageIO
 
-// The en-US phone screenshots used by F-Droid, relative to the app module, where tests run.
-private val STORE_SCREENSHOTS_DIR = File("../fastlane/metadata/android/en-US/images/phoneScreenshots")
+// Fastlane metadata folder to the app's resource locale, for every language the app is translated to.
+private val storeLocales =
+    listOf(
+        "en-US" to "en",
+        "ar" to "ar",
+        "de-DE" to "de",
+        "fa" to "fa",
+        "fr-FR" to "fr",
+        "hi" to "hi",
+        "ja" to "ja",
+        "nl-NL" to "nl",
+        "ru-RU" to "ru",
+        "zh-CN" to "zh-rCN",
+    )
 
 /**
- * Renders the store screenshots at full Pixel 5 resolution, straight into fastlane's metadata,
- * named in display order. They only run with STORE_SCREENSHOTS=true (see the "Store screenshots"
- * workflow), so the regular snapshot tests don't record or verify them.
+ * The store screenshots, one set per fastlane locale folder, at full Pixel 5 resolution.
+ * They only run with STORE_SCREENSHOTS=true: the "Store screenshots" workflow records them with
+ * Paparazzi and moves each `<folder>_<n>` snapshot to `<folder>/images/phoneScreenshots/<n>.png`.
  */
 class StoreScreenshots {
     @get:Rule
     val paparazzi =
         Paparazzi(
             deviceConfig = DeviceConfig.PIXEL_5,
-            snapshotHandler = StoreScreenshotHandler(STORE_SCREENSHOTS_DIR),
+            supportsRtl = true,
             useDeviceResolution = true,
         )
 
@@ -66,87 +73,78 @@ class StoreScreenshots {
     }
 
     @Test
-    fun welcome() {
-        paparazzi.snapshot(name = "1") {
-            themed { WelcomeScreen(onGetStarted = {}) }
+    fun welcome() =
+        snapshotInEveryLocale(1) {
+            WelcomeScreen(onGetStarted = {})
         }
-    }
 
     @Test
-    fun chooseApps() {
-        paparazzi.snapshot(name = "2") {
-            themed { appsStep() }
-        }
-    }
+    fun chooseApps() = snapshotInEveryLocale(2) { appsStep() }
 
     @Test
-    fun dashboard() {
-        paparazzi.snapshot(name = "3") {
-            themed { dashboard() }
-        }
-    }
+    fun dashboardOn() = snapshotInEveryLocale(3) { dashboard() }
 
     @Test
-    fun challenge() {
-        paparazzi.snapshot(name = "4") {
-            themed {
-                NumericalChallengeScreen(
-                    challenge = challenge,
-                    unlockMinutes = 15,
-                    onUnlockApp = {},
-                    onExitChallenge = {},
+    fun challenge() =
+        snapshotInEveryLocale(4) {
+            NumericalChallengeScreen(
+                challenge = challenge,
+                unlockMinutes = 15,
+                onUnlockApp = {},
+                onExitChallenge = {},
+            )
+        }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Test
+    fun challengesSheet() =
+        snapshotInEveryLocale(5) {
+            Box {
+                dashboard()
+                // The sheet animates in, so a snapshot of its first frame is blank unless it's expanded first.
+                val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                LaunchedEffect(Unit) { sheetState.expand() }
+                BlockIntervalSheet(
+                    blockInterval = 15,
+                    challengeOnAppOpen = true,
+                    onSave = { _, _ -> },
+                    onDismiss = {},
+                    sheetState = sheetState,
                 )
             }
         }
-    }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Test
-    fun challengesSheet() {
-        paparazzi.snapshot(name = "5") {
-            themed {
-                Box {
-                    dashboard()
-                    // The sheet animates in, so a snapshot of its first frame is blank unless it's expanded first.
-                    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-                    LaunchedEffect(Unit) { sheetState.expand() }
-                    BlockIntervalSheet(
-                        blockInterval = 15,
-                        challengeOnAppOpen = true,
-                        onSave = { _, _ -> },
-                        onDismiss = {},
-                        sheetState = sheetState,
-                    )
-                }
+    fun minDifficultySheet() =
+        snapshotInEveryLocale(6) {
+            Box {
+                dashboard()
+                val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                LaunchedEffect(Unit) { sheetState.expand() }
+                MinDifficultySheet(
+                    minDifficulty = 5,
+                    sampleChallenge = { "27 + 48" },
+                    onSave = {},
+                    onDismiss = {},
+                    sheetState = sheetState,
+                )
             }
         }
-    }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Test
-    fun minDifficultySheet() {
-        paparazzi.snapshot(name = "6") {
-            themed {
-                Box {
-                    dashboard()
-                    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-                    LaunchedEffect(Unit) { sheetState.expand() }
-                    MinDifficultySheet(
-                        minDifficulty = 5,
-                        sampleChallenge = { "27 + 48" },
-                        onSave = {},
-                        onDismiss = {},
-                        sheetState = sheetState,
-                    )
-                }
+    fun dashboardDark() = snapshotInEveryLocale(7, darkTheme = true) { dashboard() }
+
+    private fun snapshotInEveryLocale(
+        number: Int,
+        darkTheme: Boolean = false,
+        content: @Composable () -> Unit,
+    ) {
+        storeLocales.forEach { (folder, locale) ->
+            paparazzi.unsafeUpdateConfig(deviceConfig = DeviceConfig.PIXEL_5.copy(locale = locale))
+            paparazzi.snapshot(name = "${folder}_$number") {
+                themed(darkTheme = darkTheme, content = content)
             }
-        }
-    }
-
-    @Test
-    fun dashboardDark() {
-        paparazzi.snapshot(name = "7") {
-            themed(darkTheme = true) { dashboard() }
         }
     }
 
@@ -260,25 +258,4 @@ class StoreScreenshots {
             return BitmapDrawable(paparazzi.resources, bitmap)
         }
     }
-}
-
-/** Writes each snapshot to `<dir>/<snapshot name>.png`. */
-private class StoreScreenshotHandler(
-    private val dir: File,
-) : SnapshotHandler {
-    override fun newFrameHandler(
-        snapshot: Snapshot,
-        frameCount: Int,
-        fps: Int,
-    ): SnapshotHandler.FrameHandler =
-        object : SnapshotHandler.FrameHandler {
-            override fun handle(image: BufferedImage) {
-                dir.mkdirs()
-                ImageIO.write(image, "png", File(dir, "${snapshot.name}.png"))
-            }
-
-            override fun close() = Unit
-        }
-
-    override fun close() = Unit
 }

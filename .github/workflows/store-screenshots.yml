@@ -1,7 +1,7 @@
 name: Store screenshots
 
-# Renders the en-US phone screenshots (StoreScreenshots in the app's tests) and commits them to
-# fastlane/metadata/android/en-US/images/phoneScreenshots. Runs on the branch picked in "Run workflow",
+# Renders the phone screenshots for every store language (StoreScreenshots in the app's tests) and
+# commits them to fastlane/metadata/android/<locale>/images/phoneScreenshots. Runs on the branch picked in "Run workflow",
 # and on pushes to other branches that change the screenshot test, so they land with the PR.
 on:
   workflow_dispatch:
@@ -50,13 +50,28 @@ jobs:
       - name: Render screenshots
         env:
           STORE_SCREENSHOTS: 'true'
+        run: ./gradlew :app:recordPaparazziDebug --tests 'app.plugbrain.android.screenshots.StoreScreenshots'
+
+      # Paparazzi names each snapshot ..._StoreScreenshots_<test>_<locale folder, lowercased>_<n>.png.
+      - name: Move screenshots into fastlane
         run: |
-          rm -f fastlane/metadata/android/en-US/images/phoneScreenshots/*.png
-          ./gradlew :app:testDebugUnitTest --tests 'app.plugbrain.android.screenshots.StoreScreenshots' --rerun
+          snapshots=app/src/test/snapshots/images
+          for folder in en-US ar de-DE fa fr-FR hi ja nl-NL ru-RU zh-CN; do
+            target=fastlane/metadata/android/$folder/images/phoneScreenshots
+            rm -rf "$target"
+            mkdir -p "$target"
+            for file in "$snapshots"/*_StoreScreenshots_*_"${folder,,}"_[0-9].png; do
+              number=${file##*_}
+              mv "$file" "$target/$number"
+            done
+          done
+          # Only the fastlane copies are kept.
+          git checkout -- app/src/test/snapshots
+          git clean -fdq app/src/test/snapshots
 
       - name: Commit and push screenshots
         run: |
-          git add --all fastlane/metadata/android/en-US/images/phoneScreenshots
+          git add --all fastlane/metadata/android
           if git diff --cached --quiet; then
             echo "Screenshots are already up to date."
             exit 0
