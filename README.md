@@ -1,6 +1,6 @@
 <div align="center">
 
-<!-- Banner: to try another cover, replace assets/readme/banner.png (1024×500). Nothing else needs to change. -->
+<!-- Banner: to try another cover, replace assets/readme/banner.png (1920×1080, same as the store feature graphic). Nothing else needs to change. -->
 <img src="assets/readme/banner.png" alt="PlugBrain: Solve a little math. Scroll a lot less. The more you scroll, the harder the math. Step away, and it gets easier again." width="100%" />
 
 # Plug your brain back in.
