@@ -2,18 +2,21 @@ package app.plugbrain.android.screenshots
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
@@ -100,7 +103,7 @@ class StoreScreenshots {
     fun challengesSheet() =
         snapshotInEveryLocale(5) {
             Box {
-                dashboard()
+                dashboardBehindSheet()
                 // The sheet animates in, so a snapshot of its first frame is blank unless it's expanded first.
                 val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
                 LaunchedEffect(Unit) { sheetState.expand() }
@@ -119,7 +122,7 @@ class StoreScreenshots {
     fun minDifficultySheet() =
         snapshotInEveryLocale(6) {
             Box {
-                dashboard()
+                dashboardBehindSheet()
                 val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
                 LaunchedEffect(Unit) { sheetState.expand() }
                 MinDifficultySheet(
@@ -159,7 +162,7 @@ class StoreScreenshots {
     private val apps =
         listOf(
             StoreApp("Instagram", 0xFFC13584, 104),
-            StoreApp("TikTok", 0xFF253A3A, 72),
+            StoreApp("TikTok", 0xFF059669, 72),
             StoreApp("YouTube", 0xFFBD100C, 45),
             StoreApp("Reddit", 0xFFB45309, 21),
             StoreApp("Snapchat", 0xFF5B3FB8, 12),
@@ -192,6 +195,13 @@ class StoreScreenshots {
             onBatteryOptimizationClicked = {},
             onTurnBackOn = {},
         )
+    }
+
+    // The sheet's own scrim fades in, so the snapshot draws it by hand.
+    @Composable
+    private fun dashboardBehindSheet() {
+        dashboard()
+        Box(modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.32f)))
     }
 
     @Composable
@@ -249,7 +259,7 @@ class StoreScreenshots {
             val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color }
             canvas.drawRoundRect(RectF(0f, 0f, size.toFloat(), size.toFloat()), size * 0.28f, size * 0.28f, paint)
             paint.apply {
-                this.color = Color.WHITE
+                this.color = android.graphics.Color.WHITE
                 textSize = size * 0.5f
                 typeface = Typeface.DEFAULT_BOLD
                 textAlign = Paint.Align.CENTER
