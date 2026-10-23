@@ -1,0 +1,67 @@
+name: Store screenshots
+
+# Renders the en-US phone screenshots (StoreScreenshots in the app's tests) and commits them to
+# fastlane/metadata/android/en-US/images/phoneScreenshots. Runs on the branch picked in "Run workflow",
+# and on pushes to other branches that change the screenshot test, so they land with the PR.
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - master
+    paths:
+      - app/src/test/java/app/plugbrain/android/screenshots/StoreScreenshots.kt
+      - .github/workflows/store-screenshots.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: store-screenshots-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    name: Render store screenshots
+    # Only branches can take the screenshot commit, not tags.
+    if: github.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Render screenshots
+        env:
+          STORE_SCREENSHOTS: 'true'
+        run: |
+          rm -f fastlane/metadata/android/en-US/images/phoneScreenshots/*.png
+          ./gradlew :app:testDebugUnitTest --tests 'app.plugbrain.android.screenshots.StoreScreenshots' --rerun
+
+      - name: Commit and push screenshots
+        run: |
+          git add --all fastlane/metadata/android/en-US/images/phoneScreenshots
+          if git diff --cached --quiet; then
+            echo "Screenshots are already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898341+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: render store screenshots"
+          git push origin HEAD:${{ github.ref_name }}
