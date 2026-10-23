@@ -1,0 +1,82 @@
+name: Store screenshots
+
+# Renders the phone screenshots for every store language (StoreScreenshots in the app's tests) and
+# commits them to fastlane/metadata/android/<locale>/images/phoneScreenshots. Runs on the branch picked in "Run workflow",
+# and on pushes to other branches that change the screenshot test, so they land with the PR.
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - master
+    paths:
+      - app/src/test/java/app/plugbrain/android/screenshots/StoreScreenshots.kt
+      - .github/workflows/store-screenshots.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: store-screenshots-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    name: Render store screenshots
+    # Only branches can take the screenshot commit, not tags.
+    if: github.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Render screenshots
+        env:
+          STORE_SCREENSHOTS: 'true'
+        run: ./gradlew :app:recordPaparazziDebug --tests 'app.plugbrain.android.screenshots.StoreScreenshots'
+
+      # Paparazzi names each snapshot ..._StoreScreenshots_<test>_<locale folder, lowercased>_<n>.png.
+      - name: Move screenshots into fastlane
+        run: |
+          snapshots=app/src/test/snapshots/images
+          for folder in en-US ar de-DE fa fr-FR hi ja nl-NL ru-RU zh-CN; do
+            target=fastlane/metadata/android/$folder/images/phoneScreenshots
+            rm -rf "$target"
+            mkdir -p "$target"
+            for file in "$snapshots"/*_StoreScreenshots_*_"${folder,,}"_[0-9].png; do
+              number=${file##*_}
+              mv "$file" "$target/$number"
+            done
+          done
+          # Only the fastlane copies are kept.
+          git checkout -- app/src/test/snapshots
+          git clean -fdq app/src/test/snapshots
+
+      - name: Commit and push screenshots
+        run: |
+          git add --all fastlane/metadata/android
+          if git diff --cached --quiet; then
+            echo "Screenshots are already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898341+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: render store screenshots"
+          git push origin HEAD:${{ github.ref_name }}
