@@ -23,8 +23,8 @@ No ads, no tracking, no internet needed.
 ---
 
 <div align="center">
+  <img src="assets/readme/progressive-difficulty.gif" alt="Animation: while you scroll, a timer fills and challenges appear, getting harder from level 2 (6 + 3) to level 5 (47 + 38) to level 8 (36 × 7). After two hours away, the next challenge drops back to level 5." width="24%" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="Welcome screen: Plug your brain back in" width="24%" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" alt="Challenge screen asking 25 + 17 before opening a distracting app" width="24%" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="Dashboard showing the time left before the next challenge" width="24%" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.png" alt="Dashboard in dark mode" width="24%" />
 </div>
@@ -48,14 +48,11 @@ Most app blockers give you a timer you can tap past without thinking. PlugBrain 
 
 You can also ask PlugBrain to challenge you **as soon as a distracting app opens**, not only after a while.
 
-<p align="center">
-  <img src="assets/readme/progressive-difficulty.gif" alt="Animation: a blurred feed scrolls while a timer ring fills, then challenges appear at level 2 (6 + 3), level 5 (47 + 38) and level 8 (36 × 7). After two hours away, the level drops back to 5." width="100%" />
-</p>
-
 Each challenge you solve makes the next one a level harder, up to level 15. Stay away and PlugBrain drops a level for every two challenge intervals you skip, down to the minimum you chose. More than 40 challenge types cover the range: from simple additions to five-digit sums, subtraction, multiplication tables up to 4×4 digits, squares, and missing-number equations like `? × 7 = 56`.
 
 <div align="center">
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="Choosing which apps to block" width="24%" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" alt="Challenge screen asking 25 + 17 before opening a distracting app" width="24%" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" alt="Choosing the time between challenges" width="24%" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" alt="Choosing the minimum difficulty" width="24%" />
 </div>
