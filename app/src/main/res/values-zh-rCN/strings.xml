@@ -19,8 +19,8 @@
     <string name="usage_free_duration_message">太棒了！你已经超过 %1$s 没有使用分心应用了，继续保持！</string>
     <string name="apps_usage_duration_message">在过去的 %2$s 内，你使用分心应用的时间超过了 %1$s。</string>
 
-    <string name="duration_hours_minutes">%1$s 和 %2$s</string>
-    <string name="duration_days_hours">%1$s 和 %2$s</string>
+    <string name="duration_hours_minutes">%1$s %2$s</string>
+    <string name="duration_days_hours">%1$s %2$s</string>
 
     <plurals name="duration_minutes">
         <item quantity="one">%d 分钟</item>
@@ -52,10 +52,10 @@
 
 
 
-    <string name="challenge_title">我们慢一点</string>
+    <string name="challenge_title">放慢脚步</string>
     <string name="challenge_answer_placeholder">写下你的答案</string>
     <string name="challenge_check_answer">检查答案</string>
-    <string name="challenge_leave_app">离开应用</string>
+    <string name="challenge_leave_app">退出应用</string>
     <string name="challenge_correct_answer">回答正确</string>
     <string name="challenge_stay_focused">保持专注</string>
     <string name="challenge_unlock_app">解锁应用 %d 分钟</string>
@@ -71,7 +71,7 @@
     <string name="welcome_feature_three_title">停留越久，难度越高</string>
     <string name="welcome_feature_three_description">你刷得越久，挑战就越难。</string>
     <string name="welcome_cta_title">开始使用</string>
-    <string name="calculator_warning">请不要使用计算器！</string>
+    <string name="calculator_warning">别用计算器哦！</string>
     <string name="selected">已选择</string>
     <string name="onboarding_skip">跳过</string>
     <string name="onboarding_permissions_title">开始设置吧</string>
@@ -87,10 +87,10 @@
     <string name="onboarding_battery_title">电池优化（可选）</string>
     <string name="onboarding_battery_description">确保 PlugBrain 在设备尝试省电时也能稳定运行。</string>
     <string name="onboarding_sheet_cta">知道了</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain 使用无障碍服务来查看当前打开的是哪个应用。当你打开选择屏蔽的应用，或在挑战期间打开计算器时，PlugBrain 会先显示一道数学挑战。\n\nPlugBrain 只读取应用名称。它不会读取屏幕上的内容或你输入的内容，任何数据都不会离开你的手机。</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain 使用无障碍服务来查看当前打开的是哪个应用。当你打开已选择屏蔽的应用，或在挑战期间打开计算器时，PlugBrain 会先显示一道数学挑战。\n\nPlugBrain 只读取应用名称。它不会读取屏幕上的内容或你输入的内容，任何数据都不会离开你的手机。</string>
     <string name="onboarding_accessibility_accept">同意并继续</string>
     <string name="onboarding_accessibility_decline">暂不</string>
-    <string name="accessibility_service_description">检测你何时打开了选择屏蔽的应用，以便 PlugBrain 显示数学挑战。仅读取应用名称。</string>
+    <string name="accessibility_service_description">检测你何时打开了已选择屏蔽的应用，以便 PlugBrain 显示数学挑战。仅读取应用名称。</string>
     <string name="onboarding_sheet_find_app">首先，在应用列表中找到并选择 PlugBrain。</string>
     <string name="onboarding_usage_access_sheet_title">开启使用情况访问权限</string>
     <string name="onboarding_usage_access_sheet_switch">允许访问使用记录</string>
@@ -106,7 +106,7 @@
     <string name="onboarding_apps_search">搜索</string>
     <string name="onboarding_apps_clear_search">清除搜索</string>
     <string name="onboarding_apps_cta">屏蔽应用</string>
-    <string name="onboarding_preferences_title">设置偏好</string>
+    <string name="onboarding_preferences_title">按你的习惯设置</string>
     <string name="onboarding_preferences_interval">多久屏蔽一次？</string>
     <plurals name="onboarding_preferences_interval_option">
         <item quantity="other">每 %d 分钟</item>
@@ -128,13 +128,13 @@
     <string name="dashboard_hours_minutes_short">%1$d 小时 %2$d 分钟</string>
     <string name="dashboard_unlock_level">完成一道 %d 级挑战即可解锁。离开越久，挑战越简单。</string>
     <string name="dashboard_paused">PlugBrain 已暂停</string>
-    <string name="dashboard_paused_accessibility">无障碍权限已关闭，PlugBrain 无法屏蔽你的应用。</string>
+    <string name="dashboard_paused_accessibility">无障碍服务已关闭，PlugBrain 无法屏蔽你的应用。</string>
     <string name="dashboard_paused_usage_access">使用情况访问权限已关闭，PlugBrain 无法判断何时屏蔽你的应用。</string>
     <string name="dashboard_paused_overlay">“显示在其他应用的上层”已关闭，PlugBrain 无法显示挑战。</string>
     <string name="dashboard_turn_back_on">重新开启</string>
     <string name="dashboard_nothing_to_block">还没有要屏蔽的应用</string>
     <plurals name="dashboard_nothing_to_block_description">
-        <item quantity="other">选择那些让你停不下来的应用，使用 %d 分钟后 PlugBrain 就会要求你完成挑战。</item>
+        <item quantity="other">选择那些让你停不下来的应用，使用 %d 分钟后，PlugBrain 就会给你出一道挑战题。</item>
     </plurals>
     <string name="dashboard_choose_apps">选择应用</string>
     <string name="dashboard_your_setup">你的设置</string>
@@ -148,15 +148,15 @@
         <item quantity="other">每 %d 分钟</item>
     </plurals>
     <plurals name="dashboard_challenges_on_open">
-        <item quantity="other">打开时，之后每 %d 分钟</item>
+        <item quantity="other">打开时一次，之后每 %d 分钟</item>
     </plurals>
     <string name="dashboard_min_difficulty">最低难度</string>
     <string name="dashboard_min_difficulty_preset">%1$s · %2$d 级</string>
     <string name="dashboard_min_difficulty_level">%d 级</string>
-    <string name="block_interval_sheet_title">何时向你发起挑战</string>
-    <string name="block_interval_sheet_description">在 PlugBrain 要求你完成挑战之前，你可以使用已屏蔽应用的时长。</string>
+    <string name="block_interval_sheet_title">何时出现挑战</string>
+    <string name="block_interval_sheet_description">PlugBrain 出题前，你可以使用已屏蔽应用多长时间。</string>
     <string name="block_interval_sheet_slider_label">两次挑战的间隔</string>
-    <string name="block_interval_sheet_on_open">打开应用时也要挑战</string>
+    <string name="block_interval_sheet_on_open">打开应用时也出题</string>
     <string name="block_interval_sheet_on_open_description">在分心应用打开前，也要先完成一道挑战。</string>
     <plurals name="block_interval_sheet_value">
         <item quantity="other">%d 分钟</item>

@@ -6,7 +6,7 @@
         <item quantity="other"> हर %d मिनट में</item>
     </plurals>
     <string name="minutes_short">मिनट</string>
-    <string name="usage_free_duration_message">बहुत बढ़िया! आप %1$s से ज़्यादा समय से ध्यान भटकाने वाले ऐप्स से दूर हैं। Keep it up!</string>
+    <string name="usage_free_duration_message">बहुत बढ़िया! आप %1$s से ज़्यादा समय से ध्यान भटकाने वाले ऐप्स से दूर हैं। ऐसे ही लगे रहें!</string>
     <string name="apps_usage_duration_message">आपने पिछले %2$s में %1$s से ज़्यादा समय तक ध्यान भटकाने वाले ऐप्स का इस्तेमाल किया है।</string>
     
     <!-- Duration formatting strings -->
@@ -39,7 +39,7 @@
     <string name="challenge_title">चलो थोड़ा रुकते हैं</string>
     <string name="challenge_answer_placeholder">अपना उत्तर लिखें</string>
     <string name="challenge_check_answer">उत्तर जाँचें</string>
-    <string name="challenge_leave_app">ऐप छोड़ें</string>
+    <string name="challenge_leave_app">ऐप से बाहर निकलें</string>
     <string name="challenge_correct_answer">सही उत्तर</string>
     <string name="challenge_stay_focused">ध्यान बनाए रखें</string>
     <string name="challenge_unlock_app">ऐप %d मिनट के लिए अनलॉक करें</string>
@@ -53,7 +53,7 @@
     <string name="welcome_feature_one_description">ध्यान भटकाने वाले ऐप्स पर कम समय बिताएं।</string>
     <string name="welcome_feature_two_title">चुनौती से अनलॉक करें</string>
     <string name="welcome_feature_two_description">ऐप का इस्तेमाल जारी रखने के लिए गणित का एक छोटा सवाल हल करें।</string>
-    <string name="welcome_feature_three_title">जितनी देर रुकेंगे, उतना मुश्किल</string>
+    <string name="welcome_feature_three_title">जितनी देर टिकेंगे, उतनी मुश्किल चुनौती</string>
     <string name="welcome_feature_three_description">आप जितनी देर स्क्रॉल करते रहेंगे, चुनौतियां उतनी मुश्किल होती जाएंगी।</string>
     <string name="welcome_cta_title">शुरू करें</string>
     <string name="calculator_warning">कृपया कैलकुलेटर का इस्तेमाल न करें!</string>
@@ -71,7 +71,7 @@
     <string name="onboarding_accessibility_description">PlugBrain को यह पता लगाने देता है कि ऐप कब खुलते हैं।</string>
     <string name="onboarding_battery_title">बैटरी ऑप्टिमाइज़ेशन (वैकल्पिक)</string>
     <string name="onboarding_battery_description">यह पक्का करता है कि जब आपका डिवाइस बैटरी बचाने की कोशिश करे, तब भी PlugBrain ठीक से चलता रहे।</string>
-    <string name="onboarding_sheet_cta">समझ गए</string>
+    <string name="onboarding_sheet_cta">ठीक है</string>
     <string name="onboarding_accessibility_disclosure">PlugBrain सुलभता सेवा का इस्तेमाल यह देखने के लिए करता है कि कौन-सा ऐप खुला है। जब आप ऐसा ऐप खोलते हैं जिसे आपने ब्लॉक करने के लिए चुना है, या चुनौती के दौरान कैलकुलेटर खोलते हैं, तो PlugBrain पहले गणित की चुनौती दिखाता है।\n\nPlugBrain सिर्फ़ ऐप का नाम पढ़ता है। यह आपकी स्क्रीन पर दिख रही चीज़ें या आपका टाइप किया हुआ नहीं पढ़ता, और कोई भी जानकारी आपके फ़ोन से बाहर नहीं जाती।</string>
     <string name="onboarding_accessibility_accept">सहमत हूं और जारी रखें</string>
     <string name="onboarding_accessibility_decline">अभी नहीं</string>
@@ -103,7 +103,7 @@
     <string name="onboarding_difficulty_intermediate">मध्यम</string>
     <string name="onboarding_difficulty_intermediate_description">गुणा और खाली जगह भरने वाले सवाल।</string>
     <string name="onboarding_difficulty_expert">विशेषज्ञ</string>
-    <string name="onboarding_difficulty_expert_description">कई अंकों वाले गुणा।</string>
+    <string name="onboarding_difficulty_expert_description">बड़ी संख्याओं का गुणा।</string>
     <string name="onboarding_preferences_cta">सेटअप पूरा करें</string>
     <string name="dashboard_active">PlugBrain चालू है</string>
     <string name="dashboard_minutes_short">%d मिनट</string>
@@ -114,7 +114,7 @@
     <string name="dashboard_hours_minutes_short">%1$d घं %2$d मि</string>
     <string name="dashboard_unlock_level">अनलॉक करने के लिए लेवल %d की चुनौती हल करें। आप जितनी देर दूर रहेंगे, यह उतनी आसान होगी।</string>
     <string name="dashboard_paused">PlugBrain रुका हुआ है</string>
-    <string name="dashboard_paused_accessibility">सुलभता का ऐक्सेस बंद कर दिया गया है, इसलिए PlugBrain आपके ऐप्स ब्लॉक नहीं कर सकता।</string>
+    <string name="dashboard_paused_accessibility">सुलभता सेवा बंद कर दी गई है, इसलिए PlugBrain आपके ऐप्स ब्लॉक नहीं कर सकता।</string>
     <string name="dashboard_paused_usage_access">इस्तेमाल का ऐक्सेस बंद कर दिया गया है, इसलिए PlugBrain नहीं जान सकता कि आपके ऐप्स कब ब्लॉक करने हैं।</string>
     <string name="dashboard_paused_overlay">दूसरे ऐप्स के ऊपर दिखाना बंद कर दिया गया है, इसलिए PlugBrain चुनौतियां नहीं दिखा सकता।</string>
     <string name="dashboard_turn_back_on">इसे फिर से चालू करें</string>
@@ -137,14 +137,14 @@
         <item quantity="other">हर %d मिनट</item>
     </plurals>
     <plurals name="dashboard_challenges_on_open">
-        <item quantity="one">खोलते समय, फिर हर %d मिनट</item>
-        <item quantity="other">खोलते समय, फिर हर %d मिनट</item>
+        <item quantity="one">खोलते ही, फिर हर %d मिनट</item>
+        <item quantity="other">खोलते ही, फिर हर %d मिनट</item>
     </plurals>
     <string name="dashboard_min_difficulty">न्यूनतम कठिनाई</string>
     <string name="dashboard_min_difficulty_preset">%1$s · लेवल %2$d</string>
     <string name="dashboard_min_difficulty_level">लेवल %d</string>
-    <string name="block_interval_sheet_title">आपको चुनौती कब दें</string>
-    <string name="block_interval_sheet_description">PlugBrain के चुनौती मांगने से पहले आप अपने ब्लॉक किए गए ऐप्स कितनी देर इस्तेमाल कर सकते हैं।</string>
+    <string name="block_interval_sheet_title">चुनौती कब मिले</string>
+    <string name="block_interval_sheet_description">PlugBrain के चुनौती देने से पहले आप अपने ब्लॉक किए गए ऐप्स कितनी देर इस्तेमाल कर सकते हैं।</string>
     <string name="block_interval_sheet_slider_label">चुनौतियों के बीच का समय</string>
     <string name="block_interval_sheet_on_open">ऐप खोलने पर भी</string>
     <string name="block_interval_sheet_on_open_description">ध्यान भटकाने वाला ऐप खुलने से पहले भी एक चुनौती हल करें।</string>
