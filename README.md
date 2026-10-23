@@ -37,14 +37,14 @@ Most app blockers give you a timer you can tap past without thinking. PlugBrain 
 - 📈 **Adaptive difficulty.** Keep coming back and the problems get harder. Stay away and they ease off. Your own habits set the level.
 - 🔒 **Private by design.** No internet permission, no account, no analytics, no ads. Nothing leaves your phone.
 - 💚 **Free and open source.** GPL-3.0, on F-Droid with no anti-features, built in the open with the community.
-- 🧠 **A little mental math every day.** A side effect worth keeping.
 
 ## How it works
 
+1. **Grant a few permissions.** PlugBrain needs them to see when a blocked app opens and show the challenge on top. The app explains each one, and [Privacy](#privacy) lists why.
 1. **Pick the apps that distract you.** The list is sorted by how much you used each app in the last 24 hours.
-2. **Choose how often to be challenged,** from every minute up to every 15 minutes of use.
-3. **Choose your starting difficulty:** Beginner, Intermediate or Expert.
-4. **Use your phone as usual.** When the time is up, PlugBrain shows a challenge over the blocked app. Answer it to carry on, or tap **Leave App**.
+1. **Choose how often to be challenged,** from every minute up to every 15 minutes of use.
+1. **Choose your starting difficulty:** Beginner, Intermediate or Expert.
+1. **Use your phone as usual.** When the time is up, PlugBrain shows a challenge over the blocked app. Answer it to carry on, or tap **Leave App**.
 
 You can also ask PlugBrain to challenge you **as soon as a distracting app opens**, not only after a while.
 
