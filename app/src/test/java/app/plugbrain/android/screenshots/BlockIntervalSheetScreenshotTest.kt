@@ -21,7 +21,7 @@ class BlockIntervalSheetScreenshotTest {
     @Test
     fun blockIntervalSheetTest() {
         paparazzi.snapshotWithLargeFont {
-            blockIntervalSheet(blockInterval = 12)
+            blockIntervalSheet(blockInterval = 12, challengeOnAppOpen = true)
         }
     }
 
@@ -36,6 +36,7 @@ class BlockIntervalSheetScreenshotTest {
     @Composable
     private fun blockIntervalSheet(
         blockInterval: Int,
+        challengeOnAppOpen: Boolean = false,
         darkTheme: Boolean = false,
     ) {
         MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
@@ -44,7 +45,8 @@ class BlockIntervalSheetScreenshotTest {
             LaunchedEffect(Unit) { sheetState.expand() }
             BlockIntervalSheet(
                 blockInterval = blockInterval,
-                onSave = {},
+                challengeOnAppOpen = challengeOnAppOpen,
+                onSave = { _, _ -> },
                 onDismiss = {},
                 sheetState = sheetState,
             )

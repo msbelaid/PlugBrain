@@ -11,6 +11,7 @@ import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.datastore.incrementProgressiveDifficulty
 import app.plugbrain.android.datastore.setLastChallengeTime
+import app.plugbrain.android.datastore.setLastUnblockTime
 import app.plugbrain.android.datastore.updateBlockAppsToggle
 import app.plugbrain.android.repository.MathChallengeRepository
 import kotlin.time.Duration.Companion.milliseconds
@@ -67,6 +68,8 @@ class ArithChallengeViewModel(
     viewModelScope.launch {
       dataStore.updateBlockAppsToggle(false)
       dataStore.setLastChallengeTime(System.currentTimeMillis())
+      // Read by MathLockService so an app isn't challenged again on open right after a solve.
+      dataStore.setLastUnblockTime(System.currentTimeMillis())
       dataStore.incrementProgressiveDifficulty(mathChallengeRepository.getMaxDifficulty())
     }
   }
