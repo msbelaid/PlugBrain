@@ -6,7 +6,7 @@
 # Plug your brain back in.
 
 **PlugBrain is a free, open source Android app that puts a quick math problem between you and your distracting apps.**<br>
-The more you scroll, the harder it gets. Step away, and it gets easier again.
+Free, open source, no ads, no tracking, no internet needed.
 
 [![F-Droid](https://img.shields.io/f-droid/v/app.plugbrain.android?label=F-Droid&color=1976d2&logo=f-droid&logoColor=white)](https://f-droid.org/packages/app.plugbrain.android/)
 [![GitHub release](https://img.shields.io/github/v/release/msbelaid/PlugBrain?color=20DFD9)](https://github.com/msbelaid/PlugBrain/releases/latest)
