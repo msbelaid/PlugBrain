@@ -23,7 +23,7 @@ No ads, no tracking, no internet needed.
 ---
 
 <div align="center">
-  <img src="assets/readme/progressive-difficulty.gif" alt="Animation: while you scroll, a timer fills and challenges appear, getting harder from level 2 (6 + 3) to level 5 (47 + 38) to level 8 (36 × 7). After two hours away, the next challenge drops back to level 5." width="24%" />
+  <img src="assets/readme/progressive-difficulty.gif" alt="Animation: while you scroll, a timer fills and challenges appear, getting harder from level 2 (6 + 3) to level 5 (47 + 38) to level 8 (36 × 7). A difficulty gauge rises with each solve, then drops back from level 9 to 5 while you are away from distracting apps." width="24%" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="Welcome screen: Plug your brain back in" width="24%" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="Dashboard showing the time left before the next challenge" width="24%" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.png" alt="Dashboard in dark mode" width="24%" />
