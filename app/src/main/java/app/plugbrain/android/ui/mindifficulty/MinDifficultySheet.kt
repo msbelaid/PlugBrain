@@ -91,6 +91,8 @@ fun MinDifficultySheet(
         label = { level ->
           DifficultyPreset.fromMinimalDifficulty(level)?.let { context.getString(it.nameRes) }.orEmpty()
         },
+        // Challenges can be anywhere from the selected level up to the hardest one.
+        fillFromEnd = true,
       )
     }
   }
