@@ -7,7 +7,9 @@ package app.plugbrain.android.service
  * solving a challenge or pulling down the notification shade doesn't count as a new open.
  */
 class AppOpenDetector(private val ignoredPackages: () -> Set<String>) {
-  private var foregroundPackage: String? = null
+  /** The app the user is in, as far as window events tell; ignored packages don't change it. */
+  var foregroundPackage: String? = null
+    private set
 
   fun isAppOpening(packageName: String, distractiveApps: Set<String>): Boolean {
     if (packageName in ignoredPackages()) return false
