@@ -48,6 +48,10 @@ Most app blockers give you a timer you can tap past without thinking. PlugBrain 
 
 You can also ask PlugBrain to challenge you **as soon as a distracting app opens**, not only after a while.
 
+<p align="center">
+  <img src="assets/readme/progressive-difficulty.gif" alt="Animation: a blurred feed scrolls while a timer ring fills, then challenges appear at level 2 (6 + 3), level 5 (47 + 38) and level 8 (36 × 7). After two hours away, the level drops back to 5." width="100%" />
+</p>
+
 Each challenge you solve makes the next one a level harder, up to level 15. Stay away and PlugBrain drops a level for every two challenge intervals you skip, down to the minimum you chose. More than 40 challenge types cover the range: from simple additions to five-digit sums, subtraction, multiplication tables up to 4×4 digits, squares, and missing-number equations like `? × 7 = 56`.
 
 <div align="center">
