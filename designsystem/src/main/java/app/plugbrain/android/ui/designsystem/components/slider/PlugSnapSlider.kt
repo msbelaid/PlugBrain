@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -45,7 +46,9 @@ import kotlin.math.roundToInt
  * evenly spaced along the track, with their labels under it, and the numbers between two of them
  * share that section evenly. Near a snap value the thumb is pulled onto it, like a magnet, with a
  * haptic tick. [valueDescription] is what TalkBack reads for a value, for example "8 minutes", and
- * [label] is the text shown under a snap value, the number itself by default.
+ * [label] is the text shown under a snap value, the number itself by default. With [fillFromEnd]
+ * the track is filled from the thumb to the end instead of from the start to the thumb, for a value
+ * that sets the lower bound of a range running up to the last snap value.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,6 +59,7 @@ fun PlugSnapSlider(
   modifier: Modifier = Modifier,
   valueDescription: (Int) -> String = { it.toString() },
   label: (Int) -> String = { it.toString() },
+  fillFromEnd: Boolean = false,
 ) {
   val min = snapValues.first()
   val max = snapValues.last()
@@ -103,17 +107,22 @@ fun PlugSnapSlider(
             thumbSize = ThumbSize,
           )
         },
-        track = { SnapTrack(fraction = position / lastPosition) },
+        track = { SnapTrack(fraction = position / lastPosition, fillFromEnd = fillFromEnd) },
       )
     }
     SnapLabels(snapValues = snapValues, selected = value, label = label)
   }
 }
 
-/** The same bar as the design system's progress bars: the primary gradient over surfaceVariant. */
+/**
+ * The same bar as the design system's progress bars: the primary gradient over surfaceVariant,
+ * filled up to [fraction], or from it to the end with [fillFromEnd].
+ */
 @Composable
-private fun SnapTrack(fraction: Float) {
+private fun SnapTrack(fraction: Float, fillFromEnd: Boolean) {
+  val clamped = fraction.coerceIn(0f, 1f)
   Box(
+    contentAlignment = if (fillFromEnd) Alignment.CenterEnd else Alignment.CenterStart,
     modifier = Modifier
       .fillMaxWidth()
       .height(TrackHeight)
@@ -122,7 +131,7 @@ private fun SnapTrack(fraction: Float) {
   ) {
     Box(
       modifier = Modifier
-        .fillMaxWidth(fraction.coerceIn(0f, 1f))
+        .fillMaxWidth(if (fillFromEnd) 1f - clamped else clamped)
         .fillMaxHeight()
         .clip(TrackShape)
         .background(PrimaryGradient),
