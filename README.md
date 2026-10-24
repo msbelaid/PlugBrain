@@ -51,7 +51,7 @@ Most app blockers give you a timer you can tap past without thinking. PlugBrain 
 
 1. **Grant a few permissions.** PlugBrain needs them to see when a blocked app opens and show the challenge on top. The app explains each one, and [Privacy](#privacy) lists why.
 1. **Pick the apps that distract you.** The list is sorted by how much you used each app in the last 24 hours.
-1. **Choose how often to be challenged,** from every minute up to every 15 minutes of use.
+1. **Choose how often to be challenged:** how many minutes of use before the next challenge.
 1. **Choose your starting difficulty:** Beginner, Intermediate or Expert.
 1. **Use your phone as usual.** When the time is up, PlugBrain shows a challenge over the blocked app. Answer it to carry on, or tap **Leave App**.
 
