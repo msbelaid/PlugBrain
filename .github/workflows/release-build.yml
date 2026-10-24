@@ -93,6 +93,8 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: build/reports/kover/report.xml
+          # Only the merged report: the per-module ones would be counted twice.
+          disable_search: true
           fail_ci_if_error: false
 
       - name: Upload Unit Test Results
