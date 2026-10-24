@@ -84,8 +84,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Run Unit Tests
-        run: ./gradlew test
+      # Runs the unit tests of every module and merges their coverage into one report.
+      - name: Run Unit Tests with coverage
+        run: ./gradlew test koverXmlReport
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: build/reports/kover/report.xml
+          fail_ci_if_error: false
 
       - name: Upload Unit Test Results
         uses: actions/upload-artifact@v4
