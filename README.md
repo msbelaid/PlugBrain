@@ -8,6 +8,7 @@
 **PlugBrain is a free, open source Android app that puts a quick math problem between you and your distracting apps.**<br>
 No ads, no tracking, no internet needed.
 
+[![Website](https://img.shields.io/badge/Website-plugbrain.app-20DFD9?logo=googlechrome&logoColor=white)](https://plugbrain.app)
 [![F-Droid](https://img.shields.io/f-droid/v/app.plugbrain.android?label=F-Droid&color=1976d2&logo=f-droid&logoColor=white)](https://f-droid.org/packages/app.plugbrain.android/)
 [![GitHub release](https://img.shields.io/github/v/release/msbelaid/PlugBrain?color=20DFD9)](https://github.com/msbelaid/PlugBrain/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/msbelaid/PlugBrain/total.svg?color=0D7777)](https://github.com/msbelaid/PlugBrain/releases)
@@ -16,7 +17,7 @@ No ads, no tracking, no internet needed.
 [![Reddit r/PlugBrain](https://img.shields.io/badge/Reddit-r%2FPlugBrain-orange?logo=reddit&logoColor=white)](https://www.reddit.com/r/PlugBrain/)
 [![contribute.design](https://contribute.design/api/shield/msbelaid/PlugBrain)](https://contribute.design/msbelaid/PlugBrain)
 
-[Download](#download) · [How it works](#how-it-works) · [Privacy](#privacy) · [Contributing](#contributing) · [Community](#community)
+[Website](https://plugbrain.app) · [Download](#download) · [How it works](#how-it-works) · [Privacy](#privacy) · [Contributing](#contributing) · [Community](#community)
 
 </div>
 
@@ -59,7 +60,7 @@ Each challenge you solve makes the next one a level harder, up to level 15. Stay
 
 ## Download
 
-PlugBrain runs on Android 9 and newer.
+PlugBrain runs on Android 9 and newer. Learn more on the website: **[plugbrain.app](https://plugbrain.app)**.
 
 <p align="center">
   <a href="https://f-droid.org/packages/app.plugbrain.android/"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80"></a>
@@ -134,6 +135,7 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md). For code, fork the repo, work on 
 
 Share how you use PlugBrain, what works and what doesn't:
 
+- [plugbrain.app](https://plugbrain.app), the official website
 - [r/PlugBrain](https://www.reddit.com/r/PlugBrain/) on Reddit
 - [GitHub Discussions](https://github.com/msbelaid/PlugBrain/discussions)
 
