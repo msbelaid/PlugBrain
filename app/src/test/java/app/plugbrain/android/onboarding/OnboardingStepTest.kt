@@ -1,5 +1,6 @@
 package app.plugbrain.android.onboarding
 
+import app.plugbrain.android.datastore.DEFAULT_MINIMAL_DIFFICULTY
 import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.main.presentation.shouldShowOnboarding
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
@@ -38,6 +39,11 @@ class OnboardingStepTest {
             assertEquals(preset, DifficultyPreset.fromMinimalDifficulty(preset.minimalDifficulty))
         }
         assertNull(DifficultyPreset.fromMinimalDifficulty(3))
+    }
+
+    @Test
+    fun `default minimal difficulty preselects the beginner preset`() {
+        assertEquals(DifficultyPreset.Beginner, DifficultyPreset.fromMinimalDifficulty(DEFAULT_MINIMAL_DIFFICULTY))
     }
 
     @Test
