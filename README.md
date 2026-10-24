@@ -17,7 +17,7 @@ No ads, no tracking, no internet needed.
 [![Last commit](https://img.shields.io/github/last-commit/msbelaid/PlugBrain?color=0D7777)](https://github.com/msbelaid/PlugBrain/commits/master)
 [![Contributors](https://img.shields.io/github/contributors/msbelaid/PlugBrain?color=0D7777)](https://github.com/msbelaid/PlugBrain/graphs/contributors)
 [![codecov](https://codecov.io/gh/msbelaid/PlugBrain/graph/badge.svg)](https://codecov.io/gh/msbelaid/PlugBrain)
-[![CodeFactor](https://www.codefactor.io/repository/github/msbelaid/plugbrain/badge)](https://www.codefactor.io/repository/github/msbelaid/plugbrain)
+[![CodeFactor](https://img.shields.io/codefactor/grade/github/msbelaid/PlugBrain/master?logo=codefactor)](https://www.codefactor.io/repository/github/msbelaid/plugbrain)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 [![Android 9+](https://img.shields.io/badge/Android-9%2B%20%28API%2028%29-3DDC84?logo=android&logoColor=white)](#download)
 [![Kotlin](https://img.shields.io/badge/Kotlin-Jetpack%20Compose-7F52FF?logo=kotlin&logoColor=white)](#contributing)
