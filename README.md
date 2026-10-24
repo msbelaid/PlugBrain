@@ -1,99 +1,150 @@
 <div align="center">
-  <img src="fastlane/metadata/android/en-US/images/featureGraphic.png" alt="feature graphic plug brain"/>
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![GitHub release](https://img.shields.io/github/v/release/msbelaid/PlugBrain)
-![GitHub all releases](https://img.shields.io/github/downloads/msbelaid/PlugBrain/total.svg)
-![Build Status](https://github.com/msbelaid/PlugBrain/actions/workflows/release-build.yml/badge.svg)
-[![F-Droid](https://img.shields.io/f-droid/v/app.plugbrain.android?label=Download%20on%20F-Droid&color=green&logo=f-droid)](https://f-droid.org/en/packages/app.plugbrain.android)
-[![IzzyOnDroid](https://img.shields.io/badge/IzzyOnDroid-Available-blue?logo=android&logoColor=white)](https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android)
-[![Reddit - r/PlugBrain](https://img.shields.io/badge/Reddit-r%2FPlugBrain-orange?logo=reddit&logoColor=white)](https://www.reddit.com/r/PlugBrain/)
+<!-- Banner: to try another cover, replace assets/readme/banner.png (1920×1080, same as the store feature graphic). Nothing else needs to change. -->
+<img src="assets/readme/banner.png" alt="PlugBrain: Solve a little math. Scroll a lot less. The more you scroll, the harder the math. Step away, and it gets easier again." width="100%" />
+
+# Plug your brain back in.
+
+**PlugBrain is a free, open source Android app that puts a quick math problem between you and your distracting apps.**<br>
+No ads, no tracking, no internet needed.
+
+[![F-Droid](https://img.shields.io/f-droid/v/app.plugbrain.android?label=F-Droid&color=1976d2&logo=f-droid&logoColor=white)](https://f-droid.org/packages/app.plugbrain.android/)
+[![GitHub release](https://img.shields.io/github/v/release/msbelaid/PlugBrain?color=20DFD9)](https://github.com/msbelaid/PlugBrain/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/msbelaid/PlugBrain/total.svg?color=0D7777)](https://github.com/msbelaid/PlugBrain/releases)
+[![Build](https://github.com/msbelaid/PlugBrain/actions/workflows/release-build.yml/badge.svg)](https://github.com/msbelaid/PlugBrain/actions/workflows/release-build.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![Reddit r/PlugBrain](https://img.shields.io/badge/Reddit-r%2FPlugBrain-orange?logo=reddit&logoColor=white)](https://www.reddit.com/r/PlugBrain/)
 [![contribute.design](https://contribute.design/api/shield/msbelaid/PlugBrain)](https://contribute.design/msbelaid/PlugBrain)
-![GitHub stars](https://img.shields.io/github/stars/msbelaid/PlugBrain?style=social)
+
+[Download](#download) · [How it works](#how-it-works) · [Privacy](#privacy) · [Contributing](#contributing) · [Community](#community)
+
 </div>
 
-
-# PlugBrain
-PlugBrain is an app that encourages regular breaks from distracting apps by blocking access at scheduled intervals.
-To regain access, you’ll need to solve a math challenge that adjusts in difficulty: 
-the more frequently you use the apps, 
-the harder the challenges become, but the longer you stay away, the easier they get.
+---
 
 <div align="center">
-  <img src="assets/plugbrain_example.gif" width="320" />
+  <img src="assets/readme/progressive-difficulty.gif" alt="Animation: while you scroll, a timer fills and challenges appear, getting harder from level 2 (6 + 3) to level 5 (47 + 38) to level 8 (36 × 7). A difficulty gauge rises with each solve, then drops back from level 9 to 5 while you are away from distracting apps." width="24%" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="Welcome screen: Plug your brain back in" width="24%" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="Dashboard showing the time left before the next challenge" width="24%" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.png" alt="Dashboard in dark mode" width="24%" />
 </div>
 
-> [!IMPORTANT]
-> We're currently working on a **new UI redesign** based on a Figma design to make the app more modern and intuitive.
-> Huge thanks to [@HichemDahaoui](https://github.com/HichemDahaoui) for the amazing design work, and to [@travis-jeans](https://github.com/travis-jeans) for the new app icon.
+## Why PlugBrain?
 
-## Features
-  - Blocks distracting apps
-  - Unblock apps by solving math challenges
-  - Difficulty increases with frequent use, decreases with focus
-  - No tracking, no ads
-  - No internet required
+Most app blockers give you a timer you can tap past without thinking. PlugBrain makes you think.
 
-## How to use
-  - Grant all required permissions
-  - Select distracting apps
-  - Choose your focus frequency
-  - Select minimum starting difficulty
-  - Stay focused ;)
+- 🧮 **Friction you have to think through.** When it's time for a break, a math challenge stands between you and the app. Solve it to keep going, or take the hint and leave.
+- 📈 **Adaptive difficulty.** Keep coming back and the problems get harder. Stay away and they ease off. Your own habits set the level.
+- 🔒 **Private by design.** No internet permission, no account, no analytics, no ads. Nothing leaves your phone.
+- 💚 **Free and open source.** GPL-3.0, on F-Droid with no anti-features, built in the open with the community.
+
+## How it works
+
+1. **Grant a few permissions.** PlugBrain needs them to see when a blocked app opens and show the challenge on top. The app explains each one, and [Privacy](#privacy) lists why.
+1. **Pick the apps that distract you.** The list is sorted by how much you used each app in the last 24 hours.
+1. **Choose how often to be challenged,** from every minute up to every 15 minutes of use.
+1. **Choose your starting difficulty:** Beginner, Intermediate or Expert.
+1. **Use your phone as usual.** When the time is up, PlugBrain shows a challenge over the blocked app. Answer it to carry on, or tap **Leave App**.
+
+You can also ask PlugBrain to challenge you **as soon as a distracting app opens**, not only after a while.
+
+Each challenge you solve makes the next one a level harder, up to level 15. Stay away and PlugBrain drops a level for every two challenge intervals you skip, down to the minimum you chose. More than 40 challenge types cover the range: from simple additions to five-digit sums, subtraction, multiplication tables up to 4×4 digits, squares, and missing-number equations like `? × 7 = 56`.
 
 <div align="center">
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="Screenshot 1" width="30%" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="Screenshot 2" width="30%" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="Screenshot 3" width="30%" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="Choosing which apps to block" width="24%" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" alt="Challenge screen asking 25 + 17 before opening a distracting app" width="24%" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" alt="Choosing the time between challenges" width="24%" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" alt="Choosing the minimum difficulty" width="24%" />
 </div>
 
 ## Download
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/app.plugbrain.android/)
-[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android)
-[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Play Store" height="80">](https://play.google.com/store/apps/details?id=app.plugbrain.android)
-[<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Get it on GitHub" height="80">](https://github.com/msbelaid/PlugBrain/releases/latest/download/app-release.apk)
-[<img src="https://www.openapk.net/images/openapk-badge.png" alt="Get it on OpenAPK" height="80">](https://www.openapk.net/plugbrain/app.plugbrain.android/)
-[<img src="https://www.androidfreeware.net/images/androidfreeware-badge.png" alt="Get it on AndroidFreeware" height="80">](https://www.androidfreeware.net/fr/download-plugbrain-apk.html)
+
+PlugBrain runs on Android 9 and newer.
+
+<p align="center">
+  <a href="https://f-droid.org/packages/app.plugbrain.android/"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80"></a>
+  <a href="https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android"><img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="80"></a>
+  <a href="https://play.google.com/store/apps/details?id=app.plugbrain.android"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="80"></a>
+  <a href="https://github.com/msbelaid/PlugBrain/releases/latest/download/app-release.apk"><img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Get it on GitHub" height="80"></a>
+</p>
+
+<details>
+<summary>Other mirrors</summary>
+
+- [OpenAPK](https://www.openapk.net/plugbrain/app.plugbrain.android/)
+- [AndroidFreeware](https://www.androidfreeware.net/fr/download-plugbrain-apk.html)
+
+</details>
+
+Available in English, Arabic, Chinese (Simplified), Dutch, French, German, Hindi, Japanese, Persian and Russian. [Help add yours.](CONTRIBUTING.md#translation)
+
+## Privacy
+
+PlugBrain has **no internet permission**, so it can't send anything anywhere. There are no accounts, ads or trackers, and Google Play's data safety section lists no data collected or shared.
+
+To block apps, it needs a few Android permissions. Each one is explained in the app before you grant it.
+
+| Permission | Why |
+|---|---|
+| Usage access | Measures time spent in the apps you chose to block |
+| Display over other apps | Shows the challenge on top of a blocked app |
+| Accessibility service | Detects when a blocked app opens. It never reads content or captures input |
+| Ignore battery optimizations | Keeps the blocker running in the background |
+
+Read the full [privacy policy](PRIVACY_POLICY.md).
 
 ## Contributing
 
-Want to contribute? Follow these quick steps:
+PlugBrain collects no analytics, so your feedback and contributions are how it gets better. You can:
 
-1. Fork this repository
-2. Clone your fork
-3. Create a new branch
-4. Make your changes
-5. Commit your changes
-6. Push to the branch
-7. Open a pull request
-8. Make sure the CI pass
+- **Report a bug or suggest a feature** in [Issues](https://github.com/msbelaid/PlugBrain/issues).
+- **Translate** the app and store listing ([guide](CONTRIBUTING.md#translation)).
+- **Add a new challenge** in a few lines: `./gradlew generateChallenge -PchallengeName=MyChallenge` scaffolds it for you ([guide](CONTRIBUTING.md#creating-a-new-challenge-type)).
+- **Design** screens, store graphics or a video walkthrough ([design guide](.design/README.md), [Figma file](https://www.figma.com/design/uYAs8XFheRGrCAcSqTQ5Sb/PlugBrain---Github)).
+- **Pick up** a [good first issue](https://github.com/msbelaid/PlugBrain/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) or one marked [help wanted](https://github.com/msbelaid/PlugBrain/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22).
 
-## Tech stack
-PlugBrain is built using modern Android libraries and tools:
+Start with [CONTRIBUTING.md](CONTRIBUTING.md). For code, fork the repo, work on a branch, and open a pull request. Before you push, make sure these pass:
 
-- 100% [Kotlin](https://kotlinlang.org/)
-- [Jetpack Compose](https://developer.android.com/jetpack/compose) as UI toolkit
-- [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) & Flow for asynchronous.
-- [Koin](https://insert-koin.io/) for Dependency injection
-- Architecture 
-  - MVVM Architecture (Declarative View - ViewModel - Model)
-  - Repository pattern
-- [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) – Storage for user preferences
-- [Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle) – ViewModel and lifecycle-aware components
-- [Material 3](https://m3.material.io/) – Material Design components
-- [Coil](https://coil-kt.github.io/coil/) – Image loading for Android
-- [UsageStatsManager](https://developer.android.com/reference/android/app/usage/package-summary) for app usage tracking
-- [JUnit](https://junit.org/junit5/) – Unit testing
-- [MockK](https://mockk.io/) – Mocking library
-- [Timber](https://github.com/JakeWharton/timber) – Logging
-- [Ktlint](https://pinterest.github.io/ktlint/) – Kotlin code style checking
-- [GitHub Actions](https://github.com/features/actions) – CI/CD for builds, tests, and releases
-- [Paparazzi](https://github.com/cashapp/paparazzi) - Screenshot testing
+```bash
+./gradlew ktlintCheck
+./gradlew test
+```
 
-## License
-[GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
+<details>
+<summary><b>Tech stack</b></summary>
+
+- 100% [Kotlin](https://kotlinlang.org/), [Jetpack Compose](https://developer.android.com/jetpack/compose) and [Material 3](https://m3.material.io/)
+- MVVM with the repository pattern, [Koin](https://insert-koin.io/) for dependency injection
+- [Coroutines & Flow](https://kotlinlang.org/docs/coroutines-overview.html), [Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle), [DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
+- [UsageStatsManager](https://developer.android.com/reference/android/app/usage/package-summary) for app usage, [Coil](https://coil-kt.github.io/coil/) for images, [Timber](https://github.com/JakeWharton/timber) for logging
+- Tests with [JUnit](https://junit.org/junit5/), [MockK](https://mockk.io/) and [Paparazzi](https://github.com/cashapp/paparazzi) screenshot tests
+- [ktlint](https://pinterest.github.io/ktlint/) and [GitHub Actions](https://github.com/features/actions) for CI/CD
+
+| Module | What's inside |
+|---|---|
+| `app` | Screens, blocking service and app wiring |
+| `appusage` | App usage stats and installed apps |
+| `challenges` | All math challenge types and their difficulty levels |
+| `datastore` | User preferences |
+| `designsystem` | Shared Compose components, colors and typography |
+
+</details>
 
 ## Community
-We'd love to hear your use cases, success stories, and feedback.
-- [Reddit](https://www.reddit.com/r/PlugBrain/)
+
+Share how you use PlugBrain, what works and what doesn't:
+
+- [r/PlugBrain](https://www.reddit.com/r/PlugBrain/) on Reddit
 - [GitHub Discussions](https://github.com/msbelaid/PlugBrain/discussions)
+
+If PlugBrain helps you, a ⭐ on GitHub or a rating on [Google Play](https://play.google.com/store/apps/details?id=app.plugbrain.android) helps other people find it.
+
+## Credits
+
+Built by [@msbelaid](https://github.com/msbelaid) and [contributors](https://github.com/msbelaid/PlugBrain/graphs/contributors) from around the world. 🇩🇿 Made in Algeria.
+
+UI design by [@HichemDahaoui](https://github.com/HichemDahaoui). Logo by [@travis-jeans](https://github.com/travis-jeans) ([style guide](.design/Logo.md)).
+
+## License
+
+PlugBrain is free software, released under the [GNU General Public License v3.0](LICENSE).
