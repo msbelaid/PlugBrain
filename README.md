@@ -8,15 +8,24 @@
 **PlugBrain is a free, open source Android app that puts a quick math problem between you and your distracting apps.**<br>
 No ads, no tracking, no internet needed.
 
+[![Website](https://img.shields.io/badge/Website-plugbrain.app-20DFD9?logo=googlechrome&logoColor=white)](https://plugbrain.app)
 [![F-Droid](https://img.shields.io/f-droid/v/app.plugbrain.android?label=F-Droid&color=1976d2&logo=f-droid&logoColor=white)](https://f-droid.org/packages/app.plugbrain.android/)
+[![IzzyOnDroid](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/app.plugbrain.android&label=IzzyOnDroid)](https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android)
 [![GitHub release](https://img.shields.io/github/v/release/msbelaid/PlugBrain?color=20DFD9)](https://github.com/msbelaid/PlugBrain/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/msbelaid/PlugBrain/total.svg?color=0D7777)](https://github.com/msbelaid/PlugBrain/releases)
 [![Build](https://github.com/msbelaid/PlugBrain/actions/workflows/release-build.yml/badge.svg)](https://github.com/msbelaid/PlugBrain/actions/workflows/release-build.yml)
+[![Last commit](https://img.shields.io/github/last-commit/msbelaid/PlugBrain?color=0D7777)](https://github.com/msbelaid/PlugBrain/commits/master)
+[![Contributors](https://img.shields.io/github/contributors/msbelaid/PlugBrain?color=0D7777)](https://github.com/msbelaid/PlugBrain/graphs/contributors)
+[![codecov](https://codecov.io/gh/msbelaid/PlugBrain/graph/badge.svg)](https://codecov.io/gh/msbelaid/PlugBrain)
+[![CodeFactor](https://img.shields.io/codefactor/grade/github/msbelaid/PlugBrain/master?logo=codefactor)](https://www.codefactor.io/repository/github/msbelaid/plugbrain)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![Android 9+](https://img.shields.io/badge/Android-9%2B%20%28API%2028%29-3DDC84?logo=android&logoColor=white)](#download)
+[![Kotlin](https://img.shields.io/badge/Kotlin-Jetpack%20Compose-7F52FF?logo=kotlin&logoColor=white)](#contributing)
 [![Reddit r/PlugBrain](https://img.shields.io/badge/Reddit-r%2FPlugBrain-orange?logo=reddit&logoColor=white)](https://www.reddit.com/r/PlugBrain/)
 [![contribute.design](https://contribute.design/api/shield/msbelaid/PlugBrain)](https://contribute.design/msbelaid/PlugBrain)
+[![GitHub stars](https://img.shields.io/github/stars/msbelaid/PlugBrain?style=social)](https://github.com/msbelaid/PlugBrain/stargazers)
 
-[Download](#download) · [How it works](#how-it-works) · [Privacy](#privacy) · [Contributing](#contributing) · [Community](#community)
+[Website](https://plugbrain.app) · [Download](#download) · [How it works](#how-it-works) · [Privacy](#privacy) · [Contributing](#contributing) · [Community](#community)
 
 </div>
 
@@ -42,13 +51,13 @@ Most app blockers give you a timer you can tap past without thinking. PlugBrain 
 
 1. **Grant a few permissions.** PlugBrain needs them to see when a blocked app opens and show the challenge on top. The app explains each one, and [Privacy](#privacy) lists why.
 1. **Pick the apps that distract you.** The list is sorted by how much you used each app in the last 24 hours.
-1. **Choose how often to be challenged,** from every minute up to every 15 minutes of use.
+1. **Choose how often to be challenged:** how many minutes of use before the next challenge.
 1. **Choose your starting difficulty:** Beginner, Intermediate or Expert.
 1. **Use your phone as usual.** When the time is up, PlugBrain shows a challenge over the blocked app. Answer it to carry on, or tap **Leave App**.
 
 You can also ask PlugBrain to challenge you **as soon as a distracting app opens**, not only after a while.
 
-Each challenge you solve makes the next one a level harder, up to level 15. Stay away and PlugBrain drops a level for every two challenge intervals you skip, down to the minimum you chose. More than 40 challenge types cover the range: from simple additions to five-digit sums, subtraction, multiplication tables up to 4×4 digits, squares, and missing-number equations like `? × 7 = 56`.
+Each challenge you solve makes the next one a level harder. Stay away and PlugBrain drops a level for every two challenge intervals you skip, down to the minimum you chose. More than 40 challenge types cover the range: from simple additions to five-digit sums, subtraction, multiplication tables up to 4×4 digits, squares, and missing-number equations like `? × 7 = 56`.
 
 <div align="center">
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="Choosing which apps to block" width="24%" />
@@ -59,7 +68,7 @@ Each challenge you solve makes the next one a level harder, up to level 15. Stay
 
 ## Download
 
-PlugBrain runs on Android 9 and newer.
+PlugBrain runs on Android 9 and newer. Learn more on the website: **[plugbrain.app](https://plugbrain.app)**.
 
 <p align="center">
   <a href="https://f-droid.org/packages/app.plugbrain.android/"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80"></a>
@@ -134,6 +143,7 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md). For code, fork the repo, work on 
 
 Share how you use PlugBrain, what works and what doesn't:
 
+- [plugbrain.app](https://plugbrain.app), the official website
 - [r/PlugBrain](https://www.reddit.com/r/PlugBrain/) on Reddit
 - [GitHub Discussions](https://github.com/msbelaid/PlugBrain/discussions)
 

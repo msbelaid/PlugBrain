@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.paparazzi)
+    alias(libs.plugins.kover)
 }
 
 android {

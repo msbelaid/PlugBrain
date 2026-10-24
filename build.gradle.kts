@@ -6,6 +6,16 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.kover)
+}
+
+// Merges the unit test coverage of every module into one report: ./gradlew koverXmlReport
+dependencies {
+    kover(project(":app"))
+    kover(project(":appusage"))
+    kover(project(":challenges"))
+    kover(project(":datastore"))
+    kover(project(":designsystem"))
 }
 
 tasks.register<GenerateChallengeTask>("generateChallenge")
