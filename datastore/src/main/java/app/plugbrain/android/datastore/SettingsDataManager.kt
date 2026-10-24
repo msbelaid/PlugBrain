@@ -18,6 +18,7 @@ val BLOCK_APPS_TOGGLE_KEY = booleanPreferencesKey("block_apps_toggle")
 val CHALLENGE_ON_APP_OPEN_KEY = booleanPreferencesKey("challenge_on_app_open")
 
 const val DEFAULT_BLOCK_INTERVAL = 5
+
 // Matches the Beginner preset, so onboarding and the min difficulty sheet start on it.
 const val DEFAULT_MINIMAL_DIFFICULTY = 0
 
