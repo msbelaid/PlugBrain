@@ -10,12 +10,18 @@ No ads, no tracking, no internet needed.
 
 [![Website](https://img.shields.io/badge/Website-plugbrain.app-20DFD9?logo=googlechrome&logoColor=white)](https://plugbrain.app)
 [![F-Droid](https://img.shields.io/f-droid/v/app.plugbrain.android?label=F-Droid&color=1976d2&logo=f-droid&logoColor=white)](https://f-droid.org/packages/app.plugbrain.android/)
+[![IzzyOnDroid](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/app.plugbrain.android&label=IzzyOnDroid)](https://apt.izzysoft.de/fdroid/index/apk/app.plugbrain.android)
 [![GitHub release](https://img.shields.io/github/v/release/msbelaid/PlugBrain?color=20DFD9)](https://github.com/msbelaid/PlugBrain/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/msbelaid/PlugBrain/total.svg?color=0D7777)](https://github.com/msbelaid/PlugBrain/releases)
 [![Build](https://github.com/msbelaid/PlugBrain/actions/workflows/release-build.yml/badge.svg)](https://github.com/msbelaid/PlugBrain/actions/workflows/release-build.yml)
+[![Last commit](https://img.shields.io/github/last-commit/msbelaid/PlugBrain?color=0D7777)](https://github.com/msbelaid/PlugBrain/commits/master)
+[![Contributors](https://img.shields.io/github/contributors/msbelaid/PlugBrain?color=0D7777)](https://github.com/msbelaid/PlugBrain/graphs/contributors)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![Android 9+](https://img.shields.io/badge/Android-9%2B%20%28API%2028%29-3DDC84?logo=android&logoColor=white)](#download)
+[![Kotlin](https://img.shields.io/badge/Kotlin-Jetpack%20Compose-7F52FF?logo=kotlin&logoColor=white)](#contributing)
 [![Reddit r/PlugBrain](https://img.shields.io/badge/Reddit-r%2FPlugBrain-orange?logo=reddit&logoColor=white)](https://www.reddit.com/r/PlugBrain/)
 [![contribute.design](https://contribute.design/api/shield/msbelaid/PlugBrain)](https://contribute.design/msbelaid/PlugBrain)
+[![GitHub stars](https://img.shields.io/github/stars/msbelaid/PlugBrain?style=social)](https://github.com/msbelaid/PlugBrain/stargazers)
 
 [Website](https://plugbrain.app) · [Download](#download) · [How it works](#how-it-works) · [Privacy](#privacy) · [Contributing](#contributing) · [Community](#community)
 
