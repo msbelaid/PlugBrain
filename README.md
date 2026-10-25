@@ -25,7 +25,7 @@ No ads, no tracking, no internet needed.
 [![contribute.design](https://contribute.design/api/shield/msbelaid/PlugBrain)](https://contribute.design/msbelaid/PlugBrain)
 [![GitHub stars](https://img.shields.io/github/stars/msbelaid/PlugBrain?style=social)](https://github.com/msbelaid/PlugBrain/stargazers)
 
-[Website](https://plugbrain.app) · [Download](#download) · [How it works](#how-it-works) · [Privacy](#privacy) · [Contributing](#contributing) · [Community](#community)
+[Website](https://plugbrain.app) · [Download](#download) · [How it works](#how-it-works) · [Privacy](#privacy) · [Engineering](#engineering) · [Contributing](#contributing) · [Community](#community)
 
 </div>
 
@@ -101,6 +101,41 @@ To block apps, it needs a few Android permissions. Each one is explained in the 
 | Ignore battery optimizations | Keeps the blocker running in the background |
 
 Read the full [privacy policy](PRIVACY_POLICY.md).
+
+## Engineering
+
+PlugBrain is a small app built with the habits of a larger one. The [CI workflow](.github/workflows/release-build.yml) runs these checks in parallel on every pull request:
+
+| Check | What it covers |
+|---|---|
+| **Lint** | [ktlint](https://pinterest.github.io/ktlint/) on every Kotlin file |
+| **Unit tests** | 120 JUnit and MockK tests of the challenges, difficulty, usage tracking and preferences, with coverage merged by [Kover](https://github.com/Kotlin/kotlinx-kover) and tracked on [Codecov](https://codecov.io/gh/msbelaid/PlugBrain) |
+| **Screenshot tests** | 100+ [Paparazzi](https://github.com/cashapp/paparazzi) snapshots of screens and design system components, in light mode, dark mode and 200% font size |
+| **UI tests** | Instrumented Compose tests on an Android emulator |
+| **Installable build** | A signed release APK for every pull request, so changes can be tried on a real phone before they merge |
+
+<div align="center">
+  <img src="app/src/test/snapshots/images/app.plugbrain.android.screenshots_MainScreenScreenshotTest_activeTest.png" alt="Snapshot test: dashboard in light mode" width="24%" />
+  <img src="app/src/test/snapshots/images/app.plugbrain.android.screenshots_MainScreenScreenshotTest_activeDarkTest.png" alt="Snapshot test: dashboard in dark mode" width="24%" />
+  <img src="app/src/test/snapshots/images/app.plugbrain.android.screenshots_MainScreenScreenshotTest_activeTest_fontscale2.png" alt="Snapshot test: dashboard at 200% font size" width="24%" />
+  <img src="app/src/test/snapshots/images/app.plugbrain.android.screenshots_NumericalChallengeScreenScreenshotTest_numericalChallengeScreenWrongAnswerTest.png" alt="Snapshot test: challenge screen after a wrong answer" width="24%" />
+  <br><sub>Real snapshot tests from <code>app/src/test/snapshots</code>: light, dark, 200% font size, and a wrong answer.</sub>
+</div>
+
+### Ten languages, including right to left
+
+The app ships in 10 languages, with Arabic and Persian laid out right to left. The store screenshots for every language are rendered from the same Paparazzi setup by the [Store screenshots workflow](.github/workflows/store-screenshots.yml), so refreshing them after a UI change takes one click.
+
+<div align="center">
+  <img src="assets/readme/dashboard-languages.png" alt="The dashboard in English, French, German, Arabic, Persian, Hindi, Japanese, Chinese, Russian and Dutch" width="100%" />
+</div>
+
+### Built to be trusted
+
+- **No internet permission.** The manifest asks for none, so the privacy promise is enforced by Android, not by a policy.
+- **Modular.** Five Gradle modules (`app`, `appusage`, `challenges`, `datastore`, `designsystem`) keep the challenge logic and the design system independent of the Android services.
+- **A real design system.** Every screen is built from shared Compose components, each covered by its own screenshot tests, and designed in [Figma](https://www.figma.com/design/uYAs8XFheRGrCAcSqTQ5Sb/PlugBrain---Github).
+- **Built from source by F-Droid.** The F-Droid release is compiled from this repository, not uploaded as a binary.
 
 ## Contributing
 
