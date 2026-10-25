@@ -112,6 +112,8 @@ class OnboardingFlowTest {
         val intermediate = hasText(text(R.string.onboarding_difficulty_intermediate)) and hasClickAction()
         waitUntilShown(intermediate)
         composeRule.onNode(intermediate).performScrollTo().performClick()
+        // The choice is saved in the background; a user sees it selected before tapping Finish.
+        waitUntilShown(intermediate and isSelected())
         clickWhenEnabled(R.string.onboarding_preferences_cta)
 
         waitUntilShown(hasText(text(R.string.dashboard_active)))
@@ -197,7 +199,14 @@ class OnboardingFlowTest {
     }
 
     private fun waitUntilShown(matcher: SemanticsMatcher) {
-        composeRule.waitUntil(TIMEOUT) { composeRule.onAllNodes(matcher).fetchSemanticsNodes().isNotEmpty() }
+        composeRule.waitUntil(TIMEOUT) {
+            try {
+                composeRule.onAllNodes(matcher).fetchSemanticsNodes().isNotEmpty()
+            } catch (e: IllegalStateException) {
+                // Thrown until the app has set its content, while it's still starting up.
+                false
+            }
+        }
     }
 
     private fun settingsObject(
