@@ -41,6 +41,7 @@ class BlockingFlowTest {
         FakeAppsUsageStats.reset()
         loadKoinModules(module { single<AppsUsageStats> { FakeAppsUsageStats } })
         driver = BlockingTestDriver(composeRule)
+        driver.closeChallenges()
     }
 
     @After

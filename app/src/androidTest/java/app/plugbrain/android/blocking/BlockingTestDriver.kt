@@ -1,5 +1,6 @@
 package app.plugbrain.android.blocking
 
+import android.app.Activity
 import android.app.UiAutomation
 import android.content.Intent
 import android.os.SystemClock
@@ -19,6 +20,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
+import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.Configurator
 import androidx.test.uiautomator.UiDevice
 import app.plugbrain.android.R
@@ -95,7 +98,30 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
     fun reset() {
         device.pressHome()
         permissions.revokeAll()
+        closeChallenges()
         runBlocking { dataStore.edit { it.clear() } }
+    }
+
+    /**
+     * Finishes challenge screens left open, for example one the service reopened right after a
+     * solve. A later test could otherwise see that old screen instead of a new challenge.
+     */
+    fun closeChallenges() {
+        instrumentation.runOnMainSync { openChallenges().forEach { it.finish() } }
+        assertTrue("A challenge screen didn't close", waitFor { onMainThread { openChallenges().isEmpty() } })
+    }
+
+    private fun openChallenges(): List<Activity> =
+        Stage.values()
+            .filter { it != Stage.DESTROYED }
+            .flatMap { ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(it) }
+            .filterIsInstance<ChallengeActivity>()
+
+    private fun <T> onMainThread(block: () -> T): T {
+        var result: T? = null
+        instrumentation.runOnMainSync { result = block() }
+        @Suppress("UNCHECKED_CAST")
+        return result as T
     }
 
     fun openDistractingApp() {
