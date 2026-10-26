@@ -6,6 +6,7 @@ import android.os.SystemClock
 import android.provider.Settings
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.ComposeTimeoutException
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasSetTextAction
@@ -171,15 +172,29 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
     }
 
     private fun waitUntilShown(matcher: SemanticsMatcher) {
-        composeRule.waitUntil(TIMEOUT) {
-            try {
-                composeRule.onAllNodes(matcher).fetchSemanticsNodes().isNotEmpty()
-            } catch (e: IllegalStateException) {
-                // Thrown until the challenge screen has set its content.
-                false
+        try {
+            composeRule.waitUntil(TIMEOUT) {
+                try {
+                    composeRule.onAllNodes(matcher).fetchSemanticsNodes().isNotEmpty()
+                } catch (e: IllegalStateException) {
+                    // Thrown until the challenge screen has set its content.
+                    false
+                }
             }
+        } catch (e: ComposeTimeoutException) {
+            throw AssertionError("Nothing ${matcher.description} after $TIMEOUT ms. On screen: ${textsOnScreen()}", e)
         }
     }
+
+    private fun textsOnScreen(): List<String> =
+        try {
+            composeRule
+                .onAllNodes(SemanticsMatcher("any node") { true }, useUnmergedTree = true)
+                .fetchSemanticsNodes()
+                .flatMap { node -> node.config.getOrNull(SemanticsProperties.Text).orEmpty().map { it.text } }
+        } catch (e: IllegalStateException) {
+            emptyList()
+        }
 
     private fun hasChallengeText() =
         SemanticsMatcher("shows a challenge like \"3 + 1\"") { node ->
