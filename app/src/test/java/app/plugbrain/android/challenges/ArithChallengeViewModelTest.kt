@@ -58,7 +58,7 @@ class ArithChallengeViewModelTest {
         dataStore = PreferenceDataStoreFactory.create(scope = scope, produceFile = { file })
         val factory = ChallengeFactory((0..MAX_DIFFICULTY).map { level -> { LevelChallenge(level) } })
         viewModel = ArithChallengeViewModel(dataStore, MathChallengeRepository(dataStore, factory)) { NOW }
-        runBlocking {
+        runBlocking<Unit> {
             dataStore.edit {
                 it[BLOCK_INTERVAL_KEY] = BLOCK_INTERVAL
                 it[MINIMAL_DIFFICULTY_KEY] = 0
@@ -74,56 +74,63 @@ class ArithChallengeViewModelTest {
     }
 
     @Test
-    fun solvingAChallengeRaisesTheDifficultyAndUnblocks() = runBlocking {
-        setDifficulty(1)
-        viewModel.unblockApps()
+    fun solvingAChallengeRaisesTheDifficultyAndUnblocks() =
+        runBlocking<Unit> {
+            setDifficulty(1)
+            viewModel.unblockApps()
 
-        // The difficulty is saved last, so everything else is saved once it changes.
-        awaitValue(dataStore.getProgressiveDifficulty(), 2)
-        assertEquals(false, dataStore.getBlockAppsToggle().first())
-        val timestamps = dataStore.getTimestamps().first()
-        assertEquals(NOW, timestamps.lastUnblock)
-        assertEquals(NOW, timestamps.lastChallenge)
-    }
-
-    @Test
-    fun aBreakShorterThanTwoIntervalsKeepsTheDifficulty() = runBlocking {
-        setDifficulty(3)
-        dataStore.setLastChallengeTime(NOW - (2 * BLOCK_INTERVAL - 1) * ONE_MINUTE)
-
-        viewModel.decreaseDifficulty()
-
-        assertEquals(3, dataStore.getProgressiveDifficulty().first())
-    }
+            // The difficulty is saved last, so everything else is saved once it changes.
+            awaitValue(dataStore.getProgressiveDifficulty(), 2)
+            assertEquals(false, dataStore.getBlockAppsToggle().first())
+            val timestamps = dataStore.getTimestamps().first()
+            assertEquals(NOW, timestamps.lastUnblock)
+            assertEquals(NOW, timestamps.lastChallenge)
+        }
 
     @Test
-    fun eachBreakOfTwoIntervalsLowersTheDifficultyByOne() = runBlocking {
-        setDifficulty(3)
-        dataStore.setLastChallengeTime(NOW - 2 * (2 * BLOCK_INTERVAL) * ONE_MINUTE)
+    fun aBreakShorterThanTwoIntervalsKeepsTheDifficulty() =
+        runBlocking<Unit> {
+            setDifficulty(3)
+            dataStore.setLastChallengeTime(NOW - (2 * BLOCK_INTERVAL - 1) * ONE_MINUTE)
 
-        viewModel.decreaseDifficulty()
+            viewModel.decreaseDifficulty()
 
-        assertEquals(1, dataStore.getProgressiveDifficulty().first())
-        assertEquals(NOW, dataStore.getTimestamps().first().lastChallenge)
-    }
+            assertEquals(3, dataStore.getProgressiveDifficulty().first())
+        }
 
     @Test
-    fun difficultyDoesNotDropBelowTheChosenMinimum() = runBlocking {
-        dataStore.edit { it[MINIMAL_DIFFICULTY_KEY] = 2 }
-        setDifficulty(3)
-        dataStore.setLastChallengeTime(NOW - 100 * BLOCK_INTERVAL * ONE_MINUTE)
+    fun eachBreakOfTwoIntervalsLowersTheDifficultyByOne() =
+        runBlocking<Unit> {
+            setDifficulty(3)
+            dataStore.setLastChallengeTime(NOW - 2 * (2 * BLOCK_INTERVAL) * ONE_MINUTE)
 
-        viewModel.decreaseDifficulty()
+            viewModel.decreaseDifficulty()
 
-        assertEquals(2, dataStore.getProgressiveDifficulty().first())
-    }
+            assertEquals(1, dataStore.getProgressiveDifficulty().first())
+            assertEquals(NOW, dataStore.getTimestamps().first().lastChallenge)
+        }
+
+    @Test
+    fun difficultyDoesNotDropBelowTheChosenMinimum() =
+        runBlocking<Unit> {
+            dataStore.edit { it[MINIMAL_DIFFICULTY_KEY] = 2 }
+            setDifficulty(3)
+            dataStore.setLastChallengeTime(NOW - 100 * BLOCK_INTERVAL * ONE_MINUTE)
+
+            viewModel.decreaseDifficulty()
+
+            assertEquals(2, dataStore.getProgressiveDifficulty().first())
+        }
 
     private suspend fun setDifficulty(level: Int) {
         dataStore.edit { it[PROGRESSIVE_DIFFICULTY_KEY] = level }
     }
 
     // unblockApps saves in the background, so wait for the value instead of reading it once.
-    private suspend fun <T> awaitValue(flow: Flow<T>, expected: T) {
+    private suspend fun <T> awaitValue(
+        flow: Flow<T>,
+        expected: T,
+    ) {
         withTimeout(5_000) { flow.first { it == expected } }
     }
 

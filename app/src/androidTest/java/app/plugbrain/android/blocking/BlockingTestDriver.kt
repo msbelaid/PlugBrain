@@ -68,19 +68,20 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         difficulty: Int = 0,
         blocked: Boolean = false,
         lastChallenge: Long = System.currentTimeMillis(),
-    ) = runBlocking {
-        dataStore.edit {
-            it.clear()
-            it[BLOCKED_APPS_KEY] = setOf(DISTRACTING_APP)
-            it[BLOCK_INTERVAL_KEY] = blockInterval
-            it[MINIMAL_DIFFICULTY_KEY] = 0
-            it[PROGRESSIVE_DIFFICULTY_KEY] = difficulty
-            it[BLOCK_APPS_TOGGLE_KEY] = blocked
+    ) =
+        runBlocking {
+            dataStore.edit {
+                it.clear()
+                it[BLOCKED_APPS_KEY] = setOf(DISTRACTING_APP)
+                it[BLOCK_INTERVAL_KEY] = blockInterval
+                it[MINIMAL_DIFFICULTY_KEY] = 0
+                it[PROGRESSIVE_DIFFICULTY_KEY] = difficulty
+                it[BLOCK_APPS_TOGGLE_KEY] = blocked
+            }
+            // Use from before the test, such as the Settings screens of the onboarding test, doesn't count.
+            dataStore.setLastBlockTime(System.currentTimeMillis())
+            dataStore.setLastChallengeTime(lastChallenge)
         }
-        // Use from before the test, such as the Settings screens of the onboarding test, doesn't count.
-        dataStore.setLastBlockTime(System.currentTimeMillis())
-        dataStore.setLastChallengeTime(lastChallenge)
-    }
 
     fun turnOnPlugBrain() {
         permissions.grantOverlay()
@@ -94,8 +95,9 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
     }
 
     fun openDistractingApp() {
-        val intent = Intent(Settings.ACTION_SETTINGS)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        val intent =
+            Intent(Settings.ACTION_SETTINGS)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startActivity(intent)
     }
 
@@ -116,7 +118,10 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         return condition()
     }
 
-    fun awaitChallenge(timeout: Long = TIMEOUT, relaunchEvery: Long = RELAUNCH_EVERY) {
+    fun awaitChallenge(
+        timeout: Long = TIMEOUT,
+        relaunchEvery: Long = RELAUNCH_EVERY,
+    ) {
         assertTrue(
             "The challenge didn't open over the distracting app",
             openDistractingAppUntil(timeout, relaunchEvery) { ChallengeActivity.isInForeground },
@@ -124,7 +129,10 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
     }
 
     /** Answers the challenge on screen and unlocks the apps, as a user does. */
-    fun solveChallengeAndUnlock(blockInterval: Int = 1, beforeUnlocking: () -> Unit = {}) {
+    fun solveChallengeAndUnlock(
+        blockInterval: Int = 1,
+        beforeUnlocking: () -> Unit = {},
+    ) {
         val question = hasChallengeText()
         waitUntilShown(question)
         val text = composeRule.onNode(question).fetchSemanticsNode().config[SemanticsProperties.Text].first().text
@@ -140,7 +148,10 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
 
     fun awaitDifficulty(expected: Int): Boolean = waitFor(TIMEOUT) { difficulty() == expected }
 
-    fun waitFor(timeout: Long = TIMEOUT, condition: () -> Boolean): Boolean {
+    fun waitFor(
+        timeout: Long = TIMEOUT,
+        condition: () -> Boolean,
+    ): Boolean {
         val deadline = SystemClock.uptimeMillis() + timeout
         while (SystemClock.uptimeMillis() < deadline) {
             if (condition()) return true
@@ -166,9 +177,10 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         }
     }
 
-    private fun hasChallengeText() = SemanticsMatcher("shows a challenge like \"3 + 1\"") { node ->
-        node.config.getOrNull(SemanticsProperties.Text).orEmpty().any { CHALLENGE_TEXT.matches(it.text) }
-    }
+    private fun hasChallengeText() =
+        SemanticsMatcher("shows a challenge like \"3 + 1\"") { node ->
+            node.config.getOrNull(SemanticsProperties.Text).orEmpty().any { CHALLENGE_TEXT.matches(it.text) }
+        }
 
     private fun answer(challenge: String): Int {
         val (left, operator, right) = requireNotNull(CHALLENGE_TEXT.matchEntire(challenge)).destructured
