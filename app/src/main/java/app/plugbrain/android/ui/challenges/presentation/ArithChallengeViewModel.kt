@@ -14,6 +14,7 @@ import app.plugbrain.android.datastore.setLastChallengeTime
 import app.plugbrain.android.datastore.setLastUnblockTime
 import app.plugbrain.android.datastore.updateBlockAppsToggle
 import app.plugbrain.android.repository.MathChallengeRepository
+import app.plugbrain.android.util.Clock
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -27,6 +28,7 @@ import kotlinx.coroutines.launch
 class ArithChallengeViewModel(
   private val dataStore: DataStore<Preferences>,
   private val mathChallengeRepository: MathChallengeRepository,
+  private val clock: Clock,
 ) : ViewModel() {
   private val _challenge: MutableStateFlow<Challenge?> = MutableStateFlow(null)
   val challenge: StateFlow<Challenge?> = _challenge
@@ -54,22 +56,22 @@ class ArithChallengeViewModel(
       settings to timestamps
     }.first()
 
-    val durationSinceLastChallenge = (
-      System.currentTimeMillis() - (timestamps.lastChallenge ?: 0)
-      ).milliseconds.inWholeMinutes.toInt()
+    val now = clock.now()
+    val durationSinceLastChallenge = (now - (timestamps.lastChallenge ?: 0)).milliseconds.inWholeMinutes.toInt()
     if (durationSinceLastChallenge >= settings.blockInterval * 2) {
       val nbDecLevels = durationSinceLastChallenge / (settings.blockInterval * 2)
       dataStore.decrementProgressiveDifficulty(nbDecLevels)
-      dataStore.setLastChallengeTime(System.currentTimeMillis())
+      dataStore.setLastChallengeTime(now)
     }
   }
 
   fun unblockApps() {
     viewModelScope.launch {
+      val now = clock.now()
       dataStore.updateBlockAppsToggle(false)
-      dataStore.setLastChallengeTime(System.currentTimeMillis())
+      dataStore.setLastChallengeTime(now)
       // Read by MathLockService so an app isn't challenged again on open right after a solve.
-      dataStore.setLastUnblockTime(System.currentTimeMillis())
+      dataStore.setLastUnblockTime(now)
       dataStore.incrementProgressiveDifficulty(mathChallengeRepository.getMaxDifficulty())
     }
   }

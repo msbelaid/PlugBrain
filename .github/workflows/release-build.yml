@@ -202,6 +202,7 @@ jobs:
 
       - name: Run Instrumented Tests
         # The onboarding tests go through the system Settings app, so they take a few minutes more.
+        # @RealTimeTest tests wait for real minutes of app use, so only release tags run them.
         timeout-minutes: 20
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -212,7 +213,7 @@ jobs:
           emulator-shutdown: true
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew --no-daemon --max-workers=1 connectedAndroidTest
+          script: ./gradlew --no-daemon --max-workers=1 connectedAndroidTest ${{ !startsWith(github.ref, 'refs/tags/v') && '-Pandroid.testInstrumentationRunnerArguments.notAnnotation=app.plugbrain.android.RealTimeTest' || '' }}
 
       - name: Ensure Emulator is Dead
         if: always()

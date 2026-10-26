@@ -55,6 +55,7 @@ androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-p
 
 #Coroutines
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 
 #Timber
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
