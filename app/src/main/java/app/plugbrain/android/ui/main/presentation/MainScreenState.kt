@@ -43,6 +43,7 @@ sealed interface DashboardStatus {
 }
 
 /** The first match wins: a missing permission, then no apps to block, then locked, then on. */
+@Suppress("LongParameterList") // A pure mapping of the dashboard inputs, kept flat so tests can set each one.
 internal fun dashboardStatus(
   permissions: PermissionsState,
   hasBlockedApps: Boolean,

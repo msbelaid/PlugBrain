@@ -132,7 +132,7 @@ class OnboardingScreenshotTest {
         LaunchedEffect(Unit) { sheetState.expand() }
         PermissionExplainerSheet(
             permission = permission,
-            onUnderstood = {},
+            onContinue = {},
             onDismiss = {},
             sheetState = sheetState,
         )
@@ -165,8 +165,8 @@ class OnboardingScreenshotTest {
         PreferencesStep(
             blockInterval = 5,
             difficulty = DifficultyPreset.Beginner,
-            onBlockIntervalSelected = {},
-            onDifficultySelected = {},
+            onBlockIntervalSelect = {},
+            onDifficultySelect = {},
             onFinish = {},
             onSkip = {},
         )

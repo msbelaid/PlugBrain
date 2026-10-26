@@ -1,0 +1,54 @@
+# Detekt configuration, applied on top of detekt's default config (buildUponDefaultConfig).
+# Only overrides are listed here. Formatting is left to ktlint, so detekt-formatting is not used
+# and the style rules that ktlint already enforces are turned off.
+
+naming:
+  FunctionNaming:
+    # Composables are PascalCase.
+    ignoreAnnotated: ['Composable']
+  TopLevelPropertyNaming:
+    # Compose style: top-level constants such as colors are PascalCase.
+    constantPattern: '[A-Z][A-Za-z0-9_]*'
+
+style:
+  # Covered by ktlint.
+  MaxLineLength:
+    active: false
+  NewLineAtEndOfFile:
+    active: false
+  UnusedPrivateMember:
+    # Private @Preview functions are used by the IDE.
+    ignoreAnnotated: ['Preview']
+  MagicNumber:
+    ignorePropertyDeclaration: true
+    ignoreEnums: true
+    # Layout values (dp, weights, alpha) in composables read better inline.
+    ignoreAnnotated: ['Composable', 'Preview']
+    excludes:
+      - '**/test/**'
+      - '**/androidTest/**'
+      # Color palette.
+      - '**/theme/Color.kt'
+      # Number ranges are what each challenge is about.
+      - '**/challenges/src/main/**'
+
+complexity:
+  LongParameterList:
+    ignoreDefaultParameters: true
+    # Composables take their state and callbacks as parameters.
+    ignoreAnnotated: ['Composable']
+  LongMethod:
+    ignoreAnnotated: ['Composable']
+  CyclomaticComplexMethod:
+    ignoreAnnotated: ['Composable']
+  TooManyFunctions:
+    # Lifecycle callbacks of services and activities don't count.
+    ignoreOverridden: true
+    # Files of DataStore accessors group one function per setting.
+    thresholdInFiles: 15
+
+# Compose rules (io.nlopez.compose.rules:detekt). Defaults are kept, these are the overrides.
+Compose:
+  ComposableNaming:
+    # Paparazzi tests use lowercase helper composables.
+    excludes: ['**/test/**', '**/androidTest/**']

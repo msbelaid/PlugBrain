@@ -30,12 +30,14 @@ import app.plugbrain.android.ui.theme.MathlockAppTheme
 fun PreferencesStep(
   blockInterval: Int,
   difficulty: DifficultyPreset?,
-  onBlockIntervalSelected: (Int) -> Unit,
-  onDifficultySelected: (DifficultyPreset) -> Unit,
+  onBlockIntervalSelect: (Int) -> Unit,
+  onDifficultySelect: (DifficultyPreset) -> Unit,
   onFinish: () -> Unit,
   onSkip: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   PlugStepScaffold(
+    modifier = modifier,
     title = stringResource(R.string.onboarding_preferences_title),
     currentStep = OnboardingStep.Preferences.progress,
     totalSteps = OnboardingStep.progressSteps,
@@ -53,7 +55,7 @@ fun PreferencesStep(
           title = pluralStringResource(R.plurals.onboarding_preferences_interval_option, minutes, minutes),
           icon = Icons.Rounded.Schedule,
           isSelected = blockInterval == minutes,
-          onClick = { onBlockIntervalSelected(minutes) },
+          onClick = { onBlockIntervalSelect(minutes) },
         )
       }
     }
@@ -79,7 +81,7 @@ fun PreferencesStep(
           description = stringResource(description),
           icon = Icons.Rounded.SignalCellularAlt,
           isSelected = difficulty == preset,
-          onClick = { onDifficultySelected(preset) },
+          onClick = { onDifficultySelect(preset) },
         )
       }
     }
@@ -106,8 +108,8 @@ private fun PreferencesStepPreview() {
     PreferencesStep(
       blockInterval = 5,
       difficulty = DifficultyPreset.Beginner,
-      onBlockIntervalSelected = {},
-      onDifficultySelected = {},
+      onBlockIntervalSelect = {},
+      onDifficultySelect = {},
       onFinish = {},
       onSkip = {},
     )

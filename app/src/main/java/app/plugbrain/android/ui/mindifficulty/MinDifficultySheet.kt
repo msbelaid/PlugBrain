@@ -43,6 +43,7 @@ fun MinDifficultySheet(
   sampleChallenge: (Int) -> String?,
   onSave: (Int) -> Unit,
   onDismiss: () -> Unit,
+  modifier: Modifier = Modifier,
   sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
   var selected by rememberSaveable {
@@ -63,6 +64,7 @@ fun MinDifficultySheet(
     secondaryCtaText = null,
     onDismiss = onDismiss,
     sheetState = sheetState,
+    modifier = modifier,
   ) {
     Text(
       text = stringResource(R.string.min_difficulty_sheet_description),

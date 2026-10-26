@@ -94,7 +94,7 @@ class OnboardingActivity : ComponentActivity() {
       label = "onboarding_step",
     ) { currentStep ->
       when (currentStep) {
-        OnboardingStep.Welcome -> WelcomeScreen(onGetStarted = onboardingViewModel::next)
+        OnboardingStep.Welcome -> WelcomeScreen(onGetStartedClick = onboardingViewModel::next)
 
         OnboardingStep.Permissions -> PermissionsStep(
           permissions = permissions,
@@ -134,8 +134,8 @@ class OnboardingActivity : ComponentActivity() {
         OnboardingStep.Preferences -> PreferencesStep(
           blockInterval = settings.blockInterval,
           difficulty = DifficultyPreset.fromMinimalDifficulty(settings.selectedMinimalDifficulty),
-          onBlockIntervalSelected = onboardingViewModel::updateBlockInterval,
-          onDifficultySelected = onboardingViewModel::updateDifficulty,
+          onBlockIntervalSelect = onboardingViewModel::updateBlockInterval,
+          onDifficultySelect = onboardingViewModel::updateDifficulty,
           onFinish = onboardingViewModel::completeSetup,
           onSkip = onboardingViewModel::finish,
         )
@@ -145,7 +145,7 @@ class OnboardingActivity : ComponentActivity() {
     explainedPermission?.let { permission ->
       PermissionExplainerSheet(
         permission = permission,
-        onUnderstood = {
+        onContinue = {
           explainedPermission = null
           when (permission) {
             OnboardingPermission.UsageAccess -> openUsageAccessSettings()

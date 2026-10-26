@@ -24,8 +24,8 @@ private val CardShape = RoundedCornerShape(8.dp)
 @Composable
 internal fun PlugListCard(
   isSelected: Boolean,
-  clickModifier: Modifier,
   modifier: Modifier = Modifier,
+  clickModifier: Modifier = Modifier,
   highlightSelection: Boolean = true,
   content: @Composable RowScope.() -> Unit,
 ) {

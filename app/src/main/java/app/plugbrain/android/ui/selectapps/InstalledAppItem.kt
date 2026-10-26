@@ -29,11 +29,11 @@ import kotlin.time.Duration.Companion.minutes
 
 @Composable
 fun InstalledAppItem(
-  modifier: Modifier = Modifier,
   installedApp: InstalledApp,
   usageFraction: Float,
   isSelected: Boolean,
-  onClicked: (Boolean) -> Unit,
+  onCheckedChange: (Boolean) -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   ListItem(
     headlineContent = {
@@ -59,7 +59,7 @@ fun InstalledAppItem(
     },
     modifier = modifier.toggleable(
       value = isSelected,
-      onValueChange = onClicked,
+      onValueChange = onCheckedChange,
       role = Role.Checkbox, // Important for accessibility
     ),
   )
@@ -113,7 +113,7 @@ private fun InstalledAppPreview() {
         usageMillis = 104 * 60_000L,
       ),
       usageFraction = 1f,
-      onClicked = { },
+      onCheckedChange = { },
       isSelected = true,
     )
     InstalledAppItem(
@@ -124,7 +124,7 @@ private fun InstalledAppPreview() {
       ),
       usageFraction = 0f,
       isSelected = false,
-      onClicked = { },
+      onCheckedChange = { },
     )
   }
 }

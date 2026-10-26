@@ -116,6 +116,7 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md). For code, fork the repo, work on 
 
 ```bash
 ./gradlew ktlintCheck
+./gradlew detekt
 ./gradlew test
 ```
 
@@ -127,7 +128,7 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md). For code, fork the repo, work on 
 - [Coroutines & Flow](https://kotlinlang.org/docs/coroutines-overview.html), [Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle), [DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
 - [UsageStatsManager](https://developer.android.com/reference/android/app/usage/package-summary) for app usage, [Coil](https://coil-kt.github.io/coil/) for images, [Timber](https://github.com/JakeWharton/timber) for logging
 - Tests with [JUnit](https://junit.org/junit5/), [MockK](https://mockk.io/) and [Paparazzi](https://github.com/cashapp/paparazzi) screenshot tests
-- [ktlint](https://pinterest.github.io/ktlint/) and [GitHub Actions](https://github.com/features/actions) for CI/CD
+- [ktlint](https://pinterest.github.io/ktlint/), [detekt](https://detekt.dev/) with [Compose rules](https://mrmans0n.github.io/compose-rules/) and [GitHub Actions](https://github.com/features/actions) for CI/CD
 
 | Module | What's inside |
 |---|---|

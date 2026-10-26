@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun LeadingIcon(
-  modifier: Modifier = Modifier.Companion,
   icon: ImageVector,
   isSelected: Boolean,
+  modifier: Modifier = Modifier,
 ) {
   val tint =
     if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant

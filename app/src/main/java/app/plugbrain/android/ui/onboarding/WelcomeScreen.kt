@@ -30,10 +30,14 @@ import app.plugbrain.android.ui.theme.MathlockAppTheme
 import app.plugbrain.android.ui.theme.Primary500
 
 @Composable
-fun WelcomeScreen(onGetStarted: () -> Unit) {
+fun WelcomeScreen(
+  onGetStartedClick: () -> Unit,
+  modifier: Modifier = Modifier,
+) {
   PlugStepScaffold(
+    modifier = modifier,
     primaryCtaText = stringResource(R.string.welcome_cta_title),
-    onPrimaryCtaClick = onGetStarted,
+    onPrimaryCtaClick = onGetStartedClick,
     background = TopGradient(),
   ) {
     Image(
@@ -82,6 +86,6 @@ private fun TopGradient(): Brush = Brush.verticalGradient(
 @Composable
 private fun WelcomeScreenPreview() {
   MathlockAppTheme(dynamicColor = false) {
-    WelcomeScreen(onGetStarted = {})
+    WelcomeScreen(onGetStartedClick = {})
   }
 }

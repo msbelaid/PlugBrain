@@ -202,7 +202,7 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
             composeRule.waitUntil(TIMEOUT) {
                 try {
                     composeRule.onAllNodes(matcher).fetchSemanticsNodes().isNotEmpty()
-                } catch (e: IllegalStateException) {
+                } catch (ignored: IllegalStateException) {
                     // Thrown until the challenge screen has set its content.
                     false
                 }
@@ -218,7 +218,7 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
                 .onAllNodes(SemanticsMatcher("any node") { true }, useUnmergedTree = true)
                 .fetchSemanticsNodes()
                 .flatMap { node -> node.config.getOrNull(SemanticsProperties.Text).orEmpty().map { it.text } }
-        } catch (e: IllegalStateException) {
+        } catch (ignored: IllegalStateException) {
             emptyList()
         }
 
@@ -237,36 +237,48 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         val (left, operator, right) = tokens
         val result = tokens.getOrElse(4) { "?" }
         return when {
-            left == "?" -> {
-                val b = right.toInt()
-                val r = result.toInt()
-                when (operator) {
-                    "+" -> r - b
-                    "-" -> r + b
-                    "x" -> r / b
-                    else -> r * b
-                }
-            }
-            right == "?" -> {
-                val a = left.toInt()
-                val r = result.toInt()
-                when (operator) {
-                    "+" -> r - a
-                    "-" -> a - r
-                    "x" -> r / a
-                    else -> a / r
-                }
-            }
-            else -> {
-                val a = left.toInt()
-                val b = right.toInt()
-                when (operator) {
-                    "+" -> a + b
-                    "-" -> a - b
-                    "x" -> a * b
-                    else -> a / b
-                }
-            }
+            left == "?" -> missingLeft(operator, right.toInt(), result.toInt())
+            right == "?" -> missingRight(left.toInt(), operator, result.toInt())
+            else -> compute(left.toInt(), operator, right.toInt())
         }
     }
+
+    /** "? op b = r" */
+    private fun missingLeft(
+        operator: String,
+        b: Int,
+        r: Int,
+    ): Int =
+        when (operator) {
+            "+" -> r - b
+            "-" -> r + b
+            "x" -> r / b
+            else -> r * b
+        }
+
+    /** "a op ? = r" */
+    private fun missingRight(
+        a: Int,
+        operator: String,
+        r: Int,
+    ): Int =
+        when (operator) {
+            "+" -> r - a
+            "-" -> a - r
+            "x" -> r / a
+            else -> a / r
+        }
+
+    /** "a op b" */
+    private fun compute(
+        a: Int,
+        operator: String,
+        b: Int,
+    ): Int =
+        when (operator) {
+            "+" -> a + b
+            "-" -> a - b
+            "x" -> a * b
+            else -> a / b
+        }
 }
