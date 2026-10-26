@@ -157,10 +157,4 @@
     <string name="min_difficulty_sheet_save">Speichern</string>
     <string name="dashboard_battery_title">Im Hintergrund ausführen</string>
     <string name="dashboard_battery_description">Verhindert, dass Android PlugBrain zum Akkusparen beendet.</string>
-    <string name="dashboard_about">Über</string>
-    <string name="dashboard_source_code_title">Quellcode</string>
-    <string name="dashboard_source_code_description">Frei und quelloffen unter GPLv3</string>
-    <string name="dashboard_report_bug_title">Fehler melden</string>
-    <string name="dashboard_report_bug_description">Ein Issue auf GitHub öffnen</string>
-    <string name="dashboard_website_title">Website</string>
 </resources>

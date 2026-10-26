@@ -158,10 +158,4 @@
     <string name="min_difficulty_sheet_save">सेव करें</string>
     <string name="dashboard_battery_title">बैकग्राउंड में चलाएं</string>
     <string name="dashboard_battery_description">बैटरी बचाने के लिए Android को PlugBrain बंद करने से रोकें।</string>
-    <string name="dashboard_about">परिचय</string>
-    <string name="dashboard_source_code_title">सोर्स कोड</string>
-    <string name="dashboard_source_code_description">GPLv3 के तहत मुफ़्त और ओपन सोर्स</string>
-    <string name="dashboard_report_bug_title">बग की रिपोर्ट करें</string>
-    <string name="dashboard_report_bug_description">GitHub पर एक issue खोलें</string>
-    <string name="dashboard_website_title">वेबसाइट</string>
 </resources>

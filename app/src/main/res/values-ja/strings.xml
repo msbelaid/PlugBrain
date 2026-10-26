@@ -148,10 +148,4 @@
     <string name="min_difficulty_sheet_save">保存</string>
     <string name="dashboard_battery_title">バックグラウンドで実行</string>
     <string name="dashboard_battery_description">電池を節約するために Android が PlugBrain を終了しないようにします。</string>
-    <string name="dashboard_about">このアプリについて</string>
-    <string name="dashboard_source_code_title">ソースコード</string>
-    <string name="dashboard_source_code_description">GPLv3 の無料オープンソース</string>
-    <string name="dashboard_report_bug_title">バグを報告</string>
-    <string name="dashboard_report_bug_description">GitHub で issue を作成</string>
-    <string name="dashboard_website_title">ウェブサイト</string>
 </resources>
