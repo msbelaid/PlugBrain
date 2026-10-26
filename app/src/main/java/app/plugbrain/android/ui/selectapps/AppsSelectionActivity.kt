@@ -34,9 +34,9 @@ class AppsSelectionActivity : ComponentActivity() {
               .padding(innerPadding),
             blockedApps = blockedApps,
             installedAppsState = installedApps,
-            onQueryChanged = installedAppsViewModel::onChangeQuery,
+            onQueryChange = installedAppsViewModel::onChangeQuery,
             searchQuery = searchQuery,
-            onItemClicked = { clickedPackage, checked ->
+            onItemCheckedChange = { clickedPackage, checked ->
               if (checked) {
                 installedAppsViewModel.blockApp(clickedPackage)
               } else {

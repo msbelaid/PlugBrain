@@ -34,8 +34,10 @@ fun AppsStep(
   onAppCheckedChange: (packageName: String, isChecked: Boolean) -> Unit,
   onBlockApps: () -> Unit,
   onSkip: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   PlugStepScaffold(
+    modifier = modifier,
     title = stringResource(R.string.onboarding_apps_title),
     subtitle = stringResource(R.string.onboarding_apps_subtitle),
     currentStep = OnboardingStep.Apps.progress,

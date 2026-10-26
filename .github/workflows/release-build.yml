@@ -26,6 +26,39 @@ jobs:
       - name: Run KtLint
         run: ./gradlew ktlintCheck
 
+  detekt:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Run detekt
+        run: ./gradlew detekt
+
+      - name: Upload detekt report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: detekt-report
+          path: build/reports/detekt/
+
+      # Shows findings inline on the PR. Pull requests from forks get a read-only token, so they skip it.
+      - name: Upload SARIF to GitHub code scanning
+        if: ${{ !cancelled() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: build/reports/detekt/detekt.sarif
+          category: detekt
+
   build:
     runs-on: ubuntu-latest
     steps:

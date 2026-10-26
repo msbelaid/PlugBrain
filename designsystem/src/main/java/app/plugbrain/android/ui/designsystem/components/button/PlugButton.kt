@@ -129,9 +129,9 @@ fun PlugButtonTertiary(
 
 @Composable
 private fun ButtonContent(
-  modifier: Modifier = Modifier,
   text: String,
   icon: ImageVector?,
+  modifier: Modifier = Modifier,
 ) {
   Row(
     modifier = modifier,

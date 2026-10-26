@@ -1,5 +1,7 @@
 package app.plugbrain.android.service
 
+private const val MILLIS_PER_MINUTE = 60_000L
+
 /**
  * Tells when the user opens a distractive app, as opposed to moving between screens of an
  * app already in the foreground. Window events from [ignoredPackages] (PlugBrain's own
@@ -24,4 +26,4 @@ class AppOpenDetector(private val ignoredPackages: () -> Set<String>) {
  * challenge ([lastUnblock]), so switching between apps right after a solve doesn't loop.
  */
 fun isOpenChallengeDue(lastUnblock: Long?, blockIntervalMinutes: Int, now: Long): Boolean =
-  lastUnblock == null || now - lastUnblock >= blockIntervalMinutes * 60_000L
+  lastUnblock == null || now - lastUnblock >= blockIntervalMinutes * MILLIS_PER_MINUTE

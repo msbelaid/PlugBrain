@@ -35,7 +35,7 @@ import app.plugbrain.android.ui.theme.MathlockAppTheme
 fun UnlockSheet(
   unlockMinutes: Int,
   onUnlockApp: () -> Unit,
-  onStayFocused: () -> Unit,
+  onStayFocusedClick: () -> Unit,
   modifier: Modifier = Modifier,
 ) {
   PlugBottomSheetDrawer(
@@ -59,12 +59,12 @@ fun UnlockSheet(
       }
     },
     primaryCtaText = stringResource(R.string.challenge_stay_focused),
-    primaryCtaAction = onStayFocused,
+    primaryCtaAction = onStayFocusedClick,
     primaryCtaIcon = Icons.Rounded.TrackChanges,
     secondaryCtaText = stringResource(R.string.challenge_unlock_app, unlockMinutes),
     secondaryCtaAction = onUnlockApp,
     secondaryCtaIcon = Icons.Rounded.LockOpen,
-    onDismiss = onStayFocused,
+    onDismiss = onStayFocusedClick,
     sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
   ) {
     Text(
@@ -84,6 +84,6 @@ fun UnlockSheet(
 @Composable
 private fun UnlockSheetPreview() {
   MathlockAppTheme(dynamicColor = false) {
-    UnlockSheet(unlockMinutes = 5, onUnlockApp = {}, onStayFocused = {})
+    UnlockSheet(unlockMinutes = 5, onUnlockApp = {}, onStayFocusedClick = {})
   }
 }

@@ -162,7 +162,9 @@ class MathLockService : AccessibilityService() {
     }
   }
 
-  override fun onInterrupt() {}
+  override fun onInterrupt() {
+    // Nothing to interrupt: the service gives no spoken or haptic feedback.
+  }
 
   private fun checkAppUsage() {
     if (isBlocked == true) return
@@ -184,7 +186,7 @@ class MathLockService : AccessibilityService() {
     usageCheckJob?.cancel()
     // Runs on Main so usageCheckJob is only ever touched from the main thread.
     usageCheckJob = serviceScope.launch(Dispatchers.Main) {
-      val targetTime = System.currentTimeMillis() + delayCheckBy * 60 * 1000L
+      val targetTime = System.currentTimeMillis() + delayCheckBy * ONE_MINUTE
       // Sleep in bounded steps against the wall clock: a single long delay() was not
       // reliable on recent Android versions, and 1 s steps woke the CPU needlessly.
       while (isActive) {

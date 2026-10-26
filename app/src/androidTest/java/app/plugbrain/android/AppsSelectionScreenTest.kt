@@ -42,10 +42,10 @@ class AppsSelectionScreenTest {
         composeTestRule.setContent {
             AppsSelectionScreen(
                 searchQuery = "",
-                onQueryChanged = {},
+                onQueryChange = {},
                 installedAppsState = InstalledAppsState.Loading,
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> },
+                onItemCheckedChange = { _, _ -> },
             )
         }
 
@@ -63,10 +63,10 @@ class AppsSelectionScreenTest {
         composeTestRule.setContent {
             AppsSelectionScreen(
                 searchQuery = "",
-                onQueryChanged = {},
+                onQueryChange = {},
                 installedAppsState = InstalledAppsState.Success(sampleApps),
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> },
+                onItemCheckedChange = { _, _ -> },
             )
         }
 
@@ -88,10 +88,10 @@ class AppsSelectionScreenTest {
         composeTestRule.setContent {
             AppsSelectionScreen(
                 searchQuery = "",
-                onQueryChanged = {},
+                onQueryChange = {},
                 installedAppsState = InstalledAppsState.Success(sampleApps),
                 blockedApps = emptySet(),
-                onItemClicked = { pkg, checked ->
+                onItemCheckedChange = { pkg, checked ->
                     clickedPackage = pkg
                     isChecked = checked
                 },
@@ -116,12 +116,12 @@ class AppsSelectionScreenTest {
         composeTestRule.setContent {
             AppsSelectionScreen(
                 searchQuery = query,
-                onQueryChanged = { newText ->
+                onQueryChange = { newText ->
                     query = newText
                 },
                 installedAppsState = InstalledAppsState.Success(sampleApps),
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> },
+                onItemCheckedChange = { _, _ -> },
             )
         }
 
@@ -143,10 +143,10 @@ class AppsSelectionScreenTest {
         composeTestRule.setContent {
             AppsSelectionScreen(
                 searchQuery = "",
-                onQueryChanged = {},
+                onQueryChange = {},
                 installedAppsState = InstalledAppsState.Success(sampleApps),
                 blockedApps = blockedSet,
-                onItemClicked = { _, _ -> },
+                onItemCheckedChange = { _, _ -> },
             )
         }
 
@@ -164,10 +164,10 @@ class AppsSelectionScreenTest {
         composeTestRule.setContent {
             AppsSelectionScreen(
                 searchQuery = "",
-                onQueryChanged = {},
+                onQueryChange = {},
                 installedAppsState = InstalledAppsState.Success(sampleApps),
                 blockedApps = setOf("com.app.one"),
-                onItemClicked = { pkg, checked ->
+                onItemCheckedChange = { pkg, checked ->
                     clickedPackage = pkg
                     isChecked = checked
                 },
@@ -189,10 +189,10 @@ class AppsSelectionScreenTest {
         composeTestRule.setContent {
             AppsSelectionScreen(
                 searchQuery = "abc",
-                onQueryChanged = {},
+                onQueryChange = {},
                 installedAppsState = InstalledAppsState.Success(sampleApps),
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> },
+                onItemCheckedChange = { _, _ -> },
             )
         }
 
@@ -206,10 +206,10 @@ class AppsSelectionScreenTest {
         composeTestRule.setContent {
             AppsSelectionScreen(
                 searchQuery = "",
-                onQueryChanged = {},
+                onQueryChange = {},
                 installedAppsState = state,
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> },
+                onItemCheckedChange = { _, _ -> },
             )
         }
 
@@ -230,10 +230,10 @@ class AppsSelectionScreenTest {
         composeTestRule.setContent {
             AppsSelectionScreen(
                 searchQuery = "",
-                onQueryChanged = {},
+                onQueryChange = {},
                 installedAppsState = InstalledAppsState.Success(emptyList()),
                 blockedApps = emptySet(),
-                onItemClicked = { _, _ -> },
+                onItemCheckedChange = { _, _ -> },
             )
         }
 

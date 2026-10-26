@@ -45,18 +45,16 @@ import app.plugbrain.android.ui.designsystem.components.card.PlugCard
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import kotlinx.coroutines.delay
 
-internal enum class AnswerState { Idle, Wrong, Correct }
-
 // Lets the success state on the card register before the unlock sheet covers it.
 private const val UNLOCK_SHEET_DELAY_MILLIS = 600L
 
 @Composable
 fun NumericalChallengeScreen(
-  modifier: Modifier = Modifier,
   challenge: NumericalChallenge,
   unlockMinutes: Int,
   onUnlockApp: () -> Unit,
   onExitChallenge: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   var answer by rememberSaveable(challenge) { mutableStateOf("") }
   var answerState by remember(challenge) { mutableStateOf(AnswerState.Idle) }
@@ -103,7 +101,7 @@ fun NumericalChallengeScreen(
     UnlockSheet(
       unlockMinutes = unlockMinutes,
       onUnlockApp = onUnlockApp,
-      onStayFocused = onExitChallenge,
+      onStayFocusedClick = onExitChallenge,
     )
   }
 }

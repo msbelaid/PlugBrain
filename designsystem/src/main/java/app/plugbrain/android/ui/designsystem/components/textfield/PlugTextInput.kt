@@ -48,11 +48,11 @@ fun PlugNumericalInput(
   value: String,
   onValueChange: (String) -> Unit,
   onSubmit: (Int?) -> Unit,
+  placeholder: String,
   modifier: Modifier = Modifier,
   enabled: Boolean = true,
   isSuccess: Boolean = false,
   isError: Boolean = false,
-  placeholder: String,
 ) {
   val focusBorderColor = when {
     isError -> MaterialTheme.colorScheme.error

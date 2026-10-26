@@ -8,6 +8,7 @@ import androidx.compose.material.icons.rounded.BatteryChargingFull
 import androidx.compose.material.icons.rounded.Layers
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,16 +19,16 @@ import app.plugbrain.android.ui.designsystem.components.listitem.PlugPermissionL
 import app.plugbrain.android.ui.onboarding.presentation.OnboardingStep
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 
-enum class OnboardingPermission { UsageAccess, Overlay, Accessibility, BatteryOptimization }
-
 @Composable
 fun PermissionsStep(
   permissions: PermissionsState,
   onPermissionClick: (OnboardingPermission) -> Unit,
   onProceed: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   val canProceed = permissions.areAllImportantPermissionsGranted()
   PlugStepScaffold(
+    modifier = modifier,
     title = stringResource(R.string.onboarding_permissions_title),
     subtitle = stringResource(R.string.onboarding_permissions_subtitle),
     currentStep = OnboardingStep.Permissions.progress,

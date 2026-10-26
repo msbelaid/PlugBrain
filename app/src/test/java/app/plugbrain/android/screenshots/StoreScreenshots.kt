@@ -78,7 +78,7 @@ class StoreScreenshots {
     @Test
     fun welcome() =
         snapshotInEveryLocale(1) {
-            WelcomeScreen(onGetStarted = {})
+            WelcomeScreen(onGetStartedClick = {})
         }
 
     @Test
@@ -189,10 +189,10 @@ class StoreScreenshots {
                     minDifficulty = 5,
                     isBatteryOptimized = false,
                 ),
-            onAppsClicked = {},
-            onBlockIntervalClicked = {},
-            onMinDifficultyClicked = {},
-            onBatteryOptimizationClicked = {},
+            onAppsClick = {},
+            onBlockIntervalClick = {},
+            onMinDifficultyClick = {},
+            onBatteryOptimizationClick = {},
             onTurnBackOn = {},
         )
     }

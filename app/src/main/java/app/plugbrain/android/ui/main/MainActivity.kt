@@ -64,11 +64,11 @@ class MainActivity : ComponentActivity() {
       MathlockAppTheme {
         MainScreen(
           state = state,
-          onAppsClicked = { navigateTo(AppsSelectionActivity::class.java) },
-          onBlockIntervalClicked = { isEditingBlockInterval = true },
-          onMinDifficultyClicked = { isEditingMinDifficulty = true },
+          onAppsClick = { navigateTo(AppsSelectionActivity::class.java) },
+          onBlockIntervalClick = { isEditingBlockInterval = true },
+          onMinDifficultyClick = { isEditingMinDifficulty = true },
           // Like onboarding: the system dialog explains itself, so no sheet first.
-          onBatteryOptimizationClicked = { openBatteryOptimizationSettings() },
+          onBatteryOptimizationClick = { openBatteryOptimizationSettings() },
           onTurnBackOn = { explainedPermission = it },
         )
 
@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
         explainedPermission?.let { permission ->
           PermissionExplainerSheet(
             permission = permission.toOnboardingPermission(),
-            onUnderstood = {
+            onContinue = {
               explainedPermission = null
               when (permission) {
                 RequiredPermission.Accessibility -> openAccessibilitySettings()
