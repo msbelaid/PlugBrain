@@ -65,7 +65,12 @@ class ArithChallengeViewModel(
     }
   }
 
-  fun unblockApps() {
+  /**
+   * Saves the solve, then calls [onUnblocked]. Leave the challenge screen only from there: once it's
+   * gone, MathLockService sees the blocked app again and reopens the challenge if it still reads
+   * the apps as blocked.
+   */
+  fun unblockApps(onUnblocked: () -> Unit = {}) {
     viewModelScope.launch {
       val now = clock.now()
       dataStore.updateBlockAppsToggle(false)
@@ -73,6 +78,7 @@ class ArithChallengeViewModel(
       // Read by MathLockService so an app isn't challenged again on open right after a solve.
       dataStore.setLastUnblockTime(now)
       dataStore.incrementProgressiveDifficulty(mathChallengeRepository.getMaxDifficulty())
+      onUnblocked()
     }
   }
 }
