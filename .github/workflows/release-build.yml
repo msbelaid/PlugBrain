@@ -201,7 +201,8 @@ jobs:
           script: echo "Generated AVD snapshot for caching."
 
       - name: Run Instrumented Tests
-        timeout-minutes: 10
+        # The onboarding tests go through the system Settings app, so they take a few minutes more.
+        timeout-minutes: 20
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
