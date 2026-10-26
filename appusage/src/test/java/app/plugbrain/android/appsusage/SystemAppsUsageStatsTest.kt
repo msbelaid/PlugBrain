@@ -12,7 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.whenever
 
 @RunWith(MockitoJUnitRunner::class)
-class AppsUsageStatsTest {
+class SystemAppsUsageStatsTest {
     @Mock
     private lateinit var context: Context
 
@@ -22,7 +22,7 @@ class AppsUsageStatsTest {
     @Mock
     private lateinit var usageEvents: UsageEvents
 
-    private lateinit var appsUsageStats: AppsUsageStats
+    private lateinit var appsUsageStats: SystemAppsUsageStats
 
     private val startTime = 1000L
     private val endTime = 5000L
@@ -33,7 +33,7 @@ class AppsUsageStatsTest {
         whenever(context.getSystemService(Context.USAGE_STATS_SERVICE)).thenReturn(usageStatsManager)
         whenever(usageStatsManager.queryEvents(startTime, endTime)).thenReturn(usageEvents)
 
-        appsUsageStats = AppsUsageStats(context)
+        appsUsageStats = SystemAppsUsageStats(context)
     }
 
     @Test

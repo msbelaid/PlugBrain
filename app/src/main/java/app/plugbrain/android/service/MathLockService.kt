@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.plugbrain.android.R
-import app.plugbrain.android.appsusage.AppsUsageStats
 import app.plugbrain.android.datastore.getBlockAppsToggle
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
@@ -18,6 +17,7 @@ import app.plugbrain.android.datastore.setLastBlockTime
 import app.plugbrain.android.datastore.setLastUsageTime
 import app.plugbrain.android.datastore.updateBlockAppsToggle
 import app.plugbrain.android.ui.challenges.ChallengeActivity
+import app.plugbrain.android.util.Clock
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -31,15 +31,14 @@ import timber.log.Timber
 
 const val TAG = "MathLockService"
 
-private const val ONE_MINUTE = 60_000L
-private const val ONE_HOUR = 60 * ONE_MINUTE
 private const val USAGE_CHECK_STEP = 10_000L
 private const val SYSTEM_UI_PACKAGE = "com.android.systemui"
 private const val CHALLENGE_RECHECK_DELAY = 700L
 
 class MathLockService : AccessibilityService() {
   private val dataStore: DataStore<Preferences> by inject()
-  private val appsUsageStats: AppsUsageStats by inject()
+  private val usageLimit: UsageLimit by inject()
+  private val clock: Clock by inject()
   private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
   // TODO Refactor using TimeStats
@@ -95,11 +94,11 @@ class MathLockService : AccessibilityService() {
         if (isBlocked == true) {
           launchChallenge()
         } else if ((isAppOpening || isOpenChallengeUnsolved()) && shouldChallengeOnOpen()) {
-          openChallengeShownAt = System.currentTimeMillis()
+          openChallengeShownAt = clock.now()
           launchChallenge()
         } else {
           serviceScope.launch {
-            dataStore.setLastUsageTime(System.currentTimeMillis())
+            dataStore.setLastUsageTime(clock.now())
           }
           checkAppUsage()
         }
@@ -112,7 +111,7 @@ class MathLockService : AccessibilityService() {
   }
 
   private fun shouldChallengeOnOpen(): Boolean = userSettings.challengeOnAppOpen &&
-    isOpenChallengeDue(timestamps.lastUnblock, userSettings.blockInterval, System.currentTimeMillis())
+    isOpenChallengeDue(timestamps.lastUnblock, userSettings.blockInterval, clock.now())
 
   private fun isOpenChallengeUnsolved(): Boolean {
     val shownAt = openChallengeShownAt ?: return false
@@ -167,20 +166,17 @@ class MathLockService : AccessibilityService() {
 
   private fun checkAppUsage() {
     if (isBlocked == true) return
-    val blockedAppsUsageTime = appsUsageStats.getTotalAppsUsageDuration(
-      startTime = timestamps.lastBlock ?: (System.currentTimeMillis() - ONE_HOUR),
-      endTime = System.currentTimeMillis(),
-      filterPackages = userSettings.distractiveApps,
-    )
-    if (blockedAppsUsageTime >= userSettings.blockInterval) {
+    val minutesLeft = usageLimit.minutesLeft(userSettings, timestamps.lastBlock)
+    if (minutesLeft <= 0) {
+      val now = clock.now()
       serviceScope.launch {
         dataStore.updateBlockAppsToggle(true)
-        timestamps = timestamps.copy(lastBlock = System.currentTimeMillis())
-        dataStore.setLastBlockTime(System.currentTimeMillis())
+        timestamps = timestamps.copy(lastBlock = now)
+        dataStore.setLastBlockTime(now)
       }
       launchChallenge()
     } else {
-      scheduleAppUsageCheck(userSettings.blockInterval - blockedAppsUsageTime)
+      scheduleAppUsageCheck(minutesLeft)
     }
   }
 
