@@ -41,7 +41,8 @@ const val DISTRACTING_APP = "com.android.settings"
 
 private const val TIMEOUT = 10_000L
 private const val RELAUNCH_EVERY = 3_000L
-private val CHALLENGE_TEXT = Regex("""(\d+) ([-+x/]) (\d+)""")
+// Every challenge text: "3 + 1", "3 + ? = 4", "3 + 1 = ?" or "4² = ?".
+private val CHALLENGE_TEXT = Regex("""\S+ [-+x/] \S+( = \S+)?|\d+² = \?""")
 
 /**
  * Sets up PlugBrain as after onboarding, opens the distracting app and solves challenges, for the
@@ -136,7 +137,8 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
     ) {
         val question = hasChallengeText()
         waitUntilShown(question)
-        val text = composeRule.onNode(question).fetchSemanticsNode().config[SemanticsProperties.Text].first().text
+        val texts = composeRule.onNode(question).fetchSemanticsNode().config[SemanticsProperties.Text]
+        val text = texts.first { CHALLENGE_TEXT.matches(it.text) }.text
         composeRule.onNode(hasSetTextAction()).performTextInput(answer(text).toString())
         clickWhenEnabled(context.getString(R.string.challenge_check_answer))
         val unlock = context.getString(R.string.challenge_unlock_app, blockInterval)
@@ -183,15 +185,46 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
             node.config.getOrNull(SemanticsProperties.Text).orEmpty().any { CHALLENGE_TEXT.matches(it.text) }
         }
 
+    /** Works out the answer from the text, for every kind of challenge the levels can give. */
     private fun answer(challenge: String): Int {
-        val (left, operator, right) = requireNotNull(CHALLENGE_TEXT.matchEntire(challenge)).destructured
-        val a = left.toInt()
-        val b = right.toInt()
-        return when (operator) {
-            "+" -> a + b
-            "-" -> a - b
-            "x" -> a * b
-            else -> a / b
+        val tokens = challenge.split(" ")
+        if (tokens[0].endsWith("²")) {
+            val n = tokens[0].removeSuffix("²").toInt()
+            return n * n
+        }
+        val (left, operator, right) = tokens
+        val result = tokens.getOrElse(4) { "?" }
+        return when {
+            left == "?" -> {
+                val b = right.toInt()
+                val r = result.toInt()
+                when (operator) {
+                    "+" -> r - b
+                    "-" -> r + b
+                    "x" -> r / b
+                    else -> r * b
+                }
+            }
+            right == "?" -> {
+                val a = left.toInt()
+                val r = result.toInt()
+                when (operator) {
+                    "+" -> r - a
+                    "-" -> a - r
+                    "x" -> r / a
+                    else -> a / r
+                }
+            }
+            else -> {
+                val a = left.toInt()
+                val b = right.toInt()
+                when (operator) {
+                    "+" -> a + b
+                    "-" -> a - b
+                    "x" -> a * b
+                    else -> a / b
+                }
+            }
         }
     }
 }
