@@ -161,4 +161,10 @@
     <string name="min_difficulty_sheet_save">ذخیره</string>
     <string name="dashboard_battery_title">اجرا در پس‌زمینه</string>
     <string name="dashboard_battery_description">نگذار Android برای صرفه‌جویی در باتری، PlugBrain را ببندد.</string>
+    <string name="dashboard_about">درباره</string>
+    <string name="dashboard_source_code_title">کد منبع</string>
+    <string name="dashboard_source_code_description">رایگان و متن‌باز با مجوز GPLv3</string>
+    <string name="dashboard_report_bug_title">گزارش اشکال</string>
+    <string name="dashboard_report_bug_description">یک گزارش در GitHub باز کنید</string>
+    <string name="dashboard_website_title">وب‌سایت</string>
 </resources>

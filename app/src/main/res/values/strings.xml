@@ -164,4 +164,11 @@
     <string name="min_difficulty_sheet_save">Save</string>
     <string name="dashboard_battery_title">Run in the background</string>
     <string name="dashboard_battery_description">Stop Android from closing PlugBrain to save battery.</string>
+    <string name="dashboard_about">About</string>
+    <string name="dashboard_source_code_title">Source code</string>
+    <string name="dashboard_source_code_description">Free and open source under GPLv3</string>
+    <string name="dashboard_report_bug_title">Report a bug</string>
+    <string name="dashboard_report_bug_description">Open an issue on GitHub</string>
+    <string name="dashboard_website_title">Website</string>
+    <string name="dashboard_website_description" translatable="false">plugbrain.app</string>
 </resources>

@@ -167,4 +167,10 @@
     <string name="min_difficulty_sheet_save">保存</string>
     <string name="dashboard_battery_title">在后台运行</string>
     <string name="dashboard_battery_description">防止 Android 为了省电而关闭 PlugBrain。</string>
+    <string name="dashboard_about">关于</string>
+    <string name="dashboard_source_code_title">源代码</string>
+    <string name="dashboard_source_code_description">基于 GPLv3 的免费开源软件</string>
+    <string name="dashboard_report_bug_title">报告问题</string>
+    <string name="dashboard_report_bug_description">在 GitHub 上提交 issue</string>
+    <string name="dashboard_website_title">网站</string>
 </resources>

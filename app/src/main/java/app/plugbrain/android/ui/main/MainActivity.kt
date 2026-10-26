@@ -1,5 +1,6 @@
 package app.plugbrain.android.ui.main
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,8 +12,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import app.plugbrain.android.ui.blockinterval.BlockIntervalSheet
+import app.plugbrain.android.ui.main.compose.AboutLink
 import app.plugbrain.android.ui.main.compose.MainScreen
 import app.plugbrain.android.ui.main.presentation.MainScreenViewModel
 import app.plugbrain.android.ui.main.presentation.RequiredPermission
@@ -27,6 +30,7 @@ import app.plugbrain.android.ui.permissions.openUsageAccessSettings
 import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
@@ -70,6 +74,7 @@ class MainActivity : ComponentActivity() {
           // Like onboarding: the system dialog explains itself, so no sheet first.
           onBatteryOptimizationClicked = { openBatteryOptimizationSettings() },
           onTurnBackOn = { explainedPermission = it },
+          onAboutLinkClicked = { openLink(it) },
         )
 
         // The same sheet as onboarding: where to find PlugBrain, then the system settings screen.
@@ -120,6 +125,15 @@ class MainActivity : ComponentActivity() {
 
   private fun navigateTo(activity: Class<*>) {
     startActivity(Intent(this, activity))
+  }
+
+  // Some devices, like kiosk or work profiles, have no browser to open the link in.
+  private fun openLink(link: AboutLink) {
+    try {
+      startActivity(Intent(Intent.ACTION_VIEW, link.url.toUri()))
+    } catch (e: ActivityNotFoundException) {
+      Timber.w(e, "No app to open %s", link.url)
+    }
   }
 }
 
