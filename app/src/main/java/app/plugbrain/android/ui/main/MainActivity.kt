@@ -30,8 +30,8 @@ import app.plugbrain.android.ui.permissions.openUsageAccessSettings
 import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
 import app.plugbrain.android.ui.theme.MathlockAppTheme
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MainActivity : ComponentActivity() {
   private val mainScreenViewModel: MainScreenViewModel by viewModel()
