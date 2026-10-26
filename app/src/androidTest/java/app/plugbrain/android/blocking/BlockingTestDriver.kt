@@ -68,7 +68,7 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         difficulty: Int = 0,
         blocked: Boolean = false,
         lastChallenge: Long = System.currentTimeMillis(),
-    ) =
+    ) {
         runBlocking {
             dataStore.edit {
                 it.clear()
@@ -82,6 +82,7 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
             dataStore.setLastBlockTime(System.currentTimeMillis())
             dataStore.setLastChallengeTime(lastChallenge)
         }
+    }
 
     fun turnOnPlugBrain() {
         permissions.grantOverlay()

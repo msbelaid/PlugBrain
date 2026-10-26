@@ -74,8 +74,8 @@ class ArithChallengeViewModelTest {
     }
 
     @Test
-    fun solvingAChallengeRaisesTheDifficultyAndUnblocks() =
-        runBlocking<Unit> {
+    fun solvingAChallengeRaisesTheDifficultyAndUnblocks() {
+        runBlocking {
             setDifficulty(1)
             viewModel.unblockApps()
 
@@ -86,10 +86,11 @@ class ArithChallengeViewModelTest {
             assertEquals(NOW, timestamps.lastUnblock)
             assertEquals(NOW, timestamps.lastChallenge)
         }
+    }
 
     @Test
-    fun aBreakShorterThanTwoIntervalsKeepsTheDifficulty() =
-        runBlocking<Unit> {
+    fun aBreakShorterThanTwoIntervalsKeepsTheDifficulty() {
+        runBlocking {
             setDifficulty(3)
             dataStore.setLastChallengeTime(NOW - (2 * BLOCK_INTERVAL - 1) * ONE_MINUTE)
 
@@ -97,10 +98,11 @@ class ArithChallengeViewModelTest {
 
             assertEquals(3, dataStore.getProgressiveDifficulty().first())
         }
+    }
 
     @Test
-    fun eachBreakOfTwoIntervalsLowersTheDifficultyByOne() =
-        runBlocking<Unit> {
+    fun eachBreakOfTwoIntervalsLowersTheDifficultyByOne() {
+        runBlocking {
             setDifficulty(3)
             dataStore.setLastChallengeTime(NOW - 2 * (2 * BLOCK_INTERVAL) * ONE_MINUTE)
 
@@ -109,10 +111,11 @@ class ArithChallengeViewModelTest {
             assertEquals(1, dataStore.getProgressiveDifficulty().first())
             assertEquals(NOW, dataStore.getTimestamps().first().lastChallenge)
         }
+    }
 
     @Test
-    fun difficultyDoesNotDropBelowTheChosenMinimum() =
-        runBlocking<Unit> {
+    fun difficultyDoesNotDropBelowTheChosenMinimum() {
+        runBlocking {
             dataStore.edit { it[MINIMAL_DIFFICULTY_KEY] = 2 }
             setDifficulty(3)
             dataStore.setLastChallengeTime(NOW - 100 * BLOCK_INTERVAL * ONE_MINUTE)
@@ -121,6 +124,7 @@ class ArithChallengeViewModelTest {
 
             assertEquals(2, dataStore.getProgressiveDifficulty().first())
         }
+    }
 
     private suspend fun setDifficulty(level: Int) {
         dataStore.edit { it[PROGRESSIVE_DIFFICULTY_KEY] = level }
