@@ -13,9 +13,6 @@ permissions:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -29,9 +26,23 @@ jobs:
       - name: Run KtLint
         run: ./gradlew ktlintCheck
 
-      # Runs even when KtLint fails, so one push reports both.
+  detekt:
+    runs-on: ubuntu-latest
+    needs: lint
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Run detekt
-        if: ${{ !cancelled() }}
         run: ./gradlew detekt
 
       - name: Upload detekt report
@@ -253,7 +264,7 @@ jobs:
 
   sign_and_release:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [build, lint, unit-tests, screenshot-tests, ui-tests]
+    needs: [build, lint, detekt, unit-tests, screenshot-tests, ui-tests]
     runs-on: ubuntu-latest
 
     steps:
