@@ -41,6 +41,7 @@ const val DISTRACTING_APP = "com.android.settings"
 
 private const val TIMEOUT = 10_000L
 private const val RELAUNCH_EVERY = 3_000L
+
 // Every challenge text: "3 + 1", "3 + ? = 4", "3 + 1 = ?" or "4² = ?".
 private val CHALLENGE_TEXT = Regex("""\S+ [-+x/] \S+( = \S+)?|\d+² = \?""")
 
