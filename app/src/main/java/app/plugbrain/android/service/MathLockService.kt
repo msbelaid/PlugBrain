@@ -31,6 +31,7 @@ import timber.log.Timber
 
 const val TAG = "MathLockService"
 
+private const val ONE_MINUTE = 60_000L
 private const val USAGE_CHECK_STEP = 10_000L
 private const val SYSTEM_UI_PACKAGE = "com.android.systemui"
 private const val CHALLENGE_RECHECK_DELAY = 700L
