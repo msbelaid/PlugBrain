@@ -51,8 +51,7 @@ class ChallengeActivity : ComponentActivity() {
               challenge = it,
               unlockMinutes = blockInterval,
               onUnlockApp = {
-                challengeViewModel.unblockApps()
-                finishAffinity()
+                challengeViewModel.unblockApps(onUnblocked = ::finishAffinity)
               },
               onExitChallenge = exitToHomeScreen,
             )
