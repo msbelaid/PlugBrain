@@ -60,5 +60,8 @@ class ViewModelTestRule : TemporaryFolder() {
     }
 }
 
-/** ViewModels save in the background, so wait for a matching value instead of reading it once. */
-suspend fun <T> Flow<T>.awaitMatching(predicate: (T) -> Boolean): T = withTimeout(5_000) { first(predicate) }
+/**
+ * ViewModels save in the background, so wait for a matching value instead of reading it once. The
+ * timeout is generous because the first DataStore read of a test JVM can be slow on CI.
+ */
+suspend fun <T> Flow<T>.awaitMatching(predicate: (T) -> Boolean): T = withTimeout(10_000) { first(predicate) }
