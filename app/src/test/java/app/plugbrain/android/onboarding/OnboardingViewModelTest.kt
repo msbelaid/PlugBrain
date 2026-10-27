@@ -98,7 +98,9 @@ class OnboardingViewModelTest {
     @Test
     fun `choices are saved as soon as they are made`() {
         runBlocking {
+            // One choice at a time, as the screen makes them.
             viewModel.updateBlockInterval(10)
+            rule.dataStore.getUserSettings().awaitMatching { it.blockInterval == 10 }
             viewModel.updateDifficulty(DifficultyPreset.Expert)
 
             rule.dataStore.getUserSettings().awaitMatching {
@@ -128,6 +130,7 @@ class OnboardingViewModelTest {
         runBlocking {
             screen.launch { viewModel.settings.collect {} }
             viewModel.updateBlockInterval(15)
+            viewModel.settings.awaitMatching { it.blockInterval == 15 }
             viewModel.updateDifficulty(DifficultyPreset.Intermediate)
             viewModel.settings.awaitMatching { it.blockInterval == 15 && it.selectedMinimalDifficulty == 5 }
 
