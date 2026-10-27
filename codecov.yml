@@ -1,0 +1,19 @@
+# Codecov settings: https://docs.codecov.com/docs/codecovyml-reference
+coverage:
+  status:
+    # Total coverage may not drop compared with the base branch; a small margin lets refactors
+    # that delete tested code through.
+    project:
+      default:
+        target: auto
+        threshold: 0.5%
+    # Coverage of the changed lines is shown but doesn't fail the PR: code that only runs on a
+    # device (services, Android APIs) can't be covered by unit tests.
+    patch:
+      default:
+        informational: true
+
+comment:
+  layout: "condensed_header, diff, flags, files"
+  # Comment on every PR, even when coverage didn't change.
+  require_changes: false
