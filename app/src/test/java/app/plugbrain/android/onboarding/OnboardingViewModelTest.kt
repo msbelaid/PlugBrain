@@ -40,9 +40,10 @@ class OnboardingViewModelTest {
 
     private val viewModel by lazy {
         OnboardingViewModel(
-            permissionsRepository = mock<PermissionsRepository> {
-                on { getPermissions() } doReturn flowOf(granted)
-            },
+            permissionsRepository =
+                mock<PermissionsRepository> {
+                    on { getPermissions() } doReturn flowOf(granted)
+                },
             dataStore = rule.dataStore,
             savedStateHandle = savedStateHandle,
         )

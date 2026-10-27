@@ -84,8 +84,9 @@ class ChallengePropertiesTest {
     private fun sampleEveryChallenge(check: (NumericalChallenge) -> Unit) {
         repeat(SAMPLES) {
             factory.getChallenges().forEach { challenge ->
-                val numerical = challenge as? NumericalChallenge
-                    ?: error("${challenge::class.simpleName} can't be answered with a number")
+                val numerical =
+                    challenge as? NumericalChallenge
+                        ?: error("${challenge::class.simpleName} can't be answered with a number")
                 check(numerical)
             }
         }
@@ -111,7 +112,11 @@ class ChallengePropertiesTest {
             else -> error("No expected answer for ${challenge::class.simpleName}")
         }
 
-    private fun compute(operand1: Int, operator: Operator, operand2: Int): Int =
+    private fun compute(
+        operand1: Int,
+        operator: Operator,
+        operand2: Int,
+    ): Int =
         when (operator) {
             Operator.ADDITION -> Math.addExact(operand1, operand2)
             Operator.SUBTRACTION -> Math.subtractExact(operand1, operand2)

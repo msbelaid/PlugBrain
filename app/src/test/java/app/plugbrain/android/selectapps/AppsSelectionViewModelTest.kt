@@ -34,9 +34,10 @@ class AppsSelectionViewModelTest {
 
     private val viewModel by lazy {
         AppsSelectionViewModel(
-            installedAppsRepository = mock<InstalledAppsRepository> {
-                on { getInstalledApps() } doReturn installedApps
-            },
+            installedAppsRepository =
+                mock<InstalledAppsRepository> {
+                    on { getInstalledApps() } doReturn installedApps
+                },
             appsUsageStats = usage,
             dataStore = rule.dataStore,
         )
