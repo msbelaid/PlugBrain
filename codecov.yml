@@ -1,14 +1,13 @@
 # Codecov settings: https://docs.codecov.com/docs/codecovyml-reference
+# The coverage floor is enforced by koverVerify in the Unit Tests job (see build.gradle.kts), so
+# Codecov only reports. CI doesn't run on master pushes, so Codecov has no base coverage to compare
+# a PR's total against.
 coverage:
   status:
-    # Total coverage may not drop compared with the base branch; a small margin lets refactors
-    # that delete tested code through.
     project:
       default:
-        target: auto
-        threshold: 0.5%
-    # Coverage of the changed lines is shown but doesn't fail the PR: code that only runs on a
-    # device (services, Android APIs) can't be covered by unit tests.
+        informational: true
+    # Code that only runs on a device (the service, Android APIs) can't be covered by unit tests.
     patch:
       default:
         informational: true
