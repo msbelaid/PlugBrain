@@ -9,18 +9,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.rounded.Android
 import androidx.compose.material.icons.rounded.Apps
 import androidx.compose.material.icons.rounded.BatteryChargingFull
-import androidx.compose.material.icons.rounded.BugReport
-import androidx.compose.material.icons.rounded.Code
-import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Psychology
 import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.SignalCellularAlt
 import androidx.compose.material.icons.rounded.WarningAmber
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -49,17 +49,9 @@ import app.plugbrain.android.ui.main.presentation.MainScreenState
 import app.plugbrain.android.ui.main.presentation.RequiredPermission
 import app.plugbrain.android.ui.mindifficulty.difficultyLevelText
 
-/** Pages outside the app that the About section links to. */
-enum class AboutLink(val url: String) {
-  SourceCode("https://github.com/msbelaid/PlugBrain"),
-  ReportBug("https://github.com/msbelaid/PlugBrain/issues"),
-  Website("https://plugbrain.app"),
-}
-
 /**
- * The dashboard: what PlugBrain is doing right now, the user's setup, then where PlugBrain comes
- * from. When PlugBrain is paused, [onTurnBackOn] gets the missing permission so the caller can
- * explain and request it.
+ * The dashboard: what PlugBrain is doing right now, then the user's setup. When PlugBrain is
+ * paused, [onTurnBackOn] gets the missing permission so the caller can explain and request it.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,7 +62,7 @@ fun MainScreen(
   onMinDifficultyClicked: () -> Unit,
   onBatteryOptimizationClicked: () -> Unit,
   onTurnBackOn: (RequiredPermission) -> Unit,
-  onAboutLinkClicked: (AboutLink) -> Unit,
+  onAboutClicked: () -> Unit,
 ) {
   Scaffold(
     modifier = Modifier.fillMaxSize(),
@@ -81,6 +73,15 @@ fun MainScreen(
             text = stringResource(R.string.app_name),
             style = MaterialTheme.typography.headlineMedium,
           )
+        },
+        actions = {
+          IconButton(onClick = onAboutClicked) {
+            Icon(
+              imageVector = Icons.Outlined.Info,
+              contentDescription = stringResource(R.string.about_open),
+              tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+          }
         },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
       )
@@ -107,7 +108,6 @@ fun MainScreen(
           onMinDifficultyClicked = onMinDifficultyClicked,
           onBatteryOptimizationClicked = onBatteryOptimizationClicked,
         )
-        AboutSection(onAboutLinkClicked = onAboutLinkClicked)
       }
     }
   }
@@ -234,43 +234,6 @@ private fun SetupSection(
         onClick = onBatteryOptimizationClicked,
       )
     }
-  }
-}
-
-/**
- * Links to the source code and issues, for people who want to check what an app with
- * accessibility access does. Not to releases: Play doesn't allow pointing users to updates
- * from outside the store.
- */
-@Composable
-private fun AboutSection(onAboutLinkClicked: (AboutLink) -> Unit) {
-  Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-    Text(
-      text = stringResource(R.string.dashboard_about),
-      style = MaterialTheme.typography.titleMedium,
-      color = MaterialTheme.colorScheme.onSurfaceVariant,
-      modifier = Modifier
-        .padding(bottom = 4.dp)
-        .semantics { heading() },
-    )
-    PlugNavigationListItem(
-      title = stringResource(R.string.dashboard_source_code_title),
-      description = stringResource(R.string.dashboard_source_code_description),
-      icon = Icons.Rounded.Code,
-      onClick = { onAboutLinkClicked(AboutLink.SourceCode) },
-    )
-    PlugNavigationListItem(
-      title = stringResource(R.string.dashboard_report_bug_title),
-      description = stringResource(R.string.dashboard_report_bug_description),
-      icon = Icons.Rounded.BugReport,
-      onClick = { onAboutLinkClicked(AboutLink.ReportBug) },
-    )
-    PlugNavigationListItem(
-      title = stringResource(R.string.dashboard_website_title),
-      description = stringResource(R.string.dashboard_website_description),
-      icon = Icons.Rounded.Language,
-      onClick = { onAboutLinkClicked(AboutLink.Website) },
-    )
   }
 }
 

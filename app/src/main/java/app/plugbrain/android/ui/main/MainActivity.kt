@@ -14,8 +14,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
+import app.plugbrain.android.BuildConfig
+import app.plugbrain.android.ui.about.AboutLink
+import app.plugbrain.android.ui.about.AboutSheet
 import app.plugbrain.android.ui.blockinterval.BlockIntervalSheet
-import app.plugbrain.android.ui.main.compose.AboutLink
 import app.plugbrain.android.ui.main.compose.MainScreen
 import app.plugbrain.android.ui.main.presentation.MainScreenViewModel
 import app.plugbrain.android.ui.main.presentation.RequiredPermission
@@ -65,6 +67,7 @@ class MainActivity : ComponentActivity() {
       var explainedPermission by rememberSaveable { mutableStateOf<RequiredPermission?>(null) }
       var isEditingBlockInterval by rememberSaveable { mutableStateOf(false) }
       var isEditingMinDifficulty by rememberSaveable { mutableStateOf(false) }
+      var isShowingAbout by rememberSaveable { mutableStateOf(false) }
       MathlockAppTheme {
         MainScreen(
           state = state,
@@ -74,7 +77,7 @@ class MainActivity : ComponentActivity() {
           // Like onboarding: the system dialog explains itself, so no sheet first.
           onBatteryOptimizationClicked = { openBatteryOptimizationSettings() },
           onTurnBackOn = { explainedPermission = it },
-          onAboutLinkClicked = { openLink(it) },
+          onAboutClicked = { isShowingAbout = true },
         )
 
         // The same sheet as onboarding: where to find PlugBrain, then the system settings screen.
@@ -90,6 +93,14 @@ class MainActivity : ComponentActivity() {
               }
             },
             onDismiss = { explainedPermission = null },
+          )
+        }
+
+        if (isShowingAbout) {
+          AboutSheet(
+            versionName = BuildConfig.VERSION_NAME,
+            onLinkClicked = { openLink(it) },
+            onDismiss = { isShowingAbout = false },
           )
         }
 
