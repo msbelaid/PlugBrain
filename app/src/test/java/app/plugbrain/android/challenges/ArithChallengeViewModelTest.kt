@@ -15,6 +15,7 @@ import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.setLastChallengeTime
 import app.plugbrain.android.repository.MathChallengeRepository
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,6 +30,8 @@ import kotlinx.coroutines.test.setMain
 import kotlinx.coroutines.withTimeout
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertSame
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -123,6 +126,59 @@ class ArithChallengeViewModelTest {
             viewModel.decreaseDifficulty()
 
             assertEquals(2, dataStore.getProgressiveDifficulty().first())
+        }
+    }
+
+    @Test
+    fun theChallengeHasTheCurrentLevelAndIsNotRerolled() {
+        runBlocking {
+            setDifficulty(3)
+            dataStore.setLastChallengeTime(NOW)
+
+            viewModel.generateChallenge()
+            val challenge = withTimeout(5_000) { viewModel.challenge.first { it != null } }
+            assertEquals(3, challenge?.difficultyLevel)
+
+            // Coming back to the challenge screen keeps the same challenge.
+            setDifficulty(4)
+            viewModel.generateChallenge()
+            assertSame(challenge, viewModel.challenge.value)
+        }
+    }
+
+    @Test
+    fun theChallengeClosesOnlyOnceTheAppsAreUnblocked() {
+        runBlocking {
+            val unblockedWhenClosing = CompletableDeferred<Boolean>()
+
+            viewModel.unblockApps {
+                // MathLockService reopens the challenge if it still reads the apps as blocked here.
+                val isBlocked = runBlocking { dataStore.getBlockAppsToggle().first() }
+                val lastUnblock = runBlocking { dataStore.getTimestamps().first().lastUnblock }
+                unblockedWhenClosing.complete(isBlocked == false && lastUnblock == NOW)
+            }
+
+            assertTrue(withTimeout(5_000) { unblockedWhenClosing.await() })
+        }
+    }
+
+    @Test
+    fun solvingAtTheMaxLevelStaysAtTheMax() {
+        runBlocking {
+            setDifficulty(MAX_DIFFICULTY)
+            val solved = CompletableDeferred<Unit>()
+
+            viewModel.unblockApps { solved.complete(Unit) }
+
+            withTimeout(5_000) { solved.await() }
+            assertEquals(MAX_DIFFICULTY, dataStore.getProgressiveDifficulty().first())
+        }
+    }
+
+    @Test
+    fun theUnlockTimeShownIsTheBlockInterval() {
+        runBlocking {
+            awaitValue(viewModel.blockInterval, BLOCK_INTERVAL)
         }
     }
 

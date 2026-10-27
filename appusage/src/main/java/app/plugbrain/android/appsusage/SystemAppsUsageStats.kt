@@ -54,14 +54,17 @@ class SystemAppsUsageStats(
 
     while (hasNextEvent()) {
       getNextEvent(event)
-      val type = when (event.eventType) {
-        in STARTED_EVENTS -> EventType.APP_STARTED
-        in STOPPED_EVENTS -> EventType.APP_STOPPED
-        in SCREEN_OFF_EVENTS -> EventType.SCREEN_OFF
-        else -> continue
-      }
+      val type = appEventType(event.eventType) ?: continue
       appEvents += AppEvent(event.packageName.orEmpty(), event.className.orEmpty(), type, event.timeStamp)
     }
     return appEvents
   }
+}
+
+/** What an Android usage event type means for foreground time; null for the events that are ignored. */
+internal fun appEventType(usageEventType: Int): EventType? = when (usageEventType) {
+  in STARTED_EVENTS -> EventType.APP_STARTED
+  in STOPPED_EVENTS -> EventType.APP_STOPPED
+  in SCREEN_OFF_EVENTS -> EventType.SCREEN_OFF
+  else -> null
 }

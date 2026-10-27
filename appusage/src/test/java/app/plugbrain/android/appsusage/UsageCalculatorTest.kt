@@ -150,4 +150,91 @@ class UsageCalculatorTest {
     fun `screen off alone counts nothing`() {
         assertEquals(emptyMap<String, Long>(), total(screenOff(2_000)))
     }
+
+    @Test
+    fun `late pause after the screen turned off is not counted again`() {
+        assertEquals(mapOf(app to 1_000L), total(started(2_000), screenOff(3_000), stopped(3_200)))
+    }
+
+    @Test
+    fun `screen off time between two sessions of the same app is not counted`() {
+        // The screen turns off with the app open, then the user unlocks back into it.
+        assertEquals(
+            mapOf(app to 2_000L),
+            total(started(2_000), screenOff(3_000), started(8_000), stopped(9_000)),
+        )
+    }
+
+    @Test
+    fun `resume after a shutdown starts a new session`() {
+        // Shutdown arrives as SCREEN_OFF, and the app was never paused before it.
+        assertEquals(
+            mapOf(app to 1_500L),
+            total(started(2_000), screenOff(2_500), started(6_000), stopped(7_000)),
+        )
+    }
+
+    @Test
+    fun `resuming the same activity twice keeps the first start`() {
+        assertEquals(mapOf(app to 2_000L), total(started(2_000), started(3_000), stopped(4_000)))
+    }
+
+    @Test
+    fun `switching back and forth between two apps counts each visit once`() {
+        assertEquals(
+            mapOf(app to 3_000L, otherApp to 2_000L),
+            total(
+                started(2_000),
+                started(3_000, pkg = otherApp),
+                stopped(3_050),
+                started(4_000),
+                stopped(4_050, pkg = otherApp),
+                started(5_000, pkg = otherApp),
+                stopped(5_050),
+                started(6_000),
+                stopped(7_000),
+            ),
+        )
+    }
+
+    @Test
+    fun `session across midnight is counted whole`() {
+        val midnight = 1_700_006_400_000L
+        val events =
+            listOf(
+                started(midnight - 10 * MINUTE),
+                stopped(midnight + 5 * MINUTE),
+            )
+
+        val result = UsageCalculator.totalTimePerPackage(events, midnight - HOUR, midnight + HOUR)
+
+        assertEquals(mapOf(app to 15 * MINUTE), result)
+    }
+
+    @Test
+    fun `window starting at midnight counts only the time after midnight`() {
+        val midnight = 1_700_006_400_000L
+        // The app was opened before midnight, so only its pause falls in the window.
+        val events = listOf(stopped(midnight + 5 * MINUTE))
+
+        val result = UsageCalculator.totalTimePerPackage(events, midnight, midnight + HOUR)
+
+        assertEquals(mapOf(app to 5 * MINUTE), result)
+    }
+
+    @Test
+    fun `app left open overnight with the screen off counts only until the screen turned off`() {
+        // The 16h bug: a resume without a pause used to run until the end of the window.
+        val evening = 1_700_000_000_000L
+        val events = listOf(started(evening), screenOff(evening + 20 * MINUTE))
+
+        val result = UsageCalculator.totalTimePerPackage(events, evening - HOUR, evening + 16 * HOUR)
+
+        assertEquals(mapOf(app to 20 * MINUTE), result)
+    }
+
+    private companion object {
+        const val MINUTE = 60_000L
+        const val HOUR = 60 * MINUTE
+    }
 }
