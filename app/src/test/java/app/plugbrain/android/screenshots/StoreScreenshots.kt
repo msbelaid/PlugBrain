@@ -194,6 +194,7 @@ class StoreScreenshots {
             onMinDifficultyClick = {},
             onBatteryOptimizationClick = {},
             onTurnBackOn = {},
+            onAboutClick = {},
         )
     }
 

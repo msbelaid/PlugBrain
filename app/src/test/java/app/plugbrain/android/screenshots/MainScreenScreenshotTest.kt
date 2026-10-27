@@ -109,6 +109,7 @@ class MainScreenScreenshotTest {
                 onMinDifficultyClick = {},
                 onBatteryOptimizationClick = {},
                 onTurnBackOn = {},
+                onAboutClick = {},
             )
         }
     }

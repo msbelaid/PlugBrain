@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.rounded.Android
 import androidx.compose.material.icons.rounded.Apps
 import androidx.compose.material.icons.rounded.BatteryChargingFull
@@ -18,6 +19,8 @@ import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.SignalCellularAlt
 import androidx.compose.material.icons.rounded.WarningAmber
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -59,6 +62,7 @@ fun MainScreen(
   onMinDifficultyClick: () -> Unit,
   onBatteryOptimizationClick: () -> Unit,
   onTurnBackOn: (RequiredPermission) -> Unit,
+  onAboutClick: () -> Unit,
   modifier: Modifier = Modifier,
 ) {
   Scaffold(
@@ -70,6 +74,15 @@ fun MainScreen(
             text = stringResource(R.string.app_name),
             style = MaterialTheme.typography.headlineMedium,
           )
+        },
+        actions = {
+          IconButton(onClick = onAboutClick) {
+            Icon(
+              imageVector = Icons.Outlined.Info,
+              contentDescription = stringResource(R.string.about_open),
+              tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+          }
         },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
       )
