@@ -37,15 +37,16 @@ import app.plugbrain.android.ui.designsystem.components.sheetdrawer.PlugBottomSh
 
 /**
  * Shows where to find PlugBrain in the system settings and which switch to turn on, before
- * [onUnderstood] opens that settings screen. For accessibility it also carries the disclosure
+ * [onContinue] opens that settings screen. For accessibility it also carries the disclosure
  * Google Play requires before the user enables the service.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PermissionExplainerSheet(
   permission: OnboardingPermission,
-  onUnderstood: () -> Unit,
+  onContinue: () -> Unit,
   onDismiss: () -> Unit,
+  modifier: Modifier = Modifier,
   sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
   val texts = permission.explainerTexts()
@@ -63,11 +64,12 @@ fun PermissionExplainerSheet(
     primaryCtaText = stringResource(
       if (isAccessibility) R.string.onboarding_accessibility_accept else R.string.onboarding_sheet_cta,
     ),
-    primaryCtaAction = onUnderstood,
+    primaryCtaAction = onContinue,
     secondaryCtaText = if (isAccessibility) stringResource(R.string.onboarding_accessibility_decline) else null,
     secondaryCtaAction = onDismiss,
     onDismiss = onDismiss,
     sheetState = sheetState,
+    modifier = modifier,
   ) {
     Column(
       verticalArrangement = Arrangement.spacedBy(16.dp),

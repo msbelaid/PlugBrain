@@ -49,14 +49,6 @@ import app.plugbrain.android.ui.theme.Warning400
 import app.plugbrain.android.ui.theme.Warning700
 import app.plugbrain.android.ui.theme.Warning900
 
-enum class PlugStatusCardVariant {
-  /** The normal state: what PlugBrain is doing right now. */
-  Info,
-
-  /** Something needs the user, such as a permission that was turned off. */
-  Warning,
-}
-
 /**
  * Tells the user what PlugBrain is doing right now. Only [label] and [icon] are required;
  * each other slot shows when it is set, in this order: headline, progress, body, action.

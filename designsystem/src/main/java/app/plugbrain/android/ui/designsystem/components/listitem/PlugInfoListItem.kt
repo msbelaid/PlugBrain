@@ -22,10 +22,10 @@ import app.plugbrain.android.ui.theme.MathlockAppTheme
 
 @Composable
 fun PlugInfoListItem(
-  modifier: Modifier = Modifier,
   title: String,
   description: String,
   icon: ImageVector,
+  modifier: Modifier = Modifier,
 ) {
   Row(
     horizontalArrangement = Arrangement.spacedBy(24.dp),

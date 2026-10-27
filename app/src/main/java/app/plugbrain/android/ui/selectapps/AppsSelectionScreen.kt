@@ -37,12 +37,12 @@ import app.plugbrain.android.ui.selectapps.presentation.InstalledAppsState
 
 @Composable
 fun AppsSelectionScreen(
-  modifier: Modifier = Modifier,
   searchQuery: String,
-  onQueryChanged: (String) -> Unit,
+  onQueryChange: (String) -> Unit,
   installedAppsState: InstalledAppsState,
   blockedApps: Set<String>,
-  onItemClicked: (String, Boolean) -> Unit,
+  onItemCheckedChange: (String, Boolean) -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   Column(modifier = modifier) {
     TextField(
@@ -51,7 +51,7 @@ fun AppsSelectionScreen(
         .statusBarsPadding()
         .testTag("SearchTextField"),
       value = searchQuery,
-      onValueChange = onQueryChanged,
+      onValueChange = onQueryChange,
       label = { Text("Search") },
       leadingIcon = {
         Icon(Icons.Default.Search, contentDescription = "Search Icon")
@@ -90,7 +90,7 @@ fun AppsSelectionScreen(
             installedApps = state.apps,
             maxUsageMillis = state.maxUsageMillis,
             blockedApps = blockedApps,
-            onItemClicked = onItemClicked,
+            onItemCheckedChange = onItemCheckedChange,
           )
         }
       }
@@ -100,11 +100,11 @@ fun AppsSelectionScreen(
 
 @Composable
 fun InstalledAppsList(
-  modifier: Modifier = Modifier,
   installedApps: List<InstalledApp>,
   maxUsageMillis: Long,
   blockedApps: Set<String>,
-  onItemClicked: (String, Boolean) -> Unit,
+  onItemCheckedChange: (String, Boolean) -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   LazyColumn(
     modifier = modifier,
@@ -118,9 +118,8 @@ fun InstalledAppsList(
         installedApp = item,
         usageFraction = if (maxUsageMillis > 0) item.usageMillis.toFloat() / maxUsageMillis else 0f,
         isSelected = blockedApps.contains(item.packageName),
-      ) { checked ->
-        onItemClicked(item.packageName, checked)
-      }
+        onCheckedChange = { checked -> onItemCheckedChange(item.packageName, checked) },
+      )
     }
   }
 }
@@ -153,8 +152,8 @@ private fun AppsSelectionScreenPreview() {
       ),
     ),
     searchQuery = "",
-    onQueryChanged = {},
-    onItemClicked = { packageName, checked -> },
+    onQueryChange = {},
+    onItemCheckedChange = { packageName, checked -> },
     blockedApps = emptySet(),
   )
 }

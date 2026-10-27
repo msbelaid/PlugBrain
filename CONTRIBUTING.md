@@ -38,6 +38,21 @@ You can open an issue to:
 
 ---
 
+## Code checks
+CI runs these on every pull request, so run them before you push:
+
+```bash
+./gradlew ktlintCheck   # formatting (./gradlew ktlintFormat fixes most of it)
+./gradlew detekt        # static analysis: complexity, unused code, Compose conventions
+./gradlew test
+```
+
+detekt checks every module with the shared config in [`config/detekt/detekt.yml`](config/detekt/detekt.yml), which builds on detekt's defaults and adds the [Compose rules](https://mrmans0n.github.io/compose-rules/). The report is written to `build/reports/detekt/detekt.html`.
+
+There is no baseline: the code has zero findings, and a new finding fails the build. Fix it, or if the rule really doesn't fit, suppress it on that declaration with a short reason, for example `@Suppress("LongParameterList") // why`. Change `detekt.yml` only for rules that don't fit the whole project.
+
+---
+
 ## Creating a new Challenge type
 PlugBrain supports math challenges where the user must provide a numeric answer.  
 You can scaffold a new challenge automatically using the Gradle generator:  

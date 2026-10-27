@@ -20,6 +20,9 @@ mockitoKotlinVersion = "5.4.0"
 mockkVersion = "1.14.0"
 paparazzi = "1.3.5"
 kover = "0.9.1"
+detekt = "1.23.8"
+# Newest compose-rules release built for detekt 1.23 on Kotlin 2.0; later ones need a newer Kotlin than detekt runs on.
+composeRulesDetekt = "0.4.22"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -68,6 +71,9 @@ mockk = {module ="io.mockk:mockk", version.ref = "mockkVersion" }
 #Screenshot testing - Paparazzi
 paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "paparazzi" }
 
+#Static analysis - Compose rules for detekt
+compose-rules-detekt = { module = "io.nlopez.compose.rules:detekt", version.ref = "composeRulesDetekt" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -77,3 +83,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

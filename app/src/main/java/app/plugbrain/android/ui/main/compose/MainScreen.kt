@@ -57,15 +57,16 @@ import app.plugbrain.android.ui.mindifficulty.difficultyLevelText
 @Composable
 fun MainScreen(
   state: MainScreenState?,
-  onAppsClicked: () -> Unit,
-  onBlockIntervalClicked: () -> Unit,
-  onMinDifficultyClicked: () -> Unit,
-  onBatteryOptimizationClicked: () -> Unit,
+  onAppsClick: () -> Unit,
+  onBlockIntervalClick: () -> Unit,
+  onMinDifficultyClick: () -> Unit,
+  onBatteryOptimizationClick: () -> Unit,
   onTurnBackOn: (RequiredPermission) -> Unit,
-  onAboutClicked: () -> Unit,
+  onAboutClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   Scaffold(
-    modifier = Modifier.fillMaxSize(),
+    modifier = modifier.fillMaxSize(),
     topBar = {
       TopAppBar(
         title = {
@@ -75,7 +76,7 @@ fun MainScreen(
           )
         },
         actions = {
-          IconButton(onClick = onAboutClicked) {
+          IconButton(onClick = onAboutClick) {
             Icon(
               imageVector = Icons.Outlined.Info,
               contentDescription = stringResource(R.string.about_open),
@@ -98,15 +99,15 @@ fun MainScreen(
       ) {
         StatusCard(
           status = state.status,
-          onAppsClicked = onAppsClicked,
+          onAppsClick = onAppsClick,
           onTurnBackOn = onTurnBackOn,
         )
         SetupSection(
           state = state,
-          onAppsClicked = onAppsClicked,
-          onBlockIntervalClicked = onBlockIntervalClicked,
-          onMinDifficultyClicked = onMinDifficultyClicked,
-          onBatteryOptimizationClicked = onBatteryOptimizationClicked,
+          onAppsClick = onAppsClick,
+          onBlockIntervalClick = onBlockIntervalClick,
+          onMinDifficultyClick = onMinDifficultyClick,
+          onBatteryOptimizationClick = onBatteryOptimizationClick,
         )
       }
     }
@@ -116,7 +117,7 @@ fun MainScreen(
 @Composable
 private fun StatusCard(
   status: DashboardStatus,
-  onAppsClicked: () -> Unit,
+  onAppsClick: () -> Unit,
   onTurnBackOn: (RequiredPermission) -> Unit,
 ) {
   val modifier = Modifier.fillMaxWidth()
@@ -161,7 +162,7 @@ private fun StatusCard(
         status.blockInterval,
       ),
       actionText = stringResource(R.string.dashboard_choose_apps),
-      onAction = onAppsClicked,
+      onAction = onAppsClick,
       modifier = modifier,
     )
   }
@@ -170,10 +171,10 @@ private fun StatusCard(
 @Composable
 private fun SetupSection(
   state: MainScreenState,
-  onAppsClicked: () -> Unit,
-  onBlockIntervalClicked: () -> Unit,
-  onMinDifficultyClicked: () -> Unit,
-  onBatteryOptimizationClicked: () -> Unit,
+  onAppsClick: () -> Unit,
+  onBlockIntervalClick: () -> Unit,
+  onMinDifficultyClick: () -> Unit,
+  onBatteryOptimizationClick: () -> Unit,
 ) {
   Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
     Text(
@@ -189,7 +190,7 @@ private fun SetupSection(
         title = stringResource(R.string.dashboard_blocked_apps_title),
         description = stringResource(R.string.dashboard_blocked_apps_none),
         icon = Icons.Rounded.Apps,
-        onClick = onAppsClicked,
+        onClick = onAppsClick,
       )
     } else {
       PlugNavigationListItem(
@@ -199,7 +200,7 @@ private fun SetupSection(
           state.blockedApps.size,
         ),
         icon = Icons.Rounded.Apps,
-        onClick = onAppsClicked,
+        onClick = onAppsClick,
         supportingContent = {
           PlugAppIconStack(
             icons = state.blockedApps.take(MAX_VISIBLE_ICONS).map { appIconPainter(it.icon) },
@@ -217,13 +218,13 @@ private fun SetupSection(
         state.blockInterval,
       ),
       icon = Icons.Rounded.Schedule,
-      onClick = onBlockIntervalClicked,
+      onClick = onBlockIntervalClick,
     )
     PlugNavigationListItem(
       title = stringResource(R.string.dashboard_min_difficulty),
       description = difficultyLevelText(state.minDifficulty),
       icon = Icons.Rounded.SignalCellularAlt,
-      onClick = onMinDifficultyClicked,
+      onClick = onMinDifficultyClick,
     )
     // Optional, so it only shows until the user lets PlugBrain run in the background.
     if (state.isBatteryOptimized) {
@@ -231,7 +232,7 @@ private fun SetupSection(
         title = stringResource(R.string.dashboard_battery_title),
         description = stringResource(R.string.dashboard_battery_description),
         icon = Icons.Rounded.BatteryChargingFull,
-        onClick = onBatteryOptimizationClicked,
+        onClick = onBatteryOptimizationClick,
       )
     }
   }

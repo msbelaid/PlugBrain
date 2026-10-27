@@ -31,6 +31,7 @@ import timber.log.Timber
 
 const val TAG = "MathLockService"
 
+private const val ONE_MINUTE = 60_000L
 private const val USAGE_CHECK_STEP = 10_000L
 private const val SYSTEM_UI_PACKAGE = "com.android.systemui"
 private const val CHALLENGE_RECHECK_DELAY = 700L
@@ -162,7 +163,9 @@ class MathLockService : AccessibilityService() {
     }
   }
 
-  override fun onInterrupt() {}
+  override fun onInterrupt() {
+    // Nothing to interrupt: the service gives no spoken or haptic feedback.
+  }
 
   private fun checkAppUsage() {
     if (isBlocked == true) return
@@ -184,7 +187,7 @@ class MathLockService : AccessibilityService() {
     usageCheckJob?.cancel()
     // Runs on Main so usageCheckJob is only ever touched from the main thread.
     usageCheckJob = serviceScope.launch(Dispatchers.Main) {
-      val targetTime = System.currentTimeMillis() + delayCheckBy * 60 * 1000L
+      val targetTime = System.currentTimeMillis() + delayCheckBy * ONE_MINUTE
       // Sleep in bounded steps against the wall clock: a single long delay() was not
       // reliable on recent Android versions, and 1 s steps woke the CPU needlessly.
       while (isActive) {

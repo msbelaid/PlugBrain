@@ -37,8 +37,9 @@ enum class AboutLink(val url: String) {
 @Composable
 fun AboutSheet(
   versionName: String,
-  onLinkClicked: (AboutLink) -> Unit,
+  onLinkClick: (AboutLink) -> Unit,
   onDismiss: () -> Unit,
+  modifier: Modifier = Modifier,
   sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
   PlugBottomSheetDrawer(
@@ -53,6 +54,7 @@ fun AboutSheet(
     secondaryCtaText = null,
     onDismiss = onDismiss,
     sheetState = sheetState,
+    modifier = modifier,
   ) {
     Text(
       text = stringResource(R.string.about_version, versionName),
@@ -68,19 +70,19 @@ fun AboutSheet(
         title = stringResource(R.string.about_source_code_title),
         description = stringResource(R.string.about_source_code_description),
         icon = Icons.Rounded.Code,
-        onClick = { onLinkClicked(AboutLink.SourceCode) },
+        onClick = { onLinkClick(AboutLink.SourceCode) },
       )
       PlugNavigationListItem(
         title = stringResource(R.string.about_report_bug_title),
         description = stringResource(R.string.about_report_bug_description),
         icon = Icons.Rounded.BugReport,
-        onClick = { onLinkClicked(AboutLink.ReportBug) },
+        onClick = { onLinkClick(AboutLink.ReportBug) },
       )
       PlugNavigationListItem(
         title = stringResource(R.string.about_website_title),
         description = stringResource(R.string.about_website_description),
         icon = Icons.Rounded.Language,
-        onClick = { onLinkClicked(AboutLink.Website) },
+        onClick = { onLinkClick(AboutLink.Website) },
       )
     }
   }

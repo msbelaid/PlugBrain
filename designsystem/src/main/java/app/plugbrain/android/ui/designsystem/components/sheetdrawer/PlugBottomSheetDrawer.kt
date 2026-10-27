@@ -37,12 +37,12 @@ import app.plugbrain.android.ui.theme.MathlockAppTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlugBottomSheetDrawer(
+  primaryCtaText: String?,
+  secondaryCtaText: String?,
   modifier: Modifier = Modifier,
   title: (@Composable ColumnScope.() -> Unit)? = null,
-  primaryCtaText: String?,
   primaryCtaAction: () -> Unit = { },
   primaryCtaIcon: ImageVector? = null,
-  secondaryCtaText: String?,
   secondaryCtaAction: () -> Unit = { },
   secondaryCtaIcon: ImageVector? = null,
   onDismiss: () -> Unit = { },
@@ -97,7 +97,7 @@ fun PlugBottomSheetDrawer(
   uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
-fun PlugBottomSheetDrawerFormPreview() {
+private fun PlugBottomSheetDrawerFormPreview() {
   var showSheet by remember { mutableStateOf(true) }
   val sheetState = rememberModalBottomSheetState()
 

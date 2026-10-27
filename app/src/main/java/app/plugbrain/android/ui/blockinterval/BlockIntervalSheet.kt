@@ -48,6 +48,7 @@ fun BlockIntervalSheet(
   challengeOnAppOpen: Boolean,
   onSave: (blockInterval: Int, challengeOnAppOpen: Boolean) -> Unit,
   onDismiss: () -> Unit,
+  modifier: Modifier = Modifier,
   sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
   var selected by rememberSaveable { mutableIntStateOf(sliderBlockInterval(blockInterval)) }
@@ -65,6 +66,7 @@ fun BlockIntervalSheet(
     secondaryCtaText = null,
     onDismiss = onDismiss,
     sheetState = sheetState,
+    modifier = modifier,
   ) {
     Text(
       text = stringResource(R.string.block_interval_sheet_description),

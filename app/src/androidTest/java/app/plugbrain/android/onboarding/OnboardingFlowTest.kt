@@ -202,7 +202,7 @@ class OnboardingFlowTest {
         composeRule.waitUntil(TIMEOUT) {
             try {
                 composeRule.onAllNodes(matcher).fetchSemanticsNodes().isNotEmpty()
-            } catch (e: IllegalStateException) {
+            } catch (ignored: IllegalStateException) {
                 // Thrown until the app has set its content, while it's still starting up.
                 false
             }
