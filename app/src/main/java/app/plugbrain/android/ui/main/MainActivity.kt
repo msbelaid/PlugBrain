@@ -138,6 +138,7 @@ class MainActivity : ComponentActivity() {
         },
         onDismiss = { isEditingMinDifficulty = false },
       )
+    }
   }
 
   private fun navigateTo(activity: Class<*>) {
