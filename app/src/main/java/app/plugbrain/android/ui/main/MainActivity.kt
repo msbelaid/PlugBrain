@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -59,79 +60,84 @@ class MainActivity : ComponentActivity() {
     }
   }
 
-  @OptIn(ExperimentalMaterial3Api::class)
   private fun showMainScreen() {
     isReady = true
     setContent {
-      val state by mainScreenViewModel.mainScreenState.collectAsState()
-      var explainedPermission by rememberSaveable { mutableStateOf<RequiredPermission?>(null) }
-      var isEditingBlockInterval by rememberSaveable { mutableStateOf(false) }
-      var isEditingMinDifficulty by rememberSaveable { mutableStateOf(false) }
-      var isShowingAbout by rememberSaveable { mutableStateOf(false) }
       MathlockAppTheme {
-        MainScreen(
-          state = state,
-          onAppsClick = { navigateTo(AppsSelectionActivity::class.java) },
-          onBlockIntervalClick = { isEditingBlockInterval = true },
-          onMinDifficultyClick = { isEditingMinDifficulty = true },
-          // Like onboarding: the system dialog explains itself, so no sheet first.
-          onBatteryOptimizationClick = { openBatteryOptimizationSettings() },
-          onTurnBackOn = { explainedPermission = it },
-          onAboutClick = { isShowingAbout = true },
-        )
-
-        // The same sheet as onboarding: where to find PlugBrain, then the system settings screen.
-        explainedPermission?.let { permission ->
-          PermissionExplainerSheet(
-            permission = permission.toOnboardingPermission(),
-            onContinue = {
-              explainedPermission = null
-              when (permission) {
-                RequiredPermission.Accessibility -> openAccessibilitySettings()
-                RequiredPermission.UsageAccess -> openUsageAccessSettings()
-                RequiredPermission.Overlay -> openOverlaySettings()
-              }
-            },
-            onDismiss = { explainedPermission = null },
-          )
-        }
-
-        if (isShowingAbout) {
-          AboutSheet(
-            versionName = BuildConfig.VERSION_NAME,
-            onLinkClick = { openLink(it) },
-            onDismiss = { isShowingAbout = false },
-          )
-        }
-
-        val currentState = state
-        if (isEditingBlockInterval && currentState != null) {
-          BlockIntervalSheet(
-            blockInterval = currentState.blockInterval,
-            challengeOnAppOpen = currentState.challengeOnAppOpen,
-            onSave = { interval, onOpen ->
-              mainScreenViewModel.updateChallengeTiming(interval, onOpen)
-              isEditingBlockInterval = false
-            },
-            onDismiss = { isEditingBlockInterval = false },
-          )
-        }
-
-        val minDifficulty = state?.minDifficulty
-        if (isEditingMinDifficulty && minDifficulty != null) {
-          MinDifficultySheet(
-            minDifficulty = minDifficulty,
-            sampleChallenge = mainScreenViewModel::sampleChallenge,
-            onSave = {
-              mainScreenViewModel.updateMinDifficulty(it)
-              isEditingMinDifficulty = false
-            },
-            onDismiss = { isEditingMinDifficulty = false },
-          )
-        }
+        Dashboard()
       }
     }
     mainScreenViewModel.refresh()
+  }
+
+  /** The dashboard and the sheets it opens. */
+  @OptIn(ExperimentalMaterial3Api::class)
+  @Composable
+  private fun Dashboard() {
+    val state by mainScreenViewModel.mainScreenState.collectAsState()
+    var explainedPermission by rememberSaveable { mutableStateOf<RequiredPermission?>(null) }
+    var isEditingBlockInterval by rememberSaveable { mutableStateOf(false) }
+    var isEditingMinDifficulty by rememberSaveable { mutableStateOf(false) }
+    var isShowingAbout by rememberSaveable { mutableStateOf(false) }
+    MainScreen(
+      state = state,
+      onAppsClick = { navigateTo(AppsSelectionActivity::class.java) },
+      onBlockIntervalClick = { isEditingBlockInterval = true },
+      onMinDifficultyClick = { isEditingMinDifficulty = true },
+      // Like onboarding: the system dialog explains itself, so no sheet first.
+      onBatteryOptimizationClick = { openBatteryOptimizationSettings() },
+      onTurnBackOn = { explainedPermission = it },
+      onAboutClick = { isShowingAbout = true },
+    )
+
+    // The same sheet as onboarding: where to find PlugBrain, then the system settings screen.
+    explainedPermission?.let { permission ->
+      PermissionExplainerSheet(
+        permission = permission.toOnboardingPermission(),
+        onContinue = {
+          explainedPermission = null
+          when (permission) {
+            RequiredPermission.Accessibility -> openAccessibilitySettings()
+            RequiredPermission.UsageAccess -> openUsageAccessSettings()
+            RequiredPermission.Overlay -> openOverlaySettings()
+          }
+        },
+        onDismiss = { explainedPermission = null },
+      )
+    }
+
+    if (isShowingAbout) {
+      AboutSheet(
+        versionName = BuildConfig.VERSION_NAME,
+        onLinkClick = { openLink(it) },
+        onDismiss = { isShowingAbout = false },
+      )
+    }
+
+    val currentState = state
+    if (isEditingBlockInterval && currentState != null) {
+      BlockIntervalSheet(
+        blockInterval = currentState.blockInterval,
+        challengeOnAppOpen = currentState.challengeOnAppOpen,
+        onSave = { interval, onOpen ->
+          mainScreenViewModel.updateChallengeTiming(interval, onOpen)
+          isEditingBlockInterval = false
+        },
+        onDismiss = { isEditingBlockInterval = false },
+      )
+    }
+
+    val minDifficulty = state?.minDifficulty
+    if (isEditingMinDifficulty && minDifficulty != null) {
+      MinDifficultySheet(
+        minDifficulty = minDifficulty,
+        sampleChallenge = mainScreenViewModel::sampleChallenge,
+        onSave = {
+          mainScreenViewModel.updateMinDifficulty(it)
+          isEditingMinDifficulty = false
+        },
+        onDismiss = { isEditingMinDifficulty = false },
+      )
   }
 
   private fun navigateTo(activity: Class<*>) {

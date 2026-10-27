@@ -21,13 +21,6 @@ import app.plugbrain.android.R
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugNavigationListItem
 import app.plugbrain.android.ui.designsystem.components.sheetdrawer.PlugBottomSheetDrawer
 
-/** Pages outside the app that the About sheet links to. */
-enum class AboutLink(val url: String) {
-  SourceCode("https://github.com/msbelaid/PlugBrain"),
-  ReportBug("https://github.com/msbelaid/PlugBrain/issues"),
-  Website("https://plugbrain.app"),
-}
-
 /**
  * The app's version and links to its source code, issues and website, for people who want to
  * check what an app with accessibility access does. Not to releases: Play doesn't allow pointing
