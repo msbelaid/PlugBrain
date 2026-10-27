@@ -28,11 +28,13 @@ import app.plugbrain.android.R
 import app.plugbrain.android.datastore.BLOCKED_APPS_KEY
 import app.plugbrain.android.datastore.BLOCK_APPS_TOGGLE_KEY
 import app.plugbrain.android.datastore.BLOCK_INTERVAL_KEY
+import app.plugbrain.android.datastore.CHALLENGE_ON_APP_OPEN_KEY
 import app.plugbrain.android.datastore.MINIMAL_DIFFICULTY_KEY
 import app.plugbrain.android.datastore.PROGRESSIVE_DIFFICULTY_KEY
 import app.plugbrain.android.datastore.getProgressiveDifficulty
 import app.plugbrain.android.datastore.setLastBlockTime
 import app.plugbrain.android.datastore.setLastChallengeTime
+import app.plugbrain.android.datastore.setLastUnblockTime
 import app.plugbrain.android.onboarding.DevicePermissions
 import app.plugbrain.android.ui.challenges.ChallengeActivity
 import kotlinx.coroutines.flow.first
@@ -68,12 +70,17 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         permissions = DevicePermissions(device, context.packageName)
     }
 
-    /** A finished setup that blocks [DISTRACTING_APP] after [blockInterval] minutes of use. */
+    /**
+     * A finished setup that blocks [DISTRACTING_APP] after [blockInterval] minutes of use, and also
+     * when it opens if [challengeOnAppOpen] is on. [lastUnblock] is when a challenge was last solved.
+     */
     fun setUpBlocking(
         blockInterval: Int = 1,
         difficulty: Int = 0,
         blocked: Boolean = false,
         lastChallenge: Long = System.currentTimeMillis(),
+        challengeOnAppOpen: Boolean = false,
+        lastUnblock: Long? = null,
     ) {
         runBlocking {
             dataStore.edit {
@@ -83,10 +90,12 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
                 it[MINIMAL_DIFFICULTY_KEY] = 0
                 it[PROGRESSIVE_DIFFICULTY_KEY] = difficulty
                 it[BLOCK_APPS_TOGGLE_KEY] = blocked
+                it[CHALLENGE_ON_APP_OPEN_KEY] = challengeOnAppOpen
             }
             // Use from before the test, such as the Settings screens of the onboarding test, doesn't count.
             dataStore.setLastBlockTime(System.currentTimeMillis())
             dataStore.setLastChallengeTime(lastChallenge)
+            lastUnblock?.let { dataStore.setLastUnblockTime(it) }
         }
     }
 
