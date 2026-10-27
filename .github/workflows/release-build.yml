@@ -165,8 +165,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      # verifyPaparazziDebug runs the whole unit test task, so only the screenshot tests are
+      # picked here; the Unit Tests job runs the rest.
       - name: Verify Paparazzi snapshots
-        run: ./gradlew verifyPaparazziDebug
+        run: ./gradlew verifyPaparazziDebug --tests 'app.plugbrain.android.screenshots.*'
 
       - name: Upload Paparazzi report
         if: always()
