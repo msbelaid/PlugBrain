@@ -39,13 +39,15 @@ class OnboardingViewModelTest {
     private val screen = CoroutineScope(Dispatchers.Unconfined)
 
     private val viewModel by lazy {
-        OnboardingViewModel(
-            permissionsRepository =
-                mock<PermissionsRepository> {
-                    on { getPermissions() } doReturn flowOf(granted)
-                },
-            dataStore = rule.dataStore,
-            savedStateHandle = savedStateHandle,
+        rule.cleared(
+            OnboardingViewModel(
+                permissionsRepository =
+                    mock<PermissionsRepository> {
+                        on { getPermissions() } doReturn flowOf(granted)
+                    },
+                dataStore = rule.dataStore,
+                savedStateHandle = savedStateHandle,
+            ),
         )
     }
 
