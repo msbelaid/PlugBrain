@@ -1,0 +1,18 @@
+# Codecov settings: https://docs.codecov.com/docs/codecovyml-reference
+# The coverage floor is enforced by koverVerify in the Unit Tests job (see build.gradle.kts), so
+# Codecov only reports. CI doesn't run on master pushes, so Codecov has no base coverage to compare
+# a PR's total against.
+coverage:
+  status:
+    project:
+      default:
+        informational: true
+    # Code that only runs on a device (the service, Android APIs) can't be covered by unit tests.
+    patch:
+      default:
+        informational: true
+
+comment:
+  layout: "condensed_header, diff, flags, files"
+  # Comment on every PR, even when coverage didn't change.
+  require_changes: false

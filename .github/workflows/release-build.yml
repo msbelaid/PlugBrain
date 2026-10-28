@@ -118,9 +118,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # Runs the unit tests of every module and merges their coverage into one report.
+      # Runs the unit tests of every module, merges their coverage into one report and prints the
+      # total, then fails if it is below the floor set in the root build.gradle.kts.
       - name: Run Unit Tests with coverage
-        run: ./gradlew test koverXmlReport
+        run: ./gradlew test koverXmlReport koverLog koverVerify
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5

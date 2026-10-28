@@ -23,6 +23,18 @@ dependencies {
     detektPlugins(libs.compose.rules.detekt)
 }
 
+// Merged line coverage may not drop below this floor: koverVerify fails the Unit Tests job.
+// It was 66.58% when the floor was set (2026-10-27). Raise it when coverage goes up, never lower it.
+kover {
+    reports {
+        verify {
+            rule("Merged line coverage") {
+                minBound(66)
+            }
+        }
+    }
+}
+
 // Static analysis of every module, tests and buildSrc included, from one task: ./gradlew detekt
 // Formatting is ktlint's job, so detekt-formatting isn't used. See config/detekt/detekt.yml.
 detekt {
