@@ -59,6 +59,8 @@ class MathLockService : AccessibilityService() {
 
   private var challengeRecheckJob: Job? = null
 
+  private val eventsUntilLoaded = EventsUntilLoaded()
+
   override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
     Timber.tag(TAG).i("onStart")
     return super.onStartCommand(intent, flags, startId)
@@ -71,7 +73,8 @@ class MathLockService : AccessibilityService() {
   }
 
   private fun getData() {
-    serviceScope.launch {
+    // Collected on Main, like the window events, so the settings are never read half updated.
+    serviceScope.launch(Dispatchers.Main) {
       combine(
         dataStore.getUserSettings(),
         dataStore.getTimestamps(),
@@ -82,6 +85,7 @@ class MathLockService : AccessibilityService() {
         userSettings = settings
         timestamps = ts
         isBlocked = toggle
+        eventsUntilLoaded.markLoaded()?.let { onWindowChanged(it) }
       }
     }
   }
@@ -90,24 +94,28 @@ class MathLockService : AccessibilityService() {
     if (event?.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
       val eventPackageName = event.packageName?.toString() ?: return
       Timber.tag(TAG).i("Event: $eventPackageName state changed")
-      val isAppOpening = appOpenDetector.isAppOpening(eventPackageName, userSettings.distractiveApps)
-      if (eventPackageName in userSettings.distractiveApps) {
-        if (isBlocked == true) {
-          launchChallenge()
-        } else if ((isAppOpening || isOpenChallengeUnsolved()) && shouldChallengeOnOpen()) {
-          openChallengeShownAt = clock.now()
-          launchChallenge()
-        } else {
-          serviceScope.launch {
-            dataStore.setLastUsageTime(clock.now())
-          }
-          checkAppUsage()
-        }
-      } else if (isCalculator(eventPackageName) && isBlocked == true) {
-        // Showing a toast alone left the calculator usable; cover it with the challenge.
-        Toast.makeText(this, R.string.calculator_warning, Toast.LENGTH_LONG).show()
+      if (eventsUntilLoaded.offer(eventPackageName)) onWindowChanged(eventPackageName)
+    }
+  }
+
+  private fun onWindowChanged(eventPackageName: String) {
+    val isAppOpening = appOpenDetector.isAppOpening(eventPackageName, userSettings.distractiveApps)
+    if (eventPackageName in userSettings.distractiveApps) {
+      if (isBlocked == true) {
         launchChallenge()
+      } else if ((isAppOpening || isOpenChallengeUnsolved()) && shouldChallengeOnOpen()) {
+        openChallengeShownAt = clock.now()
+        launchChallenge()
+      } else {
+        serviceScope.launch {
+          dataStore.setLastUsageTime(clock.now())
+        }
+        checkAppUsage()
       }
+    } else if (isCalculator(eventPackageName) && isBlocked == true) {
+      // Showing a toast alone left the calculator usable; cover it with the challenge.
+      Toast.makeText(this, R.string.calculator_warning, Toast.LENGTH_LONG).show()
+      launchChallenge()
     }
   }
 
