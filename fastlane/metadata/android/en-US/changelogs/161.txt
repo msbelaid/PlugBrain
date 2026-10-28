@@ -1,0 +1,4 @@
+- New About sheet with links to the source code, issue tracker and website
+- The challenge no longer reopens right after you solve it
+- Beginner is now preselected as the starting difficulty in onboarding
+- Updated store screenshots and feature graphic
