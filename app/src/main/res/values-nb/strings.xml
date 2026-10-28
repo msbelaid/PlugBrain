@@ -53,7 +53,7 @@
     <string name="welcome_feature_two_title">Lås opp med en utfordring</string>
     <string name="welcome_feature_two_description">Løs en kjapp regneoppgave for å fortsette å bruke appen.</string>
     <string name="welcome_feature_three_title">Vanskeligere jo lenger du blir</string>
-    <string name="welcome_feature_three_description">Utfordringene blir vanskeligere jo lenger du fortsetter å scrolle.</string>
+    <string name="welcome_feature_three_description">Utfordringene blir vanskeligere jo lenger du fortsetter å skrolle.</string>
     <string name="welcome_cta_title">Kom i gang</string>
     <string name="calculator_warning">Ingen kalkulator, takk!</string>
     <string name="selected">Valgt</string>
