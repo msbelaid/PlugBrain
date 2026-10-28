@@ -1,0 +1,17 @@
+PlugBrain er en app som oppmuntrer deg til å ta jevnlige pauser fra distraherende apper ved å blokkere dem med faste mellomrom.
+For å få tilgang igjen må du løse en regneoppgave som tilpasser seg deg: jo oftere du bruker appene, desto vanskeligere blir oppgavene, men jo lenger du holder deg unna, desto lettere blir de.
+
+**Funksjoner**
+
+- Ingen reklame
+- Trenger ikke internett
+- Blokkerer distraherende apper
+- Lås opp apper ved å løse regneoppgaver
+- Vanskeligere når du bruker appene ofte, lettere når du holder fokus
+
+**Slik bruker du den**
+
+- Gi alle tillatelsene som trengs
+- Velg apper som distraherer deg
+- Velg hvor ofte du vil bli stoppet
+- Hold fokus ;)

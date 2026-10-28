@@ -56,7 +56,7 @@ jobs:
       - name: Move screenshots into fastlane
         run: |
           snapshots=app/src/test/snapshots/images
-          for folder in en-US ar de-DE fa fr-FR hi ja nl-NL ru-RU zh-CN; do
+          for folder in en-US ar de-DE fa fr-FR hi ja nb-NO nl-NL ru-RU zh-CN; do
             target=fastlane/metadata/android/$folder/images/phoneScreenshots
             rm -rf "$target"
             mkdir -p "$target"

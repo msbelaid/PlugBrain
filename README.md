@@ -85,7 +85,7 @@ PlugBrain runs on Android 9 and newer. Learn more on the website: **[plugbrain.a
 
 </details>
 
-Available in English, Arabic, Chinese (Simplified), Dutch, French, German, Hindi, Japanese, Persian and Russian. [Help add yours.](CONTRIBUTING.md#translation)
+Available in English, Arabic, Chinese (Simplified), Dutch, French, German, Hindi, Japanese, Norwegian (Bokmål), Persian and Russian. [Help add yours.](CONTRIBUTING.md#translation)
 
 ## Privacy
 

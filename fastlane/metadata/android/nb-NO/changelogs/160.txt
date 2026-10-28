@@ -1,0 +1,7 @@
+- Ny oppstartsveiledning, steg for steg
+- Ny og enklere oversikt: alle innstillinger er ett trykk unna (Innstillinger-skjermen er borte)
+- Nye glidebrytere for tid mellom utfordringer og laveste nivå (Nybegynner, Middels, Ekspert)
+- Valgfri utfordring når du åpner en distraherende app
+- Tydeligere skjerm for tilgjengelighetstillatelsen
+- Rettet appbrukstider som kunne vises altfor høye
+- Fullstendige oversettelser til alle de 9 språkene

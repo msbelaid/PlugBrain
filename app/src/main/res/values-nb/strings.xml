@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="refresh">Oppdater</string>
+    <plurals name="blocked_every_x_minutes">
+        <item quantity="one"> hvert minutt</item>
+        <item quantity="other"> hvert %d. minutt</item>
+    </plurals>
+    <string name="minutes_short">min</string>
+    <string name="usage_free_duration_message">Godt jobbet! Du har holdt deg unna distraherende apper i over %1$s. Stå på!</string>
+    <string name="apps_usage_duration_message">Du har brukt distraherende apper i over %1$s i løpet av %2$s.</string>
+
+    <!-- Duration formatting strings -->
+    <string name="duration_hours_minutes">%1$s og %2$s</string>
+    <string name="duration_days_hours">%1$s og %2$s</string>
+
+    <plurals name="duration_minutes">
+        <item quantity="one">%d minutt</item>
+        <item quantity="other">%d minutter</item>
+    </plurals>
+
+    <plurals name="duration_hours">
+        <item quantity="one">%d time</item>
+        <item quantity="other">%d timer</item>
+    </plurals>
+
+    <plurals name="duration_days">
+        <item quantity="one">%d dag</item>
+        <item quantity="other">%d dager</item>
+    </plurals>
+
+    <string name="duration_zero_minutes">0 minutter</string>
+    <string name="usage_short_hours_minutes">%1$d t %2$d min</string>
+    <string name="usage_short_hours">%1$d t</string>
+    <string name="usage_short_minutes">%1$d min</string>
+    <string name="usage_short_less_than_minute">&lt;1 min</string>
+    <string name="stats_hardness">Vanskelighetsgrad: %1$s/%2$s</string>
+    <string name="stats_last_usage_time">Sist brukt: %1$s/%2$s</string>
+    <string name="app_usage_description">Lås opp distraherende apper med matte\nJo mindre du bruker dem -> desto lettere blir utfordringene.</string>
+    <string name="challenge_title">Ta det med ro</string>
+    <string name="challenge_answer_placeholder">Skriv svaret ditt</string>
+    <string name="challenge_check_answer">Sjekk svaret</string>
+    <string name="challenge_leave_app">Gå ut av appen</string>
+    <string name="challenge_correct_answer">Riktig svar</string>
+    <string name="challenge_stay_focused">Hold fokus</string>
+    <string name="challenge_unlock_app">Lås opp appen i %d min</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="one">Du kan låse opp appen i %d minutt, eller lukke den og holde fokus.</item>
+        <item quantity="other">Du kan låse opp appen i %d minutter, eller lukke den og holde fokus.</item>
+    </plurals>
+    <string name="welcome_title">Skru på hjernen igjen.</string>
+    <string name="welcome_feature_one_title">Ta tilbake fokuset</string>
+    <string name="welcome_feature_one_description">Bruk mindre tid på apper som distraherer deg.</string>
+    <string name="welcome_feature_two_title">Lås opp med en utfordring</string>
+    <string name="welcome_feature_two_description">Løs en kjapp regneoppgave for å fortsette å bruke appen.</string>
+    <string name="welcome_feature_three_title">Vanskeligere jo lenger du blir</string>
+    <string name="welcome_feature_three_description">Utfordringene blir vanskeligere jo lenger du fortsetter å scrolle.</string>
+    <string name="welcome_cta_title">Kom i gang</string>
+    <string name="calculator_warning">Ingen kalkulator, takk!</string>
+    <string name="selected">Valgt</string>
+
+    <string name="onboarding_skip">Hopp over</string>
+    <string name="onboarding_permissions_title">La oss gjøre alt klart</string>
+    <string name="onboarding_permissions_subtitle">PlugBrain trenger disse tillatelsene for å fungere som det skal.</string>
+    <string name="onboarding_permissions_cta">Fortsett</string>
+    <string name="onboarding_permissions_helper">Gi de nødvendige tillatelsene for å fortsette.</string>
+    <string name="onboarding_usage_access_title">Tilgang til appbruk</string>
+    <string name="onboarding_usage_access_description">Lar PlugBrain følge med på appbruken din, så distraherende apper blokkeres til rett tid.</string>
+    <string name="onboarding_overlay_title">Vis over andre apper</string>
+    <string name="onboarding_overlay_description">Lar PlugBrain vise en utfordring mens du bruker en distraherende app.</string>
+    <string name="onboarding_accessibility_title">Tillatelse for tilgjengelighet</string>
+    <string name="onboarding_accessibility_description">Lar PlugBrain se når apper åpnes.</string>
+    <string name="onboarding_battery_title">Batterioptimalisering (valgfritt)</string>
+    <string name="onboarding_battery_description">Sørger for at PlugBrain kjører stabilt, selv når enheten prøver å spare batteri.</string>
+
+    <string name="onboarding_sheet_cta">Skjønner</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain bruker tilgjengelighetstjenesten for å se hvilken app som er åpen. Når du åpner en app du har valgt å blokkere, eller en kalkulator under en utfordring, viser PlugBrain en regneoppgave først.\n\nPlugBrain leser bare navnet på appen. Den leser ikke det som står på skjermen eller det du skriver, og ingenting forlater telefonen din.</string>
+    <string name="onboarding_accessibility_accept">Godta og fortsett</string>
+    <string name="onboarding_accessibility_decline">Ikke nå</string>
+    <string name="accessibility_service_description">Ser når du åpner en app du har valgt å blokkere, slik at PlugBrain kan vise en regneoppgave. Bare navnet på appen leses.</string>
+    <string name="onboarding_sheet_find_app">Først: finn og velg PlugBrain i listen over apper.</string>
+    <string name="onboarding_usage_access_sheet_title">Slå på brukstilgang</string>
+    <string name="onboarding_usage_access_sheet_switch">Tillat brukstilgang</string>
+    <string name="onboarding_usage_access_sheet_toggle">Slå deretter på bryteren for brukstilgang.</string>
+    <string name="onboarding_overlay_sheet_title">Slå på visning over andre apper</string>
+    <string name="onboarding_overlay_sheet_switch">Tillat visning over andre apper</string>
+    <string name="onboarding_overlay_sheet_toggle">Slå deretter på bryteren for visning over andre apper.</string>
+    <string name="onboarding_accessibility_sheet_title">Slå på tilgjengelighetstjenesten</string>
+    <string name="onboarding_accessibility_sheet_switch">Bruk PlugBrain</string>
+    <string name="onboarding_accessibility_sheet_toggle">Finn PlugBrain, slå på bryteren og bekreft.</string>
+
+    <string name="onboarding_apps_title">Hva distraherer deg?</string>
+    <string name="onboarding_apps_subtitle">Slapp av, du kan endre listen senere.</string>
+    <string name="onboarding_apps_search">Søk</string>
+    <string name="onboarding_apps_clear_search">Tøm søket</string>
+    <string name="onboarding_apps_cta">Blokker apper</string>
+
+    <string name="onboarding_preferences_title">Velg innstillingene dine</string>
+    <string name="onboarding_preferences_interval">Hvor ofte skal vi blokkere?</string>
+    <plurals name="onboarding_preferences_interval_option">
+        <item quantity="one">Hvert minutt</item>
+        <item quantity="other">Hvert %d. minutt</item>
+    </plurals>
+    <string name="onboarding_preferences_difficulty">Startnivå for utfordringene</string>
+    <string name="onboarding_difficulty_beginner">Nybegynner</string>
+    <string name="onboarding_difficulty_beginner_description">Enkle pluss- og minusstykker.</string>
+    <string name="onboarding_difficulty_intermediate">Middels</string>
+    <string name="onboarding_difficulty_intermediate_description">Gangestykker og tall som mangler.</string>
+    <string name="onboarding_difficulty_expert">Ekspert</string>
+    <string name="onboarding_difficulty_expert_description">Gangestykker med flere sifre.</string>
+    <string name="onboarding_preferences_cta">Fullfør oppsettet</string>
+    <!-- Main screen (dashboard) -->
+    <string name="dashboard_active">PlugBrain er på</string>
+    <string name="dashboard_minutes_short">%d min</string>
+    <string name="dashboard_minutes_left">igjen til neste utfordring</string>
+    <string name="dashboard_next_challenge_level">Neste utfordring: nivå %1$d av %2$d</string>
+    <string name="dashboard_apps_locked">Apper låst</string>
+    <string name="dashboard_away">Borte i %s</string>
+    <string name="dashboard_hours_minutes_short">%1$d t %2$d min</string>
+    <string name="dashboard_unlock_level">Løs en utfordring på nivå %d for å låse opp. Jo lenger du holder deg unna, desto lettere blir den.</string>
+    <string name="dashboard_paused">PlugBrain er satt på pause</string>
+    <string name="dashboard_paused_accessibility">Tilgjengelighetstjenesten ble slått av, så PlugBrain kan ikke blokkere appene dine.</string>
+    <string name="dashboard_paused_usage_access">Brukstilgangen ble slått av, så PlugBrain vet ikke når appene dine skal blokkeres.</string>
+    <string name="dashboard_paused_overlay">Visning over andre apper ble slått av, så PlugBrain kan ikke vise utfordringer.</string>
+    <string name="dashboard_turn_back_on">Slå på igjen</string>
+    <string name="dashboard_nothing_to_block">Ingenting å blokkere ennå</string>
+    <plurals name="dashboard_nothing_to_block_description">
+        <item quantity="one">Velg appene som suger deg inn, så ber PlugBrain om en utfordring etter %d minutt i dem.</item>
+        <item quantity="other">Velg appene som suger deg inn, så ber PlugBrain om en utfordring etter %d minutter i dem.</item>
+    </plurals>
+    <string name="dashboard_choose_apps">Velg apper</string>
+    <string name="dashboard_your_setup">Oppsettet ditt</string>
+    <string name="dashboard_blocked_apps_title">Blokkerte apper</string>
+    <string name="dashboard_blocked_apps_none">Ingen valgt</string>
+    <plurals name="dashboard_blocked_apps_count">
+        <item quantity="one">%d blokkert app</item>
+        <item quantity="other">%d blokkerte apper</item>
+    </plurals>
+    <string name="dashboard_challenges">Utfordringer</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="one">Hvert minutt</item>
+        <item quantity="other">Hvert %d. min</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="one">Ved åpning, så hvert minutt</item>
+        <item quantity="other">Ved åpning, så hvert %d. min</item>
+    </plurals>
+    <string name="dashboard_min_difficulty">Laveste nivå</string>
+    <string name="dashboard_min_difficulty_preset">%1$s · nivå %2$d</string>
+    <string name="dashboard_min_difficulty_level">Nivå %d</string>
+    <!-- Challenges sheet -->
+    <string name="block_interval_sheet_title">Når du får en utfordring</string>
+    <string name="block_interval_sheet_description">Hvor lenge du kan bruke de blokkerte appene før PlugBrain ber om en utfordring.</string>
+    <string name="block_interval_sheet_slider_label">Tid mellom utfordringer</string>
+    <string name="block_interval_sheet_on_open">Også når appen åpnes</string>
+    <string name="block_interval_sheet_on_open_description">Løs også en utfordring før en distraherende app åpnes.</string>
+    <plurals name="block_interval_sheet_value">
+        <item quantity="one">%d minutt</item>
+        <item quantity="other">%d minutter</item>
+    </plurals>
+    <string name="block_interval_sheet_save">Lagre</string>
+    <string name="min_difficulty_sheet_description">Utfordringene starter på dette nivået og blir vanskeligere jo lenger du fortsetter å bruke de blokkerte appene.</string>
+    <string name="min_difficulty_sheet_example">For eksempel</string>
+    <string name="min_difficulty_sheet_save">Lagre</string>
+    <string name="dashboard_battery_title">Kjør i bakgrunnen</string>
+    <string name="dashboard_battery_description">Hindre Android i å lukke PlugBrain for å spare batteri.</string>
+    <string name="about_open">Om PlugBrain</string>
+    <string name="about_version">Versjon %s</string>
+    <string name="about_source_code_title">Kildekode</string>
+    <string name="about_source_code_description">Fri og åpen kildekode under GPLv3</string>
+    <string name="about_report_bug_title">Rapporter en feil</string>
+    <string name="about_report_bug_description">Opprett en sak på GitHub</string>
+    <string name="about_website_title">Nettsted</string>
+</resources>
