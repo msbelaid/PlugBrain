@@ -52,18 +52,20 @@ class MainScreenViewModelTest {
     private val usage = RecordingAppsUsageStats(usedMinutes = 3)
 
     private val viewModel by lazy {
-        MainScreenViewModel(
-            installedAppsRepository =
-                mock<InstalledAppsRepository> {
-                    on { getInstalledApps() } doReturn flowOf(listOf(calculator, instagram, youtube))
-                },
-            permissionsRepository =
-                mock<PermissionsRepository> {
-                    on { getPermissions() } doReturn permissions
-                },
-            dataStore = rule.dataStore,
-            appsUsageStats = usage,
-            challengeFactory = levelChallengeFactory(MAX_LEVEL),
+        rule.cleared(
+            MainScreenViewModel(
+                installedAppsRepository =
+                    mock<InstalledAppsRepository> {
+                        on { getInstalledApps() } doReturn flowOf(listOf(calculator, instagram, youtube))
+                    },
+                permissionsRepository =
+                    mock<PermissionsRepository> {
+                        on { getPermissions() } doReturn permissions
+                    },
+                dataStore = rule.dataStore,
+                appsUsageStats = usage,
+                challengeFactory = levelChallengeFactory(MAX_LEVEL),
+            ),
         )
     }
 

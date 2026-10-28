@@ -5,6 +5,7 @@ import app.plugbrain.android.datastore.DEFAULT_BLOCK_INTERVAL
 import app.plugbrain.android.datastore.DEFAULT_MINIMAL_DIFFICULTY
 import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.datastore.hasSavedSetup
+import app.plugbrain.android.datastore.model.UserSettings
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.testing.ViewModelTestRule
@@ -15,10 +16,12 @@ import app.plugbrain.android.ui.onboarding.presentation.OnboardingViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -39,13 +42,15 @@ class OnboardingViewModelTest {
     private val screen = CoroutineScope(Dispatchers.Unconfined)
 
     private val viewModel by lazy {
-        OnboardingViewModel(
-            permissionsRepository =
-                mock<PermissionsRepository> {
-                    on { getPermissions() } doReturn flowOf(granted)
-                },
-            dataStore = rule.dataStore,
-            savedStateHandle = savedStateHandle,
+        rule.cleared(
+            OnboardingViewModel(
+                permissionsRepository =
+                    mock<PermissionsRepository> {
+                        on { getPermissions() } doReturn flowOf(granted)
+                    },
+                dataStore = rule.dataStore,
+                savedStateHandle = savedStateHandle,
+            ),
         )
     }
 
@@ -95,13 +100,13 @@ class OnboardingViewModelTest {
 
     @Test
     fun `choices are saved as soon as they are made`() {
-        runBlocking {
-            viewModel.updateBlockInterval(10)
-            viewModel.updateDifficulty(DifficultyPreset.Expert)
+        // One choice at a time, as the screen makes them.
+        viewModel.updateBlockInterval(10)
+        assertSaved("The block interval wasn't saved") { it.blockInterval == 10 }
+        viewModel.updateDifficulty(DifficultyPreset.Expert)
 
-            rule.dataStore.getUserSettings().awaitMatching {
-                it.blockInterval == 10 && it.selectedMinimalDifficulty == DifficultyPreset.Expert.minimalDifficulty
-            }
+        assertSaved("The difficulty wasn't saved") {
+            it.blockInterval == 10 && it.selectedMinimalDifficulty == DifficultyPreset.Expert.minimalDifficulty
         }
     }
 
@@ -126,6 +131,7 @@ class OnboardingViewModelTest {
         runBlocking {
             screen.launch { viewModel.settings.collect {} }
             viewModel.updateBlockInterval(15)
+            viewModel.settings.awaitMatching { it.blockInterval == 15 }
             viewModel.updateDifficulty(DifficultyPreset.Intermediate)
             viewModel.settings.awaitMatching { it.blockInterval == 15 && it.selectedMinimalDifficulty == 5 }
 
@@ -146,5 +152,27 @@ class OnboardingViewModelTest {
             assertTrue(viewModel.isFinished.value)
             assertFalse(rule.dataStore.hasSavedSetup().first())
         }
+    }
+
+    /**
+     * Reads the saved settings again until they match, so a missed update can't hang the test.
+     * Waiting on a single collection of the settings timed out now and then on CI.
+     */
+    private fun assertSaved(
+        message: String,
+        predicate: (UserSettings) -> Boolean,
+    ) {
+        var saved = UserSettings()
+        val matched =
+            runBlocking {
+                withTimeoutOrNull(10_000) {
+                    saved = rule.dataStore.getUserSettings().first()
+                    while (!predicate(saved)) {
+                        delay(50)
+                        saved = rule.dataStore.getUserSettings().first()
+                    }
+                }
+            }
+        assertTrue("$message, saved: $saved", matched != null)
     }
 }

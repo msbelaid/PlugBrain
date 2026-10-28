@@ -10,10 +10,8 @@ import app.plugbrain.android.ui.challenges.ChallengeActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -68,8 +66,15 @@ class BlockingFlowTest {
         driver.turnOnPlugBrain()
 
         driver.awaitChallenge()
-        assertEquals(true, runBlocking { driver.dataStore.getBlockAppsToggle().first() })
-        assertNotNull(runBlocking { driver.dataStore.getTimestamps().first().lastBlock })
+        // MathLockService saves the block in the background while the challenge opens.
+        assertTrue(
+            "Reaching the interval didn't block the apps",
+            driver.waitFor { runBlocking { driver.dataStore.getBlockAppsToggle().first() } == true },
+        )
+        assertTrue(
+            "The block time wasn't saved",
+            driver.waitFor { runBlocking { driver.dataStore.getTimestamps().first().lastBlock } != null },
+        )
 
         // The usage since this block starts from zero again, as it does with the real usage stats.
         driver.solveChallengeAndUnlock { FakeAppsUsageStats.minutes = 0 }
