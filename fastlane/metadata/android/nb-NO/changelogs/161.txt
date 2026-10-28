@@ -1,0 +1,4 @@
+- Nytt «Om PlugBrain»-vindu med lenker til kildekoden, saksoversikten og nettstedet
+- Utfordringen åpner seg ikke lenger på nytt rett etter at du har løst den
+- Nybegynner er nå forhåndsvalgt som startnivå når du setter opp appen
+- Oppdaterte skjermbilder og funksjonsgrafikk i butikken

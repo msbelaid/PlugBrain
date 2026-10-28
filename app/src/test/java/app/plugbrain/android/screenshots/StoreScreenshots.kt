@@ -51,6 +51,7 @@ private val storeLocales =
         "fr-FR" to "fr",
         "hi" to "hi",
         "ja" to "ja",
+        "nb-NO" to "nb",
         "nl-NL" to "nl",
         "ru-RU" to "ru",
         "zh-CN" to "zh-rCN",
