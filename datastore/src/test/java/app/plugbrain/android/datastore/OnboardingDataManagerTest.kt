@@ -10,6 +10,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -78,6 +79,31 @@ class OnboardingDataManagerTest {
             dataStore.setSelectedMinimalDifficulty(5)
 
             assertTrue(dataStore.hasSavedSetup().first())
+        }
+    }
+
+    @Test
+    fun `saving the setup defaults fills in what wasn't chosen`() {
+        runBlocking {
+            dataStore.saveSetupDefaults()
+
+            val prefs = dataStore.data.first()
+            assertEquals(DEFAULT_BLOCK_INTERVAL, prefs[BLOCK_INTERVAL_KEY])
+            assertEquals(DEFAULT_MINIMAL_DIFFICULTY, prefs[MINIMAL_DIFFICULTY_KEY])
+        }
+    }
+
+    @Test
+    fun `saving the setup defaults keeps the choices made`() {
+        runBlocking {
+            dataStore.setBlockInterval(15)
+            dataStore.setSelectedMinimalDifficulty(10)
+
+            dataStore.saveSetupDefaults()
+
+            val prefs = dataStore.data.first()
+            assertEquals(15, prefs[BLOCK_INTERVAL_KEY])
+            assertEquals(10, prefs[MINIMAL_DIFFICULTY_KEY])
         }
     }
 }
