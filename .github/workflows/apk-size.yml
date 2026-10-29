@@ -1,0 +1,76 @@
+name: APK size
+
+# Runs after PlugBrain CI with the base repository's token, so pull requests from forks get the
+# comment too. Only the size number is read from the pull request's run, never its code.
+on:
+  workflow_run:
+    workflows: [PlugBrain CI]
+    types: [completed]
+
+permissions:
+  actions: read
+  pull-requests: write
+
+jobs:
+  comment:
+    if: github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RUN_ID: ${{ github.event.workflow_run.id }}
+      HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+      HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+    steps:
+      - name: Compare with master
+        id: size
+        run: |
+          # The build job may have failed before recording a size; then there is nothing to say.
+          if ! gh run download "$RUN_ID" -n apk-size -D pr; then
+            echo "No APK size in run $RUN_ID"
+            exit 0
+          fi
+          pr_size=$(cat pr/apk-size.txt)
+          [[ "$pr_size" =~ ^[0-9]+$ ]] || { echo "Unexpected size: $pr_size"; exit 1; }
+
+          base_run=$(gh run list -w release-build.yml -b master -e push -s success -L 1 --json databaseId -q '.[0].databaseId')
+          base_size=""
+          if [ -n "$base_run" ] && gh run download "$base_run" -n apk-size -D base; then
+            base_size=$(cat base/apk-size.txt)
+          fi
+
+          number=$(gh pr list --state open --head "$HEAD_BRANCH" --json number,headRefOid \
+            -q ".[] | select(.headRefOid == \"$HEAD_SHA\") | .number" | head -n 1)
+          if [ -z "$number" ]; then
+            echo "No open pull request for $HEAD_SHA"
+            exit 0
+          fi
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+
+          python3 - "$pr_size" "$base_size" "$HEAD_SHA" > comment.md <<'PY'
+          import sys
+          pr, base, sha = int(sys.argv[1]), sys.argv[2], sys.argv[3]
+          mb = lambda b: f"{b / 1024 / 1024:.2f} MB"
+          print("### APK size\n")
+          print("| | Release APK |")
+          print("|---|---|")
+          if base:
+              base = int(base)
+              diff = pr - base
+              sign = "+" if diff >= 0 else "-"
+              print(f"| master | {mb(base)} |")
+              print(f"| this PR | {mb(pr)} ({sign}{abs(diff) / 1024:.1f} KB, {sign}{abs(diff) / base * 100:.2f}%) |")
+          else:
+              print(f"| this PR | {mb(pr)} |")
+              print("\nNo size from master yet, so there is nothing to compare with.")
+          print(f"\n<sub>Release build signed with the CI test key, at {sha[:7]}.</sub>")
+          PY
+          cat comment.md
+
+      - name: Comment on the pull request
+        if: steps.size.outputs.number != ''
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: apk-size
+          number: ${{ steps.size.outputs.number }}
+          path: comment.md

@@ -120,6 +120,16 @@ jobs:
           path: app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
 
+      # apk-size.yml compares this with the size from the latest master run and comments on the PR.
+      - name: Record APK size
+        run: stat -c %s app/build/outputs/apk/release/app-release.apk > apk-size.txt
+
+      - name: Upload APK size
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-size
+          path: apk-size.txt
+
       # Debug build shows debug-only UI (e.g. the difficulty label) and installs
       # alongside the release app thanks to the ".debug" applicationId suffix.
       - name: Build debug APK
