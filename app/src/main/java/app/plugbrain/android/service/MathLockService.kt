@@ -36,6 +36,8 @@ private const val USAGE_CHECK_STEP = 10_000L
 private const val SYSTEM_UI_PACKAGE = "com.android.systemui"
 private const val CHALLENGE_RECHECK_DELAY = 700L
 
+// Keeps its old name: Android remembers an enabled accessibility service by its class name, so a
+// rename would turn the service off for everyone who updates.
 class MathLockService : AccessibilityService() {
   private val dataStore: DataStore<Preferences> by inject()
   private val usageLimit: UsageLimit by inject()

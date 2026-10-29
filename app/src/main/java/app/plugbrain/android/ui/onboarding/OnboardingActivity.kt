@@ -31,7 +31,7 @@ import app.plugbrain.android.ui.permissions.openBatteryOptimizationSettings
 import app.plugbrain.android.ui.permissions.openOverlaySettings
 import app.plugbrain.android.ui.permissions.openUsageAccessSettings
 import app.plugbrain.android.ui.selectapps.presentation.AppsSelectionViewModel
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OnboardingActivity : ComponentActivity() {
@@ -64,7 +64,7 @@ class OnboardingActivity : ComponentActivity() {
       // On the first step Back isn't handled here, so it leaves the app.
       BackHandler(enabled = step != OnboardingStep.Welcome) { onboardingViewModel.back() }
 
-      MathlockAppTheme {
+      PlugBrainTheme {
         OnboardingContent(
           step = step,
           permissions = permissions,

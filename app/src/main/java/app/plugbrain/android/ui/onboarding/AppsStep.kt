@@ -22,7 +22,7 @@ import app.plugbrain.android.ui.designsystem.components.textfield.PlugSearchFiel
 import app.plugbrain.android.ui.onboarding.presentation.OnboardingStep
 import app.plugbrain.android.ui.selectapps.UsageBar
 import app.plugbrain.android.ui.selectapps.presentation.InstalledAppsState
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import coil3.compose.rememberAsyncImagePainter
 
 @Composable
@@ -94,7 +94,7 @@ fun AppsStep(
 @Preview(showSystemUi = true)
 @Composable
 private fun AppsStepPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     AppsStep(
       installedAppsState = InstalledAppsState.Success(
         apps = listOf(

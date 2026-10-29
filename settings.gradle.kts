@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MathlockApp"
+rootProject.name = "PlugBrain"
 include(":app")
 include(":appusage")
 include(":designsystem")

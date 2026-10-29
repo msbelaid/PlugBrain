@@ -41,7 +41,7 @@ import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalI
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.ElevationFocused
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.IconSize
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInputDefaults.Shape
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 @Composable
 fun PlugNumericalInput(
@@ -212,7 +212,7 @@ private fun PlugNumericalInputPreview() {
     focusRequester.requestFocus()
   }
 
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       modifier = Modifier.background(MaterialTheme.colorScheme.surface),
     ) {

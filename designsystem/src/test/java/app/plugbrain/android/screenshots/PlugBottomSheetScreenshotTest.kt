@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.plugbrain.android.ui.designsystem.components.sheetdrawer.PlugBottomSheetDrawer
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -52,7 +52,7 @@ class PlugBottomSheetScreenshotTest {
 
         LaunchedEffect(Unit) { sheetState.expand() }
 
-        MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
+        PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme) {
             PlugBottomSheetDrawer(
                 title = {
                     Row(

@@ -15,7 +15,7 @@ import app.plugbrain.android.ui.onboarding.PermissionsStep
 import app.plugbrain.android.ui.onboarding.PreferencesStep
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 import app.plugbrain.android.ui.selectapps.presentation.InstalledAppsState
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -112,7 +112,7 @@ class OnboardingScreenshotTest {
         darkTheme: Boolean = false,
         content: @Composable () -> Unit,
     ) {
-        MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme, content = content)
+        PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme, content = content)
     }
 
     @Composable

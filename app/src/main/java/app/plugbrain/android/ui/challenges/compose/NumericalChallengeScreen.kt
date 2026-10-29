@@ -42,7 +42,7 @@ import app.plugbrain.android.ui.challenges.compose.NumericalChallengeScreenDefau
 import app.plugbrain.android.ui.challenges.compose.NumericalChallengeScreenDefaults.VerticalPadding
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonPrimary
 import app.plugbrain.android.ui.designsystem.components.card.PlugCard
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import kotlinx.coroutines.delay
 
 // Lets the success state on the card register before the unlock sheet covers it.
@@ -181,7 +181,7 @@ private object NumericalChallengeScreenDefaults {
 @Preview(showSystemUi = true)
 @Composable
 private fun NumericalScreenPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     NumericalChallengeScreen(
       challenge = AdditionTwoDigitsCarryFreeChallenge(),
       unlockMinutes = 5,
@@ -208,7 +208,7 @@ private fun NumericalContentPreview(
   answer: String,
   answerState: AnswerState,
 ) {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     NumericalChallengeContent(
       challengeText = "25 + 17",
       answer = answer,

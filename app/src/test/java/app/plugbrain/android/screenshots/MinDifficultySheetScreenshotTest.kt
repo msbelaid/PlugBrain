@@ -7,7 +7,7 @@ import androidx.compose.runtime.LaunchedEffect
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.plugbrain.android.ui.mindifficulty.MinDifficultySheet
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -38,7 +38,7 @@ class MinDifficultySheetScreenshotTest {
         minDifficulty: Int,
         darkTheme: Boolean = false,
     ) {
-        MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
+        PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme) {
             // The sheet animates in, so a snapshot of its first frame is blank unless it's expanded first.
             val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
             LaunchedEffect(Unit) { sheetState.expand() }

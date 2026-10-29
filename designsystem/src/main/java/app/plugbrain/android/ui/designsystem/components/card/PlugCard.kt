@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonSecondary
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInput
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 @Composable
 fun PlugCard(
@@ -106,7 +106,7 @@ private val CardElevation = 4.dp
 )
 @Composable
 private fun PlugCardSmallNumbersPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
@@ -136,7 +136,7 @@ private fun PlugCardSmallNumbersPreview() {
 )
 @Composable
 private fun PlugCardBigNumbersPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
@@ -166,7 +166,7 @@ private fun PlugCardBigNumbersPreview() {
 )
 @Composable
 private fun PlugCardWithInputPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
@@ -196,7 +196,7 @@ private fun PlugCardWithInputPreview() {
 )
 @Composable
 private fun PlugCardSuccessPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
@@ -227,7 +227,7 @@ private fun PlugCardSuccessPreview() {
 )
 @Composable
 private fun PlugCardErrorPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
@@ -258,7 +258,7 @@ private fun PlugCardErrorPreview() {
 )
 @Composable
 private fun PlugCardSquareChallengePreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
@@ -288,7 +288,7 @@ private fun PlugCardSquareChallengePreview() {
 )
 @Composable
 private fun PlugCardMissingChallengePreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       modifier = Modifier
         .background(MaterialTheme.colorScheme.background)

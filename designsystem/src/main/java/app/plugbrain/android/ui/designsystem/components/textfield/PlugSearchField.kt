@@ -35,7 +35,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 private val FieldShape = RoundedCornerShape(8.dp)
 private val IconSize = 24.dp
@@ -137,7 +137,7 @@ fun PlugSearchField(
 )
 @Composable
 private fun PlugSearchFieldPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       verticalArrangement = Arrangement.spacedBy(8.dp),
       modifier = Modifier

@@ -47,7 +47,7 @@ private val LightColorScheme =
   )
 
 @Composable
-fun MathlockAppTheme(
+fun PlugBrainTheme(
   darkTheme: Boolean = isSystemInDarkTheme(),
   // Dynamic color is available on Android 12+
   dynamicColor: Boolean = true,

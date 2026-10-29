@@ -11,7 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.plugbrain.android.ui.selectapps.presentation.AppsSelectionViewModel
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AppsSelectionActivity : ComponentActivity() {
@@ -26,7 +26,7 @@ class AppsSelectionActivity : ComponentActivity() {
       val installedApps by installedAppsViewModel.installedApps.collectAsStateWithLifecycle()
       val searchQuery by installedAppsViewModel.searchQuery.collectAsStateWithLifecycle()
 
-      MathlockAppTheme {
+      PlugBrainTheme {
         Scaffold { innerPadding ->
           AppsSelectionScreen(
             modifier = Modifier

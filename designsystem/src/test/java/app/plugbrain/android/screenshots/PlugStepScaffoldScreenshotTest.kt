@@ -14,7 +14,7 @@ import app.cash.paparazzi.Paparazzi
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonTertiary
 import app.plugbrain.android.ui.designsystem.components.layout.PlugStepScaffold
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugPermissionListItem
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -41,7 +41,7 @@ class PlugStepScaffoldScreenshotTest {
 
     @Composable
     private fun stepScaffoldTest(darkTheme: Boolean = false) {
-        MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
+        PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme) {
             PlugStepScaffold(
                 title = "Let's get set up",
                 subtitle = "PlugBrain needs the following permissions to work correctly.",

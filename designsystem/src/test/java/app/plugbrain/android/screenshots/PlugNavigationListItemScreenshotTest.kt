@@ -17,7 +17,7 @@ import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugAppIconStack
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugNavigationListItem
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -44,7 +44,7 @@ class PlugNavigationListItemScreenshotTest {
 
     @Composable
     private fun navigationListItems(darkTheme: Boolean) {
-        MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
+        PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme) {
             val appIcon = rememberVectorPainter(Icons.Rounded.Android)
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),

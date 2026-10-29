@@ -36,7 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.ui.theme.GradientEnd
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import app.plugbrain.android.ui.theme.PrimaryGradient
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -245,7 +245,7 @@ private val TrackShape = RoundedCornerShape(50)
 )
 @Composable
 private fun PlugSnapSliderPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     var value by remember { mutableIntStateOf(10) }
     PlugSnapSlider(
       value = value,
