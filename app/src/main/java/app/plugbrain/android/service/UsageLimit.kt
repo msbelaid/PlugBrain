@@ -12,16 +12,24 @@ class UsageLimit(
   private val clock: Clock,
 ) {
   /**
-   * @return minutes of distractive app use left, counted since [lastBlock] (or the last hour when
-   * apps were never blocked). Zero or less means the apps should be blocked now.
+   * @return minutes of distractive app use left, counted since the later of [lastBlock] and
+   * [lastUnblock] (or the last hour when there's neither). Every solved challenge, including one
+   * shown on app open, starts a full interval. Zero or less means the apps should be blocked now.
    */
-  fun minutesLeft(settings: UserSettings, lastBlock: Long?): Long {
+  fun minutesLeft(settings: UserSettings, lastBlock: Long?, lastUnblock: Long?): Long {
     val now = clock.now()
     val usedMinutes = appsUsageStats.getTotalAppsUsageDuration(
-      startTime = lastBlock ?: (now - ONE_HOUR),
+      startTime = usageCountedSince(lastBlock, lastUnblock, now),
       endTime = now,
       filterPackages = settings.distractiveApps,
     )
     return settings.blockInterval - usedMinutes
   }
 }
+
+/**
+ * When the block interval's usage starts counting: the later of the last block and the last solve,
+ * or the last hour when there's neither. Shared with the dashboard so both show the same minutes.
+ */
+fun usageCountedSince(lastBlock: Long?, lastUnblock: Long?, now: Long): Long =
+  listOfNotNull(lastBlock, lastUnblock).maxOrNull() ?: (now - ONE_HOUR)

@@ -16,6 +16,7 @@ import app.plugbrain.android.datastore.setChallengeOnAppOpen
 import app.plugbrain.android.datastore.setSelectedMinimalDifficulty
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
+import app.plugbrain.android.service.usageCountedSince
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,7 +26,6 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 // TODO Create a separate constants file
-private const val ONE_HOUR = 60 * 60_000
 private const val ONE_MINUTE = 60_000
 
 class MainScreenViewModel(
@@ -63,7 +63,7 @@ class MainScreenViewModel(
       ) { permissions, settings, timestamps, isBlocked, installedApps ->
         val now = System.currentTimeMillis()
         val usedMinutes = appsUsageStats.getTotalAppsUsageDuration(
-          startTime = timestamps.lastBlock ?: (now - ONE_HOUR),
+          startTime = usageCountedSince(timestamps.lastBlock, timestamps.lastUnblock, now),
           endTime = now,
           filterPackages = settings.distractiveApps,
         )
