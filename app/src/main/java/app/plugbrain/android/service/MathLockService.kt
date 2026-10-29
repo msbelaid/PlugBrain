@@ -169,7 +169,7 @@ class MathLockService : AccessibilityService() {
 
   private fun checkAppUsage() {
     if (isBlocked == true) return
-    val minutesLeft = usageLimit.minutesLeft(userSettings, timestamps.lastBlock)
+    val minutesLeft = usageLimit.minutesLeft(userSettings, timestamps.lastBlock, timestamps.lastUnblock)
     if (minutesLeft <= 0) {
       val now = clock.now()
       serviceScope.launch {

@@ -71,6 +71,32 @@ class AppOpenChallengeTest {
     }
 
     @Test
+    fun aSpentIntervalBeforeTheOpenChallenge_doesNotBlockAgainAfterTheSolve() {
+        driver.setUpBlocking(blockInterval = BLOCK_INTERVAL, challengeOnAppOpen = true)
+        driver.turnOnPlugBrain()
+        // More than the interval of use since the last block (saved by setUpBlocking, a moment
+        // ago), all of it before the challenge shown on app open is solved.
+        FakeAppsUsageStats.minutes = BLOCK_INTERVAL + 5L
+        FakeAppsUsageStats.usedBefore = System.currentTimeMillis()
+
+        driver.awaitChallenge()
+        val queriesBeforeSolve = FakeAppsUsageStats.queries
+        driver.solveChallengeAndUnlock(blockInterval = BLOCK_INTERVAL)
+        assertTrue("The challenge stayed open after the solve", driver.waitFor { !ChallengeActivity.isInForeground })
+
+        // Back in the app, the service checks the usage, which used to block it again at once.
+        assertTrue(
+            "MathLockService didn't check the usage after the solve",
+            driver.openDistractingAppUntil { FakeAppsUsageStats.queries > queriesBeforeSolve },
+        )
+        assertFalse(
+            "A second challenge opened after solving the one shown on app open",
+            driver.waitFor(3_000) { ChallengeActivity.isInForeground },
+        )
+        assertNotEquals(true, runBlocking { driver.dataStore.getBlockAppsToggle().first() })
+    }
+
+    @Test
     fun goingHomeFromTheChallenge_bringsItBackWhenTheAppOpensAgain() {
         driver.setUpBlocking(blockInterval = BLOCK_INTERVAL, challengeOnAppOpen = true)
         driver.turnOnPlugBrain()

@@ -25,6 +25,7 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.Configurator
 import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.StaleObjectException
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
@@ -48,6 +49,8 @@ import java.util.regex.Pattern
 private const val TIMEOUT = 10_000L
 private const val SHORT_TIMEOUT = 3_000L
 private const val MAX_BACK_PRESSES = 4
+private const val MAX_STALE_RETRIES = 3
+private const val SETTLE_DELAY = 500L
 private const val SETTINGS_PACKAGE = "com.android.settings"
 
 /**
@@ -136,12 +139,14 @@ class OnboardingFlowTest {
         openSettingsFromRow(R.string.onboarding_accessibility_title, R.string.onboarding_accessibility_accept)
 
         val appName = text(R.string.app_name)
-        val entry =
-            device.wait(Until.findObject(By.textContains(appName)), SHORT_TIMEOUT)
-                ?: device.findObject(By.scrollable(true))?.scrollUntil(Direction.DOWN, Until.findObject(By.textContains(appName)))
-        checkNotNull(entry) { "$appName isn't listed in the accessibility settings" }.click()
-        settingsObject(By.clazz(Switch::class.java), "the switch to turn $appName on").click()
-        settingsObject(By.text(Pattern.compile("(?i)allow")), "the Allow button").click()
+        clickInSettings {
+            val entry =
+                device.wait(Until.findObject(By.textContains(appName)), SHORT_TIMEOUT)
+                    ?: device.findObject(By.scrollable(true))?.scrollUntil(Direction.DOWN, Until.findObject(By.textContains(appName)))
+            checkNotNull(entry) { "$appName isn't listed in the accessibility settings" }
+        }
+        clickInSettings { settingsObject(By.clazz(Switch::class.java), "the switch to turn $appName on") }
+        clickInSettings { settingsObject(By.text(Pattern.compile("(?i)allow")), "the Allow button") }
 
         assertTrue("Accessibility didn't turn on", waitFor { permissions.isAccessibilityEnabled() })
         returnToApp()
@@ -207,6 +212,22 @@ class OnboardingFlowTest {
                 false
             }
         }
+    }
+
+    /**
+     * Finds an object in the system settings and clicks it. Settings can redraw the screen between
+     * the find and the click, which makes the object stale, so it's looked up again.
+     */
+    private fun clickInSettings(find: () -> UiObject2) {
+        repeat(MAX_STALE_RETRIES) {
+            try {
+                find().click()
+                return
+            } catch (ignored: StaleObjectException) {
+                SystemClock.sleep(SETTLE_DELAY)
+            }
+        }
+        find().click()
     }
 
     private fun settingsObject(
