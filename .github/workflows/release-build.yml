@@ -2,6 +2,9 @@ name: PlugBrain CI
 
 on:
   push:
+    # Runs on master save the Gradle cache that pull requests read from.
+    branches:
+      - master
     tags:
       - 'v*'
   pull_request:
@@ -178,6 +181,8 @@ jobs:
   ui-tests:
     name: UI Tests
     needs: [build, unit-tests, screenshot-tests]
+    # The emulator already ran on the pull request, so merges to master skip it.
+    if: github.event_name != 'push' || github.ref != 'refs/heads/master'
     runs-on: ubuntu-latest
     env:
       ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL: 5
