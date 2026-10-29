@@ -14,6 +14,32 @@ permissions:
   contents: read
 
 jobs:
+  # Tells the UI Tests job whether a pull request touches anything besides docs and store
+  # metadata. Pushes and release tags always count as code changes.
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      code: ${{ github.event_name != 'pull_request' || steps.filter.outputs.code == 'true' }}
+    steps:
+      - name: Check changed files
+        id: filter
+        if: github.event_name == 'pull_request'
+        uses: dorny/paths-filter@v3
+        with:
+          # A file counts as code only when it matches none of the excluded paths.
+          predicate-quantifier: every
+          filters: |
+            code:
+              - '**'
+              - '!**/*.md'
+              - '!LICENSE'
+              - '!assets/**'
+              - '!fastlane/**'
+              - '!.design/**'
+              - '!.github/ISSUE_TEMPLATE/**'
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -180,9 +206,10 @@ jobs:
 
   ui-tests:
     name: UI Tests
-    needs: [build, unit-tests, screenshot-tests]
-    # The emulator already ran on the pull request, so merges to master skip it.
-    if: github.event_name != 'push' || github.ref != 'refs/heads/master'
+    needs: [changes, build, unit-tests, screenshot-tests]
+    # Skipped when a pull request only changes docs or store metadata. The emulator already ran
+    # on the pull request, so merges to master skip it too.
+    if: needs.changes.outputs.code == 'true' && (github.event_name != 'push' || github.ref != 'refs/heads/master')
     runs-on: ubuntu-latest
     env:
       ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL: 5
