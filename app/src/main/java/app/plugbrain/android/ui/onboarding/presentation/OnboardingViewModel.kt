@@ -6,8 +6,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.datastore.getUserSettings
-import app.plugbrain.android.datastore.saveSetupDefaults
 import app.plugbrain.android.datastore.model.UserSettings
+import app.plugbrain.android.datastore.saveSetupDefaults
 import app.plugbrain.android.datastore.setBlockInterval
 import app.plugbrain.android.datastore.setSelectedMinimalDifficulty
 import app.plugbrain.android.repository.PermissionsRepository
