@@ -6,13 +6,17 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.job
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
@@ -24,12 +28,15 @@ import java.io.File
  * Runs viewModelScope on the test thread and gives each test an empty DataStore in a temporary
  * folder, so ViewModels read and write real preferences. ViewModels passed to [cleared] are
  * cleared after the test, before the main dispatcher is reset: a viewModelScope still collecting
- * would otherwise touch Dispatchers.Main after the reset and fail a later test.
+ * would otherwise touch Dispatchers.Main after the reset and fail a later test. Clearing only
+ * cancels the scope, so the rule also waits for it to finish: a DataStore emission already on its
+ * way back to Main would otherwise race with resetMain.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class ViewModelTestRule : TemporaryFolder() {
     private lateinit var scope: CoroutineScope
     private val viewModels = ViewModelStore()
+    private val handedOut = mutableListOf<ViewModel>()
 
     lateinit var dataStore: DataStore<Preferences>
         private set
@@ -49,10 +56,12 @@ class ViewModelTestRule : TemporaryFolder() {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T = viewModel as T
             }
+        handedOut += viewModel
         return ViewModelProvider(viewModels, factory)[viewModel.javaClass]
     }
 
     override fun after() {
+        runBlocking { handedOut.forEach { it.viewModelScope.coroutineContext.job.cancelAndJoin() } }
         viewModels.clear()
         scope.cancel()
         Dispatchers.resetMain()
