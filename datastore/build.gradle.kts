@@ -21,5 +21,4 @@ dependencies {
     api(libs.androidx.datastore.preferences.core)
 
     testImplementation(libs.junit)
-    testImplementation(kotlin("test"))
 }
