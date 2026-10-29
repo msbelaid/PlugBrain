@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.datastore.getUserSettings
+import app.plugbrain.android.datastore.saveSetupDefaults
 import app.plugbrain.android.datastore.model.UserSettings
 import app.plugbrain.android.datastore.setBlockInterval
 import app.plugbrain.android.datastore.setSelectedMinimalDifficulty
@@ -65,12 +66,13 @@ class OnboardingViewModel(
     viewModelScope.launch { dataStore.setSelectedMinimalDifficulty(preset.minimalDifficulty) }
   }
 
-  /** Saves the interval and difficulty shown as selected, defaults included, then finishes. */
+  /**
+   * Saves the defaults shown as selected for anything not chosen yet, then finishes. Choices are
+   * already saved when made, so this reads DataStore rather than [settings], which can lag behind.
+   */
   fun completeSetup() {
     viewModelScope.launch {
-      val current = settings.value
-      dataStore.setBlockInterval(current.blockInterval)
-      dataStore.setSelectedMinimalDifficulty(current.selectedMinimalDifficulty)
+      dataStore.saveSetupDefaults()
       _isFinished.value = true
     }
   }
