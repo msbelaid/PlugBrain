@@ -5,13 +5,13 @@ on:
     # Runs on master save the Gradle cache that pull requests read from.
     branches:
       - master
-    tags:
-      - 'v*'
   pull_request:
   workflow_dispatch:
+  # release.yml runs this whole pipeline on v* tags before it signs the release.
+  workflow_call:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   lint:
@@ -257,44 +257,3 @@ jobs:
           path: |
             **/build/reports/androidTests/
             **/build/outputs/androidTest-results/
-
-  sign_and_release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: [build, lint, detekt, unit-tests, screenshot-tests, ui-tests]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: Decode and configure keystore
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > plugbrain-release.keystore
-          mv plugbrain-release.keystore app/plugbrain-release.keystore
-          echo "storeFile=plugbrain-release.keystore" > keystore.properties
-          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> keystore.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> keystore.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
-
-      - name: Build signed APK
-        run: |
-          ./gradlew assembleRelease
-          ./gradlew bundleRelease
-
-      - name: Upload to GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            app/build/outputs/apk/release/app-release.apk
-            app/build/outputs/bundle/release/app-release.aab
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
