@@ -5,7 +5,6 @@ coreKtx = "1.13.1"
 coilCompose = "3.1.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
-espressoCore = "3.6.1"
 uiautomator = "2.3.0"
 lifecycleRuntimeKtx = "2.8.7"
 kotlinxCoroutines = "1.8.1"
@@ -17,7 +16,6 @@ datastoreCoreAndroid = "1.1.4"
 timber = "5.0.1"
 mockitoVersion = "5.17.0"
 mockitoKotlinVersion = "5.4.0"
-mockkVersion = "1.14.0"
 paparazzi = "1.3.5"
 kover = "0.9.1"
 detekt = "1.23.8"
@@ -28,7 +26,6 @@ composeRulesDetekt = "0.4.22"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -49,7 +46,6 @@ coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCo
 koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin_android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
-koin_compose = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 
 #DataStore
 androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
@@ -63,10 +59,9 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 #Timber
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
-#Mockito - Mockk
+#Mockito
 mockito = {module ="org.mockito:mockito-core", version.ref ="mockitoVersion"}
 mockito-kotlin = {module ="org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlinVersion" }
-mockk = {module ="io.mockk:mockk", version.ref = "mockkVersion" }
 
 #Screenshot testing - Paparazzi
 paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "paparazzi" }
