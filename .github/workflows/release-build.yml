@@ -142,6 +142,49 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
 
+  apk-size:
+    name: APK size limit
+    needs: build
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      pull-requests: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      # Largest growth over master allowed without the apk-size-approved label.
+      MAX_GROWTH_KB: 100
+    steps:
+      - name: Download APK size
+        uses: actions/download-artifact@v4
+        with:
+          name: apk-size
+          path: pr
+
+      # Reads the labels now rather than from the event, so re-running this job after adding the
+      # label lets the pull request through.
+      - name: Compare with master
+        run: |
+          pr_size=$(cat pr/apk-size.txt)
+          base_run=$(gh run list -w release-build.yml -b master -e push -s success -L 1 --json databaseId -q '.[0].databaseId')
+          if [ -z "$base_run" ] || ! gh run download "$base_run" -n apk-size -D base; then
+            echo "No size from master yet, nothing to compare with."
+            exit 0
+          fi
+          base_size=$(cat base/apk-size.txt)
+          growth_kb=$(( (pr_size - base_size) / 1024 ))
+          echo "master: $base_size bytes, this PR: $pr_size bytes, growth: $growth_kb KB (limit $MAX_GROWTH_KB KB)"
+          if [ "$growth_kb" -le "$MAX_GROWTH_KB" ]; then
+            exit 0
+          fi
+          if gh pr view ${{ github.event.pull_request.number }} --json labels -q '.labels[].name' | grep -qx apk-size-approved; then
+            echo "Over the limit, but the apk-size-approved label allows it."
+            exit 0
+          fi
+          echo "::error::The release APK grows by $growth_kb KB, more than the $MAX_GROWTH_KB KB allowed. If the growth is expected, add the apk-size-approved label and re-run this job."
+          exit 1
+
   unit-tests:
     name: Unit Tests
     needs: build
