@@ -106,6 +106,8 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
 
     fun reset() {
         device.pressHome()
+        // Settings plays the distracting app; a later test that opens Settings starts it fresh.
+        device.executeShellCommand("am force-stop $DISTRACTING_APP")
         permissions.revokeAll()
         closeChallenges()
         runBlocking { dataStore.edit { it.clear() } }
