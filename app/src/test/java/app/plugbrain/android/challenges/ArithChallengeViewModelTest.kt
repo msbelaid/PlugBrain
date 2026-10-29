@@ -1,7 +1,6 @@
 package app.plugbrain.android.challenges
 
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import app.plugbrain.android.challenges.factory.ChallengeFactory
@@ -14,29 +13,19 @@ import app.plugbrain.android.datastore.getProgressiveDifficulty
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.setLastChallengeTime
 import app.plugbrain.android.repository.MathChallengeRepository
+import app.plugbrain.android.testing.ViewModelTestRule
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
 import kotlinx.coroutines.withTimeout
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TemporaryFolder
-import java.io.File
 
 private const val ONE_MINUTE = 60_000L
 private const val NOW = 1_000 * ONE_MINUTE
@@ -44,23 +33,19 @@ private const val BLOCK_INTERVAL = 5
 private const val MAX_DIFFICULTY = 5
 
 /** Difficulty goes up with each solved challenge and back down after long breaks. */
-@OptIn(ExperimentalCoroutinesApi::class)
 class ArithChallengeViewModelTest {
     @get:Rule
-    val tempFolder = TemporaryFolder()
+    val rule = ViewModelTestRule()
 
-    private lateinit var scope: CoroutineScope
     private lateinit var dataStore: DataStore<Preferences>
     private lateinit var viewModel: ArithChallengeViewModel
 
     @Before
     fun setup() {
-        Dispatchers.setMain(UnconfinedTestDispatcher())
-        scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-        val file = File(tempFolder.root, "settings.preferences_pb")
-        dataStore = PreferenceDataStoreFactory.create(scope = scope, produceFile = { file })
+        dataStore = rule.dataStore
         val factory = ChallengeFactory((0..MAX_DIFFICULTY).map { level -> { LevelChallenge(level) } })
-        viewModel = ArithChallengeViewModel(dataStore, MathChallengeRepository(dataStore, factory)) { NOW }
+        val repository = MathChallengeRepository(dataStore, factory)
+        viewModel = rule.cleared(ArithChallengeViewModel(dataStore, repository) { NOW })
         runBlocking<Unit> {
             dataStore.edit {
                 it[BLOCK_INTERVAL_KEY] = BLOCK_INTERVAL
@@ -68,12 +53,6 @@ class ArithChallengeViewModelTest {
                 it[BLOCK_APPS_TOGGLE_KEY] = true
             }
         }
-    }
-
-    @After
-    fun tearDown() {
-        scope.cancel()
-        Dispatchers.resetMain()
     }
 
     @Test
