@@ -21,7 +21,7 @@ import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import app.plugbrain.android.ui.theme.PrimaryGradient
 
 private val BarShape = RoundedCornerShape(50)
@@ -74,7 +74,7 @@ fun PlugStepProgressBar(
 )
 @Composable
 private fun PlugStepProgressBarPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       verticalArrangement = Arrangement.spacedBy(16.dp),
       modifier = Modifier

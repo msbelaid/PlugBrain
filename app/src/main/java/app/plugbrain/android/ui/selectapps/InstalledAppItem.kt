@@ -118,8 +118,8 @@ private fun InstalledAppPreview() {
     )
     InstalledAppItem(
       installedApp = InstalledApp(
-        name = "MathLock",
-        packageName = "app.mathlock.android",
+        name = "PlugBrain",
+        packageName = "app.plugbrain.android",
         icon = LocalContext.current.getDrawable(R.mipmap.ic_launcher)!!,
       ),
       usageFraction = 0f,

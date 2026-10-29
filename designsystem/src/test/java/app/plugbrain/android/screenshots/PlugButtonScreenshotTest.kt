@@ -16,7 +16,7 @@ import app.cash.paparazzi.Paparazzi
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonPrimary
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonSecondary
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonTertiary
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -43,7 +43,7 @@ class PlugButtonScreenshotTest {
 
     @Composable
     private fun plugButtonsTest(darkTheme: Boolean) {
-        MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
+        PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme) {
             Column(
                 modifier =
                     Modifier

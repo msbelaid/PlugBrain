@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import app.plugbrain.android.challenges.NumericalChallenge
 import app.plugbrain.android.ui.challenges.compose.NumericalChallengeScreen
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChallengeActivity : ComponentActivity() {
@@ -41,7 +41,7 @@ class ChallengeActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       // Brand colors rather than the wallpaper's, so the screen matches the design in both themes.
-      MathlockAppTheme(dynamicColor = false) {
+      PlugBrainTheme(dynamicColor = false) {
         val challenge by challengeViewModel.challenge.collectAsState()
         val blockInterval by challengeViewModel.blockInterval.collectAsState()
         challenge?.let {

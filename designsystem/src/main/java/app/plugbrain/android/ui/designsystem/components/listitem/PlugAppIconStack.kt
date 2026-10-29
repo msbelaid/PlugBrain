@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 /**
  * Overlapping app icons, at most [maxVisible] of them, then "+N" for the rest of [totalCount]. Pass
@@ -87,7 +87,7 @@ private val IconShape = RoundedCornerShape(8.dp)
 )
 @Composable
 private fun PlugAppIconStackPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     val icon = rememberVectorPainter(Icons.Rounded.Android)
     Column(
       verticalArrangement = Arrangement.spacedBy(8.dp),

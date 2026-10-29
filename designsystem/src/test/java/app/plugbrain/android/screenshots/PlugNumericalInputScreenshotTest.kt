@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.plugbrain.android.ui.designsystem.components.textfield.PlugNumericalInput
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -51,7 +51,7 @@ private fun numericalInputTest(darkTheme: Boolean = false) {
         focusRequester.requestFocus()
     }
 
-    MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
+    PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme) {
         Column(
             modifier =
                 Modifier

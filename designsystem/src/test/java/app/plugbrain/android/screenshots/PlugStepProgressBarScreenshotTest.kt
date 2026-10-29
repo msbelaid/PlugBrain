@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.plugbrain.android.ui.designsystem.components.progress.PlugStepProgressBar
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -38,7 +38,7 @@ class PlugStepProgressBarScreenshotTest {
 
     @Composable
     private fun stepProgressBarTest(darkTheme: Boolean = false) {
-        MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
+        PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier =

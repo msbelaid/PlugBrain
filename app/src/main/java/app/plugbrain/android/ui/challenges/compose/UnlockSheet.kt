@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
 import app.plugbrain.android.ui.designsystem.components.sheetdrawer.PlugBottomSheetDrawer
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 /**
  * Asked after a correct answer: staying focused is the primary action, unlocking the secondary one.
@@ -83,7 +83,7 @@ fun UnlockSheet(
 @Preview(name = "Dark Mode", showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun UnlockSheetPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     UnlockSheet(unlockMinutes = 5, onUnlockApp = {}, onStayFocusedClick = {})
   }
 }

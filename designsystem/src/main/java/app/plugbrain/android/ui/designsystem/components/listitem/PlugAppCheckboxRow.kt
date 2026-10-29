@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 /**
  * An installed app the user can pick. The whole row toggles, and [supportingContent] goes under
@@ -91,7 +91,7 @@ fun PlugAppCheckboxRow(
 )
 @Composable
 private fun PlugAppCheckboxRowPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(Modifier.background(MaterialTheme.colorScheme.surface)) {
       PlugAppCheckboxRow(
         name = "Subway Surfer",

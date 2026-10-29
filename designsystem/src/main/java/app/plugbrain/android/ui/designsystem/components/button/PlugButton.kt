@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import app.plugbrain.android.ui.theme.PrimaryGradient
 import app.plugbrain.android.ui.theme.White
 
@@ -165,7 +165,7 @@ private fun ButtonContent(
 )
 @Composable
 private fun PlugButtonPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       modifier = Modifier.background(MaterialTheme.colorScheme.background),
       verticalArrangement = Arrangement.spacedBy(8.dp),

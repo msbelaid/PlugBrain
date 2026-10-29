@@ -142,8 +142,8 @@ private fun AppsSelectionScreenPreview() {
           )!!,
         ),
         InstalledApp(
-          name = "MathLock",
-          packageName = "com.mathlock.android",
+          name = "PlugBrain",
+          packageName = "app.plugbrain.android",
           icon = AppCompatResources.getDrawable(
             LocalContext.current,
             R.mipmap.ic_launcher,

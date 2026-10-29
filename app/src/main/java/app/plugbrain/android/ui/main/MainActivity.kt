@@ -31,7 +31,7 @@ import app.plugbrain.android.ui.permissions.openBatteryOptimizationSettings
 import app.plugbrain.android.ui.permissions.openOverlaySettings
 import app.plugbrain.android.ui.permissions.openUsageAccessSettings
 import app.plugbrain.android.ui.selectapps.AppsSelectionActivity
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
   private fun showMainScreen() {
     isReady = true
     setContent {
-      MathlockAppTheme {
+      PlugBrainTheme {
         Dashboard()
       }
     }

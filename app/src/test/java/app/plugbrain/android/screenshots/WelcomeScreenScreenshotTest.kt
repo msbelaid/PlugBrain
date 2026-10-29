@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.plugbrain.android.ui.onboarding.WelcomeScreen
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -31,7 +31,7 @@ class WelcomeScreenScreenshotTest {
 
     @Composable
     private fun welcomeScreenTest(darkTheme: Boolean = false) {
-        MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
+        PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme) {
             WelcomeScreen(onGetStartedClick = {})
         }
     }

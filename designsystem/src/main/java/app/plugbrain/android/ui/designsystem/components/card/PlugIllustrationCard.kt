@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 private val IllustrationShape = RoundedCornerShape(12.dp)
 
@@ -66,7 +66,7 @@ fun PlugIllustrationCard(
 )
 @Composable
 private fun PlugIllustrationCardPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Box(
       modifier = Modifier
         .background(MaterialTheme.colorScheme.surface)

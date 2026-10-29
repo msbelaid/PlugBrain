@@ -21,7 +21,7 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 @Composable
 fun PlugPermissionListItem(
@@ -70,7 +70,7 @@ fun PlugPermissionListItem(
 )
 @Composable
 private fun PermissionListItemPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       verticalArrangement = Arrangement.spacedBy(8.dp),
       modifier = Modifier

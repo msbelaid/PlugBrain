@@ -9,7 +9,7 @@ import app.plugbrain.android.ui.main.compose.MainScreen
 import app.plugbrain.android.ui.main.presentation.DashboardStatus
 import app.plugbrain.android.ui.main.presentation.MainScreenState
 import app.plugbrain.android.ui.main.presentation.RequiredPermission
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -87,7 +87,7 @@ class MainScreenScreenshotTest {
         appCount: Int = 7,
         isBatteryOptimized: Boolean = false,
     ) {
-        MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme) {
+        PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme) {
             MainScreen(
                 state =
                     MainScreenState(

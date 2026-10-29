@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
 import app.plugbrain.android.ui.designsystem.components.layout.PlugStepScaffold
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugInfoListItem
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import app.plugbrain.android.ui.theme.Primary500
 
 @Composable
@@ -85,7 +85,7 @@ private fun TopGradient(): Brush = Brush.verticalGradient(
 @Preview(showSystemUi = true)
 @Composable
 private fun WelcomeScreenPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     WelcomeScreen(onGetStartedClick = {})
   }
 }

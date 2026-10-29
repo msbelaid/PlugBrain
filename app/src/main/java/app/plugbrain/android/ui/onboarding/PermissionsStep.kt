@@ -17,7 +17,7 @@ import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.designsystem.components.layout.PlugStepScaffold
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugPermissionListItem
 import app.plugbrain.android.ui.onboarding.presentation.OnboardingStep
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 @Composable
 fun PermissionsStep(
@@ -104,7 +104,7 @@ private fun PermissionItem(
 @Preview(showSystemUi = true)
 @Composable
 private fun PermissionsStepPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     PermissionsStep(
       permissions = PermissionsState(usageStatsPermission = true),
       onPermissionClick = {},

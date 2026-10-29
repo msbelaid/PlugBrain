@@ -9,7 +9,7 @@ import app.plugbrain.android.challenges.addition.AdditionChallenge
 import app.plugbrain.android.ui.challenges.compose.AnswerState
 import app.plugbrain.android.ui.challenges.compose.NumericalChallengeContent
 import app.plugbrain.android.ui.challenges.compose.NumericalChallengeScreen
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -92,7 +92,7 @@ class NumericalChallengeScreenScreenshotTest {
         content: @Composable () -> Unit,
     ) {
         CompositionLocalProvider(LocalInspectionMode provides true) {
-            MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme, content = content)
+            PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme, content = content)
         }
     }
 }

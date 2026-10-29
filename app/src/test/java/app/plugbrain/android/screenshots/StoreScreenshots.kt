@@ -31,7 +31,7 @@ import app.plugbrain.android.ui.mindifficulty.MinDifficultySheet
 import app.plugbrain.android.ui.onboarding.AppsStep
 import app.plugbrain.android.ui.onboarding.WelcomeScreen
 import app.plugbrain.android.ui.selectapps.presentation.InstalledAppsState
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import coil3.annotation.ExperimentalCoilApi
 import coil3.asImage
 import coil3.compose.AsyncImagePreviewHandler
@@ -231,7 +231,7 @@ class StoreScreenshots {
             LocalInspectionMode provides true,
             LocalAsyncImagePreviewHandler provides AsyncImagePreviewHandler { request -> (request.data as? Drawable)?.asImage() },
         ) {
-            MathlockAppTheme(dynamicColor = false, darkTheme = darkTheme, content = content)
+            PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme, content = content)
         }
     }
 

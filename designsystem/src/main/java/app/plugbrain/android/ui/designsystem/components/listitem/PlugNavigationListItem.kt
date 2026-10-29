@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 /**
  * A row that shows a setting's current value and opens the place to change it.
@@ -69,7 +69,7 @@ fun PlugNavigationListItem(
 )
 @Composable
 private fun PlugNavigationListItemPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       verticalArrangement = Arrangement.spacedBy(8.dp),
       modifier = Modifier

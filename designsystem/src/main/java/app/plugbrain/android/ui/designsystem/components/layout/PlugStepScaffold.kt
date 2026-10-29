@@ -38,7 +38,7 @@ import app.plugbrain.android.ui.designsystem.components.button.PlugButtonPrimary
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonTertiary
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugPermissionListItem
 import app.plugbrain.android.ui.designsystem.components.progress.PlugStepProgressBar
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 private val HorizontalPadding = 24.dp
 
@@ -192,7 +192,7 @@ fun PlugStepScaffold(
 )
 @Composable
 private fun PlugStepScaffoldPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     PlugStepScaffold(
       title = "Let's get set up",
       subtitle = "PlugBrain needs the following permissions to work correctly.",

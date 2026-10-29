@@ -39,7 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.ui.designsystem.components.button.PlugButtonPrimary
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 import app.plugbrain.android.ui.theme.Primary300
 import app.plugbrain.android.ui.theme.Primary600
 import app.plugbrain.android.ui.theme.PrimaryGradient
@@ -299,7 +299,7 @@ private fun PlugStatusCardNothingToBlockPreview() {
 
 @Composable
 private fun StatusCardPreviewContainer(content: @Composable () -> Unit) {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       modifier = Modifier
         .background(MaterialTheme.colorScheme.background)

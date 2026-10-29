@@ -24,7 +24,7 @@ import app.plugbrain.android.ui.designsystem.components.listitem.PlugSelectableC
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 import app.plugbrain.android.ui.onboarding.presentation.OnboardingBlockIntervals
 import app.plugbrain.android.ui.onboarding.presentation.OnboardingStep
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 @Composable
 fun PreferencesStep(
@@ -104,7 +104,7 @@ private fun SectionTitle(
 @Preview(showSystemUi = true)
 @Composable
 private fun PreferencesStepPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     PreferencesStep(
       blockInterval = 5,
       difficulty = DifficultyPreset.Beginner,

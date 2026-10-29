@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.plugbrain.android.ui.theme.MathlockAppTheme
+import app.plugbrain.android.ui.theme.PlugBrainTheme
 
 /**
  * One choice in a single-choice list, such as a block interval or a difficulty.
@@ -70,7 +70,7 @@ fun PlugSelectableCard(
 )
 @Composable
 private fun PlugSelectableCardPreview() {
-  MathlockAppTheme(dynamicColor = false) {
+  PlugBrainTheme(dynamicColor = false) {
     Column(
       verticalArrangement = Arrangement.spacedBy(8.dp),
       modifier = Modifier
