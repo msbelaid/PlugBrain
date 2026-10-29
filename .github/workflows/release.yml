@@ -13,6 +13,7 @@ jobs:
   ci:
     uses: ./.github/workflows/release-build.yml
     permissions:
+      actions: read
       contents: read
       pull-requests: read
       security-events: write
