@@ -128,20 +128,15 @@ class OnboardingViewModelTest {
 
     @Test
     fun `finishing keeps the choices made`() {
-        runBlocking {
-            screen.launch { viewModel.settings.collect {} }
-            viewModel.updateBlockInterval(15)
-            viewModel.settings.awaitMatching { it.blockInterval == 15 }
-            viewModel.updateDifficulty(DifficultyPreset.Intermediate)
-            viewModel.settings.awaitMatching { it.blockInterval == 15 && it.selectedMinimalDifficulty == 5 }
+        viewModel.updateBlockInterval(15)
+        assertSaved("The block interval wasn't saved") { it.blockInterval == 15 }
+        viewModel.updateDifficulty(DifficultyPreset.Intermediate)
+        assertSaved("The difficulty wasn't saved") { it.blockInterval == 15 && it.selectedMinimalDifficulty == 5 }
 
-            viewModel.completeSetup()
+        viewModel.completeSetup()
 
-            viewModel.isFinished.awaitMatching { it }
-            val settings = rule.dataStore.getUserSettings().first()
-            assertEquals(15, settings.blockInterval)
-            assertEquals(5, settings.selectedMinimalDifficulty)
-        }
+        runBlocking { viewModel.isFinished.awaitMatching { it } }
+        assertSaved("Finishing changed the choices") { it.blockInterval == 15 && it.selectedMinimalDifficulty == 5 }
     }
 
     @Test
