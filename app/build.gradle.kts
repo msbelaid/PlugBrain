@@ -18,7 +18,8 @@ plugins {
 
 android {
     namespace = "app.plugbrain.android"
-    compileSdk = 36
+    // Paparazzi 1.3.5 fails on compileSdk 36 (its layoutlib Build class lacks VERSION_CODES_FULL).
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "app.plugbrain.android"

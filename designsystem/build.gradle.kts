@@ -11,7 +11,7 @@ plugins {
 
 android {
     namespace = "app.plugbrain.android.designsystem"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 28
