@@ -55,6 +55,7 @@ fun PlugButtonPrimary(
       // The gradient is fixed brand colors, so the label stays white whatever the color scheme.
       contentColor = White,
       disabledContainerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
+      disabledContentColor = disabledContentColor(),
     ),
     modifier = modifier
       .then(
@@ -89,7 +90,9 @@ fun PlugButtonSecondary(
     enabled = enabled,
     shape = shape,
     contentPadding = buttonPadding,
+    // Material 3 1.4 made the outlined label gray, keep it in the brand color.
     colors = ButtonDefaults.outlinedButtonColors(
+      contentColor = MaterialTheme.colorScheme.primary,
       disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
     ),
     // Keep the outline readable while disabled, so the button stays visible.
@@ -119,6 +122,9 @@ fun PlugButtonTertiary(
     enabled = enabled,
     shape = shape,
     contentPadding = buttonPadding,
+    colors = ButtonDefaults.textButtonColors(
+      disabledContentColor = disabledContentColor(),
+    ),
   ) {
     ButtonContent(
       text = text,
@@ -126,6 +132,10 @@ fun PlugButtonTertiary(
     )
   }
 }
+
+// Material 3 1.4 made disabled labels fainter, keep the earlier 38% alpha.
+@Composable
+private fun disabledContentColor(): Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
 
 @Composable
 private fun ButtonContent(
