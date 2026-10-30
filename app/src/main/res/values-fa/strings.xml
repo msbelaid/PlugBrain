@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="refresh">تازه‌سازی</string>
-
-
-    <plurals name="blocked_every_x_minutes">
-        <item quantity="one"> هر یک دقیقه</item>
-        <item quantity="other"> هر %d دقیقه</item>
-    </plurals>
-
-    <string name="minutes_short">دقیقه</string>
-    <string name="usage_free_duration_message">عالی است! بیش از %1$s از برنامه‌های حواس‌پرت‌کن دور ماندی. همین‌طور ادامه بده!</string>
-    <string name="apps_usage_duration_message">در %2$s گذشته بیش از %1$s از برنامه‌های حواس‌پرت‌کن استفاده کرده‌ای.</string>
 
     <!-- Duration formatting strings -->
     <string name="duration_hours_minutes">%1$s و %2$s</string>
@@ -31,14 +20,10 @@
         <item quantity="other">%d روز</item>
     </plurals>
 
-    <string name="duration_zero_minutes">۰ دقیقه</string>
     <string name="usage_short_hours_minutes">%1$d ساعت %2$d دقیقه</string>
     <string name="usage_short_hours">%1$d ساعت</string>
     <string name="usage_short_minutes">%1$d دقیقه</string>
     <string name="usage_short_less_than_minute">&lt;۱ دقیقه</string>
-    <string name="stats_hardness">سختی: %1$s/%2$s</string>
-    <string name="stats_last_usage_time">آخرین زمان استفاده: %1$s/%2$s</string>
-    <string name="app_usage_description">باز کردن برنامه‌های حواس‌پرت‌کن با ریاضی\nهرچه کمتر استفاده کنی → چالش‌ها ساده‌تر می‌شوند.</string>
     <string name="challenge_title">بیا کمی آهسته‌تر پیش برویم</string>
     <string name="challenge_answer_placeholder">پاسخت را بنویس</string>
     <string name="challenge_check_answer">بررسی پاسخ</string>
@@ -60,7 +45,6 @@
     <string name="welcome_feature_three_description">هرچه بیشتر اسکرول کنی، چالش‌ها سخت‌تر می‌شوند.</string>
     <string name="welcome_cta_title">شروع کنیم</string>
     <string name="calculator_warning">بدون ماشین‌حساب، لطفاً!</string>
-    <string name="selected">انتخاب‌شده</string>
     <string name="onboarding_skip">رد کردن</string>
     <string name="onboarding_permissions_title">بیا راه‌اندازی کنیم</string>
     <string name="onboarding_permissions_subtitle">PlugBrain برای اینکه درست کار کند، به مجوزهای زیر نیاز دارد.</string>

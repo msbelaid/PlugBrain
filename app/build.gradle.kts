@@ -33,6 +33,20 @@ android {
         testInstrumentationRunnerArguments["useTestStorageService"] = "true"
     }
 
+    // Android Lint for every module from one task: ./gradlew :app:lintRelease
+    // Shared settings (disabled checks) live in lint.xml at the repository root.
+    lint {
+        checkDependencies = true
+        abortOnError = true
+        // Zero findings today; keep it that way like detekt.
+        warningsAsErrors = true
+        htmlReport = true
+        sarifReport = true
+        // Plain-text copy that CI prints to the job log, so findings can be read without downloading the report.
+        textReport = true
+        textOutput = file("build/reports/lint-results-release.txt")
+    }
+
     // Disables dependency metadata when building APKs.
     dependenciesInfo {
         includeInApk = false

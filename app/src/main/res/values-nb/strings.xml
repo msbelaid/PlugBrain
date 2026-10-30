@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="refresh">Oppdater</string>
-    <plurals name="blocked_every_x_minutes">
-        <item quantity="one"> hvert minutt</item>
-        <item quantity="other"> hvert %d. minutt</item>
-    </plurals>
-    <string name="minutes_short">min</string>
-    <string name="usage_free_duration_message">Godt jobbet! Du har holdt deg unna distraherende apper i over %1$s. Stå på!</string>
-    <string name="apps_usage_duration_message">Du har brukt distraherende apper i over %1$s i løpet av %2$s.</string>
 
     <!-- Duration formatting strings -->
     <string name="duration_hours_minutes">%1$s og %2$s</string>
@@ -28,14 +20,10 @@
         <item quantity="other">%d dager</item>
     </plurals>
 
-    <string name="duration_zero_minutes">0 minutter</string>
     <string name="usage_short_hours_minutes">%1$d t %2$d min</string>
     <string name="usage_short_hours">%1$d t</string>
     <string name="usage_short_minutes">%1$d min</string>
     <string name="usage_short_less_than_minute">&lt;1 min</string>
-    <string name="stats_hardness">Vanskelighetsgrad: %1$s/%2$s</string>
-    <string name="stats_last_usage_time">Sist brukt: %1$s/%2$s</string>
-    <string name="app_usage_description">Lås opp distraherende apper med matte\nJo mindre du bruker dem -> desto lettere blir utfordringene.</string>
     <string name="challenge_title">Ta det med ro</string>
     <string name="challenge_answer_placeholder">Skriv svaret ditt</string>
     <string name="challenge_check_answer">Sjekk svaret</string>
@@ -56,7 +44,6 @@
     <string name="welcome_feature_three_description">Utfordringene blir vanskeligere jo lenger du fortsetter å skrolle.</string>
     <string name="welcome_cta_title">Kom i gang</string>
     <string name="calculator_warning">Ingen kalkulator, takk!</string>
-    <string name="selected">Valgt</string>
 
     <string name="onboarding_skip">Hopp over</string>
     <string name="onboarding_permissions_title">La oss gjøre alt klart</string>

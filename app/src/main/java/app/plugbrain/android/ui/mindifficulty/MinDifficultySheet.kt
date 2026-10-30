@@ -19,7 +19,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -84,14 +84,14 @@ fun MinDifficultySheet(
         textAlign = TextAlign.Center,
       )
       if (sample != null) SampleChallenge(sample)
-      val context = LocalContext.current
+      val resources = LocalResources.current
       PlugSnapSlider(
         value = selected,
         snapValues = DifficultySnapValues,
         onValueChange = { selected = it },
-        valueDescription = { context.getString(R.string.dashboard_min_difficulty_level, it) },
+        valueDescription = { resources.getString(R.string.dashboard_min_difficulty_level, it) },
         label = { level ->
-          DifficultyPreset.fromMinimalDifficulty(level)?.let { context.getString(it.nameRes) }.orEmpty()
+          DifficultyPreset.fromMinimalDifficulty(level)?.let { resources.getString(it.nameRes) }.orEmpty()
         },
         // Challenges can be anywhere from the selected level up to the hardest one.
         fillFromEnd = true,

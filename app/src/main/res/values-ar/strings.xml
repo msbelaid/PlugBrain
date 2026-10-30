@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="refresh">تحديث</string>
-    <string name="minutes_short">د</string>
-    <string name="usage_free_duration_message">أحسنت! لقد ابتعدت عن التطبيقات المشتتة لأكثر من %1$s. واصل على هذا النحو!</string>
-    <string name="apps_usage_duration_message">لقد استخدمت التطبيقات المشتتة لأكثر من %1$s خلال آخر %2$s.</string>
     
     <!-- Duration formatting strings -->
     <string name="duration_hours_minutes">%1$s و%2$s</string>
@@ -36,20 +32,11 @@
         <item quantity="other">%d يوم</item>
     </plurals>
     
-    <string name="duration_zero_minutes">0 دقيقة</string>
     <string name="usage_short_hours_minutes">%1$d س %2$d د</string>
     <string name="usage_short_hours">%1$d س</string>
     <string name="usage_short_minutes">%1$d د</string>
     <string name="usage_short_less_than_minute">&lt;1 د</string>
 
-    <plurals name="blocked_every_x_minutes">
-        <item quantity="zero"> كل %d دقيقة</item>
-        <item quantity="one"> كل دقيقة</item>
-        <item quantity="two"> كل دقيقتين</item>
-        <item quantity="few"> كل %d دقائق</item>
-        <item quantity="many"> كل %d دقيقة</item>
-        <item quantity="other"> كل %d دقيقة</item>
-    </plurals>
     <string name="challenge_title">لنتمهّل قليلًا</string>
     <string name="challenge_answer_placeholder">اكتب إجابتك</string>
     <string name="challenge_check_answer">تحقّق من الإجابة</string>
@@ -66,9 +53,6 @@
         <item quantity="other">يمكنك فتح التطبيق لمدة %d دقيقة، أو إغلاقه والبقاء مركّزًا.</item>
     </plurals>
 
-    <string name="stats_hardness">الصعوبة: %1$s/%2$s</string>
-    <string name="stats_last_usage_time">آخر وقت استخدام: %1$s/%2$s</string>
-    <string name="app_usage_description">افتح التطبيقات المشتتة بحل مسائل رياضية\nكلما قلّ استخدامك لها -> أصبحت التحديات أسهل.</string>
     <string name="welcome_title">شغّل عقلك من جديد.</string>
     <string name="welcome_feature_one_title">ركّز انتباهك</string>
     <string name="welcome_feature_one_description">اقضِ وقتًا أقل في التطبيقات التي تشتّت انتباهك.</string>
@@ -78,7 +62,6 @@
     <string name="welcome_feature_three_description">تزداد صعوبة التحديات كلما واصلت التمرير.</string>
     <string name="welcome_cta_title">لنبدأ</string>
     <string name="calculator_warning">من فضلك، لا تستخدم الآلة الحاسبة!</string>
-    <string name="selected">محدَّد</string>
     <string name="onboarding_skip">تخطٍّ</string>
     <string name="onboarding_permissions_title">لنُجهّز كل شيء</string>
     <string name="onboarding_permissions_subtitle">يحتاج PlugBrain إلى الأذونات التالية ليعمل بشكل صحيح.</string>

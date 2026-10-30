@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import app.plugbrain.android.R
 import app.plugbrain.android.appsusage.model.InstalledApp
 import coil3.compose.rememberAsyncImagePainter
@@ -109,7 +110,7 @@ private fun InstalledAppPreview() {
       installedApp = InstalledApp(
         name = "Youtube",
         packageName = "com.google.youtube",
-        icon = LocalContext.current.getDrawable(R.mipmap.ic_launcher)!!,
+        icon = ContextCompat.getDrawable(LocalContext.current, R.mipmap.ic_launcher)!!,
         usageMillis = 104 * 60_000L,
       ),
       usageFraction = 1f,
@@ -120,7 +121,7 @@ private fun InstalledAppPreview() {
       installedApp = InstalledApp(
         name = "PlugBrain",
         packageName = "app.plugbrain.android",
-        icon = LocalContext.current.getDrawable(R.mipmap.ic_launcher)!!,
+        icon = ContextCompat.getDrawable(LocalContext.current, R.mipmap.ic_launcher)!!,
       ),
       usageFraction = 0f,
       isSelected = false,

@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="refresh">更新</string>
-    <plurals name="blocked_every_x_minutes">
-        <item quantity="one">1分ごと</item>
-        <item quantity="other">%d分ごと</item>
-    </plurals>
-    <string name="minutes_short">分</string>
-    <string name="usage_free_duration_message">すごい！気が散るアプリから%1$s以上離れられました。その調子！</string>
-    <string name="apps_usage_duration_message">直近%2$sのうち、気が散るアプリを%1$s以上使いました。</string>
     
     <!-- Duration formatting strings -->
     <string name="duration_hours_minutes">%1$s%2$s</string>
@@ -25,14 +17,10 @@
         <item quantity="other">%d日</item>
     </plurals>
     
-    <string name="duration_zero_minutes">0分</string>
     <string name="usage_short_hours_minutes">%1$d時間%2$d分</string>
     <string name="usage_short_hours">%1$d時間</string>
     <string name="usage_short_minutes">%1$d分</string>
     <string name="usage_short_less_than_minute">1分未満</string>
-    <string name="stats_hardness">難易度: %1$s/%2$s</string>
-    <string name="stats_last_usage_time">前回の使用時間: %1$s/%2$s</string>
-    <string name="app_usage_description">計算問題を解いてアプリをアンロックしましょう\nアプリの使用頻度が低いほど問題が簡単になります</string>
     <string name="challenge_title">少しペースを落とそう</string>
     <string name="challenge_answer_placeholder">答えを入力</string>
     <string name="challenge_check_answer">答えをチェック</string>
@@ -53,7 +41,6 @@
     <string name="welcome_feature_three_description">スクロールを続けるほど、問題が難しくなります。</string>
     <string name="welcome_cta_title">はじめる</string>
     <string name="calculator_warning">電卓は使わずに解きましょう！</string>
-    <string name="selected">選択済み</string>
     <string name="onboarding_skip">スキップ</string>
     <string name="onboarding_permissions_title">セットアップしましょう</string>
     <string name="onboarding_permissions_subtitle">PlugBrain が正しく動作するには、次の権限が必要です。</string>

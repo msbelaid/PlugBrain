@@ -10,6 +10,8 @@ import timber.log.Timber
 private const val TAG = "AppsUsageStats"
 private const val ONE_MINUTE = 60_000L
 
+// ACTIVITY_RESUMED (API 29) is inlined as 1, the same value API 28 reports as MOVE_TO_FOREGROUND.
+@SuppressLint("InlinedApi")
 private val STARTED_EVENTS = setOf(UsageEvents.Event.ACTIVITY_RESUMED)
 
 // DEVICE_SHUTDOWN is a constant from API 29; older devices never report it.
