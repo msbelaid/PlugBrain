@@ -40,6 +40,9 @@ android {
         abortOnError = true
         htmlReport = true
         sarifReport = true
+        // Lists every finding in the console, so the CI log shows them without downloading the report.
+        textReport = true
+        textOutput = file("stdout")
     }
 
     // Disables dependency metadata when building APKs.
