@@ -54,7 +54,9 @@ class SystemAppsUsageStats(
 
     while (hasNextEvent()) {
       getNextEvent(event)
-      val type = appEventType(event.eventType) ?: continue
+      val type = appEventType(event.eventType)
+      Timber.tag(TAG).i("DEBUG event ${event.timeStamp} ${event.eventType} $type ${event.packageName}/${event.className}")
+      if (type == null) continue
       appEvents += AppEvent(event.packageName.orEmpty(), event.className.orEmpty(), type, event.timeStamp)
     }
     return appEvents
