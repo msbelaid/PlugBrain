@@ -1,0 +1,1 @@
+- Fixed app use not being fully counted when an app reopens the same screen, which let it run past the block interval
