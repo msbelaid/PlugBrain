@@ -119,6 +119,10 @@ jobs:
       - name: Run Android Lint
         run: ./gradlew :app:lintRelease
 
+      - name: Print Android Lint findings
+        if: ${{ failure() && hashFiles('app/build/reports/lint-results-release.txt') != '' }}
+        run: cat app/build/reports/lint-results-release.txt
+
       - name: Upload Android Lint report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4

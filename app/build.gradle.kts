@@ -40,9 +40,9 @@ android {
         abortOnError = true
         htmlReport = true
         sarifReport = true
-        // Lists every finding in the console, so the CI log shows them without downloading the report.
+        // Plain-text copy that CI prints to the job log, so findings can be read without downloading the report.
         textReport = true
-        textOutput = file("stdout")
+        textOutput = file("build/reports/lint-results-release.txt")
     }
 
     // Disables dependency metadata when building APKs.
