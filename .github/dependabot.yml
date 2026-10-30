@@ -1,0 +1,53 @@
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore"
+    groups:
+      # Minor and patch bumps land in one PR; majors get their own.
+      gradle-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # AGP majors are migrations, done by hand.
+      - dependency-name: "com.android.application"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "com.android.library"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "com.android.tools.build:gradle"
+        update-types: ["version-update:semver-major"]
+      # These need compileSdk 36+ or AGP 9.1, which wait on a stable Paparazzi that renders API 36.
+      # Remove them with the AGP 9 migration.
+      - dependency-name: "androidx.compose:compose-bom"
+        versions: ["[2026.07.00,)"]
+      - dependency-name: "androidx.core:core-ktx"
+        versions: ["[1.17.0,)"]
+      - dependency-name: "androidx.activity:activity-compose"
+        versions: ["[1.11.0,)"]
+      - dependency-name: "io.insert-koin:*"
+        versions: ["[4.2.0,)"]
+      # Coil 3.5 is built with Kotlin 2.4 and 3.6 needs Compose 1.12.
+      - dependency-name: "io.coil-kt.coil3:*"
+        versions: ["[3.5.0,)"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "CI/CD"
+    commit-message:
+      prefix: "ci"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
