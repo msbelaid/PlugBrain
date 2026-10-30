@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -230,7 +231,11 @@ class StoreScreenshots {
     ) {
         CompositionLocalProvider(
             LocalInspectionMode provides true,
-            LocalAsyncImagePreviewHandler provides AsyncImagePreviewHandler { request -> (request.data as? Drawable)?.asImage() },
+            // Coil 3.4 needs an image for every request, so anything that isn't an icon draws nothing.
+            LocalAsyncImagePreviewHandler provides
+                AsyncImagePreviewHandler { request ->
+                    ((request.data as? Drawable) ?: ColorDrawable()).asImage()
+                },
         ) {
             PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme, content = content)
         }
