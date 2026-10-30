@@ -232,7 +232,8 @@ class StoreScreenshots {
         // Coil needs an image for every request, so anything that isn't an icon draws nothing.
         val previewHandler =
             AsyncImagePreviewHandler { request ->
-                ((request.data as? Drawable) ?: ColorDrawable()).asImage()
+                val drawable = request.data as? Drawable ?: ColorDrawable()
+                drawable.asImage()
             }
         CompositionLocalProvider(
             LocalInspectionMode provides true,
