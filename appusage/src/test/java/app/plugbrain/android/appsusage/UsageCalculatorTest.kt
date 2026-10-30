@@ -60,6 +60,11 @@ class UsageCalculatorTest {
     }
 
     @Test
+    fun `app in foreground at window start with only a stop is counted from start time`() {
+        assertEquals(mapOf(app to 1_000L), total(stopped(2_000)))
+    }
+
+    @Test
     fun `app in foreground at window start with pause then stop is counted once`() {
         assertEquals(mapOf(app to 1_000L), total(paused(2_000), stopped(2_500)))
     }
