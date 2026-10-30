@@ -61,6 +61,16 @@ allprojects {
     }
 }
 
+// Print the full stack trace of failing tests, so CI logs show why a test failed.
+subprojects {
+    tasks.withType<Test>().configureEach {
+        testLogging {
+            events("failed")
+            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        }
+    }
+}
+
 tasks.withType<Detekt>().configureEach {
     jvmTarget = "17"
     reports {
