@@ -38,6 +38,8 @@ android {
     lint {
         checkDependencies = true
         abortOnError = true
+        // Zero findings today; keep it that way like detekt.
+        warningsAsErrors = true
         htmlReport = true
         sarifReport = true
         // Plain-text copy that CI prints to the job log, so findings can be read without downloading the report.
