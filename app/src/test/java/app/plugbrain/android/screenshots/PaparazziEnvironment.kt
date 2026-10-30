@@ -7,5 +7,4 @@ import app.cash.paparazzi.detectEnvironment
 // text and view methods Compose 1.8+ calls there. Rendering at API 34 keeps Compose off them.
 private const val RENDER_API_LEVEL = 34
 
-fun paparazziEnvironment(): Environment =
-    detectEnvironment().copy(compileSdkVersion = RENDER_API_LEVEL)
+fun paparazziEnvironment(): Environment = detectEnvironment().copy(compileSdkVersion = RENDER_API_LEVEL)
