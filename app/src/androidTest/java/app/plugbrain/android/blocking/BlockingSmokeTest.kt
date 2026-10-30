@@ -4,6 +4,7 @@ import android.os.SystemClock
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.plugbrain.android.RealTimeTest
+import app.plugbrain.android.ScreenshotOnFailureRule
 import app.plugbrain.android.datastore.getBlockAppsToggle
 import app.plugbrain.android.ui.challenges.ChallengeActivity
 import kotlinx.coroutines.flow.first
@@ -32,6 +33,9 @@ private const val EARLIEST_BLOCK = 55_000L
 class BlockingSmokeTest {
     @get:Rule
     val composeRule = createEmptyComposeRule()
+
+    @get:Rule(order = 1)
+    val screenshotOnFailure = ScreenshotOnFailureRule()
 
     private lateinit var driver: BlockingTestDriver
 

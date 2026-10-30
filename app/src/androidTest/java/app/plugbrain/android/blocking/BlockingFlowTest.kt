@@ -2,6 +2,7 @@ package app.plugbrain.android.blocking
 
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import app.plugbrain.android.ScreenshotOnFailureRule
 import app.plugbrain.android.appsusage.AppsUsageStats
 import app.plugbrain.android.datastore.getBlockAppsToggle
 import app.plugbrain.android.datastore.getTimestamps
@@ -31,6 +32,9 @@ private const val MINUTE = 60_000L
 class BlockingFlowTest {
     @get:Rule
     val composeRule = createEmptyComposeRule()
+
+    @get:Rule(order = 1)
+    val screenshotOnFailure = ScreenshotOnFailureRule()
 
     private lateinit var driver: BlockingTestDriver
 

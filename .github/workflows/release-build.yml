@@ -337,3 +337,4 @@ jobs:
           path: |
             **/build/reports/androidTests/
             **/build/outputs/androidTest-results/
+            **/build/outputs/connected_android_test_additional_output/

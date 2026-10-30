@@ -17,6 +17,9 @@ class ArithChallengeScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    @get:Rule(order = 1)
+    val screenshotOnFailure = ScreenshotOnFailureRule()
+
     @Test
     fun testCorrectAnswerShowsUnlockSheetAndUnlocks() {
         var unlocked = false

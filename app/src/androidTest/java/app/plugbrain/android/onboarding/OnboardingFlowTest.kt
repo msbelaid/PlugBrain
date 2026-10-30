@@ -30,6 +30,7 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
 import app.plugbrain.android.R
+import app.plugbrain.android.ScreenshotOnFailureRule
 import app.plugbrain.android.datastore.getUserSettings
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 import kotlinx.coroutines.flow.first
@@ -62,6 +63,9 @@ class OnboardingFlowTest {
     // No activity is launched by the rule: the test starts the app from its launcher intent instead.
     @get:Rule
     val composeRule = createEmptyComposeRule()
+
+    @get:Rule(order = 1)
+    val screenshotOnFailure = ScreenshotOnFailureRule()
 
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
     private val context = instrumentation.targetContext
