@@ -229,13 +229,14 @@ class StoreScreenshots {
         darkTheme: Boolean = false,
         content: @Composable () -> Unit,
     ) {
+        // Coil needs an image for every request, so anything that isn't an icon draws nothing.
+        val previewHandler =
+            AsyncImagePreviewHandler { request ->
+                ((request.data as? Drawable) ?: ColorDrawable()).asImage()
+            }
         CompositionLocalProvider(
             LocalInspectionMode provides true,
-            // Coil 3.4 needs an image for every request, so anything that isn't an icon draws nothing.
-            LocalAsyncImagePreviewHandler provides
-                AsyncImagePreviewHandler { request ->
-                    ((request.data as? Drawable) ?: ColorDrawable()).asImage()
-                },
+            LocalAsyncImagePreviewHandler provides previewHandler,
         ) {
             PlugBrainTheme(dynamicColor = false, darkTheme = darkTheme, content = content)
         }
