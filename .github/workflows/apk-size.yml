@@ -69,7 +69,7 @@ jobs:
 
       - name: Comment on the pull request
         if: steps.size.outputs.number != ''
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: apk-size
           number: ${{ steps.size.outputs.number }}

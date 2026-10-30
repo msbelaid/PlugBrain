@@ -26,7 +26,7 @@ jobs:
       - name: Check changed files
         id: filter
         if: github.event_name == 'pull_request'
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@v4
         with:
           # A file counts as code only when it matches none of the excluded paths.
           predicate-quantifier: every
@@ -44,16 +44,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up JDK
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       - name: Run KtLint
         run: ./gradlew ktlintCheck
@@ -66,23 +66,23 @@ jobs:
       security-events: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up JDK
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       - name: Run detekt
         run: ./gradlew detekt
 
       - name: Upload detekt report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: detekt-report
           path: build/reports/detekt/
@@ -90,7 +90,7 @@ jobs:
       # Shows findings inline on the PR. Pull requests from forks get a read-only token, so they skip it.
       - name: Upload SARIF to GitHub code scanning
         if: ${{ !cancelled() && hashFiles('build/reports/detekt/detekt.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: build/reports/detekt/detekt.sarif
           category: detekt
@@ -104,16 +104,16 @@ jobs:
       security-events: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up JDK
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       # Lints app, appusage, designsystem, challenges and datastore in one report (checkDependencies).
       - name: Run Android Lint
@@ -125,7 +125,7 @@ jobs:
 
       - name: Upload Android Lint report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: android-lint-report
           path: app/build/reports/lint-results-release.*
@@ -133,7 +133,7 @@ jobs:
       # Shows findings inline on the PR. Pull requests from forks get a read-only token, so they skip it.
       - name: Upload SARIF to GitHub code scanning
         if: ${{ !cancelled() && hashFiles('app/build/reports/lint-results-release.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: app/build/reports/lint-results-release.sarif
           category: android-lint
@@ -142,22 +142,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up JDK
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       - name: Build installable APK (signed with the CI test key)
         run: ./gradlew assembleRelease -PsignWithTestKey
 
       - name: Upload installable APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: plugbrain-release-test-signed-apk
           path: app/build/outputs/apk/release/app-release.apk
@@ -168,7 +168,7 @@ jobs:
         run: stat -c %s app/build/outputs/apk/release/app-release.apk > apk-size.txt
 
       - name: Upload APK size
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: apk-size
           path: apk-size.txt
@@ -179,7 +179,7 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: Upload debug APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: plugbrain-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
@@ -200,7 +200,7 @@ jobs:
       MAX_GROWTH_KB: 100
     steps:
       - name: Download APK size
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: apk-size
           path: pr
@@ -234,16 +234,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up JDK
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       # Runs the unit tests of every module, merges their coverage into one report and prints the
       # total, then fails if it is below the floor set in the root build.gradle.kts.
@@ -251,7 +251,7 @@ jobs:
         run: ./gradlew test koverXmlReport koverLog koverVerify
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: build/reports/kover/report.xml
@@ -260,7 +260,7 @@ jobs:
           fail_ci_if_error: false
 
       - name: Upload Unit Test Results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: unit-test-results
@@ -275,16 +275,16 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       # verifyPaparazziDebug runs the whole unit test task, so only the screenshot tests are
       # picked here; the Unit Tests job runs the rest.
@@ -293,7 +293,7 @@ jobs:
 
       - name: Upload Paparazzi report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: paparazzi-report
           path: |
@@ -314,16 +314,16 @@ jobs:
         api-level: [30]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up JDK
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       - name: Enable KVM group perms
         run: |
@@ -332,7 +332,7 @@ jobs:
           sudo udevadm trigger --name-match=kvm
 
       - name: Cache AVD
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: avd-cache
         with:
           path: |
@@ -373,7 +373,7 @@ jobs:
         run: adb -s emulator-5554 emu kill || pkill -9 -f "emulator" || true
 
       - name: Upload UI Test Results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ui-test-results-api-${{ matrix.api-level }}
