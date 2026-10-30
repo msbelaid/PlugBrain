@@ -179,4 +179,11 @@
     <string name="min_difficulty_sheet_save">Сохранить</string>
     <string name="dashboard_battery_title">Работа в фоновом режиме</string>
     <string name="dashboard_battery_description">Не позволяй Android закрывать PlugBrain ради экономии заряда.</string>
+    <string name="about_open">О PlugBrain</string>
+    <string name="about_version">Версия %s</string>
+    <string name="about_source_code_title">Исходный код</string>
+    <string name="about_source_code_description">Свободное ПО с открытым кодом под лицензией GPLv3</string>
+    <string name="about_report_bug_title">Сообщить об ошибке</string>
+    <string name="about_report_bug_description">Создай issue на GitHub</string>
+    <string name="about_website_title">Сайт</string>
 </resources>

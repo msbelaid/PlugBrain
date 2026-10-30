@@ -203,4 +203,11 @@
     <string name="min_difficulty_sheet_save">حفظ</string>
     <string name="dashboard_battery_title">التشغيل في الخلفية</string>
     <string name="dashboard_battery_description">امنع Android من إغلاق PlugBrain لتوفير البطارية.</string>
+    <string name="about_open">حول PlugBrain</string>
+    <string name="about_version">الإصدار %s</string>
+    <string name="about_source_code_title">الشيفرة المصدرية</string>
+    <string name="about_source_code_description">برنامج حر ومفتوح المصدر بترخيص GPLv3</string>
+    <string name="about_report_bug_title">الإبلاغ عن خلل</string>
+    <string name="about_report_bug_description">أرسل بلاغًا على GitHub</string>
+    <string name="about_website_title">الموقع الإلكتروني</string>
 </resources>
