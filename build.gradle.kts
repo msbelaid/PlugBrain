@@ -52,6 +52,15 @@ configurations.matching { it.name == "detekt" || it.name == "detektPlugins" }.co
     }
 }
 
+// Keep the ktlint engine the 12.x plugin ran (1.0.1) until the newer rules get their own reformat PR.
+allprojects {
+    plugins.withId("org.jlleitschuh.gradle.ktlint") {
+        configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+            version.set(libs.versions.ktlintEngine.get())
+        }
+    }
+}
+
 tasks.withType<Detekt>().configureEach {
     jvmTarget = "17"
     reports {

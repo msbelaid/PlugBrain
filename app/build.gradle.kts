@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
 val keystoreProperties = Properties()
@@ -17,6 +18,7 @@ plugins {
 
 android {
     namespace = "app.plugbrain.android"
+    // Paparazzi 1.3.5 fails on compileSdk 36 (its layoutlib Build class lacks VERSION_CODES_FULL).
     compileSdk = 35
 
     defaultConfig {
@@ -87,12 +89,15 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         buildConfig = true
         compose = true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
     }
 }
 
