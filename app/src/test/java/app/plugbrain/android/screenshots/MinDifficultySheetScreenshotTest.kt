@@ -15,6 +15,7 @@ class MinDifficultySheetScreenshotTest {
     @get:Rule
     val paparazzi =
         Paparazzi(
+            environment = paparazziEnvironment(),
             deviceConfig = DeviceConfig.PIXEL_5,
         )
 
