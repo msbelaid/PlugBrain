@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Android Lint settings shared by every module. Run with ./gradlew :app:lintRelease -->
+<lint>
+    <!-- Dependabot owns dependency versions, so these would only repeat its pull requests. -->
+    <issue id="GradleDependency" severity="ignore" />
+    <issue id="NewerVersionAvailable" severity="ignore" />
+    <issue id="AndroidGradlePluginVersion" severity="ignore" />
+</lint>
