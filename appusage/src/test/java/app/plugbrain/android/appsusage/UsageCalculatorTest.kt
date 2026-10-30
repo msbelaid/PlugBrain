@@ -15,6 +15,12 @@ class UsageCalculatorTest {
         pkg: String = app,
     ) = AppEvent(pkg, activity, EventType.APP_STARTED, timestamp)
 
+    private fun paused(
+        timestamp: Long,
+        activity: String = "Main",
+        pkg: String = app,
+    ) = AppEvent(pkg, activity, EventType.APP_PAUSED, timestamp)
+
     private fun stopped(
         timestamp: Long,
         activity: String = "Main",
@@ -32,30 +38,35 @@ class UsageCalculatorTest {
 
     @Test
     fun `single session is counted`() {
-        assertEquals(mapOf(app to 1_000L), total(started(2_000), stopped(3_000)))
+        assertEquals(mapOf(app to 1_000L), total(started(2_000), paused(3_000)))
     }
 
     @Test
     fun `pause then stop of the same activity is counted once`() {
-        assertEquals(mapOf(app to 1_000L), total(started(2_000), stopped(3_000), stopped(3_500)))
+        assertEquals(mapOf(app to 1_000L), total(started(2_000), paused(3_000), stopped(3_500)))
     }
 
     @Test
     fun `multiple sessions are summed`() {
         assertEquals(
             mapOf(app to 1_500L),
-            total(started(2_000), stopped(3_000), started(5_000), stopped(5_500)),
+            total(started(2_000), paused(3_000), started(5_000), paused(5_500)),
         )
     }
 
     @Test
     fun `app in foreground at window start is counted from start time`() {
+        assertEquals(mapOf(app to 1_000L), total(paused(2_000)))
+    }
+
+    @Test
+    fun `app in foreground at window start with only a stop is counted from start time`() {
         assertEquals(mapOf(app to 1_000L), total(stopped(2_000)))
     }
 
     @Test
     fun `app in foreground at window start with pause then stop is counted once`() {
-        assertEquals(mapOf(app to 1_000L), total(stopped(2_000), stopped(2_500)))
+        assertEquals(mapOf(app to 1_000L), total(paused(2_000), stopped(2_500)))
     }
 
     @Test
@@ -70,10 +81,10 @@ class UsageCalculatorTest {
             mapOf(app to 3_990L),
             total(
                 started(2_000, "A"),
-                stopped(3_000, "A"),
+                paused(3_000, "A"),
                 started(3_010, "B"),
                 stopped(3_500, "A"),
-                stopped(6_000, "B"),
+                paused(6_000, "B"),
             ),
         )
     }
@@ -82,7 +93,42 @@ class UsageCalculatorTest {
     fun `navigating between activities with B still open at end counts until end time`() {
         assertEquals(
             mapOf(app to 7_990L),
-            total(started(2_000, "A"), stopped(3_000, "A"), started(3_010, "B"), stopped(3_500, "A")),
+            total(started(2_000, "A"), paused(3_000, "A"), started(3_010, "B"), stopped(3_500, "A")),
+        )
+    }
+
+    @Test
+    fun `stop without a pause ends the session`() {
+        assertEquals(mapOf(app to 1_000L), total(started(2_000), stopped(3_000)))
+    }
+
+    @Test
+    fun `reopening the same activity keeps the session open`() {
+        // A new instance of Main replaces the old one: Main paused -> Main resumed -> old Main stopped.
+        assertEquals(
+            mapOf(app to 7_990L),
+            total(started(2_000), paused(3_000), started(3_010), stopped(3_500)),
+        )
+    }
+
+    @Test
+    fun `reopening the same activity again and again counts all the time`() {
+        // The blocking smoke test reopens Settings every 20 s.
+        assertEquals(
+            mapOf(app to 60 * MINUTE - 20L),
+            UsageCalculator.totalTimePerPackage(
+                listOf(
+                    started(0),
+                    paused(20 * MINUTE),
+                    started(20 * MINUTE + 10),
+                    stopped(20 * MINUTE + 500),
+                    paused(40 * MINUTE),
+                    started(40 * MINUTE + 10),
+                    stopped(40 * MINUTE + 500),
+                ),
+                0,
+                60 * MINUTE,
+            ),
         )
     }
 
@@ -92,9 +138,9 @@ class UsageCalculatorTest {
             mapOf(app to 1_000L, otherApp to 500L),
             total(
                 started(2_000),
-                stopped(3_000),
+                paused(3_000),
                 started(3_000, pkg = otherApp),
-                stopped(3_500, pkg = otherApp),
+                paused(3_500, pkg = otherApp),
             ),
         )
     }
@@ -103,7 +149,7 @@ class UsageCalculatorTest {
     fun `resume without a pause ends when another app is resumed`() {
         assertEquals(
             mapOf(app to 1_000L, otherApp to 1_000L),
-            total(started(2_000), started(3_000, pkg = otherApp), stopped(4_000, pkg = otherApp)),
+            total(started(2_000), started(3_000, pkg = otherApp), paused(4_000, pkg = otherApp)),
         )
     }
 
@@ -113,9 +159,9 @@ class UsageCalculatorTest {
             mapOf(app to 2_000L, otherApp to 500L),
             total(
                 started(2_000, "Gallery"),
-                stopped(3_000, "GalleryAlias"),
+                paused(3_000, "GalleryAlias"),
                 started(4_000, pkg = otherApp),
-                stopped(4_500, pkg = otherApp),
+                paused(4_500, pkg = otherApp),
             ),
         )
     }
@@ -129,7 +175,7 @@ class UsageCalculatorTest {
     fun `late pause after another app was resumed is ignored`() {
         assertEquals(
             mapOf(app to 1_000L, otherApp to 7_000L),
-            total(started(2_000), started(3_000, pkg = otherApp), stopped(3_100)),
+            total(started(2_000), started(3_000, pkg = otherApp), paused(3_100)),
         )
     }
 
@@ -137,13 +183,13 @@ class UsageCalculatorTest {
     fun `app in foreground at window start ends when another app is resumed first`() {
         assertEquals(
             mapOf(app to 1_000L, otherApp to 500L),
-            total(started(2_000, pkg = otherApp), stopped(2_500, pkg = otherApp), stopped(5_000)),
+            total(started(2_000, pkg = otherApp), paused(2_500, pkg = otherApp), paused(5_000)),
         )
     }
 
     @Test
     fun `app in foreground at window start ends when the screen turns off`() {
-        assertEquals(mapOf(app to 500L), total(screenOff(1_500), stopped(5_000)))
+        assertEquals(mapOf(app to 500L), total(screenOff(1_500), paused(5_000)))
     }
 
     @Test
@@ -153,7 +199,7 @@ class UsageCalculatorTest {
 
     @Test
     fun `late pause after the screen turned off is not counted again`() {
-        assertEquals(mapOf(app to 1_000L), total(started(2_000), screenOff(3_000), stopped(3_200)))
+        assertEquals(mapOf(app to 1_000L), total(started(2_000), screenOff(3_000), paused(3_200)))
     }
 
     @Test
@@ -161,7 +207,7 @@ class UsageCalculatorTest {
         // The screen turns off with the app open, then the user unlocks back into it.
         assertEquals(
             mapOf(app to 2_000L),
-            total(started(2_000), screenOff(3_000), started(8_000), stopped(9_000)),
+            total(started(2_000), screenOff(3_000), started(8_000), paused(9_000)),
         )
     }
 
@@ -170,13 +216,13 @@ class UsageCalculatorTest {
         // Shutdown arrives as SCREEN_OFF, and the app was never paused before it.
         assertEquals(
             mapOf(app to 1_500L),
-            total(started(2_000), screenOff(2_500), started(6_000), stopped(7_000)),
+            total(started(2_000), screenOff(2_500), started(6_000), paused(7_000)),
         )
     }
 
     @Test
     fun `resuming the same activity twice keeps the first start`() {
-        assertEquals(mapOf(app to 2_000L), total(started(2_000), started(3_000), stopped(4_000)))
+        assertEquals(mapOf(app to 2_000L), total(started(2_000), started(3_000), paused(4_000)))
     }
 
     @Test
@@ -186,13 +232,13 @@ class UsageCalculatorTest {
             total(
                 started(2_000),
                 started(3_000, pkg = otherApp),
-                stopped(3_050),
+                paused(3_050),
                 started(4_000),
-                stopped(4_050, pkg = otherApp),
+                paused(4_050, pkg = otherApp),
                 started(5_000, pkg = otherApp),
-                stopped(5_050),
+                paused(5_050),
                 started(6_000),
-                stopped(7_000),
+                paused(7_000),
             ),
         )
     }
@@ -203,7 +249,7 @@ class UsageCalculatorTest {
         val events =
             listOf(
                 started(midnight - 10 * MINUTE),
-                stopped(midnight + 5 * MINUTE),
+                paused(midnight + 5 * MINUTE),
             )
 
         val result = UsageCalculator.totalTimePerPackage(events, midnight - HOUR, midnight + HOUR)
@@ -215,7 +261,7 @@ class UsageCalculatorTest {
     fun `window starting at midnight counts only the time after midnight`() {
         val midnight = 1_700_006_400_000L
         // The app was opened before midnight, so only its pause falls in the window.
-        val events = listOf(stopped(midnight + 5 * MINUTE))
+        val events = listOf(paused(midnight + 5 * MINUTE))
 
         val result = UsageCalculator.totalTimePerPackage(events, midnight, midnight + HOUR)
 
