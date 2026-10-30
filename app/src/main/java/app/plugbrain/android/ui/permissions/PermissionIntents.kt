@@ -1,5 +1,6 @@
 package app.plugbrain.android.ui.permissions
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -44,6 +45,9 @@ fun Context.openAccessibilitySettings() {
   )
 }
 
+// Play allows this direct request for apps whose core feature breaks under battery optimization:
+// PlugBrain has to keep running in the background to block apps.
+@SuppressLint("BatteryLife")
 fun Context.openBatteryOptimizationSettings() {
   startActivity(
     Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, "package:$packageName".toUri()).apply {

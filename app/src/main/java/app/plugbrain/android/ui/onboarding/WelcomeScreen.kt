@@ -38,7 +38,7 @@ fun WelcomeScreen(
     modifier = modifier,
     primaryCtaText = stringResource(R.string.welcome_cta_title),
     onPrimaryCtaClick = onGetStartedClick,
-    background = TopGradient(),
+    background = topGradient(),
   ) {
     Image(
       painter = painterResource(R.drawable.ic_launcher),
@@ -77,7 +77,7 @@ fun WelcomeScreen(
 }
 
 @Composable
-private fun TopGradient(): Brush = Brush.verticalGradient(
+private fun topGradient(): Brush = Brush.verticalGradient(
   0f to Primary500.copy(alpha = 0.5f),
   0.4f to MaterialTheme.colorScheme.surface,
 )

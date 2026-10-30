@@ -32,9 +32,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- The challenge screen is designed for portrait only. Android 16 ignores this on large screens. -->
         <activity
             android:name=".ui.challenges.ChallengeActivity"
             android:resizeableActivity="false"
+            tools:ignore="LockedOrientationActivity,NonResizeableActivity,DiscouragedApi"
             android:screenOrientation="portrait"
             android:exported="false"
             android:launchMode="singleTask"

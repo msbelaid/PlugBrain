@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="refresh">Actualiser</string>
-    <string name="minutes_short">min</string>
-    <string name="usage_free_duration_message">Bravo ! Plus de %1$s sans applis distrayantes. Continue comme ça !</string>
-    <string name="apps_usage_duration_message">Tu as passé plus de %1$s sur des applis distrayantes sur une période de %2$s.</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
     
     <!-- Duration formatting strings -->
     <string name="duration_hours_minutes">%1$s et %2$s</string>
@@ -27,16 +23,10 @@
         <item quantity="other">%d jours</item>
     </plurals>
     
-    <string name="duration_zero_minutes">0 minutes</string>
     <string name="usage_short_hours_minutes">%1$dh %2$dmin</string>
     <string name="usage_short_hours">%1$dh</string>
     <string name="usage_short_minutes">%1$dmin</string>
     <string name="usage_short_less_than_minute">&lt;1min</string>
-
-    <plurals name="blocked_every_x_minutes">
-        <item quantity="one"> chaque minute</item>
-        <item quantity="other"> toutes les %d minutes</item>
-    </plurals>
 
     <string name="challenge_title">Ralentissons un peu</string>
     <string name="challenge_answer_placeholder">Écris ta réponse</string>
@@ -51,9 +41,6 @@
         <item quantity="other">Tu peux débloquer l\'appli pendant %d minutes, ou la fermer et rester concentré.</item>
     </plurals>
 
-    <string name="stats_hardness">Difficulté : %1$s/%2$s</string>
-    <string name="stats_last_usage_time">Dernière utilisation : %1$s/%2$s</string>
-    <string name="app_usage_description">Débloque les applis distrayantes avec des maths\nMoins tu les utilises -> plus les défis sont faciles.</string>
     <string name="welcome_title">Rebranche ton cerveau.</string>
     <string name="welcome_feature_one_title">Reprends le contrôle de ton attention</string>
     <string name="welcome_feature_one_description">Passe moins de temps sur les applis qui te distraient.</string>
@@ -63,7 +50,6 @@
     <string name="welcome_feature_three_description">Les défis deviennent plus difficiles à mesure que tu continues à scroller.</string>
     <string name="welcome_cta_title">Commencer</string>
     <string name="calculator_warning">Pas de calculatrice, s\'il te plaît !</string>
-    <string name="selected">Sélectionné</string>
     <string name="onboarding_skip">Passer</string>
     <string name="onboarding_permissions_title">Passons à la configuration</string>
     <string name="onboarding_permissions_subtitle">PlugBrain a besoin des autorisations suivantes pour fonctionner correctement.</string>
@@ -99,7 +85,8 @@
     <string name="onboarding_apps_cta">Bloquer les applis</string>
     <string name="onboarding_preferences_title">Choisis tes préférences</string>
     <string name="onboarding_preferences_interval">À quelle fréquence bloquer ?</string>
-    <plurals name="onboarding_preferences_interval_option">
+    <!-- "one" also covers 0 in French, but intervals start at 1 minute. -->
+    <plurals name="onboarding_preferences_interval_option" tools:ignore="ImpliedQuantity">
         <item quantity="one">Chaque minute</item>
         <item quantity="many">Toutes les %d minutes</item>
         <item quantity="other">Toutes les %d minutes</item>
@@ -141,12 +128,14 @@
         <item quantity="other">%d applis bloquées</item>
     </plurals>
     <string name="dashboard_challenges">Défis</string>
-    <plurals name="dashboard_challenges_every">
+    <!-- "one" also covers 0 in French, but intervals start at 1 minute. -->
+    <plurals name="dashboard_challenges_every" tools:ignore="ImpliedQuantity">
         <item quantity="one">Chaque minute</item>
         <item quantity="many">Toutes les %d min</item>
         <item quantity="other">Toutes les %d min</item>
     </plurals>
-    <plurals name="dashboard_challenges_on_open">
+    <!-- "one" also covers 0 in French, but intervals start at 1 minute. -->
+    <plurals name="dashboard_challenges_on_open" tools:ignore="ImpliedQuantity">
         <item quantity="one">À l\'ouverture, puis chaque minute</item>
         <item quantity="many">À l\'ouverture, puis toutes les %d min</item>
         <item quantity="other">À l\'ouverture, puis toutes les %d min</item>

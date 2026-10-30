@@ -1,13 +1,5 @@
 
 <resources>
-    <string name="refresh">Vernieuwen</string>
-    <plurals name="blocked_every_x_minutes">
-        <item quantity="one"> elke minuut</item>
-        <item quantity="other"> elke %d minuten</item>
-    </plurals>
-    <string name="minutes_short">min</string>
-    <string name="usage_free_duration_message">Top! Je hebt al meer dan %1$s geen afleidende apps gebruikt. Ga zo door!</string>
-    <string name="apps_usage_duration_message">Je hebt de afgelopen %2$s meer dan %1$s aan afleidende apps besteed.</string>
     
     <!-- Duration formatting strings -->
     <string name="duration_hours_minutes">%1$s en %2$s</string>
@@ -28,14 +20,10 @@
         <item quantity="other">%d dagen</item>
     </plurals>
     
-    <string name="duration_zero_minutes">0 minuten</string>
     <string name="usage_short_hours_minutes">%1$du %2$dm</string>
     <string name="usage_short_hours">%1$du</string>
     <string name="usage_short_minutes">%1$dm</string>
     <string name="usage_short_less_than_minute">&lt;1m</string>
-    <string name="stats_hardness">Moeilijkheid: %1$s/%2$s</string>
-    <string name="stats_last_usage_time">Laatst gebruikt: %1$s/%2$s</string>
-    <string name="app_usage_description">Ontgrendel afleidende apps met rekensommen\nHoe minder je ze gebruikt -> hoe makkelijker de uitdagingen.</string>
     <string name="welcome_title">Zet je brein weer aan.</string>
     <string name="welcome_feature_one_title">Richt je aandacht</string>
     <string name="welcome_feature_one_description">Besteed minder tijd aan apps die je afleiden.</string>
@@ -57,7 +45,6 @@
     </plurals>
 
     <string name="calculator_warning">Geen rekenmachine gebruiken, alsjeblieft!</string>
-    <string name="selected">Geselecteerd</string>
     <string name="onboarding_skip">Overslaan</string>
     <string name="onboarding_permissions_title">Laten we alles instellen</string>
     <string name="onboarding_permissions_subtitle">PlugBrain heeft de volgende rechten nodig om goed te werken.</string>

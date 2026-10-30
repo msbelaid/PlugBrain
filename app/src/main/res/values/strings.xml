@@ -1,14 +1,6 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">PlugBrain</string>
     <string name="app_name_with_brain_icon" translatable="false">PlugBrain 🧠</string>
-    <string name="refresh">Refresh</string>
-    <plurals name="blocked_every_x_minutes">
-        <item quantity="one"> every one minute</item>
-        <item quantity="other"> every %d minutes</item>
-    </plurals>
-    <string name="minutes_short">min</string>
-    <string name="usage_free_duration_message">Nice! You\'ve stayed away from distracting apps for over %1$s. Keep it up!</string>
-    <string name="apps_usage_duration_message">You\'ve used distracting apps for over %1$s in the last %2$s.</string>
     
     <!-- Duration formatting strings -->
     <string name="duration_hours_minutes">%1$s and %2$s</string>
@@ -29,14 +21,10 @@
         <item quantity="other">%d days</item>
     </plurals>
     
-    <string name="duration_zero_minutes">0 minutes</string>
     <string name="usage_short_hours_minutes">%1$dh %2$dm</string>
     <string name="usage_short_hours">%1$dh</string>
     <string name="usage_short_minutes">%1$dm</string>
     <string name="usage_short_less_than_minute">&lt;1m</string>
-    <string name="stats_hardness">Hardness: %1$s/%2$s</string>
-    <string name="stats_last_usage_time">Last usage time: %1$s/%2$s</string>
-    <string name="app_usage_description">Unlock distraction apps with math\nThe less you use them -> the easier the challenges.</string>
     <string name="challenge_title">Let\'s slow down</string>
     <string name="challenge_answer_placeholder">Write your answer</string>
     <string name="challenge_check_answer">Check Answer</string>
@@ -57,7 +45,6 @@
     <string name="welcome_feature_three_description">Challenges increase in difficulty the longer you keep scrolling.</string>
     <string name="welcome_cta_title">Get started</string>
     <string name="calculator_warning">Please, don\'t use the calculator!</string>
-    <string name="selected">Selected</string>
 
     <string name="onboarding_skip">Skip</string>
     <string name="onboarding_permissions_title">Let\'s get set up</string>
@@ -117,7 +104,8 @@
     <string name="dashboard_apps_locked">Apps locked</string>
     <string name="dashboard_away">Away %s</string>
     <string name="dashboard_hours_minutes_short">%1$dh %2$dm</string>
-    <string name="dashboard_unlock_level">Solve a level %d challenge to unlock. The longer you stay away, the easier it gets.</string>
+    <!-- %d is a difficulty level, not a count. -->
+    <string name="dashboard_unlock_level" tools:ignore="PluralsCandidate">Solve a level %d challenge to unlock. The longer you stay away, the easier it gets.</string>
     <string name="dashboard_paused">PlugBrain is paused</string>
     <string name="dashboard_paused_accessibility">Accessibility access was turned off, so PlugBrain can\'t block your apps.</string>
     <string name="dashboard_paused_usage_access">Usage access was turned off, so PlugBrain can\'t tell when to block your apps.</string>
