@@ -158,4 +158,11 @@
     <string name="min_difficulty_sheet_save">Opslaan</string>
     <string name="dashboard_battery_title">Op de achtergrond draaien</string>
     <string name="dashboard_battery_description">Voorkomt dat Android PlugBrain afsluit om batterij te sparen.</string>
+    <string name="about_open">Over PlugBrain</string>
+    <string name="about_version">Versie %s</string>
+    <string name="about_source_code_title">Broncode</string>
+    <string name="about_source_code_description">Vrije en opensourcesoftware onder GPLv3</string>
+    <string name="about_report_bug_title">Een fout melden</string>
+    <string name="about_report_bug_description">Maak een issue aan op GitHub</string>
+    <string name="about_website_title">Website</string>
 </resources>

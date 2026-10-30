@@ -170,4 +170,11 @@
     <string name="min_difficulty_sheet_save">Enregistrer</string>
     <string name="dashboard_battery_title">Fonctionner en arrière-plan</string>
     <string name="dashboard_battery_description">Empêche Android de fermer PlugBrain pour économiser la batterie.</string>
+    <string name="about_open">À propos de PlugBrain</string>
+    <string name="about_version">Version %s</string>
+    <string name="about_source_code_title">Code source</string>
+    <string name="about_source_code_description">Logiciel libre et open source, sous licence GPLv3</string>
+    <string name="about_report_bug_title">Signaler un bug</string>
+    <string name="about_report_bug_description">Ouvre un ticket sur GitHub</string>
+    <string name="about_website_title">Site web</string>
 </resources>
