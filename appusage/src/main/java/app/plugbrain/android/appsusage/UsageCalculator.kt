@@ -11,6 +11,11 @@ package app.plugbrain.android.appsusage
  * turns off, or the pause comes with another class name, as seen with Samsung Gallery). To keep
  * such a session from running until the end of the window, a session also ends when another
  * package is resumed or when the screen turns off.
+ *
+ * Events name the activity class, not the instance. When an app opens a new instance of the same
+ * activity, Android reports "A paused → A resumed → A stopped", and that last stop belongs to the
+ * old instance. A stop after a pause of the same class is therefore that instance going away, and
+ * only a stop without a pause before it ends the activity.
  */
 object UsageCalculator {
   /**
@@ -42,12 +47,16 @@ object UsageCalculator {
           sessions.getOrPut(event.packageName) { Session() }.start(event.className, event.timestamp)
         }
 
-        EventType.APP_STOPPED -> {
+        EventType.APP_PAUSED, EventType.APP_STOPPED -> {
           val session = sessions[event.packageName]
           if (session == null) {
             // The app was already in the foreground when the window started.
             val sessionEnd = minOf(event.timestamp, firstForegroundChange ?: event.timestamp)
-            sessions[event.packageName] = Session(totalTime = sessionEnd - startTime)
+            sessions[event.packageName] = Session(totalTime = sessionEnd - startTime).also {
+              if (event.type == EventType.APP_PAUSED) it.pause(event.className, event.timestamp)
+            }
+          } else if (event.type == EventType.APP_PAUSED) {
+            session.pause(event.className, event.timestamp)
           } else {
             session.stop(event.className, event.timestamp)
           }
@@ -59,6 +68,9 @@ object UsageCalculator {
 
   private class Session(var totalTime: Long = 0L) {
     private val resumedActivities = mutableSetOf<String>()
+
+    // Activities paused but not yet stopped: their coming stop must not end a new instance.
+    private val pausedActivities = mutableMapOf<String, Int>()
     private var sessionStart = 0L
 
     fun start(className: String, timestamp: Long) {
@@ -66,7 +78,22 @@ object UsageCalculator {
       resumedActivities += className
     }
 
+    fun pause(className: String, timestamp: Long) {
+      pausedActivities[className] = (pausedActivities[className] ?: 0) + 1
+      remove(className, timestamp)
+    }
+
     fun stop(className: String, timestamp: Long) {
+      val paused = pausedActivities[className] ?: 0
+      if (paused > 0) {
+        pausedActivities[className] = paused - 1
+      } else {
+        // Android didn't report the pause of this activity.
+        remove(className, timestamp)
+      }
+    }
+
+    private fun remove(className: String, timestamp: Long) {
       if (resumedActivities.remove(className) && resumedActivities.isEmpty()) {
         totalTime += timestamp - sessionStart
       }
@@ -89,6 +116,7 @@ data class AppEvent(
 
 enum class EventType {
   APP_STARTED,
+  APP_PAUSED,
   APP_STOPPED,
   SCREEN_OFF,
 }

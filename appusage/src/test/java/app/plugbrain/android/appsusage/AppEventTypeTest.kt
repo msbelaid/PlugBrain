@@ -13,8 +13,8 @@ class AppEventTypeTest {
     }
 
     @Test
-    fun `a paused or stopped activity stops a session`() {
-        assertEquals(EventType.APP_STOPPED, appEventType(Event.ACTIVITY_PAUSED))
+    fun `a paused or stopped activity ends its part of a session`() {
+        assertEquals(EventType.APP_PAUSED, appEventType(Event.ACTIVITY_PAUSED))
         assertEquals(EventType.APP_STOPPED, appEventType(Event.ACTIVITY_STOPPED))
     }
 
