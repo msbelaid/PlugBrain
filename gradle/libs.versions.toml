@@ -6,6 +6,7 @@ coilCompose = "3.1.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 uiautomator = "2.3.0"
+testServices = "1.5.0"
 lifecycleRuntimeKtx = "2.9.4"
 kotlinxCoroutines = "1.8.1"
 activityCompose = "1.10.1"
@@ -28,6 +29,8 @@ composeRulesDetekt = "0.4.22"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-test-services = { group = "androidx.test.services", name = "test-services", version.ref = "testServices" }
+androidx-test-storage = { group = "androidx.test.services", name = "storage", version.ref = "testServices" }
 androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }

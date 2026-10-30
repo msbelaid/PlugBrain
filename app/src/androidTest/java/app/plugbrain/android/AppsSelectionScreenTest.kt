@@ -29,6 +29,9 @@ class AppsSelectionScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    @get:Rule(order = 1)
+    val screenshotOnFailure = ScreenshotOnFailureRule()
+
     // Dummy data for our tests
     private val sampleApps =
         listOf(
