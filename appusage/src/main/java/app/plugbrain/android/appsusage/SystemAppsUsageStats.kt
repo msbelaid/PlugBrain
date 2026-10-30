@@ -11,7 +11,6 @@ private const val TAG = "AppsUsageStats"
 private const val ONE_MINUTE = 60_000L
 
 private val STARTED_EVENTS = setOf(UsageEvents.Event.ACTIVITY_RESUMED)
-private val STOPPED_EVENTS = setOf(UsageEvents.Event.ACTIVITY_PAUSED, UsageEvents.Event.ACTIVITY_STOPPED)
 
 // DEVICE_SHUTDOWN is a constant from API 29; older devices never report it.
 @SuppressLint("InlinedApi")
@@ -66,7 +65,8 @@ class SystemAppsUsageStats(
 /** What an Android usage event type means for foreground time; null for the events that are ignored. */
 internal fun appEventType(usageEventType: Int): EventType? = when (usageEventType) {
   in STARTED_EVENTS -> EventType.APP_STARTED
-  in STOPPED_EVENTS -> EventType.APP_STOPPED
+  UsageEvents.Event.ACTIVITY_PAUSED -> EventType.APP_PAUSED
+  UsageEvents.Event.ACTIVITY_STOPPED -> EventType.APP_STOPPED
   in SCREEN_OFF_EVENTS -> EventType.SCREEN_OFF
   else -> null
 }
