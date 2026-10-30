@@ -29,6 +29,8 @@ android {
         versionName = "1.6.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Lets ScreenshotOnFailureRule save files that Gradle copies back after the run.
+        testInstrumentationRunnerArguments["useTestStorageService"] = "true"
     }
 
     // Disables dependency metadata when building APKs.
@@ -130,6 +132,8 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.uiautomator)
+    androidTestImplementation(libs.androidx.test.storage)
+    androidTestUtil(libs.androidx.test.services)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
