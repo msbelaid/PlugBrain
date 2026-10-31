@@ -13,6 +13,12 @@ on:
 permissions:
   contents: read
 
+# A new push to a pull request cancels the run still going on its older commit.
+# Other runs (master pushes, release tags, manual) get a group of their own and always finish.
+concurrency:
+  group: ci-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   # Tells the UI Tests job whether a pull request touches anything besides docs and store
   # metadata. Pushes and release tags always count as code changes.
