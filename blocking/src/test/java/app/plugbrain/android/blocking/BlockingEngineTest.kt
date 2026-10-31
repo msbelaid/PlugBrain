@@ -1,11 +1,11 @@
 package app.plugbrain.android.blocking
 
-import app.plugbrain.android.blocking.BudgetDecision.AlreadyBlocked
-import app.plugbrain.android.blocking.BudgetDecision.Block
-import app.plugbrain.android.blocking.BudgetDecision.CheckAgainIn
 import app.plugbrain.android.blocking.Decision.Ignore
 import app.plugbrain.android.blocking.Decision.InUse
 import app.plugbrain.android.blocking.Decision.ShowChallenge
+import app.plugbrain.android.blocking.UsageDecision.AlreadyBlocked
+import app.plugbrain.android.blocking.UsageDecision.Block
+import app.plugbrain.android.blocking.UsageDecision.CheckAgainIn
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -70,19 +70,19 @@ class BlockingEngineTest {
     fun `using a distractive app with time left saves the use and checks again later`() {
         usedMinutes = 3
 
-        assertEquals(InUse(at = NOW, budget = CheckAgainIn(2)), window(VIDEO))
+        assertEquals(InUse(at = NOW, usage = CheckAgainIn(2)), window(VIDEO))
     }
 
     @Test
     fun `using up the interval blocks`() {
         usedMinutes = INTERVAL.toLong()
 
-        assertEquals(InUse(at = NOW, budget = Block(at = NOW)), window(VIDEO))
+        assertEquals(InUse(at = NOW, usage = Block(at = NOW)), window(VIDEO))
     }
 
     @Test
     fun `opening an app is not challenged while the on open switch is off`() {
-        assertEquals(InUse(at = NOW, budget = CheckAgainIn(INTERVAL.toLong())), window(VIDEO))
+        assertEquals(InUse(at = NOW, usage = CheckAgainIn(INTERVAL.toLong())), window(VIDEO))
     }
 
     @Test
@@ -130,14 +130,14 @@ class BlockingEngineTest {
     fun `a scheduled check does nothing while blocked`() {
         usedMinutes = 99
 
-        assertEquals(AlreadyBlocked, engine.checkBudget(state(isBlocked = true), NOW))
+        assertEquals(AlreadyBlocked, engine.checkUsage(state(isBlocked = true), NOW))
     }
 
     @Test
     fun `a scheduled check blocks once the interval is used up`() {
         usedMinutes = 6
 
-        assertEquals(Block(at = NOW), engine.checkBudget(state(), NOW))
+        assertEquals(Block(at = NOW), engine.checkUsage(state(), NOW))
     }
 
     @Test

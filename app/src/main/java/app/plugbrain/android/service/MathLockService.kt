@@ -10,8 +10,8 @@ import androidx.datastore.preferences.core.Preferences
 import app.plugbrain.android.R
 import app.plugbrain.android.blocking.BlockingEngine
 import app.plugbrain.android.blocking.BlockingState
-import app.plugbrain.android.blocking.BudgetDecision
 import app.plugbrain.android.blocking.Decision
+import app.plugbrain.android.blocking.UsageDecision
 import app.plugbrain.android.blocking.UsageLimit
 import app.plugbrain.android.datastore.getBlockAppsToggle
 import app.plugbrain.android.datastore.getTimestamps
@@ -122,23 +122,23 @@ class MathLockService : AccessibilityService() {
       }
       is Decision.InUse -> {
         serviceScope.launch { dataStore.setLastUsageTime(decision.at) }
-        applyBudget(decision.budget)
+        applyUsage(decision.usage)
       }
     }
   }
 
-  private fun applyBudget(budget: BudgetDecision) {
-    when (budget) {
-      BudgetDecision.AlreadyBlocked -> Unit
-      is BudgetDecision.Block -> {
+  private fun applyUsage(usage: UsageDecision) {
+    when (usage) {
+      UsageDecision.AlreadyBlocked -> Unit
+      is UsageDecision.Block -> {
         serviceScope.launch {
           dataStore.updateBlockAppsToggle(true)
-          timestamps = timestamps.copy(lastBlock = budget.at)
-          dataStore.setLastBlockTime(budget.at)
+          timestamps = timestamps.copy(lastBlock = usage.at)
+          dataStore.setLastBlockTime(usage.at)
         }
         launchChallenge()
       }
-      is BudgetDecision.CheckAgainIn -> scheduleAppUsageCheck(budget.minutes)
+      is UsageDecision.CheckAgainIn -> scheduleAppUsageCheck(usage.minutes)
     }
   }
 
@@ -195,7 +195,7 @@ class MathLockService : AccessibilityService() {
         if (remaining <= 0) break
         delay(minOf(remaining, USAGE_CHECK_STEP))
       }
-      applyBudget(engine.checkBudget(blockingState(), clock.now()))
+      applyUsage(engine.checkUsage(blockingState(), clock.now()))
     }
   }
 }

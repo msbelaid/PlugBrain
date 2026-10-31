@@ -1,7 +1,7 @@
 package app.plugbrain.android.blocking
 
 /**
- * Decides when to challenge the user, from window changes and the usage budget. It knows nothing
+ * Decides when to challenge the user, from window changes and the usage limit. It knows nothing
  * about Android: the accessibility service feeds it package names, the saved [BlockingState] and
  * the time, then carries out the [Decision]. It keeps only the little memory the rules need: which
  * app is in front, and when the last open challenge was shown.
@@ -29,7 +29,7 @@ class BlockingEngine(
           openChallengeShownAt = now
           Decision.ShowChallenge()
         }
-        else -> Decision.InUse(at = now, budget = checkBudget(state, now))
+        else -> Decision.InUse(at = now, usage = checkUsage(state, now))
       }
       // Showing a warning alone left the calculator usable; cover it with the challenge.
       isCalculator(packageName) && state.isBlocked == true -> Decision.ShowChallenge(calculatorWarning = true)
@@ -37,9 +37,9 @@ class BlockingEngine(
     }
   }
 
-  /** Whether the usage budget is spent; also called when a scheduled check comes due. */
-  fun checkBudget(state: BlockingState, now: Long): BudgetDecision {
-    if (state.isBlocked == true) return BudgetDecision.AlreadyBlocked
+  /** Whether the block interval is used up; also called when a scheduled check comes due. */
+  fun checkUsage(state: BlockingState, now: Long): UsageDecision {
+    if (state.isBlocked == true) return UsageDecision.AlreadyBlocked
     val minutesLeft = usageLimit.minutesLeft(
       state.distractiveApps,
       state.blockIntervalMinutes,
@@ -47,7 +47,7 @@ class BlockingEngine(
       state.lastUnblock,
       now,
     )
-    return if (minutesLeft <= 0) BudgetDecision.Block(at = now) else BudgetDecision.CheckAgainIn(minutesLeft)
+    return if (minutesLeft <= 0) UsageDecision.Block(at = now) else UsageDecision.CheckAgainIn(minutesLeft)
   }
 
   /**
