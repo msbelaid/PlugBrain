@@ -1,0 +1,47 @@
+name: PR size
+
+# Fails when a pull request changes more than 300 lines, not counting tests, snapshots,
+# store metadata and translations. The pr-size-approved label lets a PR that can't be split
+# (a release, a bulk rename) through. Labelling re-runs the check.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: pr-size-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  size:
+    name: PR size
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      MAX_LINES: 300
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Count changed lines
+        run: |
+          gh api --paginate --slurp "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files?per_page=100" > files.json
+          set +e
+          python3 -I .github/scripts/pr_size.py files.json > summary.md
+          result=$?
+          set -e
+          cat summary.md >> "$GITHUB_STEP_SUMMARY"
+          cat summary.md
+          if [ "$result" -ne 0 ]; then
+            if [ "${{ contains(github.event.pull_request.labels.*.name, 'pr-size-approved') }}" = "true" ]; then
+              echo "::notice::Over ${MAX_LINES} lines, allowed by the pr-size-approved label."
+            else
+              echo "::error::This PR changes more than ${MAX_LINES} lines (tests, snapshots, store metadata and translations not counted). Split it, or add the pr-size-approved label."
+              exit 1
+            fi
+          fi
