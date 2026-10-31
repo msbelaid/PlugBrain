@@ -135,6 +135,7 @@ dependencies {
     implementation(libs.androidx.datastore.core.android)
     implementation(libs.timber)
     implementation(project(":appusage"))
+    implementation(project(":blocking"))
     implementation(project(":designsystem"))
     implementation(project(":challenges"))
     implementation(project(":datastore"))
