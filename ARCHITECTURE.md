@@ -8,13 +8,17 @@ where to add things.
 
 ```mermaid
 flowchart TD
-  app[":app<br/>screens, Koin wiring, MathLockService"]
-  blocking[":blocking<br/>when to block and challenge"]
-  appusage[":appusage<br/>usage stats, installed apps"]
-  challenges[":challenges<br/>math challenges, difficulty levels"]
-  datastore[":datastore<br/>settings and timestamps"]
-  designsystem[":designsystem<br/>Compose components, theme"]
-  app --> blocking & appusage & challenges & datastore & designsystem
+  app[app: screens, Koin wiring, MathLockService]
+  blocking[blocking: when to block and challenge]
+  appusage[appusage: usage stats, installed apps]
+  challenges[challenges: math challenges, difficulty levels]
+  datastore[datastore: settings and timestamps]
+  designsystem[designsystem: Compose components, theme]
+  app --> blocking
+  app --> appusage
+  app --> challenges
+  app --> datastore
+  app --> designsystem
 ```
 
 Only `:app` depends on other modules; every library module stands alone.
@@ -37,14 +41,14 @@ Before:
 
 ```mermaid
 flowchart LR
-  E[AccessibilityEvent] --> S
-  subgraph S[MathLockService]
+  E[AccessibilityEvent] --> R
+  subgraph S [MathLockService]
     R[rules: blocked app, open challenge, usage limit, calculator]
     T[timers]
     D[DataStore reads and writes]
     L[launch ChallengeActivity]
   end
-  S --> U[AppsUsageStats]
+  R --> U[AppsUsageStats]
 ```
 
 Now the rules are a plain Kotlin class, and the service is a thin adapter around it (ports and
@@ -52,18 +56,18 @@ adapters):
 
 ```mermaid
 flowchart LR
-  E[AccessibilityEvent] --> S[MathLockService<br/>Android adapter]
-  DS[(DataStore)] -- BlockingState --> S
-  S -- package, state, now --> BE
-  subgraph B[":blocking (pure Kotlin)"]
+  E[AccessibilityEvent] --> S[MathLockService: Android adapter]
+  DS[(DataStore)] -->|BlockingState| S
+  S -->|package, state, now| BE
+  subgraph B [blocking module, pure Kotlin]
     BE[BlockingEngine] --> UL[UsageLimit]
     BE --> AD[AppOpenDetector]
     UL --> P{{UsageSource port}}
   end
-  BE -- Decision --> S
+  BE -->|Decision| S
   S --> C[ChallengeActivity]
   S --> DS
-  U[":appusage AppsUsageStats"] -. implements .-> P
+  U[AppsUsageStats in appusage] -.->|implements| P
 ```
 
 - `BlockingState` is what the rules read: distractive apps, block interval, the "Also on app open"
@@ -83,15 +87,15 @@ sequenceDiagram
   participant S as MathLockService
   participant E as BlockingEngine
   participant U as UsageLimit
-  A->>S: TYPE_WINDOW_STATE_CHANGED (package)
+  A->>S: window state changed for a package
   S->>E: onWindowChanged(package, state, now)
   alt blocked, or open challenge due
     E-->>S: ShowChallenge
     S->>A: start ChallengeActivity
   else distractive app in use
-    E->>U: minutesLeft(...)
+    E->>U: minutesLeft
     U-->>E: minutes
-    E-->>S: InUse(at, Block or CheckAgainIn)
+    E-->>S: InUse with Block or CheckAgainIn
     S->>S: save last use, then save the block or schedule the next check
   else anything else
     E-->>S: Ignore
