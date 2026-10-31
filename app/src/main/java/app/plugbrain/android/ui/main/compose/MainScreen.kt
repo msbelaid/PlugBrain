@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import app.plugbrain.android.R
 import app.plugbrain.android.ui.designsystem.components.card.PlugStatusCard
+import app.plugbrain.android.ui.designsystem.components.card.PlugStatusCardNotice
 import app.plugbrain.android.ui.designsystem.components.card.PlugStatusCardVariant
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugAppIconStack
 import app.plugbrain.android.ui.designsystem.components.listitem.PlugNavigationListItem
@@ -99,7 +100,9 @@ fun MainScreen(
       ) {
         StatusCard(
           status = state.status,
+          isBatteryOptimized = state.isBatteryOptimized,
           onAppsClick = onAppsClick,
+          onBatteryOptimizationClick = onBatteryOptimizationClick,
           onTurnBackOn = onTurnBackOn,
         )
         SetupSection(
@@ -107,7 +110,6 @@ fun MainScreen(
           onAppsClick = onAppsClick,
           onBlockIntervalClick = onBlockIntervalClick,
           onMinDifficultyClick = onMinDifficultyClick,
-          onBatteryOptimizationClick = onBatteryOptimizationClick,
         )
       }
     }
@@ -117,10 +119,13 @@ fun MainScreen(
 @Composable
 private fun StatusCard(
   status: DashboardStatus,
+  isBatteryOptimized: Boolean,
   onAppsClick: () -> Unit,
+  onBatteryOptimizationClick: () -> Unit,
   onTurnBackOn: (RequiredPermission) -> Unit,
 ) {
   val modifier = Modifier.fillMaxWidth()
+  val batteryNotice = batteryNotice(isBatteryOptimized, onBatteryOptimizationClick)
   when (status) {
     is DashboardStatus.Active -> PlugStatusCard(
       label = stringResource(R.string.dashboard_active),
@@ -130,6 +135,7 @@ private fun StatusCard(
       progress = status.usedFraction,
       body = stringResource(R.string.dashboard_next_challenge_level, status.nextChallengeLevel, status.maxChallengeLevel),
       modifier = modifier,
+      notice = batteryNotice,
     )
     is DashboardStatus.AppsLocked -> PlugStatusCard(
       label = stringResource(R.string.dashboard_apps_locked),
@@ -137,6 +143,7 @@ private fun StatusCard(
       headline = status.awayMinutes?.let { stringResource(R.string.dashboard_away, shortDuration(it)) },
       body = stringResource(R.string.dashboard_unlock_level, status.challengeLevel),
       modifier = modifier,
+      notice = batteryNotice,
     )
     is DashboardStatus.Paused -> PlugStatusCard(
       label = stringResource(R.string.dashboard_paused),
@@ -164,9 +171,28 @@ private fun StatusCard(
       actionText = stringResource(R.string.dashboard_choose_apps),
       onAction = onAppsClick,
       modifier = modifier,
+      notice = batteryNotice,
     )
   }
 }
+
+/**
+ * Optional, so it only shows until the user lets PlugBrain run in the background. A paused card
+ * already asks for a required permission, so it waits until that one is back.
+ */
+private fun batteryNotice(isBatteryOptimized: Boolean, onClick: () -> Unit): (@Composable () -> Unit)? =
+  if (isBatteryOptimized) {
+    {
+      PlugStatusCardNotice(
+        title = stringResource(R.string.dashboard_battery_title),
+        description = stringResource(R.string.dashboard_battery_description),
+        icon = Icons.Rounded.BatteryChargingFull,
+        onClick = onClick,
+      )
+    }
+  } else {
+    null
+  }
 
 @Composable
 private fun SetupSection(
@@ -174,7 +200,6 @@ private fun SetupSection(
   onAppsClick: () -> Unit,
   onBlockIntervalClick: () -> Unit,
   onMinDifficultyClick: () -> Unit,
-  onBatteryOptimizationClick: () -> Unit,
 ) {
   Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
     Text(
@@ -226,15 +251,6 @@ private fun SetupSection(
       icon = Icons.Rounded.SignalCellularAlt,
       onClick = onMinDifficultyClick,
     )
-    // Optional, so it only shows until the user lets PlugBrain run in the background.
-    if (state.isBatteryOptimized) {
-      PlugNavigationListItem(
-        title = stringResource(R.string.dashboard_battery_title),
-        description = stringResource(R.string.dashboard_battery_description),
-        icon = Icons.Rounded.BatteryChargingFull,
-        onClick = onBatteryOptimizationClick,
-      )
-    }
   }
 }
 

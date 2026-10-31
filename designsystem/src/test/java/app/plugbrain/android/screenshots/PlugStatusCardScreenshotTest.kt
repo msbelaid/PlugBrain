@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Apps
+import androidx.compose.material.icons.rounded.BatteryChargingFull
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.VerifiedUser
 import androidx.compose.material.icons.rounded.WarningAmber
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.plugbrain.android.ui.designsystem.components.card.PlugStatusCard
+import app.plugbrain.android.ui.designsystem.components.card.PlugStatusCardNotice
 import app.plugbrain.android.ui.designsystem.components.card.PlugStatusCardVariant
 import app.plugbrain.android.ui.theme.PlugBrainTheme
 import org.junit.Rule
@@ -83,8 +85,22 @@ class PlugStatusCardScreenshotTest {
         }
     }
 
+    @Test
+    fun withNoticeLightMode() {
+        paparazzi.snapshotWithLargeFont {
+            statusCardTest(darkTheme = false) { protectionOn(withNotice = true) }
+        }
+    }
+
+    @Test
+    fun withNoticeDarkMode() {
+        paparazzi.snapshot {
+            statusCardTest(darkTheme = true) { protectionOn(withNotice = true) }
+        }
+    }
+
     @Composable
-    private fun protectionOn() {
+    private fun protectionOn(withNotice: Boolean = false) {
         PlugStatusCard(
             label = "Protection on",
             icon = Icons.Rounded.VerifiedUser,
@@ -92,6 +108,19 @@ class PlugStatusCardScreenshotTest {
             headlineSupportingText = "left before the next challenge",
             progress = 4f / 15f,
             body = "Next challenge: level 4 of 15",
+            notice =
+                if (withNotice) {
+                    {
+                        PlugStatusCardNotice(
+                            title = "Run in the background",
+                            description = "Stop Android from closing PlugBrain to save battery.",
+                            icon = Icons.Rounded.BatteryChargingFull,
+                            onClick = {},
+                        )
+                    }
+                } else {
+                    null
+                },
         )
     }
 

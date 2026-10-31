@@ -3,6 +3,7 @@ package app.plugbrain.android.ui.designsystem.components.card
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,11 +15,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.Apps
+import androidx.compose.material.icons.rounded.BatteryChargingFull
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.VerifiedUser
 import androidx.compose.material.icons.rounded.WarningAmber
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -32,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
@@ -51,10 +56,11 @@ import app.plugbrain.android.ui.theme.Warning900
 
 /**
  * Tells the user what PlugBrain is doing right now. Only [label] and [icon] are required;
- * each other slot shows when it is set, in this order: headline, progress, body, action.
+ * each other slot shows when it is set, in this order: headline, progress, body, action, notice.
  *
  * @param headline a large value, such as "11 min", followed by [headlineSupportingText].
  * @param progress a fraction between 0 and 1, drawn as a bar under the headline.
+ * @param notice a secondary point under a divider, usually a [PlugStatusCardNotice].
  */
 @Composable
 fun PlugStatusCard(
@@ -68,6 +74,7 @@ fun PlugStatusCard(
   progress: Float? = null,
   actionText: String? = null,
   onAction: () -> Unit = {},
+  notice: (@Composable () -> Unit)? = null,
 ) {
   val colors = statusCardColors(variant)
   OutlinedCard(
@@ -149,7 +156,61 @@ fun PlugStatusCard(
           modifier = Modifier.fillMaxWidth(),
         )
       }
+      if (notice != null) {
+        HorizontalDivider(color = colors.border)
+        notice()
+      }
     }
+  }
+}
+
+/**
+ * A tappable secondary point at the bottom of a [PlugStatusCard], such as an optional setting
+ * that keeps PlugBrain working. It doesn't change what the card says PlugBrain is doing.
+ */
+@Composable
+fun PlugStatusCardNotice(
+  title: String,
+  description: String,
+  icon: ImageVector,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+) {
+  Row(
+    horizontalArrangement = Arrangement.spacedBy(12.dp),
+    verticalAlignment = Alignment.CenterVertically,
+    modifier = modifier
+      .fillMaxWidth()
+      .clip(NoticeShape)
+      .clickable(role = Role.Button, onClick = onClick)
+      .padding(vertical = 4.dp),
+  ) {
+    Icon(
+      imageVector = icon,
+      contentDescription = null,
+      tint = MaterialTheme.colorScheme.primary,
+      modifier = Modifier.size(20.dp),
+    )
+    Column(
+      verticalArrangement = Arrangement.spacedBy(2.dp),
+      modifier = Modifier.weight(1f),
+    ) {
+      Text(
+        text = title,
+        style = MaterialTheme.typography.titleSmall,
+        color = MaterialTheme.colorScheme.onSurface,
+      )
+      Text(
+        text = description,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+      )
+    }
+    Icon(
+      imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
+      contentDescription = null,
+      tint = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
   }
 }
 
@@ -205,6 +266,7 @@ private fun statusCardColors(variant: PlugStatusCardVariant): StatusCardColors {
 private val CardShape = RoundedCornerShape(16.dp)
 private val CardElevation = 4.dp
 private val BarShape = RoundedCornerShape(50)
+private val NoticeShape = RoundedCornerShape(8.dp)
 
 @Preview(
   name = "Light Mode",
@@ -226,6 +288,14 @@ private fun PlugStatusCardProtectionOnPreview() {
       headlineSupportingText = "left before the next challenge",
       progress = 4f / 15f,
       body = "Next challenge: level 4 of 15",
+      notice = {
+        PlugStatusCardNotice(
+          title = "Run in the background",
+          description = "Stop Android from closing PlugBrain to save battery.",
+          icon = Icons.Rounded.BatteryChargingFull,
+          onClick = {},
+        )
+      },
     )
   }
 }
