@@ -8,6 +8,9 @@ import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.plugbrain.android.R
+import app.plugbrain.android.blocking.AppOpenDetector
+import app.plugbrain.android.blocking.UsageLimit
+import app.plugbrain.android.blocking.isOpenChallengeDue
 import app.plugbrain.android.datastore.getBlockAppsToggle
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
@@ -171,7 +174,13 @@ class MathLockService : AccessibilityService() {
 
   private fun checkAppUsage() {
     if (isBlocked == true) return
-    val minutesLeft = usageLimit.minutesLeft(userSettings, timestamps.lastBlock, timestamps.lastUnblock)
+    val minutesLeft = usageLimit.minutesLeft(
+      userSettings.distractiveApps,
+      userSettings.blockInterval,
+      timestamps.lastBlock,
+      timestamps.lastUnblock,
+      clock.now(),
+    )
     if (minutesLeft <= 0) {
       val now = clock.now()
       serviceScope.launch {

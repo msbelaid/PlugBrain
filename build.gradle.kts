@@ -17,6 +17,7 @@ plugins {
 dependencies {
     kover(project(":app"))
     kover(project(":appusage"))
+    kover(project(":blocking"))
     kover(project(":challenges"))
     kover(project(":datastore"))
     kover(project(":designsystem"))

@@ -1,4 +1,4 @@
-package app.plugbrain.android.service
+package app.plugbrain.android.blocking
 
 private const val MILLIS_PER_MINUTE = 60_000L
 

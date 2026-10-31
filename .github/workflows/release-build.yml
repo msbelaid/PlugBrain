@@ -121,7 +121,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v5
 
-      # Lints app, appusage, designsystem, challenges and datastore in one report (checkDependencies).
+      # Lints app, appusage, blocking, designsystem, challenges and datastore in one report (checkDependencies).
       - name: Run Android Lint
         run: ./gradlew :app:lintRelease
 

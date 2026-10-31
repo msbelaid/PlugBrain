@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.appsusage.AppsUsageStats
 import app.plugbrain.android.appsusage.InstalledAppsRepository
+import app.plugbrain.android.blocking.usageCountedSince
 import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.datastore.getBlockAppsToggle
 import app.plugbrain.android.datastore.getTimestamps
@@ -16,7 +17,6 @@ import app.plugbrain.android.datastore.setChallengeOnAppOpen
 import app.plugbrain.android.datastore.setSelectedMinimalDifficulty
 import app.plugbrain.android.repository.PermissionsRepository
 import app.plugbrain.android.repository.model.PermissionsState
-import app.plugbrain.android.service.usageCountedSince
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

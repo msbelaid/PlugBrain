@@ -134,6 +134,7 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md). For code, fork the repo, work on 
 |---|---|
 | `app` | Screens, blocking service and app wiring |
 | `appusage` | App usage stats and installed apps |
+| `blocking` | When to block and challenge, in plain Kotlin with JVM tests |
 | `challenges` | All math challenge types and their difficulty levels |
 | `datastore` | User preferences |
 | `designsystem` | Shared Compose components, colors and typography |

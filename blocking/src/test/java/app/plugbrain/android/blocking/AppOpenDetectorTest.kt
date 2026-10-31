@@ -1,4 +1,4 @@
-package app.plugbrain.android.service
+package app.plugbrain.android.blocking
 
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
