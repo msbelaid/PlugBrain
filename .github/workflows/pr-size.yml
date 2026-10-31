@@ -1,0 +1,51 @@
+name: PR size
+
+# Fails when a pull request changes more than 300 lines, not counting tests, snapshots,
+# store metadata and translations. The pr-size-approved label lets a PR that can't be split
+# (a release, a bulk rename) through. Labelling re-runs the check.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-size-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  size:
+    name: PR size
+    runs-on: ubuntu-latest
+    env:
+      MAX_LINES: 300
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Count changed lines
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+          APPROVED: ${{ contains(github.event.pull_request.labels.*.name, 'pr-size-approved') }}
+        run: |
+          # Additions + deletions, leaving out tests, snapshots, store metadata and translations.
+          lines=$(git diff --numstat "$BASE...$HEAD" -- . \
+            ':(exclude,glob)**/src/test*/**' \
+            ':(exclude,glob)**/src/androidTest*/**' \
+            ':(exclude,glob)**/snapshots/**' \
+            ':(exclude,glob)fastlane/metadata/**' \
+            ':(exclude,glob)**/res/values-*/strings.xml' \
+            | awk '{ s += $1 + $2 } END { print s + 0 }')
+          echo "### PR size: $lines lines (limit $MAX_LINES)" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$lines" -le "$MAX_LINES" ]; then
+            echo "$lines lines, within the limit."
+          elif [ "$APPROVED" = "true" ]; then
+            echo "::notice::$lines lines, over $MAX_LINES but allowed by the pr-size-approved label."
+          else
+            echo "::error::$lines lines changed, over the $MAX_LINES limit (tests, snapshots, store metadata and translations not counted). Split the PR, or add the pr-size-approved label."
+            exit 1
+          fi
