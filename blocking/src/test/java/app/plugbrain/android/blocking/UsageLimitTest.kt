@@ -12,8 +12,10 @@ class UsageLimitTest {
     private val usage = RecordingUsageSource()
     private val usageLimit = UsageLimit(usage)
 
-    private fun minutesLeft(lastBlock: Long? = null, lastUnblock: Long? = null) =
-        usageLimit.minutesLeft(APPS, INTERVAL, lastBlock, lastUnblock, NOW)
+    private fun minutesLeft(
+        lastBlock: Long? = null,
+        lastUnblock: Long? = null,
+    ) = usageLimit.minutesLeft(APPS, INTERVAL, lastBlock, lastUnblock, NOW)
 
     @Test
     fun usageUnderTheIntervalLeavesTheRestOfIt() {
@@ -77,7 +79,11 @@ class UsageLimitTest {
         var minutes = 0L
         var lastQuery: Query? = null
 
-        override fun minutesUsed(packages: Set<String>, from: Long, to: Long): Long {
+        override fun minutesUsed(
+            packages: Set<String>,
+            from: Long,
+            to: Long,
+        ): Long {
             lastQuery = Query(packages, from, to)
             return minutes
         }
