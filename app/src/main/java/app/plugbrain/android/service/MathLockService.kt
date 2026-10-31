@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.plugbrain.android.R
-import app.plugbrain.android.blocking.AppOpenDetector
+import app.plugbrain.android.blocking.BlockingEngine
+import app.plugbrain.android.blocking.BlockingState
+import app.plugbrain.android.blocking.Decision
+import app.plugbrain.android.blocking.UsageDecision
 import app.plugbrain.android.blocking.UsageLimit
-import app.plugbrain.android.blocking.isOpenChallengeDue
 import app.plugbrain.android.datastore.getBlockAppsToggle
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
@@ -39,6 +41,11 @@ private const val USAGE_CHECK_STEP = 10_000L
 private const val SYSTEM_UI_PACKAGE = "com.android.systemui"
 private const val CHALLENGE_RECHECK_DELAY = 700L
 
+/**
+ * The Android side of blocking: turns window events into [BlockingEngine] calls and carries out its
+ * decisions (show the challenge, save timestamps, schedule the next usage check). The rules
+ * themselves live in the :blocking module.
+ */
 // Keeps its old name: Android remembers an enabled accessibility service by its class name, so a
 // rename would turn the service off for everyone who updates.
 class MathLockService : AccessibilityService() {
@@ -47,20 +54,21 @@ class MathLockService : AccessibilityService() {
   private val clock: Clock by inject()
   private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-  // TODO Refactor using TimeStats
   private var userSettings = UserSettings()
   private var timestamps = Timestamps()
   private var isBlocked: Boolean? = null
 
+  private val engine by lazy {
+    BlockingEngine(
+      usageLimit = usageLimit,
+      calculatorPackages = resources.getStringArray(R.array.calculator_packages).toSet(),
+      ignoredPackages = ::ignoredPackages,
+    )
+  }
+
   // Only one pending usage check at a time, otherwise every window event of a
   // distractive app would start a new polling loop.
   private var usageCheckJob: Job? = null
-
-  private val appOpenDetector = AppOpenDetector { ignoredPackages() }
-
-  // When the last open challenge was shown. Until it's solved, every event of a distractive app
-  // brings it back, so leaving it through recents doesn't skip it.
-  private var openChallengeShownAt: Long? = null
 
   private var challengeRecheckJob: Job? = null
 
@@ -91,37 +99,47 @@ class MathLockService : AccessibilityService() {
     }
   }
 
+  private fun blockingState() = BlockingState(
+    distractiveApps = userSettings.distractiveApps,
+    blockIntervalMinutes = userSettings.blockInterval,
+    challengeOnAppOpen = userSettings.challengeOnAppOpen,
+    isBlocked = isBlocked,
+    lastBlock = timestamps.lastBlock,
+    lastUnblock = timestamps.lastUnblock,
+  )
+
   override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-    if (event?.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-      val eventPackageName = event.packageName?.toString() ?: return
-      Timber.tag(TAG).i("Event: $eventPackageName state changed")
-      val isAppOpening = appOpenDetector.isAppOpening(eventPackageName, userSettings.distractiveApps)
-      if (eventPackageName in userSettings.distractiveApps) {
-        if (isBlocked == true) {
-          launchChallenge()
-        } else if ((isAppOpening || isOpenChallengeUnsolved()) && shouldChallengeOnOpen()) {
-          openChallengeShownAt = clock.now()
-          launchChallenge()
-        } else {
-          serviceScope.launch {
-            dataStore.setLastUsageTime(clock.now())
-          }
-          checkAppUsage()
+    if (event?.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
+    val eventPackageName = event.packageName?.toString() ?: return
+    Timber.tag(TAG).i("Event: $eventPackageName state changed")
+    when (val decision = engine.onWindowChanged(eventPackageName, blockingState(), clock.now())) {
+      Decision.Ignore -> Unit
+      is Decision.ShowChallenge -> {
+        if (decision.calculatorWarning) {
+          Toast.makeText(this, R.string.calculator_warning, Toast.LENGTH_LONG).show()
         }
-      } else if (isCalculator(eventPackageName) && isBlocked == true) {
-        // Showing a toast alone left the calculator usable; cover it with the challenge.
-        Toast.makeText(this, R.string.calculator_warning, Toast.LENGTH_LONG).show()
         launchChallenge()
+      }
+      is Decision.InUse -> {
+        serviceScope.launch { dataStore.setLastUsageTime(decision.at) }
+        applyUsage(decision.usage)
       }
     }
   }
 
-  private fun shouldChallengeOnOpen(): Boolean = userSettings.challengeOnAppOpen &&
-    isOpenChallengeDue(timestamps.lastUnblock, userSettings.blockInterval, clock.now())
-
-  private fun isOpenChallengeUnsolved(): Boolean {
-    val shownAt = openChallengeShownAt ?: return false
-    return (timestamps.lastUnblock ?: 0L) < shownAt
+  private fun applyUsage(usage: UsageDecision) {
+    when (usage) {
+      UsageDecision.AlreadyBlocked -> Unit
+      is UsageDecision.Block -> {
+        serviceScope.launch {
+          dataStore.updateBlockAppsToggle(true)
+          timestamps = timestamps.copy(lastBlock = usage.at)
+          dataStore.setLastBlockTime(usage.at)
+        }
+        launchChallenge()
+      }
+      is UsageDecision.CheckAgainIn -> scheduleAppUsageCheck(usage.minutes)
+    }
   }
 
   private fun ignoredPackages(): Set<String> {
@@ -129,12 +147,6 @@ class MathLockService : AccessibilityService() {
       ?.substringBefore('/')
     return setOfNotNull(packageName, SYSTEM_UI_PACKAGE, keyboardPackage)
   }
-
-  private fun isCalculator(packageName: String): Boolean =
-    packageName in resources.getStringArray(R.array.calculator_packages) || "calc" in packageName
-
-  private fun isChallengeDue(): Boolean =
-    isBlocked == true || (isOpenChallengeUnsolved() && shouldChallengeOnOpen())
 
   private fun launchChallenge() {
     Timber.tag(TAG).i("Launch Challenge ...")
@@ -161,8 +173,7 @@ class MathLockService : AccessibilityService() {
       delay(CHALLENGE_RECHECK_DELAY)
       // Still showing means the challenge won; only a blocked app back on top needs it again.
       if (ChallengeActivity.isInForeground) return@launch
-      val foreground = appOpenDetector.foregroundPackage ?: return@launch
-      if (foreground in userSettings.distractiveApps && isChallengeDue()) {
+      if (engine.shouldShowChallengeAgain(blockingState(), clock.now())) {
         launchChallenge()
       }
     }
@@ -170,28 +181,6 @@ class MathLockService : AccessibilityService() {
 
   override fun onInterrupt() {
     // Nothing to interrupt: the service gives no spoken or haptic feedback.
-  }
-
-  private fun checkAppUsage() {
-    if (isBlocked == true) return
-    val minutesLeft = usageLimit.minutesLeft(
-      userSettings.distractiveApps,
-      userSettings.blockInterval,
-      timestamps.lastBlock,
-      timestamps.lastUnblock,
-      clock.now(),
-    )
-    if (minutesLeft <= 0) {
-      val now = clock.now()
-      serviceScope.launch {
-        dataStore.updateBlockAppsToggle(true)
-        timestamps = timestamps.copy(lastBlock = now)
-        dataStore.setLastBlockTime(now)
-      }
-      launchChallenge()
-    } else {
-      scheduleAppUsageCheck(minutesLeft)
-    }
   }
 
   private fun scheduleAppUsageCheck(delayCheckBy: Long) {
@@ -206,7 +195,7 @@ class MathLockService : AccessibilityService() {
         if (remaining <= 0) break
         delay(minOf(remaining, USAGE_CHECK_STEP))
       }
-      checkAppUsage()
+      applyUsage(engine.checkUsage(blockingState(), clock.now()))
     }
   }
 }
