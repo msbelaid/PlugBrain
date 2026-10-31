@@ -23,6 +23,10 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "com.android.tools.build:gradle"
         update-types: ["version-update:semver-major"]
+      # Gradle 9.6+ removed an internal API that AGP 8.x uses, so Gradle 9 moves with AGP 9.
+      # Remove this with the AGP 9 migration.
+      - dependency-name: "gradle-wrapper"
+        versions: ["[9.0.0,)"]
       # These need compileSdk 36+ or AGP 9.1, which wait on a stable Paparazzi that renders API 36.
       # Remove them with the AGP 9 migration.
       - dependency-name: "androidx.compose:compose-bom"
