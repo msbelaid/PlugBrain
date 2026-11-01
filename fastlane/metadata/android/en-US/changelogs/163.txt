@@ -1,0 +1,5 @@
+- The challenge screen no longer shows up in recent apps after you solve it
+- The battery optimization prompt now appears inside the dashboard status card
+- About sheet translated into all supported languages
+- Blocking logic reorganized and covered by more tests, for more reliable blocking
+- Updated libraries
