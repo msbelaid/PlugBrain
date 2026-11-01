@@ -34,3 +34,6 @@ google-services.json
 
 # Signing keys
 keystore.properties
+# Python bytecode
+__pycache__/
+*.pyc
