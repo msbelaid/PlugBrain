@@ -60,7 +60,11 @@ class BlockingEngine(
     return foreground in state.distractiveApps && isChallengeDue(state, now)
   }
 
-  private fun isChallengeDue(state: BlockingState, now: Long): Boolean =
+  /**
+   * Whether a challenge is still owed: the apps are blocked, or an open challenge wasn't solved.
+   * Used when the challenge screen closes without a solve, such as when it's put in split screen.
+   */
+  fun isChallengeDue(state: BlockingState, now: Long): Boolean =
     state.isBlocked == true || (isOpenChallengeUnsolved(state) && shouldChallengeOnOpen(state, now))
 
   private fun shouldChallengeOnOpen(state: BlockingState, now: Long): Boolean =
