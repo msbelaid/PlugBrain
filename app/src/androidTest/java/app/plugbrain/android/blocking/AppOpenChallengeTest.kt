@@ -64,13 +64,13 @@ class AppOpenChallengeTest {
         assertNotEquals(true, runBlocking { driver.dataStore.getBlockAppsToggle().first() })
 
         driver.solveChallengeAndUnlock(blockInterval = BLOCK_INTERVAL)
-        assertTrue("The challenge stayed open after the solve", driver.waitFor { !ChallengeActivity.isInForeground })
+        assertTrue("The challenge stayed open after the solve", driver.waitFor { !ChallengeActivity.isCoveringScreen })
 
         driver.device.pressHome()
         driver.openDistractingApp()
         assertFalse(
             "Opening the app right after a solve was challenged again",
-            driver.waitFor(3_000) { ChallengeActivity.isInForeground },
+            driver.waitFor(3_000) { ChallengeActivity.isCoveringScreen },
         )
     }
 
@@ -86,7 +86,7 @@ class AppOpenChallengeTest {
         driver.awaitChallenge()
         val queriesBeforeSolve = FakeAppsUsageStats.queries
         driver.solveChallengeAndUnlock(blockInterval = BLOCK_INTERVAL)
-        assertTrue("The challenge stayed open after the solve", driver.waitFor { !ChallengeActivity.isInForeground })
+        assertTrue("The challenge stayed open after the solve", driver.waitFor { !ChallengeActivity.isCoveringScreen })
 
         // Back in the app, the service checks the usage, which used to block it again at once.
         assertTrue(
@@ -95,7 +95,7 @@ class AppOpenChallengeTest {
         )
         assertFalse(
             "A second challenge opened after solving the one shown on app open",
-            driver.waitFor(3_000) { ChallengeActivity.isInForeground },
+            driver.waitFor(3_000) { ChallengeActivity.isCoveringScreen },
         )
         assertNotEquals(true, runBlocking { driver.dataStore.getBlockAppsToggle().first() })
     }
@@ -107,7 +107,7 @@ class AppOpenChallengeTest {
         driver.awaitChallenge()
 
         driver.device.pressHome()
-        assertTrue("The challenge stayed on screen after Home", driver.waitFor { !ChallengeActivity.isInForeground })
+        assertTrue("The challenge stayed on screen after Home", driver.waitFor { !ChallengeActivity.isCoveringScreen })
 
         driver.awaitChallenge()
     }
@@ -130,6 +130,6 @@ class AppOpenChallengeTest {
         driver.turnOnPlugBrain()
 
         assertTrue("MathLockService never saw the app open", driver.openDistractingAppUntil { FakeAppsUsageStats.queries > 0 })
-        assertFalse("Opening the app was challenged with the switch off", driver.waitFor(3_000) { ChallengeActivity.isInForeground })
+        assertFalse("Opening the app was challenged with the switch off", driver.waitFor(3_000) { ChallengeActivity.isCoveringScreen })
     }
 }
