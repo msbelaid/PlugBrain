@@ -1,0 +1,143 @@
+name: Release milestone
+
+# Marks every PR merged since the previous v* tag, and the issues those PRs closed, with a
+# milestone named after the release, and comments "Released in vX.Y.Z" on each.
+# Called by release.yml once the release is published. Run it by hand (Actions > Release
+# milestone > Run workflow) to backfill an older tag. Safe to re-run: items already in the
+# milestone are skipped, so nothing is commented twice.
+on:
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag, e.g. v1.6.2
+        type: string
+        required: true
+      comment:
+        description: Comment "Released in <tag>" on each PR and issue
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  milestone:
+    name: Release milestone
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: List commits in the release
+        id: range
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          git rev-parse --verify --quiet "refs/tags/$TAG" > /dev/null || { echo "::error::Tag $TAG not found"; exit 1; }
+          prev=$(git describe --tags --abbrev=0 --match 'v*' "$TAG^" 2>/dev/null || true)
+          echo "Range: ${prev:-<root>}..$TAG"
+          git rev-list "${prev:+$prev..}$TAG" > "$RUNNER_TEMP/commits.txt"
+          echo "$(wc -l < "$RUNNER_TEMP/commits.txt") commits"
+          echo "previous=$prev" >> "$GITHUB_OUTPUT"
+
+      - name: Set milestone and comment
+        uses: actions/github-script@v8
+        env:
+          TAG: ${{ inputs.tag }}
+          PREVIOUS: ${{ steps.range.outputs.previous }}
+          # Only a manual run can turn comments off; a release always comments.
+          COMMENT: ${{ github.event_name == 'workflow_dispatch' && !inputs.comment && 'false' || 'true' }}
+        with:
+          script: |
+            const fs = require('fs');
+            const { owner, repo } = context.repo;
+            const tag = process.env.TAG;
+            const comment = process.env.COMMENT === 'true';
+            const marker = '<!-- release-milestone -->';
+            const shas = fs.readFileSync(`${process.env.RUNNER_TEMP}/commits.txt`, 'utf8').split('\n').filter(Boolean);
+
+            // The release page, if one exists for this tag (old tags may only be tags).
+            let releaseUrl = `https://github.com/${owner}/${repo}/tree/${tag}`;
+            let dueOn;
+            try {
+              const { data } = await github.rest.repos.getReleaseByTag({ owner, repo, tag });
+              releaseUrl = data.html_url;
+              dueOn = data.published_at;
+            } catch (e) {
+              core.info(`No GitHub release for ${tag}, linking the tag instead`);
+            }
+
+            // Merged PRs whose merge commit is in the range.
+            const prs = new Map();
+            for (const sha of shas) {
+              const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({ owner, repo, commit_sha: sha });
+              for (const pr of data) {
+                if (pr.merged_at && pr.merge_commit_sha === sha) prs.set(pr.number, pr);
+              }
+            }
+
+            // Issues closed by those PRs ("Closes #12" or linked in the sidebar).
+            const issues = new Set();
+            for (const number of prs.keys()) {
+              const result = await github.graphql(`
+                query($owner: String!, $repo: String!, $number: Int!) {
+                  repository(owner: $owner, name: $repo) {
+                    pullRequest(number: $number) {
+                      closingIssuesReferences(first: 50) { nodes { number repository { nameWithOwner } } }
+                    }
+                  }
+                }`, { owner, repo, number });
+              for (const issue of result.repository.pullRequest.closingIssuesReferences.nodes) {
+                if (issue.repository.nameWithOwner.toLowerCase() === `${owner}/${repo}`.toLowerCase()) issues.add(issue.number);
+              }
+            }
+            core.info(`PRs: ${[...prs.keys()].join(', ') || 'none'}`);
+            core.info(`Issues: ${[...issues].join(', ') || 'none'}`);
+
+            // Find or create the milestone; it is closed at the end since the release has shipped.
+            const milestones = await github.paginate(github.rest.issues.listMilestones, { owner, repo, state: 'all', per_page: 100 });
+            let milestone = milestones.find(m => m.title === tag);
+            if (!milestone) {
+              ({ data: milestone } = await github.rest.issues.createMilestone({
+                owner, repo, title: tag,
+                description: `Shipped in ${releaseUrl}`,
+                ...(dueOn ? { due_on: dueOn } : {}),
+              }));
+              core.info(`Created milestone ${tag}`);
+            }
+
+            const body = `Released in [${tag}](${releaseUrl}).\n\n${marker}`;
+            const numbers = [...prs.keys(), ...issues].sort((a, b) => a - b);
+            for (const number of numbers) {
+              const { data: item } = await github.rest.issues.get({ owner, repo, issue_number: number });
+              if (item.milestone?.number === milestone.number) {
+                core.info(`#${number} already in ${tag}, skipped`);
+                continue;
+              }
+              if (item.milestone) {
+                core.warning(`#${number} is in milestone ${item.milestone.title}, moved to ${tag}`);
+              }
+              await github.rest.issues.update({ owner, repo, issue_number: number, milestone: milestone.number });
+              if (comment) {
+                await github.rest.issues.createComment({ owner, repo, issue_number: number, body });
+              }
+              core.info(`#${number} → ${tag}`);
+            }
+
+            await github.rest.issues.updateMilestone({ owner, repo, milestone_number: milestone.number, state: 'closed' });
+            await core.summary
+              .addHeading(`${tag}: ${prs.size} PRs, ${issues.size} issues`)
+              .addRaw(`Range ${process.env.PREVIOUS || 'start'}..${tag}`, true)
+              .addList(numbers.map(n => `#${n}`))
+              .write();
