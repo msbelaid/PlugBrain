@@ -51,7 +51,8 @@ class ChallengeActivity : ComponentActivity() {
               challenge = it,
               unlockMinutes = blockInterval,
               onUnlockApp = {
-                challengeViewModel.unblockApps(onUnblocked = ::finishAffinity)
+                // Removes the task too, so the solved challenge can't be reopened from recents.
+                challengeViewModel.unblockApps(onUnblocked = ::finishAndRemoveTask)
               },
               onExitChallenge = exitToHomeScreen,
             )

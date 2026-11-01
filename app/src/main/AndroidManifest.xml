@@ -32,9 +32,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- The challenge screen is designed for portrait only. Android 16 ignores this on large screens. -->
+        <!-- The challenge screen is designed for portrait only. Android 16 ignores this on large screens.
+             It runs in its own task, kept out of recents: opened from there after a solve, it showed
+             a challenge with nothing blocked (#229), and launching it cleared the dashboard's task. -->
         <activity
             android:name=".ui.challenges.ChallengeActivity"
+            android:taskAffinity="app.plugbrain.android.challenge"
+            android:excludeFromRecents="true"
             android:resizeableActivity="false"
             tools:ignore="LockedOrientationActivity,NonResizeableActivity,DiscouragedApi"
             android:screenOrientation="portrait"
