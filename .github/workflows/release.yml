@@ -62,3 +62,14 @@ jobs:
             app/build/outputs/mapping/release/mapping.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Puts the PRs and issues shipped in this release in a vX.Y.Z milestone.
+  milestone:
+    needs: sign_and_release
+    uses: ./.github/workflows/release-milestone.yml
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    with:
+      tag: ${{ github.ref_name }}
