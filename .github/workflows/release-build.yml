@@ -315,9 +315,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL: 5
+    # Android 11 and Android 14: permission screens, split screen and recents behave differently
+    # on newer versions. fail-fast is off so one level failing still shows the other's result.
     strategy:
+      fail-fast: false
       matrix:
-        api-level: [30]
+        api-level: [30, 34]
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
