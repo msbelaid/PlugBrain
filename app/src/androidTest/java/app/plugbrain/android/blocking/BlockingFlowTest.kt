@@ -59,7 +59,7 @@ class BlockingFlowTest {
         driver.turnOnPlugBrain()
 
         assertTrue("MathLockService never checked the usage", driver.openDistractingAppUntil { FakeAppsUsageStats.queries > 0 })
-        assertFalse("Blocked before the interval was used", driver.waitFor(2_000) { ChallengeActivity.isInForeground })
+        assertFalse("Blocked before the interval was used", driver.waitFor(2_000) { ChallengeActivity.isCoveringScreen })
         assertNotEquals(true, runBlocking { driver.dataStore.getBlockAppsToggle().first() })
     }
 

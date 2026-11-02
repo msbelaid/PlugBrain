@@ -165,7 +165,7 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
     ) {
         assertTrue(
             "The challenge didn't open over the distracting app",
-            openDistractingAppUntil(timeout, relaunchEvery) { ChallengeActivity.isInForeground },
+            openDistractingAppUntil(timeout, relaunchEvery) { ChallengeActivity.isCoveringScreen },
         )
     }
 

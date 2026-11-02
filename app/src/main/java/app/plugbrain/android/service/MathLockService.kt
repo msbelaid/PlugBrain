@@ -41,6 +41,9 @@ private const val USAGE_CHECK_STEP = 10_000L
 private const val SYSTEM_UI_PACKAGE = "com.android.systemui"
 private const val CHALLENGE_RECHECK_DELAY = 700L
 
+// Time for the split screen to close after going Home, before the challenge opens again.
+private const val SPLIT_SCREEN_EXIT_DELAY = 500L
+
 /**
  * The Android side of blocking: turns window events into [BlockingEngine] calls and carries out its
  * decisions (show the challenge, save timestamps, schedule the next usage check). The rules
@@ -80,7 +83,23 @@ class MathLockService : AccessibilityService() {
   override fun onServiceConnected() {
     Timber.tag(TAG).i("onServiceConnected")
     getData()
+    watchSplitScreen()
     super.onServiceConnected()
+  }
+
+  /**
+   * The challenge closes itself when it's put in split screen. Going Home closes the split, so the
+   * blocked app isn't left on screen, then the challenge opens again full screen if still due.
+   */
+  private fun watchSplitScreen() {
+    serviceScope.launch(Dispatchers.Main) {
+      ChallengeActivity.leftFullScreen.collect {
+        Timber.tag(TAG).i("Challenge put in split screen")
+        performGlobalAction(GLOBAL_ACTION_HOME)
+        delay(SPLIT_SCREEN_EXIT_DELAY)
+        if (engine.isChallengeDue(blockingState(), clock.now())) launchChallenge()
+      }
+    }
   }
 
   private fun getData() {
@@ -150,7 +169,7 @@ class MathLockService : AccessibilityService() {
 
   private fun launchChallenge() {
     Timber.tag(TAG).i("Launch Challenge ...")
-    if (ChallengeActivity.isInForeground) {
+    if (ChallengeActivity.isCoveringScreen) {
       // An app that is still starting up can bring itself back over a challenge that just opened,
       // before the challenge screen is paused. Look again once that settles.
       scheduleChallengeRecheck()
@@ -172,7 +191,7 @@ class MathLockService : AccessibilityService() {
     challengeRecheckJob = serviceScope.launch(Dispatchers.Main) {
       delay(CHALLENGE_RECHECK_DELAY)
       // Still showing means the challenge won; only a blocked app back on top needs it again.
-      if (ChallengeActivity.isInForeground) return@launch
+      if (ChallengeActivity.isCoveringScreen) return@launch
       if (engine.shouldShowChallengeAgain(blockingState(), clock.now())) {
         launchChallenge()
       }

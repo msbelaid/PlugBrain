@@ -62,7 +62,7 @@ class BlockingSmokeTest {
         val start = SystemClock.uptimeMillis()
         // Opening the app again now and then makes sure the service saw it once connected; the
         // usage keeps counting from the setup.
-        val blocked = driver.openDistractingAppUntil(BLOCK_TIMEOUT, RELAUNCH_EVERY) { ChallengeActivity.isInForeground }
+        val blocked = driver.openDistractingAppUntil(BLOCK_TIMEOUT, RELAUNCH_EVERY) { ChallengeActivity.isCoveringScreen }
         val elapsed = SystemClock.uptimeMillis() - start
 
         assertTrue("Not blocked after ${elapsed / 1000} s of use", blocked)

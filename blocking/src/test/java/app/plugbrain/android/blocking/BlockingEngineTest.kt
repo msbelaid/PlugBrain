@@ -158,4 +158,15 @@ class BlockingEngineTest {
 
         assertTrue(engine.shouldShowChallengeAgain(state(challengeOnAppOpen = true), NOW + 1))
     }
+
+    @Test
+    fun `a challenge is still due while blocked or while an open challenge is unsolved`() {
+        assertTrue(engine.isChallengeDue(state(isBlocked = true), NOW))
+        assertFalse(engine.isChallengeDue(state(), NOW))
+        assertFalse(engine.isChallengeDue(state(challengeOnAppOpen = true), NOW))
+
+        window(VIDEO, state(challengeOnAppOpen = true))
+        assertTrue(engine.isChallengeDue(state(challengeOnAppOpen = true), NOW + 1))
+        assertFalse(engine.isChallengeDue(state(challengeOnAppOpen = true, lastUnblock = NOW + 1), NOW + 2))
+    }
 }

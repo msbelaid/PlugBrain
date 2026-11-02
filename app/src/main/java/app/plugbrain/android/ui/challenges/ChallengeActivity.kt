@@ -14,6 +14,8 @@ import app.plugbrain.android.challenges.NumericalChallenge
 import app.plugbrain.android.ui.challenges.compose.NumericalChallengeScreen
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
 import app.plugbrain.android.ui.theme.PlugBrainTheme
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChallengeActivity : ComponentActivity() {
@@ -21,21 +23,37 @@ class ChallengeActivity : ComponentActivity() {
 
   override fun onResume() {
     super.onResume()
-    isInForeground = true
+    // Opened straight into a split pane: the blocked app may be in the other one.
+    if (isInMultiWindowMode) leaveSplitScreen() else isCoveringScreen = true
   }
 
   companion object {
-    var isInForeground: Boolean = false
+    /**
+     * Whether the challenge fills the screen. In split screen both panes are resumed, so being
+     * resumed alone would let the blocked app be used next to the challenge (#94).
+     */
+    var isCoveringScreen: Boolean = false
+      private set
+
+    private val leftFullScreenEvents = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
+
+    /** Emits when the challenge was put in split screen or a pop-up window, and closed itself. */
+    val leftFullScreen: SharedFlow<Unit> = leftFullScreenEvents
   }
 
   override fun onPause() {
     super.onPause()
-    isInForeground = false
+    isCoveringScreen = false
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     handleBackButton()
+    // resizeableActivity="false" doesn't stop this on tablets, foldables or Samsung's
+    // "multi window for all apps", so close and let MathLockService reopen it full screen.
+    addOnMultiWindowModeChangedListener { info ->
+      if (info.isInMultiWindowMode) leaveSplitScreen()
+    }
     challengeViewModel.generateChallenge()
 
     enableEdgeToEdge()
@@ -61,6 +79,12 @@ class ChallengeActivity : ComponentActivity() {
         }
       }
     }
+  }
+
+  private fun leaveSplitScreen() {
+    isCoveringScreen = false
+    leftFullScreenEvents.tryEmit(Unit)
+    finishAndRemoveTask()
   }
 
   private val exitToHomeScreen: () -> Unit = {
