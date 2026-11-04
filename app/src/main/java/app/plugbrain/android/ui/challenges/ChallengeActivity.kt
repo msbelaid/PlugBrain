@@ -14,12 +14,15 @@ import app.plugbrain.android.challenges.NumericalChallenge
 import app.plugbrain.android.ui.challenges.compose.NumericalChallengeScreen
 import app.plugbrain.android.ui.challenges.presentation.ArithChallengeViewModel
 import app.plugbrain.android.ui.theme.PlugBrainTheme
+import app.plugbrain.android.util.Clock
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChallengeActivity : ComponentActivity() {
   private val challengeViewModel: ArithChallengeViewModel by viewModel()
+  private val clock: Clock by inject()
 
   override fun onResume() {
     super.onResume()
@@ -35,6 +38,13 @@ class ChallengeActivity : ComponentActivity() {
     var isCoveringScreen: Boolean = false
       private set
 
+    /**
+     * When the unsolved challenge last stopped covering the screen, or null when none is open. A
+     * calculator opened right after counts as used for the challenge (#236).
+     */
+    var leftScreenAt: Long? = null
+      private set
+
     private val leftFullScreenEvents = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
     /** Emits when the challenge was put in split screen or a pop-up window, and closed itself. */
@@ -43,7 +53,14 @@ class ChallengeActivity : ComponentActivity() {
 
   override fun onPause() {
     super.onPause()
+    if (isCoveringScreen) leftScreenAt = clock.now()
     isCoveringScreen = false
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    // Solved or closed: the next challenge is a new one, so a calculator can't help with it.
+    if (isFinishing) leftScreenAt = null
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {

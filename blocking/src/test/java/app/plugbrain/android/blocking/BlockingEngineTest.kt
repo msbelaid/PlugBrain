@@ -18,6 +18,7 @@ private const val VIDEO = "com.example.video"
 private const val LAUNCHER = "com.example.launcher"
 private const val PLUGBRAIN = "app.plugbrain.android"
 private const val CALCULATOR = "com.android.calculator2"
+private const val GRACE = BlockingEngine.CHALLENGE_SWITCH_GRACE_MILLIS
 
 class BlockingEngineTest {
     private var usedMinutes = 0L
@@ -33,7 +34,16 @@ class BlockingEngineTest {
         isBlocked: Boolean? = false,
         challengeOnAppOpen: Boolean = false,
         lastUnblock: Long? = null,
-    ) = BlockingState(setOf(VIDEO), INTERVAL, challengeOnAppOpen, isBlocked, lastBlock = null, lastUnblock = lastUnblock)
+        challengeOnScreenAt: Long? = null,
+    ) = BlockingState(
+        setOf(VIDEO),
+        INTERVAL,
+        challengeOnAppOpen,
+        isBlocked,
+        lastBlock = null,
+        lastUnblock = lastUnblock,
+        challengeOnScreenAt = challengeOnScreenAt,
+    )
 
     private fun window(
         packageName: String,
@@ -60,10 +70,53 @@ class BlockingEngineTest {
     }
 
     @Test
-    fun `a calculator is covered by the challenge with a warning only while blocked`() {
-        assertEquals(ShowChallenge(calculatorWarning = true), window(CALCULATOR, state(isBlocked = true)))
-        assertEquals(ShowChallenge(calculatorWarning = true), window("com.vendor.mycalc", state(isBlocked = true)))
-        assertEquals(Ignore, window(CALCULATOR, state(isBlocked = false)))
+    fun `a calculator opened from the challenge is covered by it with a warning`() {
+        val onScreen = state(isBlocked = true, challengeOnScreenAt = NOW)
+
+        assertEquals(ShowChallenge(calculatorWarning = true), window(CALCULATOR, onScreen))
+    }
+
+    @Test
+    fun `a calculator opened moments after leaving the challenge is still covered`() {
+        val justLeft = state(isBlocked = true, challengeOnScreenAt = NOW - GRACE)
+
+        assertEquals(ShowChallenge(calculatorWarning = true), window(CALCULATOR, justLeft))
+    }
+
+    @Test
+    fun `a calculator opens normally while blocked if no challenge is on screen`() {
+        assertEquals(Ignore, window(CALCULATOR, state(isBlocked = true, challengeOnScreenAt = null)))
+    }
+
+    @Test
+    fun `a calculator opens normally once the challenge left the screen a while ago`() {
+        val leftLongAgo = state(isBlocked = true, challengeOnScreenAt = NOW - GRACE - 1)
+
+        assertEquals(Ignore, window(CALCULATOR, leftLongAgo))
+    }
+
+    @Test
+    fun `a calculator opens normally when no challenge is due`() {
+        assertEquals(Ignore, window(CALCULATOR, state(isBlocked = false, challengeOnScreenAt = NOW)))
+    }
+
+    @Test
+    fun `a calculator opened from an unsolved open challenge is covered`() {
+        val openChallenge = state(challengeOnAppOpen = true, lastUnblock = NOW - INTERVAL * MINUTE)
+        assertEquals(ShowChallenge(), window(VIDEO, openChallenge))
+
+        assertEquals(
+            ShowChallenge(calculatorWarning = true),
+            window(CALCULATOR, openChallenge.copy(challengeOnScreenAt = NOW + 1), NOW + 1),
+        )
+    }
+
+    @Test
+    fun `only known calculators count, not every package with calc in its name`() {
+        val onScreen = state(isBlocked = true, challengeOnScreenAt = NOW)
+
+        assertEquals(Ignore, window("com.example.caloriecalc", onScreen))
+        assertEquals(Ignore, window("com.vendor.mycalc", onScreen))
     }
 
     @Test
