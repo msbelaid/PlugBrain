@@ -11,4 +11,9 @@ data class BlockingState(
   val lastBlock: Long? = null,
   /** When the last challenge was solved. */
   val lastUnblock: Long? = null,
+  /**
+   * When an unsolved challenge was last on screen: now while it still is, null once it's solved or
+   * closed. A calculator is only blocked right around this time.
+   */
+  val challengeOnScreenAt: Long? = null,
 )

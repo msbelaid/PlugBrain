@@ -5,7 +5,7 @@ sealed interface Decision {
   /** Not an app the rules care about. */
   data object Ignore : Decision
 
-  /** Show the challenge now. [calculatorWarning]: a calculator was opened while blocked. */
+  /** Show the challenge now. [calculatorWarning]: a calculator was opened during a challenge. */
   data class ShowChallenge(val calculatorWarning: Boolean = false) : Decision
 
   /** A distractive app is in use and allowed for now: save [at] as its last use, then apply [usage]. */

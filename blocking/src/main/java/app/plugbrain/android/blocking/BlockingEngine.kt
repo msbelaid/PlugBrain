@@ -6,7 +6,8 @@ package app.plugbrain.android.blocking
  * the time, then carries out the [Decision]. It keeps only the little memory the rules need: which
  * app is in front, and when the last open challenge was shown.
  *
- * @param calculatorPackages known calculator apps; any package with "calc" in its name counts too.
+ * @param calculatorPackages known calculator apps. Only these count: matching "calc" in any package
+ *   name also caught calorie counters, loan calculators and unit converters (#236).
  * @param ignoredPackages windows that don't change the app in front (PlugBrain, system UI, keyboard).
  */
 class BlockingEngine(
@@ -32,7 +33,8 @@ class BlockingEngine(
         else -> Decision.InUse(at = now, usage = checkUsage(state, now))
       }
       // Showing a warning alone left the calculator usable; cover it with the challenge.
-      isCalculator(packageName) && state.isBlocked == true -> Decision.ShowChallenge(calculatorWarning = true)
+      packageName in calculatorPackages && isChallengeOnScreen(state, now) ->
+        Decision.ShowChallenge(calculatorWarning = true)
       else -> Decision.Ignore
     }
   }
@@ -75,6 +77,19 @@ class BlockingEngine(
     return (state.lastUnblock ?: 0L) < shownAt
   }
 
-  private fun isCalculator(packageName: String): Boolean =
-    packageName in calculatorPackages || "calc" in packageName
+  /**
+   * A calculator only helps while a challenge is on screen. Blocking it any other time got in the
+   * way of everyday use, such as adding up prices while shopping hours after a block (#236).
+   * Switching from the challenge to a calculator goes through recents or Home first, so a challenge
+   * that left the screen moments ago still counts.
+   */
+  private fun isChallengeOnScreen(state: BlockingState, now: Long): Boolean {
+    val onScreenAt = state.challengeOnScreenAt ?: return false
+    return now - onScreenAt <= CHALLENGE_SWITCH_GRACE_MILLIS && isChallengeDue(state, now)
+  }
+
+  companion object {
+    /** How long after the challenge leaves the screen a calculator opening still counts as cheating. */
+    const val CHALLENGE_SWITCH_GRACE_MILLIS = 5_000L
+  }
 }

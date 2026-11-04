@@ -125,6 +125,7 @@ class MathLockService : AccessibilityService() {
     isBlocked = isBlocked,
     lastBlock = timestamps.lastBlock,
     lastUnblock = timestamps.lastUnblock,
+    challengeOnScreenAt = if (ChallengeActivity.isCoveringScreen) clock.now() else ChallengeActivity.leftScreenAt,
   )
 
   override fun onAccessibilityEvent(event: AccessibilityEvent?) {
