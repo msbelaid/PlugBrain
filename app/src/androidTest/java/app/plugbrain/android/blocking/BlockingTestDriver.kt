@@ -48,6 +48,9 @@ const val DISTRACTING_APP = "com.android.settings"
 private const val TIMEOUT = 10_000L
 private const val RELAUNCH_EVERY = 3_000L
 
+// Longer than MathLockService's 700 ms recheck, plus Settings finishing its start-up.
+private const val CHALLENGE_SETTLE = 1_500L
+
 // Every challenge text: "3 + 1", "3 + ? = 4", "3 + 1 = ?" or "4² = ?".
 private val CHALLENGE_TEXT = Regex("""\S+ [-+x/] \S+( = \S+)?|\d+² = \?""")
 
@@ -166,6 +169,25 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         assertTrue(
             "The challenge didn't open over the distracting app",
             openDistractingAppUntil(timeout, relaunchEvery) { ChallengeActivity.isCoveringScreen },
+        )
+    }
+
+    /**
+     * Waits until the challenge has stayed on screen for [CHALLENGE_SETTLE] ms. Settings is still
+     * starting when the challenge first opens and can come back over it, and MathLockService then
+     * opens the challenge again. A test that leaves the challenge before that would see the late
+     * launch bring it back, as on the API 34 emulator after pressing Home.
+     */
+    fun awaitSettledChallenge() {
+        awaitChallenge()
+        var coveringSince = SystemClock.uptimeMillis()
+        assertTrue(
+            "The challenge didn't stay on screen for $CHALLENGE_SETTLE ms",
+            waitFor {
+                val now = SystemClock.uptimeMillis()
+                if (!ChallengeActivity.isCoveringScreen) coveringSince = now
+                now - coveringSince >= CHALLENGE_SETTLE
+            },
         )
     }
 
