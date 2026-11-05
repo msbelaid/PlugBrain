@@ -1,0 +1,2 @@
+- Opening a blocked app in split screen now brings the challenge back full screen
+- Calculators are blocked only while a challenge is on screen, not all the time
