@@ -63,6 +63,57 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Keep the bundle for the Play upload
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-bundle
+          path: |
+            app/build/outputs/bundle/release/app-release.aab
+            app/build/outputs/mapping/release/mapping.txt
+          retention-days: 7
+
+  # Uploads the signed AAB to the Play internal track, as a draft for now (fastlane lane "internal").
+  # Skips with a notice when the PLAY_SERVICE_ACCOUNT_JSON secret is missing.
+  play_internal:
+    name: Play internal track
+    needs: sign_and_release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+      FASTLANE_SKIP_UPDATE_CHECK: "1"
+      FASTLANE_HIDE_CHANGELOG: "1"
+      FASTLANE_SKIP_DOCS: "1"
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Download the bundle
+        uses: actions/download-artifact@v8
+        with:
+          name: release-bundle
+          path: release-bundle
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Upload to the internal track
+        run: |
+          if [ -z "$PLAY_SERVICE_ACCOUNT_JSON" ]; then
+            echo "::notice::PLAY_SERVICE_ACCOUNT_JSON is not set, skipping the Play upload."
+            exit 0
+          fi
+          bundle exec fastlane internal \
+            aab:"$GITHUB_WORKSPACE/release-bundle/bundle/release/app-release.aab" \
+            mapping:"$GITHUB_WORKSPACE/release-bundle/mapping/release/mapping.txt"
+
   # Puts the PRs and issues shipped in this release in a vX.Y.Z milestone.
   milestone:
     needs: sign_and_release
