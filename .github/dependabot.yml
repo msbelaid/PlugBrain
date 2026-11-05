@@ -51,3 +51,18 @@ updates:
       github-actions:
         patterns:
           - "*"
+
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    labels:
+      - "dependencies"
+      - "CI/CD"
+    commit-message:
+      prefix: "ci"
+    groups:
+      fastlane:
+        patterns:
+          - "*"

@@ -1,0 +1,53 @@
+name: Play validate
+
+# Checks the Play service account works: the key is valid and it can read PlugBrain's tracks.
+# Read-only, nothing is uploaded. Skips with a notice while the PLAY_SERVICE_ACCOUNT_JSON secret is missing.
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - Gemfile
+      - Gemfile.lock
+      - fastlane/Appfile
+      - fastlane/Fastfile
+      - .github/workflows/play-validate.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: play-validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Play validate
+    runs-on: ubuntu-latest
+    env:
+      PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+      FASTLANE_SKIP_UPDATE_CHECK: "1"
+      FASTLANE_HIDE_CHANGELOG: "1"
+      FASTLANE_SKIP_DOCS: "1"
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: List lanes
+        run: bundle exec fastlane lanes
+
+      # Secrets aren't passed to pull requests from forks, so those only check that fastlane loads.
+      - name: Validate Play access
+        run: |
+          if [ -z "$PLAY_SERVICE_ACCOUNT_JSON" ]; then
+            echo "::notice::PLAY_SERVICE_ACCOUNT_JSON is not set, skipping the Play check."
+            exit 0
+          fi
+          bundle exec fastlane validate
