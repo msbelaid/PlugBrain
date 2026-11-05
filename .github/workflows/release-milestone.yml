@@ -52,7 +52,7 @@ jobs:
           echo "previous=$prev" >> "$GITHUB_OUTPUT"
 
       - name: Set milestone and comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           TAG: ${{ inputs.tag }}
           PREVIOUS: ${{ steps.range.outputs.previous }}
