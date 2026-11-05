@@ -1,0 +1,2 @@
+# The Play service account key comes from the PLAY_SERVICE_ACCOUNT_JSON secret, passed to each lane.
+package_name("app.plugbrain.android")

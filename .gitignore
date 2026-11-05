@@ -37,3 +37,8 @@ keystore.properties
 # Python bytecode
 __pycache__/
 *.pyc
+
+# fastlane / Ruby
+vendor/bundle/
+fastlane/report.xml
+fastlane/README.md

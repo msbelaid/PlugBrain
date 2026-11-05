@@ -1,0 +1,23 @@
+# Google Play lanes. They run on GitHub Actions, which passes the service account key in the
+# PLAY_SERVICE_ACCOUNT_JSON environment variable. Nothing here changes the store listing.
+opt_out_usage
+default_platform(:android)
+
+platform :android do
+  def play_json_key
+    key = ENV["PLAY_SERVICE_ACCOUNT_JSON"].to_s
+    UI.user_error!("PLAY_SERVICE_ACCOUNT_JSON is not set") if key.strip.empty?
+    key
+  end
+
+  desc "Check the Play service account can reach PlugBrain, without changing anything"
+  lane :validate do
+    validate_play_store_json_key(json_key_data: play_json_key)
+
+    # Reading the tracks proves the account was invited to this app in Play Console.
+    %w[internal alpha beta production].each do |track|
+      codes = google_play_track_version_codes(track: track, json_key_data: play_json_key)
+      UI.message("#{track}: #{codes.empty? ? 'no release' : codes.join(', ')}")
+    end
+  end
+end
