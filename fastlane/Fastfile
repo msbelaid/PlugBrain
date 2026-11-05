@@ -1,5 +1,8 @@
+require "tmpdir"
+require "fileutils"
+
 # Google Play lanes. They run on GitHub Actions, which passes the service account key in the
-# PLAY_SERVICE_ACCOUNT_JSON environment variable. Nothing here changes the store listing.
+# PLAY_SERVICE_ACCOUNT_JSON environment variable. No lane changes the store listing.
 opt_out_usage
 default_platform(:android)
 
@@ -19,5 +22,45 @@ platform :android do
       codes = google_play_track_version_codes(track: track, json_key_data: play_json_key)
       UI.message("#{track}: #{codes.empty? ? 'no release' : codes.join(', ')}")
     end
+  end
+
+  desc "Upload a signed AAB to the internal track as a draft, with the en-US changelog as release notes"
+  lane :internal do |options|
+    aab = File.expand_path(options[:aab] || "../app/build/outputs/bundle/release/app-release.aab", __dir__)
+    UI.user_error!("AAB not found: #{aab}") unless File.exist?(aab)
+    mapping = File.expand_path(options[:mapping] || "../app/build/outputs/mapping/release/mapping.txt", __dir__)
+
+    play = {
+      track: "internal",
+      aab: aab,
+      # R8 mapping, so Play Console shows readable crash stack traces.
+      mapping: (mapping if File.exist?(mapping)),
+      json_key_data: play_json_key,
+      metadata_path: release_notes_dir,
+      # Draft until the flow is trusted: press "Review release" in Play Console to roll it out.
+      release_status: "draft",
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    }
+
+    # Dry run first, so a rejected bundle (version code, signing key) fails before anything is created.
+    upload_to_play_store(**play, validate_only: true)
+    upload_to_play_store(**play)
+  end
+
+  # Play reads release notes from <dir>/<locale>/changelogs/<versionCode>.txt. The F-Droid metadata folder
+  # has locale codes Play rejects (hi, ja), so only the en-US changelog is copied to a temp folder.
+  def release_notes_dir
+    gradle = File.read(File.expand_path("../app/build.gradle.kts", __dir__))
+    version_code = gradle[/versionCode\s*=\s*(\d+)/, 1] || UI.user_error!("versionCode not found in app/build.gradle.kts")
+    source = File.expand_path("metadata/android/en-US/changelogs/#{version_code}.txt", __dir__)
+    UI.user_error!("Missing changelog #{source}") unless File.exist?(source)
+
+    dir = File.join(Dir.mktmpdir("play-notes"), "en-US", "changelogs")
+    FileUtils.mkdir_p(dir)
+    FileUtils.cp(source, dir)
+    File.dirname(dir, 2)
   end
 end
