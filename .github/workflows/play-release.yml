@@ -1,0 +1,76 @@
+name: Play release
+
+# Manual Google Play actions, run from Actions > Play release > Run workflow:
+#   validate  check the service account and list what each track holds (changes nothing)
+#   promote   copy the latest release of "from track" to "track", at the given rollout
+#   rollout   change the staged rollout of the latest release on "track" (1 = everyone)
+#   halt      stop the staged rollout on "track"
+# Each run uses the GitHub environment play-<track>. Give play-production a required reviewer in
+# Settings > Environments, so nothing reaches production without that approval.
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: What to do
+        type: choice
+        options: [validate, promote, rollout, halt]
+        default: promote
+      track:
+        description: Track to promote to, or whose rollout to change or halt
+        type: choice
+        options: [alpha, beta, production]
+        default: alpha
+      from_track:
+        description: Track to promote from (promote only)
+        type: choice
+        options: [internal, alpha, beta]
+        default: internal
+      rollout:
+        description: Share of users, from 0.01 to 1 (promote and rollout only)
+        type: string
+        default: '1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: play-release
+  cancel-in-progress: false
+
+jobs:
+  play:
+    name: ${{ inputs.action }} ${{ inputs.action == 'promote' && format('{0} to ', inputs.from_track) || '' }}${{ inputs.action != 'validate' && inputs.track || '' }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.action == 'validate' && 'play-validate' || format('play-{0}', inputs.track) }}
+    env:
+      PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+      FASTLANE_SKIP_UPDATE_CHECK: "1"
+      FASTLANE_HIDE_CHANGELOG: "1"
+      FASTLANE_SKIP_DOCS: "1"
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Run fastlane
+        env:
+          ACTION: ${{ inputs.action }}
+          TRACK: ${{ inputs.track }}
+          FROM_TRACK: ${{ inputs.from_track }}
+          ROLLOUT: ${{ inputs.rollout }}
+        run: |
+          case "$ACTION" in
+            validate) bundle exec fastlane validate ;;
+            promote)  bundle exec fastlane promote from:"$FROM_TRACK" to:"$TRACK" rollout:"$ROLLOUT" ;;
+            rollout)  bundle exec fastlane rollout track:"$TRACK" rollout:"$ROLLOUT" ;;
+            halt)     bundle exec fastlane halt track:"$TRACK" ;;
+          esac
+          # Show where every track stands afterwards.
+          [ "$ACTION" = validate ] || bundle exec fastlane validate

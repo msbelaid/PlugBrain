@@ -3,6 +3,7 @@ require "fileutils"
 
 # Google Play lanes. They run on GitHub Actions, which passes the service account key in the
 # PLAY_SERVICE_ACCOUNT_JSON environment variable. No lane changes the store listing.
+# Tracks, from least to most public: internal, alpha (closed testing), beta (open testing), production.
 opt_out_usage
 default_platform(:android)
 
@@ -48,6 +49,73 @@ platform :android do
     # Dry run first, so a rejected bundle (version code, signing key) fails before anything is created.
     upload_to_play_store(**play, validate_only: true)
     upload_to_play_store(**play)
+  end
+
+  desc "Copy the latest release of one track to another, e.g. from:internal to:alpha rollout:0.2"
+  lane :promote do |options|
+    from = options[:from] || UI.user_error!("from: is required")
+    to = options[:to] || UI.user_error!("to: is required")
+    UI.user_error!("from and to are the same track") if from == to
+    fraction = rollout_fraction(options[:rollout])
+
+    upload_to_play_store(
+      **no_uploads,
+      track: from,
+      track_promote_to: to,
+      version_code: latest_version_code(from),
+      # Below 100% the release starts as a staged rollout; raise it later with the rollout lane.
+      track_promote_release_status: fraction < 1 ? "inProgress" : "completed",
+      rollout: (fraction.to_s if fraction < 1),
+    )
+  end
+
+  desc "Change the staged rollout of the latest release on a track, e.g. track:production rollout:0.5 (1 = everyone)"
+  lane :rollout do |options|
+    track = options[:track] || UI.user_error!("track: is required")
+    fraction = rollout_fraction(options[:rollout])
+    upload_to_play_store(
+      **no_uploads,
+      track: track,
+      version_code: latest_version_code(track),
+      rollout: fraction.to_s,
+    )
+  end
+
+  desc "Stop a staged rollout on a track. Users who already updated keep the version"
+  lane :halt do |options|
+    track = options[:track] || UI.user_error!("track: is required")
+    upload_to_play_store(
+      **no_uploads,
+      track: track,
+      version_code: latest_version_code(track),
+      release_status: "halted",
+    )
+  end
+
+  def no_uploads
+    {
+      json_key_data: play_json_key,
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    }
+  end
+
+  def latest_version_code(track)
+    codes = google_play_track_version_codes(track: track, json_key_data: play_json_key)
+    UI.user_error!("No release on the #{track} track") if codes.empty?
+    codes.max
+  end
+
+  def rollout_fraction(value)
+    fraction = Float(value || 1)
+    UI.user_error!("rollout must be above 0 and at most 1, got #{value}") unless fraction > 0 && fraction <= 1
+    fraction
+  rescue ArgumentError
+    UI.user_error!("rollout must be a number like 0.1, got #{value}")
   end
 
   # Play reads release notes from <dir>/<locale>/changelogs/<versionCode>.txt. The F-Droid metadata folder
