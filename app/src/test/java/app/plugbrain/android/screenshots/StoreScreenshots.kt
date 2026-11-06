@@ -281,12 +281,13 @@ class StoreScreenshots {
             Text(
                 text = caption.eyebrow.uppercase(),
                 modifier = Modifier.padding(horizontal = 24.dp),
-                // Letter spacing only suits scripts with capitals; it breaks up joined scripts like Arabic.
+                // Spaced small capitals only suit scripts with capitals; others get plain, slightly larger text.
                 style =
-                    captionStyle.copy(
-                        fontSize = 11.sp,
-                        letterSpacing = if (caption.eyebrow.uppercase() != caption.eyebrow) 0.12.em else 0.em,
-                    ),
+                    if (caption.eyebrow.uppercase() != caption.eyebrow) {
+                        captionStyle.copy(fontSize = 11.sp, letterSpacing = 0.12.em)
+                    } else {
+                        captionStyle.copy(fontSize = 13.sp)
+                    },
                 color = background.eyebrow,
                 textAlign = TextAlign.Center,
             )

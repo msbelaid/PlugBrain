@@ -50,44 +50,44 @@ val playCaptions: Map<String, List<PlayCaption>> =
         "fa" to
             listOf(
                 PlayCaption("برنامه‌ی حواس‌پرت‌کن؟ نه به این زودی", "کمی ریاضی، خیلی کمتر اسکرول."),
-                PlayCaption("سختی هوشمند", "هرچه بیشتر اسکرول کنی، سخت‌تر می‌شود."),
-                PlayCaption("یک استراحت واقعی", "کمی فاصله بگیر تا دوباره آسان شود."),
-                PlayCaption("انتخاب با توست", "برنامه‌هایی را که وقتت را می‌دزدند قفل کن."),
-                PlayCaption("قانون‌های خودت", "انتخاب کن چند وقت یک بار و چقدر سخت."),
-                PlayCaption("رایگان و متن‌باز", "بدون تبلیغ. بدون ردیابی. بدون اینترنت."),
+                PlayCaption("سختی هوشمند", "هرچه بیشتر اسکرول کنی،\nسخت‌تر می‌شود."),
+                PlayCaption("یک استراحت واقعی", "کمی فاصله بگیر\nتا دوباره آسان شود."),
+                PlayCaption("انتخاب با توست", "برنامه‌هایی را که وقتت را\nمی‌دزدند قفل کن."),
+                PlayCaption("قانون‌های خودت", "انتخاب کن چند وقت یک بار\nو چقدر سخت."),
+                PlayCaption("رایگان و متن‌باز", "بدون تبلیغ. بدون ردیابی.\nبدون اینترنت."),
                 PlayCaption("روشن یا تیره", ""),
             ),
         "fr-FR" to
             listOf(
                 PlayCaption(
                     "Appli qui distrait ? Pas si vite.",
-                    "Un petit calcul.\nBeaucoup moins de scroll.",
+                    "Un petit calcul.\nBien moins de scroll.",
                 ),
                 PlayCaption("Difficulté adaptative", "Plus tu scrolles,\nplus c’est dur."),
                 PlayCaption("Fais une vraie pause", "Éloigne-toi, et ça\nredevient facile."),
                 PlayCaption("C’est toi qui choisis", "Bloque les applis qui\nte volent ton temps."),
-                PlayCaption("Tes règles", "Choisis à quelle fréquence,\net à quel niveau."),
-                PlayCaption("Libre et open source", "Pas de pub. Pas de pistage.\nPas d’internet."),
+                PlayCaption("Tes règles", "Choisis le rythme\net la difficulté."),
+                PlayCaption("Libre et open source", "Ni pub, ni pistage,\nni internet."),
                 PlayCaption("Clair ou sombre", ""),
             ),
         "hi" to
             listOf(
                 PlayCaption("ध्यान भटकाने वाला ऐप? ज़रा रुकिए", "थोड़ा-सा गणित, बहुत कम स्क्रॉल।"),
-                PlayCaption("बदलती कठिनाई", "जितना ज़्यादा स्क्रॉल, उतना मुश्किल।"),
-                PlayCaption("सच्चा ब्रेक लें", "थोड़ा दूर रहें, फिर से आसान हो जाएगा।"),
+                PlayCaption("बदलती कठिनाई", "जितना ज़्यादा स्क्रॉल,\nउतना मुश्किल।"),
+                PlayCaption("सच्चा ब्रेक लें", "थोड़ा दूर रहें,\nफिर से आसान हो जाएगा।"),
                 PlayCaption("आपकी पसंद", "समय चुराने वाले ऐप्स लॉक करें।"),
-                PlayCaption("आपके नियम", "कितनी बार और कितना कठिन, आप चुनें।"),
+                PlayCaption("आपके नियम", "कितनी बार और कितना कठिन,\nआप चुनें।"),
                 PlayCaption("मुफ़्त और ओपन सोर्स", "न विज्ञापन, न ट्रैकिंग, न इंटरनेट।"),
                 PlayCaption("लाइट या डार्क", ""),
             ),
         "ja" to
             listOf(
-                PlayCaption("気が散るアプリ？ちょっと待って", "ちょっと計算、スクロールはぐっと減る。"),
-                PlayCaption("変化する難易度", "スクロールするほど、難しくなる。"),
+                PlayCaption("気が散るアプリ？ちょっと待って", "ちょっと計算、\nスクロールはぐっと減る。"),
+                PlayCaption("変化する難易度", "スクロールするほど、\n難しくなる。"),
                 PlayCaption("ちゃんと休憩", "離れれば、また易しくなる。"),
                 PlayCaption("あなたが選ぶ", "時間を奪うアプリをロック。"),
-                PlayCaption("あなたのルール", "頻度も難しさも、自分で決める。"),
-                PlayCaption("無料＆オープンソース", "広告なし。追跡なし。ネット不要。"),
+                PlayCaption("あなたのルール", "頻度も難しさも、\n自分で決める。"),
+                PlayCaption("無料＆オープンソース", "広告なし。追跡なし。\nネット不要。"),
                 PlayCaption("ライトもダークも", ""),
             ),
         "nb-NO" to
@@ -114,7 +114,7 @@ val playCaptions: Map<String, List<PlayCaption>> =
             listOf(
                 PlayCaption(
                     "Отвлекающее приложение? Не так быстро",
-                    "Немного математики.\nГораздо меньше скроллинга.",
+                    "Немного математики.\nМеньше скроллинга.",
                 ),
                 PlayCaption("Сложность растёт", "Чем больше листаешь,\nтем сложнее."),
                 PlayCaption("Настоящий перерыв", "Отвлекись,\nи станет снова легче."),
@@ -127,9 +127,9 @@ val playCaptions: Map<String, List<PlayCaption>> =
             listOf(
                 PlayCaption("想刷分心应用？先等等", "做点小算术，少刷一大半。"),
                 PlayCaption("难度自适应", "刷得越多，题越难。"),
-                PlayCaption("好好休息一下", "离开一会儿，难度就会降下来。"),
+                PlayCaption("好好休息一下", "离开一会儿，\n难度就会降下来。"),
                 PlayCaption("由你决定", "锁住偷走你时间的应用。"),
-                PlayCaption("你的规则", "多久挑战一次、有多难，你说了算。"),
+                PlayCaption("你的规则", "多久挑战一次、有多难，\n你说了算。"),
                 PlayCaption("免费开源", "无广告，无追踪，无需联网。"),
                 PlayCaption("浅色或深色", ""),
             ),
