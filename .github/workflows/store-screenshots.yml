@@ -11,7 +11,7 @@ on:
       - master
     paths:
       - app/src/test/java/app/plugbrain/android/screenshots/StoreScreenshots.kt
-      - app/src/test/java/app/plugbrain/android/screenshots/PlayCaptions.kt
+      - app/src/test/java/app/plugbrain/android/screenshots/PlayCaption.kt
       - .github/workflows/store-screenshots.yml
 
 permissions:
