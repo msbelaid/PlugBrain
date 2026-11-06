@@ -1,19 +1,21 @@
-PlugBrain stellt eine kurze Matheaufgabe zwischen dich und deine ablenkenden Apps.
+Hängst du im Scrollen fest? PlugBrain bricht die Doomscrolling-Gewohnheit mit einer kurzen Matheaufgabe.
 
-Wähl die Apps, die dir Zeit rauben, und wie viele Minuten du bis zur nächsten Pause hast. Ist die Zeit um, erscheint eine Aufgabe über der App. Lös sie, um weiterzumachen, oder tipp auf „App verlassen“ und mach was anderes. Auf Wunsch kommt die Aufgabe auch gleich beim Öffnen einer ablenkenden App.
+Wähl die Apps, die dir Zeit rauben, und nutz dein Handy wie immer. Ist es Zeit für eine Pause, erscheint eine Matheaufgabe über der App. Lös sie, um weiterzumachen, oder tipp auf „App verlassen“ und hol dir deine Zeit zurück. Willst du schon vor dem Start kurz nachdenken? Schalte eine Aufgabe bei jedem Öffnen einer ablenkenden App ein.
 
-Die Schwierigkeit passt sich deinen Gewohnheiten an. Jede gelöste Aufgabe macht die nächste schwerer. Bleibst du weg, wird es wieder leichter, bis zu deinem Startniveau: Anfänger, Fortgeschritten oder Experte. Über 40 Aufgabentypen, von einfachen Additionen bis zu mehrstelligen Multiplikationen.
+Je mehr du scrollst, desto schwerer wird’s
 
-Funktionen
+Jede gelöste Aufgabe macht die nächste härter. Mach eine Pause und es wird wieder leichter, bis zu deinem Startniveau: Anfänger, Fortgeschritten oder Experte. Über 40 Aufgabentypen, von schnellen Additionen bis zu mehrstelligen Multiplikationen, halten dein Gehirn eingeschaltet.
 
-- Matheaufgaben über den Apps, die du auswählst
-- Schwierigkeit, die mit der Nutzung steigt und sinkt, wenn du wegbleibst
-- Optional eine Aufgabe beim Öffnen einer App
-- Helles und dunkles Design, 11 Sprachen
+Warum PlugBrain
+
+- Ein App-Blocker, der dich zum Nachdenken bringt, kein Timer, den du einfach wegtippst
+- Weniger Bildschirmzeit bei Social Media, Spielen, Videos oder jeder App deiner Wahl
+- Schwierigkeit, die sich deinen Gewohnheiten anpasst
+- Funktioniert offline, helles und dunkles Design, 11 Sprachen
 
 Privatsphäre zuerst
 
-- Keine Werbung, kein Konto, keine Statistiken
+- Keine Werbung, kein Konto, kein Tracking
 - Keine Internetberechtigung: nichts verlässt dein Handy
 - Kostenlos und Open Source (GPL-3.0)
 

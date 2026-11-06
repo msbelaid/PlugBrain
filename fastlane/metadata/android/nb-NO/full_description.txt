@@ -1,19 +1,21 @@
-PlugBrain setter et lite regnestykke mellom deg og appene som distraherer deg.
+Sitter du fast i scrollingen? PlugBrain bryter doomscrolling-vanen med et kjapt regnestykke.
 
-Velg appene som stjeler tiden din, og hvor mange minutter du har før neste pause. Når tiden er ute, dukker det opp en utfordring over appen. Løs den for å fortsette, eller trykk på Gå ut av appen og gjør noe annet. Du kan også få en utfordring med en gang du åpner en distraherende app.
+Velg appene som stjeler tiden din, og bruk telefonen som vanlig. Når det er tid for en pause, dukker det opp en regneutfordring over appen. Løs den for å fortsette, eller trykk på Gå ut av appen og ta tilbake tiden din. Vil du tenke deg om før du i det hele tatt begynner? Slå på en utfordring hver gang du åpner en distraherende app.
 
-Vanskelighetsgraden følger vanene dine. Hver utfordring du løser, gjør den neste vanskeligere. Holder du deg unna, blir det lettere igjen, ned til nivået du startet på: Nybegynner, Middels eller Ekspert. Over 40 typer oppgaver, fra enkle addisjoner til multiplikasjon med flere sifre.
+Jo mer du scroller, jo vanskeligere blir det
 
-Funksjoner
+Hver utfordring du løser, gjør den neste tøffere. Ta en pause, og det blir lettere igjen, ned til startnivået ditt: Nybegynner, Middels eller Ekspert. Over 40 typer oppgaver, fra kjappe addisjoner til multiplikasjon med flere sifre, holder hjernen din skrudd på.
 
-- Regneutfordringer over appene du velger
-- Vanskelighetsgrad som øker med bruk og synker når du holder deg unna
-- Valgfri utfordring når en app åpnes
-- Lyst og mørkt tema, 11 språk
+Hvorfor PlugBrain
+
+- En appblokkerer som får deg til å tenke, ikke en timer du bare trykker forbi
+- Mindre skjermtid på sosiale medier, spill, video eller hvilken som helst app du velger
+- Vanskelighetsgrad som tilpasser seg vanene dine
+- Fungerer uten nett, lyst og mørkt tema, 11 språk
 
 Personvern først
 
-- Ingen reklame, ingen konto, ingen statistikk
+- Ingen reklame, ingen konto, ingen sporing
 - Ingen internettillatelse: ingenting forlater telefonen din
 - Gratis og åpen kildekode (GPL-3.0)
 

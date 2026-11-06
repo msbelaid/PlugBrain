@@ -1,1 +1,1 @@
-PlugBrain blokkerer apper med regneoppgaver for å kutte ned på skjermtiden.
+Blokker distraherende apper med et regnestykke. Mindre scrolling, mer fokus.

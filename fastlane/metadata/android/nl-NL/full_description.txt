@@ -1,19 +1,21 @@
-PlugBrain zet een korte rekensom tussen jou en je afleidende apps.
+Blijf je maar scrollen? PlugBrain doorbreekt de doomscroll-gewoonte met een snelle rekensom.
 
-Kies de apps die je tijd opslokken en hoeveel minuten je hebt tot de volgende pauze. Is de tijd om, dan verschijnt er een uitdaging over de app. Los hem op om door te gaan, of tik op App verlaten en ga iets anders doen. Je kunt ook meteen een uitdaging krijgen zodra je een afleidende app opent.
+Kies de apps die je tijd opslokken en gebruik je telefoon zoals altijd. Is het tijd voor een pauze, dan verschijnt er een rekenuitdaging over de app. Los hem op om door te gaan, of tik op App verlaten en pak je tijd terug. Wil je al nadenken voordat je begint? Zet een uitdaging aan bij elke afleidende app die je opent.
 
-De moeilijkheid volgt je gewoontes. Elke opgeloste uitdaging maakt de volgende moeilijker. Blijf je weg, dan wordt het weer makkelijker, tot het niveau waarmee je begon: Beginner, Gemiddeld of Expert. Meer dan 40 soorten sommen, van simpele optellingen tot vermenigvuldigingen met meerdere cijfers.
+Hoe meer je scrollt, hoe moeilijker het wordt
 
-Functies
+Elke opgeloste uitdaging maakt de volgende pittiger. Neem afstand en het wordt weer makkelijker, tot je startniveau: Beginner, Gemiddeld of Expert. Meer dan 40 soorten sommen, van snelle optellingen tot vermenigvuldigingen met meerdere cijfers, houden je brein aan.
 
-- Rekensommen over de apps die jij kiest
-- Moeilijkheid die stijgt als je de apps gebruikt en daalt als je wegblijft
-- Optioneel een uitdaging bij het openen van een app
-- Licht en donker thema, 11 talen
+Waarom PlugBrain
+
+- Een app-blokker die je laat nadenken, geen timer die je wegtikt
+- Minder schermtijd op social media, games, video’s of elke app die jij kiest
+- Moeilijkheid die zich aanpast aan je eigen gewoontes
+- Werkt offline, licht en donker thema, 11 talen
 
 Privacy voorop
 
-- Geen advertenties, geen account, geen statistieken
+- Geen advertenties, geen account, geen tracking
 - Geen internettoestemming: niets verlaat je telefoon
 - Gratis en open source (GPL-3.0)
 
