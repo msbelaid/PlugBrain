@@ -1,16 +1,19 @@
 name: Store listing
 
 # Checks the store listing text in fastlane/metadata/android against Google Play's limits
-# (title 30, short description 80, full description 4000, release notes 500 characters).
+# (title 30, short description 80, full description 4000, release notes 500 characters), and warns
+# about languages with no release notes for the versionCode in app/build.gradle.kts.
 on:
   pull_request:
     paths:
       - 'fastlane/**'
+      - 'app/build.gradle.kts'
       - '.github/workflows/store-listing.yml'
   push:
     branches: [master]
     paths:
       - 'fastlane/**'
+      - 'app/build.gradle.kts'
 
 permissions:
   contents: read
