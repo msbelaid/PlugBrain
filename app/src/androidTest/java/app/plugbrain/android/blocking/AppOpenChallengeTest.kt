@@ -104,7 +104,8 @@ class AppOpenChallengeTest {
     fun goingHomeFromTheChallenge_bringsItBackWhenTheAppOpensAgain() {
         driver.setUpBlocking(blockInterval = BLOCK_INTERVAL, challengeOnAppOpen = true)
         driver.turnOnPlugBrain()
-        driver.awaitChallenge()
+        // Going Home while Settings is still starting raced the challenge it opens again.
+        driver.awaitSettledChallenge()
 
         driver.device.pressHome()
         assertTrue("The challenge stayed on screen after Home", driver.waitFor { !ChallengeActivity.isCoveringScreen })
