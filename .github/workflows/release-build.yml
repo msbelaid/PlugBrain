@@ -59,7 +59,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Run KtLint
         run: ./gradlew ktlintCheck
@@ -81,7 +81,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Run detekt
         run: ./gradlew detekt
@@ -119,7 +119,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       # Lints app, appusage, blocking, designsystem, challenges and datastore in one report (checkDependencies).
       - name: Run Android Lint
@@ -157,7 +157,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Build installable APK (signed with the CI test key)
         run: ./gradlew assembleRelease -PsignWithTestKey
@@ -249,7 +249,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       # Runs the unit tests of every module, merges their coverage into one report and prints the
       # total, then fails if it is below the floor set in the root build.gradle.kts.
@@ -290,7 +290,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       # verifyPaparazziDebug runs the whole unit test task, so only the screenshot tests are
       # picked here; the Unit Tests job runs the rest.
@@ -332,7 +332,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Enable KVM group perms
         run: |
