@@ -1,8 +1,9 @@
 require "tmpdir"
 require "fileutils"
+require_relative "store_listing"
 
 # Google Play lanes. They run on GitHub Actions, which passes the service account key in the
-# PLAY_SERVICE_ACCOUNT_JSON environment variable. No lane changes the store listing.
+# PLAY_SERVICE_ACCOUNT_JSON environment variable. Only the listing lane changes the store listing.
 # Tracks, from least to most public: internal, alpha (closed testing), beta (open testing), production.
 opt_out_usage
 default_platform(:android)
@@ -90,6 +91,21 @@ platform :android do
       version_code: latest_version_code(track),
       release_status: "halted",
     )
+  end
+
+  desc "Upload the store listing text (title, short and full description) of every locale. No images"
+  lane :listing do
+    problems = StoreListing.problems
+    UI.user_error!("Store listing has problems:\n#{problems.join("\n")}") unless problems.empty?
+
+    play = {
+      **no_uploads,
+      skip_upload_metadata: false,
+      metadata_path: StoreListing.play_listing_dir(Dir.mktmpdir("play-listing")),
+    }
+    # Dry run first, so a locale or text Play rejects fails before the listing changes.
+    upload_to_play_store(**play, validate_only: true)
+    upload_to_play_store(**play)
   end
 
   def no_uploads

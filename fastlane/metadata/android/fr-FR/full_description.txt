@@ -1,0 +1,17 @@
+PlugBrain t’aide à faire des pauses régulières loin des applis qui te distraient, en bloquant leur accès à intervalles réguliers.
+Pour y revenir, tu dois résoudre un petit défi de calcul dont la difficulté s’adapte : plus tu utilises ces applis souvent, plus les défis sont durs, et plus tu restes loin, plus ils deviennent faciles.
+
+**Fonctionnalités**
+
+- Aucune pub
+- Pas besoin d’internet
+- Bloque les applis qui te distraient
+- Débloque-les en résolvant des défis de calcul
+- La difficulté augmente si tu les utilises souvent, et baisse quand tu restes concentré
+
+**Comment l’utiliser**
+
+- Accorde toutes les autorisations nécessaires
+- Choisis les applis qui te distraient
+- Choisis ton intervalle de concentration
+- Reste concentré ;)
