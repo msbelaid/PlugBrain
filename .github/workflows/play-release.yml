@@ -5,7 +5,8 @@ name: Play release
 #   promote   copy the latest release of "from track" to "track", at the given rollout
 #   rollout   change the staged rollout of the latest release on "track" (1 = everyone)
 #   halt      stop the staged rollout on "track"
-#   listing   upload the store listing text of every locale from fastlane/metadata/android (no images)
+#   listing   upload the store listing of every locale: text from fastlane/metadata/android, feature
+#             graphic and framed screenshots from fastlane/play-images
 # Each run uses the GitHub environment play-<track>, and listing uses play-production since the listing is
 # public at once. Give play-production a required reviewer in Settings > Environments, so nothing reaches
 # production without that approval.

@@ -93,7 +93,7 @@ platform :android do
     )
   end
 
-  desc "Upload the store listing text (title, short and full description) of every locale. No images"
+  desc "Upload the store listing of every locale: title, short and full description, feature graphic, phone screenshots"
   lane :listing do
     problems = StoreListing.problems
     UI.user_error!("Store listing has problems:\n#{problems.join("\n")}") unless problems.empty?
@@ -101,6 +101,10 @@ platform :android do
     play = {
       **no_uploads,
       skip_upload_metadata: false,
+      skip_upload_images: false,
+      skip_upload_screenshots: false,
+      # Only images whose checksum changed are replaced.
+      sync_image_upload: true,
       metadata_path: StoreListing.play_listing_dir(Dir.mktmpdir("play-listing")),
     }
     # Dry run first, so a locale or text Play rejects fails before the listing changes.
