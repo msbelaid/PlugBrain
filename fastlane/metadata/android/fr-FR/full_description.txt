@@ -1,19 +1,21 @@
-PlugBrain place un petit calcul entre toi et les applis qui te distraient.
+Tu scrolles sans fin ? PlugBrain casse l’habitude du scroll infini avec un petit calcul.
 
-Choisis les applis qui te prennent trop de temps et le nombre de minutes avant une pause. Quand le temps est écoulé, un défi s’affiche par-dessus l’appli. Résous-le pour continuer, ou touche Quitter l’appli et passe à autre chose. Tu peux aussi recevoir un défi dès qu’une appli qui te distrait s’ouvre.
+Choisis les applis qui te volent ton temps et utilise ton téléphone comme d’habitude. Quand c’est l’heure de faire une pause, un défi de calcul s’affiche par-dessus l’appli. Résous-le pour continuer, ou touche Quitter l’appli et reprends ton temps. Envie de réfléchir avant même de commencer ? Active un défi à chaque ouverture d’une appli qui te distrait.
 
-La difficulté suit tes habitudes. Chaque défi résolu rend le suivant plus dur. Reste loin et ça redevient plus facile, jusqu’au niveau de départ que tu as choisi : Débutant, Intermédiaire ou Expert. Plus de 40 types de calculs, des additions simples aux multiplications à plusieurs chiffres.
+Plus tu scrolles, plus c’est dur
 
-Fonctionnalités
+Chaque défi réussi rend le suivant plus difficile. Fais une pause et ça redevient plus facile, jusqu’à ton niveau de départ : Débutant, Intermédiaire ou Expert. Plus de 40 types de calculs, des additions rapides aux multiplications à plusieurs chiffres, pour garder ton cerveau allumé.
 
-- Des défis de calcul sur les applis que tu choisis
-- Une difficulté qui monte quand tu les utilises et baisse quand tu t’en éloignes
-- Un défi à l’ouverture d’une appli, si tu veux
-- Thème clair et sombre, 11 langues
+Pourquoi PlugBrain
+
+- Un bloqueur d’applis qui te fait réfléchir, pas un minuteur qu’on ignore d’un tap
+- Réduis ton temps d’écran sur les réseaux sociaux, les jeux, les vidéos ou n’importe quelle appli
+- Une difficulté qui s’adapte à tes habitudes
+- Fonctionne hors ligne, thème clair et sombre, 11 langues
 
 Respect de ta vie privée
 
-- Pas de pub, pas de compte, pas de statistiques
+- Pas de pub, pas de compte, pas de pistage
 - Pas d’accès à internet : rien ne quitte ton téléphone
 - Libre et open source (GPL-3.0)
 
