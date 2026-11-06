@@ -1,7 +1,8 @@
 name: Store screenshots
 
 # Renders the phone screenshots for every store language (StoreScreenshots in the app's tests) and
-# commits them to fastlane/metadata/android/<locale>/images/phoneScreenshots. Runs on the branch picked in "Run workflow",
+# commits them to fastlane/metadata/android/<locale>/images/phoneScreenshots (plain, for F-Droid and
+# IzzyOnDroid) and fastlane/play-images/<locale>/phoneScreenshots (framed with a caption, for Google Play). Runs on the branch picked in "Run workflow",
 # and on pushes to other branches that change the screenshot test, so they land with the PR.
 on:
   workflow_dispatch:
@@ -10,6 +11,7 @@ on:
       - master
     paths:
       - app/src/test/java/app/plugbrain/android/screenshots/StoreScreenshots.kt
+      - app/src/test/java/app/plugbrain/android/screenshots/PlayCaption.kt
       - .github/workflows/store-screenshots.yml
 
 permissions:
@@ -45,7 +47,8 @@ jobs:
           STORE_SCREENSHOTS: 'true'
         run: ./gradlew :app:recordPaparazziDebug --tests 'app.plugbrain.android.screenshots.StoreScreenshots'
 
-      # Paparazzi names each snapshot ..._StoreScreenshots_<test>_<locale folder, lowercased>_<n>.png.
+      # Paparazzi names each snapshot ..._StoreScreenshots_<test>_<locale folder, lowercased>_<n>.png,
+      # and the Google Play ones ..._<locale folder, lowercased>_play<n>.png.
       - name: Move screenshots into fastlane
         run: |
           snapshots=app/src/test/snapshots/images
@@ -57,6 +60,13 @@ jobs:
               number=${file##*_}
               mv "$file" "$target/$number"
             done
+            play=fastlane/play-images/$folder/phoneScreenshots
+            rm -rf "$play"
+            mkdir -p "$play"
+            for file in "$snapshots"/*_StoreScreenshots_*_"${folder,,}"_play[0-9].png; do
+              number=${file##*_play}
+              mv "$file" "$play/$number"
+            done
           done
           # Only the fastlane copies are kept.
           git checkout -- app/src/test/snapshots
@@ -64,7 +74,7 @@ jobs:
 
       - name: Commit and push screenshots
         run: |
-          git add --all fastlane/metadata/android
+          git add --all fastlane/metadata/android fastlane/play-images
           if git diff --cached --quiet; then
             echo "Screenshots are already up to date."
             exit 0

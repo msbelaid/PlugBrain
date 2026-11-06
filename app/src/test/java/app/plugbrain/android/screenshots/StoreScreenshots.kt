@@ -9,20 +9,46 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
+import app.plugbrain.android.R
 import app.plugbrain.android.appsusage.model.InstalledApp
 import app.plugbrain.android.challenges.addition.AdditionChallenge
+import app.plugbrain.android.repository.model.PermissionsState
 import app.plugbrain.android.ui.blockinterval.BlockIntervalSheet
 import app.plugbrain.android.ui.challenges.compose.NumericalChallengeScreen
 import app.plugbrain.android.ui.main.compose.MainScreen
@@ -30,9 +56,18 @@ import app.plugbrain.android.ui.main.presentation.DashboardStatus
 import app.plugbrain.android.ui.main.presentation.MainScreenState
 import app.plugbrain.android.ui.mindifficulty.MinDifficultySheet
 import app.plugbrain.android.ui.onboarding.AppsStep
+import app.plugbrain.android.ui.onboarding.PermissionsStep
+import app.plugbrain.android.ui.onboarding.PreferencesStep
 import app.plugbrain.android.ui.onboarding.WelcomeScreen
+import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 import app.plugbrain.android.ui.selectapps.presentation.InstalledAppsState
+import app.plugbrain.android.ui.theme.Neutral900
 import app.plugbrain.android.ui.theme.PlugBrainTheme
+import app.plugbrain.android.ui.theme.Primary100
+import app.plugbrain.android.ui.theme.Primary300
+import app.plugbrain.android.ui.theme.Primary600
+import app.plugbrain.android.ui.theme.Primary700
+import app.plugbrain.android.ui.theme.SoraFontFamily
 import coil3.annotation.ExperimentalCoilApi
 import coil3.asImage
 import coil3.compose.AsyncImagePreviewHandler
@@ -62,6 +97,9 @@ private val storeLocales =
  * The store screenshots, one set per fastlane locale folder, at full Pixel 5 resolution.
  * They only run with STORE_SCREENSHOTS=true: the "Store screenshots" workflow records them with
  * Paparazzi and moves each `<folder>_<n>` snapshot to `<folder>/images/phoneScreenshots/<n>.png`.
+ *
+ * The `play...` tests render the Google Play set: 1080x1920, a caption over each screen in a phone frame.
+ * The workflow moves each `<folder>_play<n>` snapshot to `fastlane/play-images/<folder>/phoneScreenshots/<n>.png`.
  */
 class StoreScreenshots {
     @get:Rule
@@ -141,6 +179,166 @@ class StoreScreenshots {
     @Test
     fun dashboardDark() = snapshotInEveryLocale(7, darkTheme = true) { dashboard() }
 
+    @Test
+    fun playChallenge() =
+        playInEveryLocale(1, PlayBackground.Dark) {
+            NumericalChallengeScreen(
+                challenge = challenge,
+                unlockMinutes = 15,
+                onUnlockApp = {},
+                onExitChallenge = {},
+            )
+        }
+
+    @Test
+    fun playDashboardOn() = playInEveryLocale(2, PlayBackground.Light) { dashboard() }
+
+    @Test
+    fun playDashboardLocked() =
+        playInEveryLocale(3, PlayBackground.Teal) {
+            dashboard(DashboardStatus.AppsLocked(awayMinutes = 6, challengeLevel = 5))
+        }
+
+    @Test
+    fun playChooseApps() = playInEveryLocale(4, PlayBackground.Light) { appsStep() }
+
+    @Test
+    fun playPreferences() =
+        playInEveryLocale(5, PlayBackground.Dark) {
+            PreferencesStep(
+                blockInterval = 5,
+                difficulty = DifficultyPreset.Beginner,
+                onBlockIntervalSelect = {},
+                onDifficultySelect = {},
+                onFinish = {},
+                onSkip = {},
+            )
+        }
+
+    @Test
+    fun playPermissions() =
+        playInEveryLocale(6, PlayBackground.Light) {
+            PermissionsStep(
+                permissions =
+                    PermissionsState(
+                        accessibilityPermission = true,
+                        usageStatsPermission = true,
+                        systemAlertWindow = true,
+                    ),
+                onPermissionClick = {},
+                onProceed = {},
+            )
+        }
+
+    @Test
+    fun playDashboardDark() = playInEveryLocale(7, PlayBackground.Dark, darkTheme = true) { dashboard() }
+
+    private enum class PlayBackground(
+        val brush: Brush,
+        val eyebrow: Color,
+        val headline: Color,
+    ) {
+        Dark(Brush.verticalGradient(listOf(Color(0xFF07343B), Color(0xFF021A1F))), Primary300, Color.White),
+        Teal(Brush.verticalGradient(listOf(Primary600, Primary700)), Primary100, Color.White),
+        Light(Brush.verticalGradient(listOf(Color(0xFFF7F3F2), Color(0xFFF7F3F2))), Primary600, Neutral900),
+    }
+
+    private fun playInEveryLocale(
+        number: Int,
+        background: PlayBackground,
+        darkTheme: Boolean = false,
+        screen: @Composable () -> Unit,
+    ) {
+        storeLocales.forEach { (folder, locale) ->
+            paparazzi.unsafeUpdateConfig(
+                deviceConfig = DeviceConfig.PIXEL_5.copy(locale = locale, screenHeight = PLAY_HEIGHT_PX),
+            )
+            val caption = playCaptions.getValue(folder)[number - 1]
+            paparazzi.snapshot(name = "${folder}_play$number") {
+                themed {
+                    playFrame(caption = caption, background = background) {
+                        themed(darkTheme = darkTheme, content = screen)
+                    }
+                }
+            }
+        }
+    }
+
+    private val captionStyle = TextStyle(fontFamily = SoraFontFamily, fontWeight = FontWeight.SemiBold)
+
+    // A caption over the app screen, shown in a phone frame that runs off the bottom edge.
+    @Composable
+    private fun playFrame(
+        caption: PlayCaption,
+        background: PlayBackground,
+        screen: @Composable () -> Unit,
+    ) = BoxWithConstraints(Modifier.fillMaxSize()) {
+        val phoneWidth = maxWidth
+        Column(
+            modifier = Modifier.fillMaxSize().background(background.brush).padding(top = 40.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
+        ) {
+            Text(
+                text = caption.eyebrow.uppercase(),
+                modifier = Modifier.padding(horizontal = 24.dp),
+                // Spaced small capitals only suit scripts with capitals; others get plain, slightly larger text.
+                style =
+                    if (caption.eyebrow.uppercase() != caption.eyebrow) {
+                        captionStyle.copy(fontSize = 11.sp, letterSpacing = 0.12.em)
+                    } else {
+                        captionStyle.copy(fontSize = 13.sp)
+                    },
+                color = background.eyebrow,
+                textAlign = TextAlign.Center,
+            )
+            Spacer(Modifier.height(10.dp))
+            Text(
+                text = caption.headline.ifEmpty { stringResource(R.string.welcome_title) },
+                modifier = Modifier.padding(horizontal = 28.dp),
+                style = captionStyle.copy(fontSize = 26.sp, lineHeight = 32.sp),
+                color = background.headline,
+                textAlign = TextAlign.Center,
+            )
+            Spacer(Modifier.height(28.dp))
+            val frameWidth = phoneWidth * PLAY_FRAME_SHARE
+            val bezel = RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp)
+            Box(
+                modifier =
+                    Modifier
+                        .width(frameWidth)
+                        .weight(1f)
+                        .clip(bezel)
+                        .background(Color(0xFF0A1414))
+                        .border(1.dp, Color.White.copy(alpha = 0.12f), bezel)
+                        .padding(start = 8.dp, top = 8.dp, end = 8.dp),
+            ) {
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)),
+                ) {
+                    // The screen keeps its real phone size and is scaled down to fit the frame.
+                    Box(
+                        modifier =
+                            Modifier
+                                .wrapContentSize(Alignment.TopCenter, unbounded = true)
+                                .requiredSize(phoneWidth, phoneWidth * PHONE_ASPECT)
+                                .graphicsLayer {
+                                    val scale = (frameWidth - 16.dp) / phoneWidth
+                                    scaleX = scale
+                                    scaleY = scale
+                                    transformOrigin = TransformOrigin(0.5f, 0f)
+                                },
+                    ) {
+                        screen()
+                    }
+                }
+            }
+        }
+    }
+
     private fun snapshotInEveryLocale(
         number: Int,
         darkTheme: Boolean = false,
@@ -176,17 +374,19 @@ class StoreScreenshots {
     private val blockedPackages = apps.take(5).map { it.packageName }.toSet()
 
     @Composable
-    private fun dashboard() {
+    private fun dashboard(
+        status: DashboardStatus =
+            DashboardStatus.Active(
+                usedMinutes = 4,
+                blockInterval = 15,
+                nextChallengeLevel = 4,
+                maxChallengeLevel = 15,
+            ),
+    ) {
         MainScreen(
             state =
                 MainScreenState(
-                    status =
-                        DashboardStatus.Active(
-                            usedMinutes = 4,
-                            blockInterval = 15,
-                            nextChallengeLevel = 4,
-                            maxChallengeLevel = 15,
-                        ),
+                    status = status,
                     blockedApps = apps.filter { it.packageName in blockedPackages }.map { it.toInstalledApp() },
                     blockInterval = 15,
                     minDifficulty = 5,
@@ -279,3 +479,10 @@ class StoreScreenshots {
         }
     }
 }
+
+// Google Play phone screenshots are 9:16, so the Pixel 5 canvas is cut to 1080x1920 px.
+private const val PLAY_HEIGHT_PX = 1920
+
+// The phone frame takes this share of the width; the screen inside keeps the Pixel 5's 1080:2340 shape.
+private const val PLAY_FRAME_SHARE = 0.76f
+private const val PHONE_ASPECT = 2340f / 1080f
