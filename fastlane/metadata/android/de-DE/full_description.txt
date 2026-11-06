@@ -1,17 +1,22 @@
-PlugBrain ist eine App, die regelmässige Pausen von ablenkenden Apps fördert, indem sie in geplanten Intervallen den Zugriff blockiert.
-Um wieder Zugriff zu erhalten, musst du ein Mathematik-Rätsel lösen, das sich in der Schwierigkeit anpasst: je öfter du die Apps nutzt, je schwieriger werden die Rätsel, aber desto länger du fern bleibst, desto einfacher werden sie.
+PlugBrain stellt eine kurze Matheaufgabe zwischen dich und deine ablenkenden Apps.
 
-**Funktionen**
+Wähl die Apps, die dir Zeit rauben, und wie viele Minuten du bis zur nächsten Pause hast. Ist die Zeit um, erscheint eine Aufgabe über der App. Lös sie, um weiterzumachen, oder tipp auf „App verlassen“ und mach was anderes. Auf Wunsch kommt die Aufgabe auch gleich beim Öffnen einer ablenkenden App.
 
-- Keine Werbung
-- Kein Internet benötigt
-- Blockiert ablenkende Apps
-- Entblockt Apps indem Mathematik-Rätsel gelöst werden
-- Schwierigkeit nimmt mit häufiger Nutzung zu, nimmt mit mehr Fokus ab
+Die Schwierigkeit passt sich deinen Gewohnheiten an. Jede gelöste Aufgabe macht die nächste schwerer. Bleibst du weg, wird es wieder leichter, bis zu deinem Startniveau: Anfänger, Fortgeschritten oder Experte. Über 40 Aufgabentypen, von einfachen Additionen bis zu mehrstelligen Multiplikationen.
 
-**Wie funktionierts?**
+Funktionen
 
-- Erlaube alle erforderlichen Berechtigungen
-- Wähle ablenkende Apps aus
-- Wähle deinen Fokus-Intervall
-- Bleib fokussiert ;)
+- Matheaufgaben über den Apps, die du auswählst
+- Schwierigkeit, die mit der Nutzung steigt und sinkt, wenn du wegbleibst
+- Optional eine Aufgabe beim Öffnen einer App
+- Helles und dunkles Design, 11 Sprachen
+
+Privatsphäre zuerst
+
+- Keine Werbung, kein Konto, keine Statistiken
+- Keine Internetberechtigung: nichts verlässt dein Handy
+- Kostenlos und Open Source (GPL-3.0)
+
+Berechtigungen
+
+PlugBrain nutzt den Zugriff auf Nutzungsdaten, das Einblenden über anderen Apps und die Bedienungshilfen, um zu sehen, welche App offen ist, und die Aufgabe darüber anzuzeigen. Während einer Aufgabe sperrt es auch Taschenrechner. Es liest nur den Namen der offenen App, nie was auf dem Bildschirm steht oder was du tippst.

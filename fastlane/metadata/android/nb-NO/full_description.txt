@@ -1,17 +1,22 @@
-PlugBrain er en app som oppmuntrer deg til å ta jevnlige pauser fra distraherende apper ved å blokkere dem med faste mellomrom.
-For å få tilgang igjen må du løse en regneoppgave som tilpasser seg deg: jo oftere du bruker appene, desto vanskeligere blir oppgavene, men jo lenger du holder deg unna, desto lettere blir de.
+PlugBrain setter et lite regnestykke mellom deg og appene som distraherer deg.
 
-**Funksjoner**
+Velg appene som stjeler tiden din, og hvor mange minutter du har før neste pause. Når tiden er ute, dukker det opp en utfordring over appen. Løs den for å fortsette, eller trykk på Gå ut av appen og gjør noe annet. Du kan også få en utfordring med en gang du åpner en distraherende app.
 
-- Ingen reklame
-- Trenger ikke internett
-- Blokkerer distraherende apper
-- Lås opp apper ved å løse regneoppgaver
-- Vanskeligere når du bruker appene ofte, lettere når du holder fokus
+Vanskelighetsgraden følger vanene dine. Hver utfordring du løser, gjør den neste vanskeligere. Holder du deg unna, blir det lettere igjen, ned til nivået du startet på: Nybegynner, Middels eller Ekspert. Over 40 typer oppgaver, fra enkle addisjoner til multiplikasjon med flere sifre.
 
-**Slik bruker du den**
+Funksjoner
 
-- Gi alle tillatelsene som trengs
-- Velg apper som distraherer deg
-- Velg hvor ofte du vil bli stoppet
-- Hold fokus ;)
+- Regneutfordringer over appene du velger
+- Vanskelighetsgrad som øker med bruk og synker når du holder deg unna
+- Valgfri utfordring når en app åpnes
+- Lyst og mørkt tema, 11 språk
+
+Personvern først
+
+- Ingen reklame, ingen konto, ingen statistikk
+- Ingen internettillatelse: ingenting forlater telefonen din
+- Gratis og åpen kildekode (GPL-3.0)
+
+Tillatelser
+
+PlugBrain bruker tilgang til appbruk, visning over andre apper og tilgjengelighetstjenesten for å se hvilken app som er åpen og vise utfordringen over den. Under en utfordring blokkerer den også kalkulatorer. Den leser bare navnet på appen som er åpen, aldri det som står på skjermen eller det du skriver.

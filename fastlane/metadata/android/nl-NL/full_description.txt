@@ -1,17 +1,22 @@
-PlugBrain is een app die regelmatige pauzes van afleidende apps aanmoedigt, door toegang te blokkeren in geplande intervals.
-Om toegang terug te krijgen los je eerst een wiskundeprobleem op. De moeilijkheid van het probleem past zich aan: des te vaker je de apps gebruikt, des te moeilijker worden de problemen, maar als je langer pauze neemt worden ze makkelijker.
+PlugBrain zet een korte rekensom tussen jou en je afleidende apps.
 
-**Functies**
+Kies de apps die je tijd opslokken en hoeveel minuten je hebt tot de volgende pauze. Is de tijd om, dan verschijnt er een uitdaging over de app. Los hem op om door te gaan, of tik op App verlaten en ga iets anders doen. Je kunt ook meteen een uitdaging krijgen zodra je een afleidende app opent.
 
-- Geen ads
-- Geen internet nodig
-- Blokkeert afleidende apps
-- Los wiskundeproblemen op om toegang te krijgen
-- Moeilijker met meer gebruikt, makkelijker met meer focus
+De moeilijkheid volgt je gewoontes. Elke opgeloste uitdaging maakt de volgende moeilijker. Blijf je weg, dan wordt het weer makkelijker, tot het niveau waarmee je begon: Beginner, Gemiddeld of Expert. Meer dan 40 soorten sommen, van simpele optellingen tot vermenigvuldigingen met meerdere cijfers.
 
-**Hoe te gebruiken**
+Functies
 
-- Geef alle nodige toestemmingen
-- Selecteer afleidende apps
-- Kies je focus interval
-- Blijf geconcentreerd ;)
+- Rekensommen over de apps die jij kiest
+- Moeilijkheid die stijgt als je de apps gebruikt en daalt als je wegblijft
+- Optioneel een uitdaging bij het openen van een app
+- Licht en donker thema, 11 talen
+
+Privacy voorop
+
+- Geen advertenties, geen account, geen statistieken
+- Geen internettoestemming: niets verlaat je telefoon
+- Gratis en open source (GPL-3.0)
+
+Toestemmingen
+
+PlugBrain gebruikt toegang tot gebruiksgegevens, weergeven over andere apps en de toegankelijkheidsservice om te zien welke app open is en de uitdaging erover te tonen. Tijdens een uitdaging blokkeert het ook rekenmachines. Het leest alleen de naam van de geopende app, nooit wat er op je scherm staat of wat je typt.
