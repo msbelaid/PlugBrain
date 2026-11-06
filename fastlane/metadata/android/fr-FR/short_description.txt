@@ -1,1 +1,1 @@
-PlugBrain bloque tes applis avec des défis de calcul pour moins d’écran.
+Bloque tes applis avec un petit calcul. Moins de scroll, plus de concentration.
