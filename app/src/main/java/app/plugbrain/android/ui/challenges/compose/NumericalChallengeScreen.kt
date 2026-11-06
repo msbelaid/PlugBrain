@@ -55,6 +55,7 @@ fun NumericalChallengeScreen(
   onUnlockApp: () -> Unit,
   onExitChallenge: () -> Unit,
   modifier: Modifier = Modifier,
+  onPasteDetected: () -> Unit = {},
 ) {
   var answer by rememberSaveable(challenge) { mutableStateOf("") }
   var answerState by remember(challenge) { mutableStateOf(AnswerState.Idle) }

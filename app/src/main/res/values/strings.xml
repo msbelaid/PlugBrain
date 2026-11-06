@@ -29,6 +29,7 @@
     <string name="challenge_answer_placeholder">Write your answer</string>
     <string name="challenge_check_answer">Check Answer</string>
     <string name="challenge_leave_app">Leave App</string>
+    <string name="challenge_paste_warning">Pasted answers don\'t count. Here\'s a new one.</string>
     <string name="challenge_correct_answer">Correct Answer</string>
     <string name="challenge_stay_focused">Stay Focused</string>
     <string name="challenge_unlock_app">Unlock App for %d min</string>
