@@ -1,17 +1,24 @@
-PlugBrain ist eine App, die regelmässige Pausen von ablenkenden Apps fördert, indem sie in geplanten Intervallen den Zugriff blockiert.
-Um wieder Zugriff zu erhalten, musst du ein Mathematik-Rätsel lösen, das sich in der Schwierigkeit anpasst: je öfter du die Apps nutzt, je schwieriger werden die Rätsel, aber desto länger du fern bleibst, desto einfacher werden sie.
+Hängst du im Scrollen fest? PlugBrain bricht die Doomscrolling-Gewohnheit mit einer kurzen Matheaufgabe.
 
-**Funktionen**
+Wähl die Apps, die dir Zeit rauben, und nutz dein Handy wie immer. Ist es Zeit für eine Pause, erscheint eine Matheaufgabe über der App. Lös sie, um weiterzumachen, oder tipp auf „App verlassen“ und hol dir deine Zeit zurück. Willst du schon vor dem Start kurz nachdenken? Schalte eine Aufgabe bei jedem Öffnen einer ablenkenden App ein.
 
-- Keine Werbung
-- Kein Internet benötigt
-- Blockiert ablenkende Apps
-- Entblockt Apps indem Mathematik-Rätsel gelöst werden
-- Schwierigkeit nimmt mit häufiger Nutzung zu, nimmt mit mehr Fokus ab
+Je mehr du scrollst, desto schwerer wird’s
 
-**Wie funktionierts?**
+Jede gelöste Aufgabe macht die nächste härter. Mach eine Pause und es wird wieder leichter, bis zu deinem Startniveau: Anfänger, Fortgeschritten oder Experte. Über 40 Aufgabentypen, von schnellen Additionen bis zu mehrstelligen Multiplikationen, halten dein Gehirn eingeschaltet.
 
-- Erlaube alle erforderlichen Berechtigungen
-- Wähle ablenkende Apps aus
-- Wähle deinen Fokus-Intervall
-- Bleib fokussiert ;)
+Warum PlugBrain
+
+- Ein App-Blocker, der dich zum Nachdenken bringt, kein Timer, den du einfach wegtippst
+- Weniger Bildschirmzeit bei Social Media, Spielen, Videos oder jeder App deiner Wahl
+- Schwierigkeit, die sich deinen Gewohnheiten anpasst
+- Funktioniert offline, helles und dunkles Design, 11 Sprachen
+
+Privatsphäre zuerst
+
+- Keine Werbung, kein Konto, kein Tracking
+- Keine Internetberechtigung: nichts verlässt dein Handy
+- Kostenlos und Open Source (GPL-3.0)
+
+Berechtigungen
+
+PlugBrain nutzt den Zugriff auf Nutzungsdaten, das Einblenden über anderen Apps und die Bedienungshilfen, um zu sehen, welche App offen ist, und die Aufgabe darüber anzuzeigen. Während einer Aufgabe sperrt es auch Taschenrechner. Es liest nur den Namen der offenen App, nie was auf dem Bildschirm steht oder was du tippst.
