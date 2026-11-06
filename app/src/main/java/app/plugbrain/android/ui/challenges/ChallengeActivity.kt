@@ -90,6 +90,7 @@ class ChallengeActivity : ComponentActivity() {
                 challengeViewModel.unblockApps(onUnblocked = ::finishAndRemoveTask)
               },
               onExitChallenge = exitToHomeScreen,
+              onPasteDetected = challengeViewModel::replaceChallenge,
             )
             else -> Unit
           }

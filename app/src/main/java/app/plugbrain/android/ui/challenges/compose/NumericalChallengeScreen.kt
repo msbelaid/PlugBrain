@@ -15,7 +15,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.rounded.Quiz
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -29,6 +31,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
@@ -62,6 +68,8 @@ fun NumericalChallengeScreen(
   // Bumped on every wrong submission so submitting the same wrong answer shakes the card again.
   var wrongAttempts by remember(challenge) { mutableIntStateOf(0) }
   var showUnlockSheet by rememberSaveable(challenge) { mutableStateOf(false) }
+  // Not tied to the challenge, so the warning stays up on the new one given after a paste.
+  var showPasteWarning by rememberSaveable { mutableStateOf(false) }
   val keyboardController = LocalSoftwareKeyboardController.current
 
   LaunchedEffect(answerState) {
@@ -73,6 +81,15 @@ fun NumericalChallengeScreen(
   }
 
   fun onAnswerChange(value: String) {
+    if (isPasted(old = answer, new = value)) {
+      // A pasted answer was worked out somewhere else, so it gets a new challenge (#238).
+      answer = ""
+      answerState = AnswerState.Idle
+      showPasteWarning = true
+      onPasteDetected()
+      return
+    }
+    if (value.length > answer.length) showPasteWarning = false
     answer = value
     if (answerState == AnswerState.Wrong) answerState = AnswerState.Idle
   }
@@ -92,6 +109,7 @@ fun NumericalChallengeScreen(
     answer = answer,
     answerState = answerState,
     wrongAttempts = wrongAttempts,
+    warning = if (showPasteWarning) stringResource(R.string.challenge_paste_warning) else null,
     onAnswerChange = ::onAnswerChange,
     onSubmitAnswer = ::submitAnswer,
     onExitChallenge = onExitChallenge,
@@ -117,6 +135,7 @@ internal fun NumericalChallengeContent(
   onExitChallenge: () -> Unit,
   modifier: Modifier = Modifier,
   wrongAttempts: Int = 0,
+  warning: String? = null,
 ) {
   val entrance = rememberEntranceState()
   val shakeOffset = rememberShakeOffset(trigger = wrongAttempts)
@@ -157,6 +176,17 @@ internal fun NumericalChallengeContent(
               .graphicsLayer { translationX = shakeOffset.value },
           )
         }
+        if (warning != null) {
+          Text(
+            text = warning,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.error,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+              .fillMaxWidth()
+              .semantics { liveRegion = LiveRegionMode.Polite },
+          )
+        }
         EntranceItem(entrance, order = 3) {
           PlugButtonPrimary(
             text = stringResource(R.string.challenge_leave_app),
@@ -169,6 +199,15 @@ internal fun NumericalChallengeContent(
     }
   }
 }
+
+/**
+ * Typing adds one character at a time, so more than one at once is a paste, from the menu or the
+ * keyboard's clipboard suggestion.
+ */
+internal fun isPasted(
+  old: String,
+  new: String,
+): Boolean = new.length - old.length > 1
 
 private object NumericalChallengeScreenDefaults {
   val HorizontalPadding = 32.dp
@@ -196,6 +235,22 @@ private fun NumericalScreenPreview() {
 @Composable
 private fun NumericalScreenWrongPreview() {
   NumericalContentPreview(answer = "99", answerState = AnswerState.Wrong)
+}
+
+@Preview(name = "Pasted answer", showSystemUi = true)
+@Composable
+private fun NumericalScreenPastedPreview() {
+  PlugBrainTheme(dynamicColor = false) {
+    NumericalChallengeContent(
+      challengeText = "25 + 17",
+      answer = "",
+      answerState = AnswerState.Idle,
+      warning = stringResource(R.string.challenge_paste_warning),
+      onAnswerChange = {},
+      onSubmitAnswer = {},
+      onExitChallenge = {},
+    )
+  }
 }
 
 @Preview(name = "Correct answer", showSystemUi = true)
