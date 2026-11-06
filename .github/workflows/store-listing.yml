@@ -1,0 +1,27 @@
+name: Store listing
+
+# Checks the store listing text in fastlane/metadata/android against Google Play's limits
+# (title 30, short description 80, full description 4000, release notes 500 characters).
+on:
+  pull_request:
+    paths:
+      - 'fastlane/**'
+      - '.github/workflows/store-listing.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'fastlane/**'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Store listing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Check listing text
+        run: ruby fastlane/store_listing.rb

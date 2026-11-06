@@ -1,1 +1,1 @@
-PlugBrain
+PlugBrain: Screen Time Blocker

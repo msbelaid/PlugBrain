@@ -5,15 +5,17 @@ name: Play release
 #   promote   copy the latest release of "from track" to "track", at the given rollout
 #   rollout   change the staged rollout of the latest release on "track" (1 = everyone)
 #   halt      stop the staged rollout on "track"
-# Each run uses the GitHub environment play-<track>. Give play-production a required reviewer in
-# Settings > Environments, so nothing reaches production without that approval.
+#   listing   upload the store listing text of every locale from fastlane/metadata/android (no images)
+# Each run uses the GitHub environment play-<track>, and listing uses play-production since the listing is
+# public at once. Give play-production a required reviewer in Settings > Environments, so nothing reaches
+# production without that approval.
 on:
   workflow_dispatch:
     inputs:
       action:
         description: What to do
         type: choice
-        options: [validate, promote, rollout, halt]
+        options: [validate, promote, rollout, halt, listing]
         default: promote
       track:
         description: Track to promote to, or whose rollout to change or halt
@@ -39,9 +41,9 @@ concurrency:
 
 jobs:
   play:
-    name: ${{ inputs.action }} ${{ inputs.action == 'promote' && format('{0} to ', inputs.from_track) || '' }}${{ inputs.action != 'validate' && inputs.track || '' }}
+    name: ${{ inputs.action }} ${{ inputs.action == 'promote' && format('{0} to ', inputs.from_track) || '' }}${{ !contains(fromJSON('["validate","listing"]'), inputs.action) && inputs.track || '' }}
     runs-on: ubuntu-latest
-    environment: ${{ inputs.action == 'validate' && 'play-validate' || format('play-{0}', inputs.track) }}
+    environment: ${{ inputs.action == 'validate' && 'play-validate' || inputs.action == 'listing' && 'play-production' || format('play-{0}', inputs.track) }}
     env:
       PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
       FASTLANE_SKIP_UPDATE_CHECK: "1"
@@ -71,6 +73,7 @@ jobs:
             promote)  bundle exec fastlane promote from:"$FROM_TRACK" to:"$TRACK" rollout:"$ROLLOUT" ;;
             rollout)  bundle exec fastlane rollout track:"$TRACK" rollout:"$ROLLOUT" ;;
             halt)     bundle exec fastlane halt track:"$TRACK" ;;
+            listing)  bundle exec fastlane listing ;;
           esac
           # Show where every track stands afterwards.
           [ "$ACTION" = validate ] || bundle exec fastlane validate

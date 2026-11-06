@@ -1,17 +1,24 @@
-PlugBrain is an app that encourages regular breaks from distracting apps by blocking access at scheduled intervals.
-To regain access, you’ll need to solve a math challenge that adjusts in difficulty: the more frequently you use the apps, the harder the challenges become, but the longer you stay away, the easier they get.
+Stuck in the scroll? PlugBrain breaks the doomscrolling habit with a quick math problem.
 
-**Features**
+Pick the apps that steal your time and use your phone as usual. When it's time for a break, a math challenge pops up over the app. Solve it to keep going, or tap Leave App and take your time back. Want to think twice before you even start? Turn on a challenge every time a distracting app opens.
 
-- No ads
-- No internet required
-- Blocks distracting apps
-- Unblock apps by solving math challenges
-- Difficulty increases with frequent use, decreases with focus
+The more you scroll, the harder it gets
 
-**How to use**
+Every challenge you solve makes the next one tougher. Step away and it eases off again, down to your starting level: Beginner, Intermediate or Expert. More than 40 kinds of problems, from quick sums to multi-digit multiplication, keep your brain switched on.
 
-- Grant all required permissions
-- Select distracting apps
-- Choose your focus interval
-- Stay focused ;)
+Why PlugBrain
+
+- An app blocker that makes you think, not a timer you tap past
+- Cut screen time on social media, games, videos or any app you choose
+- Difficulty that adapts to your own habits
+- Works offline, light and dark theme, 11 languages
+
+Private by design
+
+- No ads, no account, no tracking
+- No internet permission: nothing leaves your phone
+- Free and open source (GPL-3.0)
+
+Permissions
+
+PlugBrain uses usage access, display over other apps and the Accessibility service to see which app is open and show the challenge on top. During a challenge it also blocks calculators. It only reads the name of the open app, never what is on your screen or what you type.
