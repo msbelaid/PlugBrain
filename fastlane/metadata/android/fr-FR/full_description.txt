@@ -1,17 +1,22 @@
-PlugBrain t’aide à faire des pauses régulières loin des applis qui te distraient, en bloquant leur accès à intervalles réguliers.
-Pour y revenir, tu dois résoudre un petit défi de calcul dont la difficulté s’adapte : plus tu utilises ces applis souvent, plus les défis sont durs, et plus tu restes loin, plus ils deviennent faciles.
+PlugBrain place un petit calcul entre toi et les applis qui te distraient.
 
-**Fonctionnalités**
+Choisis les applis qui te prennent trop de temps et le nombre de minutes avant une pause. Quand le temps est écoulé, un défi s’affiche par-dessus l’appli. Résous-le pour continuer, ou touche Quitter l’appli et passe à autre chose. Tu peux aussi recevoir un défi dès qu’une appli qui te distrait s’ouvre.
 
-- Aucune pub
-- Pas besoin d’internet
-- Bloque les applis qui te distraient
-- Débloque-les en résolvant des défis de calcul
-- La difficulté augmente si tu les utilises souvent, et baisse quand tu restes concentré
+La difficulté suit tes habitudes. Chaque défi résolu rend le suivant plus dur. Reste loin et ça redevient plus facile, jusqu’au niveau de départ que tu as choisi : Débutant, Intermédiaire ou Expert. Plus de 40 types de calculs, des additions simples aux multiplications à plusieurs chiffres.
 
-**Comment l’utiliser**
+Fonctionnalités
 
-- Accorde toutes les autorisations nécessaires
-- Choisis les applis qui te distraient
-- Choisis ton intervalle de concentration
-- Reste concentré ;)
+- Des défis de calcul sur les applis que tu choisis
+- Une difficulté qui monte quand tu les utilises et baisse quand tu t’en éloignes
+- Un défi à l’ouverture d’une appli, si tu veux
+- Thème clair et sombre, 11 langues
+
+Respect de ta vie privée
+
+- Pas de pub, pas de compte, pas de statistiques
+- Pas d’accès à internet : rien ne quitte ton téléphone
+- Libre et open source (GPL-3.0)
+
+Autorisations
+
+PlugBrain utilise l’accès aux données d’utilisation, la superposition aux autres applis et le service d’accessibilité pour savoir quelle appli est ouverte et afficher le défi par-dessus. Pendant un défi, il bloque aussi les calculatrices. Il lit seulement le nom de l’appli ouverte, jamais ce qui est à l’écran ni ce que tu tapes.
