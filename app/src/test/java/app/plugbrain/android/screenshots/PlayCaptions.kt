@@ -10,17 +10,18 @@ data class PlayCaption(
  * Captions for the seven Google Play screenshots, per fastlane locale folder, in screenshot order.
  * The seventh headline is the app's own welcome title, so it isn't listed here.
  * Translated for meaning, in the same tone as the app (informal, formal आप in Hindi).
+ * A \n sets where a headline breaks; without one it wraps to fit.
  */
 val playCaptions: Map<String, List<PlayCaption>> =
     mapOf(
         "en-US" to
             listOf(
-                PlayCaption("Distracting app? Not so fast.", "Solve a little math. Scroll a lot less."),
-                PlayCaption("Adaptive difficulty", "The more you scroll, the harder it gets."),
-                PlayCaption("Take a real break", "Step away, and it gets easier again."),
-                PlayCaption("You pick", "Lock the apps that steal your time."),
-                PlayCaption("Your rules", "Choose how often, and how hard."),
-                PlayCaption("Free & open source", "No ads. No tracking. No internet needed."),
+                PlayCaption("Distracting app? Not so fast.", "Solve a little math.\nScroll a lot less."),
+                PlayCaption("Adaptive difficulty", "The more you scroll,\nthe harder it gets."),
+                PlayCaption("Take a real break", "Step away, and it\ngets easier again."),
+                PlayCaption("You pick", "Lock the apps that\nsteal your time."),
+                PlayCaption("Your rules", "Choose how often,\nand how hard."),
+                PlayCaption("Free & open source", "No ads. No tracking.\nNo internet needed."),
                 PlayCaption("Light or dark", ""),
             ),
         "ar" to
@@ -37,12 +38,12 @@ val playCaptions: Map<String, List<PlayCaption>> =
             listOf(
                 PlayCaption(
                     "Ablenkende App? Nicht so schnell.",
-                    "Ein bisschen Mathe. Viel weniger Scrollen.",
+                    "Ein bisschen Mathe.\nViel weniger Scrollen.",
                 ),
-                PlayCaption("Mitwachsende Schwierigkeit", "Je mehr du scrollst, desto schwerer wird’s."),
-                PlayCaption("Mach echte Pausen", "Bleib weg, und es wird wieder leichter."),
-                PlayCaption("Du entscheidest", "Sperr die Apps, die dir Zeit rauben."),
-                PlayCaption("Deine Regeln", "Wähl, wie oft und wie schwer."),
+                PlayCaption("Mitwachsende Schwierigkeit", "Je mehr du scrollst,\ndesto schwerer wird’s."),
+                PlayCaption("Mach echte Pausen", "Bleib weg, und es wird\nwieder leichter."),
+                PlayCaption("Du entscheidest", "Sperr die Apps,\ndie dir Zeit rauben."),
+                PlayCaption("Deine Regeln", "Wähl, wie oft\nund wie schwer."),
                 PlayCaption("Kostenlos & Open Source", "Keine Werbung. Kein Tracking. Kein Internet."),
                 PlayCaption("Hell oder dunkel", ""),
             ),
@@ -60,13 +61,13 @@ val playCaptions: Map<String, List<PlayCaption>> =
             listOf(
                 PlayCaption(
                     "Appli qui distrait ? Pas si vite.",
-                    "Un petit calcul. Beaucoup moins de scroll.",
+                    "Un petit calcul.\nBeaucoup moins de scroll.",
                 ),
-                PlayCaption("Difficulté adaptative", "Plus tu scrolles, plus c’est dur."),
-                PlayCaption("Fais une vraie pause", "Éloigne-toi, et ça redevient facile."),
-                PlayCaption("C’est toi qui choisis", "Bloque les applis qui te volent ton temps."),
-                PlayCaption("Tes règles", "Choisis à quelle fréquence, et à quel niveau."),
-                PlayCaption("Libre et open source", "Pas de pub. Pas de pistage. Pas d’internet."),
+                PlayCaption("Difficulté adaptative", "Plus tu scrolles,\nplus c’est dur."),
+                PlayCaption("Fais une vraie pause", "Éloigne-toi, et ça\nredevient facile."),
+                PlayCaption("C’est toi qui choisis", "Bloque les applis qui\nte volent ton temps."),
+                PlayCaption("Tes règles", "Choisis à quelle fréquence,\net à quel niveau."),
+                PlayCaption("Libre et open source", "Pas de pub. Pas de pistage.\nPas d’internet."),
                 PlayCaption("Clair ou sombre", ""),
             ),
         "hi" to
@@ -91,21 +92,21 @@ val playCaptions: Map<String, List<PlayCaption>> =
             ),
         "nb-NO" to
             listOf(
-                PlayCaption("Distraherende app? Ikke så fort.", "Litt matte. Mye mindre scrolling."),
+                PlayCaption("Distraherende app? Ikke så fort.", "Litt matte.\nMye mindre scrolling."),
                 PlayCaption("Tilpasset vanskelighetsgrad", "Jo mer du scroller, jo vanskeligere blir det."),
-                PlayCaption("Ta en ekte pause", "Hold deg unna, så blir det lettere igjen."),
-                PlayCaption("Du velger", "Lås appene som stjeler tiden din."),
-                PlayCaption("Dine regler", "Velg hvor ofte, og hvor vanskelig."),
+                PlayCaption("Ta en ekte pause", "Hold deg unna, så\nblir det lettere igjen."),
+                PlayCaption("Du velger", "Lås appene som\nstjeler tiden din."),
+                PlayCaption("Dine regler", "Velg hvor ofte,\nog hvor vanskelig."),
                 PlayCaption("Gratis og åpen kildekode", "Ingen reklame. Ingen sporing. Ikke noe nett."),
                 PlayCaption("Lyst eller mørkt", ""),
             ),
         "nl-NL" to
             listOf(
-                PlayCaption("Afleidende app? Niet zo snel.", "Een beetje rekenen. Veel minder scrollen."),
-                PlayCaption("Meegroeiende moeilijkheid", "Hoe meer je scrollt, hoe moeilijker het wordt."),
-                PlayCaption("Neem echt pauze", "Blijf weg, en het wordt weer makkelijker."),
-                PlayCaption("Jij kiest", "Vergrendel de apps die je tijd opslokken."),
-                PlayCaption("Jouw regels", "Kies hoe vaak, en hoe moeilijk."),
+                PlayCaption("Afleidende app? Niet zo snel.", "Een beetje rekenen.\nVeel minder scrollen."),
+                PlayCaption("Meegroeiende moeilijkheid", "Hoe meer je scrollt,\nhoe moeilijker het wordt."),
+                PlayCaption("Neem echt pauze", "Blijf weg, en het\nwordt weer makkelijker."),
+                PlayCaption("Jij kiest", "Vergrendel de apps\ndie je tijd opslokken."),
+                PlayCaption("Jouw regels", "Kies hoe vaak,\nen hoe moeilijk."),
                 PlayCaption("Gratis en open source", "Geen advertenties. Geen tracking. Geen internet."),
                 PlayCaption("Licht of donker", ""),
             ),
@@ -113,13 +114,13 @@ val playCaptions: Map<String, List<PlayCaption>> =
             listOf(
                 PlayCaption(
                     "Отвлекающее приложение? Не так быстро",
-                    "Немного математики. Гораздо меньше скроллинга.",
+                    "Немного математики.\nГораздо меньше скроллинга.",
                 ),
-                PlayCaption("Сложность растёт", "Чем больше листаешь, тем сложнее."),
-                PlayCaption("Настоящий перерыв", "Отвлекись, и станет снова легче."),
-                PlayCaption("Выбираешь ты", "Заблокируй приложения, которые крадут время."),
-                PlayCaption("Твои правила", "Выбери, как часто и насколько сложно."),
-                PlayCaption("Бесплатно и открыто", "Без рекламы. Без слежки. Без интернета."),
+                PlayCaption("Сложность растёт", "Чем больше листаешь,\nтем сложнее."),
+                PlayCaption("Настоящий перерыв", "Отвлекись,\nи станет снова легче."),
+                PlayCaption("Выбираешь ты", "Заблокируй приложения,\nкоторые крадут время."),
+                PlayCaption("Твои правила", "Выбери, как часто\nи насколько сложно."),
+                PlayCaption("Бесплатно и открыто", "Без рекламы. Без слежки.\nБез интернета."),
                 PlayCaption("Светлая или тёмная", ""),
             ),
         "zh-CN" to
