@@ -28,6 +28,7 @@
     <string name="challenge_answer_placeholder">Skriv svaret ditt</string>
     <string name="challenge_check_answer">Sjekk svaret</string>
     <string name="challenge_leave_app">Gå ut av appen</string>
+    <string name="challenge_paste_warning">Innlimte svar teller ikke. Her er en ny oppgave.</string>
     <string name="challenge_correct_answer">Riktig svar</string>
     <string name="challenge_stay_focused">Hold fokus</string>
     <string name="challenge_unlock_app">Lås opp appen i %d min</string>

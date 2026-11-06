@@ -33,6 +33,7 @@
     <string name="challenge_answer_placeholder">Напиши свой ответ</string>
     <string name="challenge_check_answer">Проверить ответ</string>
     <string name="challenge_leave_app">Выйти из приложения</string>
+    <string name="challenge_paste_warning">Вставленные ответы не засчитываются. Вот новый пример.</string>
     <string name="challenge_correct_answer">Правильный ответ</string>
     <string name="challenge_stay_focused">Не отвлекаться</string>
     <string name="challenge_unlock_app">Разблокировать на %d мин</string>

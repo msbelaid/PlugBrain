@@ -32,6 +32,7 @@
     <string name="challenge_answer_placeholder">Écris ta réponse</string>
     <string name="challenge_check_answer">Vérifier la réponse</string>
     <string name="challenge_leave_app">Quitter l\'appli</string>
+    <string name="challenge_paste_warning">Les réponses collées ne comptent pas. Voici un nouveau calcul.</string>
     <string name="challenge_correct_answer">Bonne réponse</string>
     <string name="challenge_stay_focused">Rester concentré</string>
     <string name="challenge_unlock_app">Débloquer l\'appli pendant %d min</string>
