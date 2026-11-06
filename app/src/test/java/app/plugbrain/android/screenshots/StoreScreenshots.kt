@@ -12,6 +12,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,7 +35,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -272,7 +272,8 @@ class StoreScreenshots {
         caption: PlayCaption,
         background: PlayBackground,
         screen: @Composable () -> Unit,
-    ) {
+    ) = BoxWithConstraints(Modifier.fillMaxSize()) {
+        val phoneWidth = maxWidth
         Column(
             modifier = Modifier.fillMaxSize().background(background.brush).padding(top = 40.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -300,7 +301,6 @@ class StoreScreenshots {
                 textAlign = TextAlign.Center,
             )
             Spacer(Modifier.height(28.dp))
-            val phoneWidth = LocalConfiguration.current.screenWidthDp.dp
             val frameWidth = phoneWidth * PLAY_FRAME_SHARE
             val bezel = RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp)
             Box(
