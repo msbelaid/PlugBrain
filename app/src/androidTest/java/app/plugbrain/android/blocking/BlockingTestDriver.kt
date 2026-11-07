@@ -200,7 +200,8 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         waitUntilShown(question)
         val texts = composeRule.onNode(question).fetchSemanticsNode().config[SemanticsProperties.Text]
         val text = texts.first { CHALLENGE_TEXT.matches(it.text) }.text
-        composeRule.onNode(hasSetTextAction()).performTextInput(answer(text).toString())
+        // One key at a time: text put in all at once counts as pasted and gets a new challenge.
+        answer(text).toString().forEach { composeRule.onNode(hasSetTextAction()).performTextInput(it.toString()) }
         clickWhenEnabled(context.getString(R.string.challenge_check_answer))
         val unlock = context.getString(R.string.challenge_unlock_app, blockInterval)
         waitUntilShown(hasText(unlock) and hasClickAction() and isEnabled())

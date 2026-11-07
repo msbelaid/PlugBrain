@@ -131,7 +131,8 @@ fun PlugNumericalInput(
           Text(
             text = placeholder,
             style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Normal),
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            // An error on an empty field is explained by the placeholder, so it takes the error color.
+            color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
           )
