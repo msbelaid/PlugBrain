@@ -164,10 +164,11 @@ class ArithChallengeScreenTest {
 
     private fun assertPasteRejected(newChallenges: Int) {
         composeTestRule.waitForIdle()
+        // The emptied field says why, in place of its usual placeholder.
         composeTestRule.onNodeWithText(context.getString(R.string.challenge_paste_warning)).assertIsDisplayed()
+        composeTestRule.onAllNodesWithText("Write your answer").assertCountEquals(0)
         assertEquals(1, newChallenges)
         // The field is empty again, so there is nothing to check.
-        composeTestRule.onNodeWithText("Write your answer").assertIsDisplayed()
         composeTestRule.onNodeWithText("Check Answer").assertIsNotEnabled()
         composeTestRule.onAllNodesWithText("Stay Focused").assertCountEquals(0)
     }

@@ -25,7 +25,7 @@
     <string name="challenge_answer_placeholder">答えを入力</string>
     <string name="challenge_check_answer">答えをチェック</string>
     <string name="challenge_leave_app">アプリを閉じる</string>
-    <string name="challenge_paste_warning">貼り付けた答えは無効です。新しい問題をどうぞ。</string>
+    <string name="challenge_paste_warning">貼り付けは無効です</string>
     <string name="challenge_correct_answer">正解</string>
     <string name="challenge_stay_focused">集中を続ける</string>
     <string name="challenge_unlock_app">%d分間アプリのロックを解除</string>

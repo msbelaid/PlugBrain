@@ -15,9 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.rounded.Quiz
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -31,10 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.liveRegion
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.plugbrain.android.R
@@ -65,10 +59,11 @@ fun NumericalChallengeScreen(
 ) {
   var answer by rememberSaveable(challenge) { mutableStateOf("") }
   var answerState by remember(challenge) { mutableStateOf(AnswerState.Idle) }
-  // Bumped on every wrong submission so submitting the same wrong answer shakes the card again.
-  var wrongAttempts by remember(challenge) { mutableIntStateOf(0) }
+  // Bumped on every wrong submission or paste, so the same mistake shakes the card again. Not
+  // tied to the challenge, so the paste that swaps the challenge still shakes the new one.
+  var wrongAttempts by remember { mutableIntStateOf(0) }
   var showUnlockSheet by rememberSaveable(challenge) { mutableStateOf(false) }
-  // Not tied to the challenge, so the warning stays up on the new one given after a paste.
+  // Not tied to the challenge, so the field keeps saying why on the new one given after a paste.
   var showPasteWarning by rememberSaveable { mutableStateOf(false) }
   val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -86,6 +81,7 @@ fun NumericalChallengeScreen(
       answer = ""
       answerState = AnswerState.Idle
       showPasteWarning = true
+      wrongAttempts++
       onPasteDetected()
       return
     }
@@ -109,7 +105,7 @@ fun NumericalChallengeScreen(
     answer = answer,
     answerState = answerState,
     wrongAttempts = wrongAttempts,
-    warning = if (showPasteWarning) stringResource(R.string.challenge_paste_warning) else null,
+    pasteRejected = showPasteWarning,
     onAnswerChange = ::onAnswerChange,
     onSubmitAnswer = ::submitAnswer,
     onExitChallenge = onExitChallenge,
@@ -135,7 +131,7 @@ internal fun NumericalChallengeContent(
   onExitChallenge: () -> Unit,
   modifier: Modifier = Modifier,
   wrongAttempts: Int = 0,
-  warning: String? = null,
+  pasteRejected: Boolean = false,
 ) {
   val entrance = rememberEntranceState()
   val shakeOffset = rememberShakeOffset(trigger = wrongAttempts)
@@ -166,25 +162,17 @@ internal fun NumericalChallengeContent(
             inputValue = answer,
             onInputChange = onAnswerChange,
             onCheckAnswer = onSubmitAnswer,
-            placeholder = stringResource(R.string.challenge_answer_placeholder),
+            // After a paste the empty field says why, right where the user is looking.
+            placeholder = stringResource(
+              if (pasteRejected) R.string.challenge_paste_warning else R.string.challenge_answer_placeholder,
+            ),
             ctaText = stringResource(R.string.challenge_check_answer),
             ctaIcon = Icons.Rounded.Quiz,
             isSuccess = answerState == AnswerState.Correct,
-            isError = answerState == AnswerState.Wrong,
+            isError = answerState == AnswerState.Wrong || pasteRejected,
             modifier = Modifier
               .fillMaxWidth()
               .graphicsLayer { translationX = shakeOffset.value },
-          )
-        }
-        if (warning != null) {
-          Text(
-            text = warning,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.error,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-              .fillMaxWidth()
-              .semantics { liveRegion = LiveRegionMode.Polite },
           )
         }
         EntranceItem(entrance, order = 3) {
@@ -245,7 +233,7 @@ private fun NumericalScreenPastedPreview() {
       challengeText = "25 + 17",
       answer = "",
       answerState = AnswerState.Idle,
-      warning = stringResource(R.string.challenge_paste_warning),
+      pasteRejected = true,
       onAnswerChange = {},
       onSubmitAnswer = {},
       onExitChallenge = {},

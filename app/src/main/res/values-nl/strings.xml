@@ -36,7 +36,7 @@
     <string name="challenge_answer_placeholder">Schrijf je antwoord</string>
     <string name="challenge_check_answer">Antwoord controleren</string>
     <string name="challenge_leave_app">App verlaten</string>
-    <string name="challenge_paste_warning">Geplakte antwoorden tellen niet. Hier is een nieuwe som.</string>
+    <string name="challenge_paste_warning">Niet plakken</string>
     <string name="challenge_correct_answer">Goed antwoord</string>
     <string name="challenge_stay_focused">Gefocust blijven</string>
     <string name="challenge_unlock_app">App %d min ontgrendelen</string>

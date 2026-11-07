@@ -41,7 +41,7 @@
     <string name="challenge_answer_placeholder">اكتب إجابتك</string>
     <string name="challenge_check_answer">تحقّق من الإجابة</string>
     <string name="challenge_leave_app">مغادرة التطبيق</string>
-    <string name="challenge_paste_warning">الإجابات الملصقة لا تُحتسب. إليك سؤالًا جديدًا.</string>
+    <string name="challenge_paste_warning">اللصق غير مسموح</string>
     <string name="challenge_correct_answer">إجابة صحيحة</string>
     <string name="challenge_stay_focused">ابقَ مركّزًا</string>
     <string name="challenge_unlock_app">افتح التطبيق لمدة %d د</string>
