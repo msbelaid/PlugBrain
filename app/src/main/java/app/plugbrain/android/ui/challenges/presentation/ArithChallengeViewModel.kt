@@ -48,6 +48,13 @@ class ArithChallengeViewModel(
     }
   }
 
+  /** Swaps the challenge for a new one at the same level, after its answer was pasted (#238). */
+  fun replaceChallenge() {
+    viewModelScope.launch {
+      _challenge.value = mathChallengeRepository.generateChallenge().first()
+    }
+  }
+
   suspend fun decreaseDifficulty() {
     val (settings, timestamps) = combine(
       dataStore.getUserSettings(),

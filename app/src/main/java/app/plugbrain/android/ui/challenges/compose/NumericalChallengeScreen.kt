@@ -55,12 +55,16 @@ fun NumericalChallengeScreen(
   onUnlockApp: () -> Unit,
   onExitChallenge: () -> Unit,
   modifier: Modifier = Modifier,
+  onPasteDetected: () -> Unit = {},
 ) {
   var answer by rememberSaveable(challenge) { mutableStateOf("") }
   var answerState by remember(challenge) { mutableStateOf(AnswerState.Idle) }
-  // Bumped on every wrong submission so submitting the same wrong answer shakes the card again.
-  var wrongAttempts by remember(challenge) { mutableIntStateOf(0) }
+  // Bumped on every wrong submission or paste, so the same mistake shakes the card again. Not
+  // tied to the challenge, so the paste that swaps the challenge still shakes the new one.
+  var wrongAttempts by remember { mutableIntStateOf(0) }
   var showUnlockSheet by rememberSaveable(challenge) { mutableStateOf(false) }
+  // Not tied to the challenge, so the field keeps saying why on the new one given after a paste.
+  var showPasteWarning by rememberSaveable { mutableStateOf(false) }
   val keyboardController = LocalSoftwareKeyboardController.current
 
   LaunchedEffect(answerState) {
@@ -72,6 +76,16 @@ fun NumericalChallengeScreen(
   }
 
   fun onAnswerChange(value: String) {
+    if (isPasted(old = answer, new = value)) {
+      // A pasted answer was worked out somewhere else, so it gets a new challenge (#238).
+      answer = ""
+      answerState = AnswerState.Idle
+      showPasteWarning = true
+      wrongAttempts++
+      onPasteDetected()
+      return
+    }
+    if (value.length > answer.length) showPasteWarning = false
     answer = value
     if (answerState == AnswerState.Wrong) answerState = AnswerState.Idle
   }
@@ -91,6 +105,7 @@ fun NumericalChallengeScreen(
     answer = answer,
     answerState = answerState,
     wrongAttempts = wrongAttempts,
+    pasteRejected = showPasteWarning,
     onAnswerChange = ::onAnswerChange,
     onSubmitAnswer = ::submitAnswer,
     onExitChallenge = onExitChallenge,
@@ -116,6 +131,7 @@ internal fun NumericalChallengeContent(
   onExitChallenge: () -> Unit,
   modifier: Modifier = Modifier,
   wrongAttempts: Int = 0,
+  pasteRejected: Boolean = false,
 ) {
   val entrance = rememberEntranceState()
   val shakeOffset = rememberShakeOffset(trigger = wrongAttempts)
@@ -146,11 +162,14 @@ internal fun NumericalChallengeContent(
             inputValue = answer,
             onInputChange = onAnswerChange,
             onCheckAnswer = onSubmitAnswer,
-            placeholder = stringResource(R.string.challenge_answer_placeholder),
+            // After a paste the empty field says why, right where the user is looking.
+            placeholder = stringResource(
+              if (pasteRejected) R.string.challenge_paste_warning else R.string.challenge_answer_placeholder,
+            ),
             ctaText = stringResource(R.string.challenge_check_answer),
             ctaIcon = Icons.Rounded.Quiz,
             isSuccess = answerState == AnswerState.Correct,
-            isError = answerState == AnswerState.Wrong,
+            isError = answerState == AnswerState.Wrong || pasteRejected,
             modifier = Modifier
               .fillMaxWidth()
               .graphicsLayer { translationX = shakeOffset.value },
@@ -168,6 +187,15 @@ internal fun NumericalChallengeContent(
     }
   }
 }
+
+/**
+ * Typing adds one character at a time, so more than one at once is a paste, from the menu or the
+ * keyboard's clipboard suggestion.
+ */
+internal fun isPasted(
+  old: String,
+  new: String,
+): Boolean = new.length - old.length > 1
 
 private object NumericalChallengeScreenDefaults {
   val HorizontalPadding = 32.dp
@@ -195,6 +223,22 @@ private fun NumericalScreenPreview() {
 @Composable
 private fun NumericalScreenWrongPreview() {
   NumericalContentPreview(answer = "99", answerState = AnswerState.Wrong)
+}
+
+@Preview(name = "Pasted answer", showSystemUi = true)
+@Composable
+private fun NumericalScreenPastedPreview() {
+  PlugBrainTheme(dynamicColor = false) {
+    NumericalChallengeContent(
+      challengeText = "25 + 17",
+      answer = "",
+      answerState = AnswerState.Idle,
+      pasteRejected = true,
+      onAnswerChange = {},
+      onSubmitAnswer = {},
+      onExitChallenge = {},
+    )
+  }
 }
 
 @Preview(name = "Correct answer", showSystemUi = true)

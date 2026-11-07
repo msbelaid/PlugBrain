@@ -27,6 +27,7 @@
     <string name="challenge_answer_placeholder">Schreib deine Antwort</string>
     <string name="challenge_check_answer">Antwort prüfen</string>
     <string name="challenge_leave_app">App verlassen</string>
+    <string name="challenge_paste_warning">Einfügen gilt nicht</string>
     <string name="challenge_correct_answer">Richtige Antwort</string>
     <string name="challenge_stay_focused">Konzentriert bleiben</string>
     <string name="challenge_unlock_app">App für %d Min. entsperren</string>
