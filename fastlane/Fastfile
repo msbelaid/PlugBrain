@@ -93,7 +93,7 @@ platform :android do
     )
   end
 
-  desc "Upload the store listing of every locale: title, short and full description, feature graphic, phone screenshots"
+  desc "Upload the store listing of every locale: title, short and full description, icon, feature graphic, phone screenshots"
   lane :listing do
     problems = StoreListing.problems
     UI.user_error!("Store listing has problems:\n#{problems.join("\n")}") unless problems.empty?
