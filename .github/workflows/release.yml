@@ -29,14 +29,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Set up JDK
-        uses: actions/setup-java@v6
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v6
+      - name: Set up JDK and Gradle
+        uses: ./.github/actions/setup-gradle-build
 
       - name: Decode and configure keystore
         env:
