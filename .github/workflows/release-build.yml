@@ -308,7 +308,8 @@ jobs:
 
   ui-tests:
     name: UI Tests
-    needs: [changes, build, unit-tests, screenshot-tests]
+    # Starts as soon as the build passes, next to the unit and Paparazzi tests rather than after them.
+    needs: [changes, build]
     # Skipped when a pull request only changes docs or store metadata. The emulator already ran
     # on the pull request, so merges to master skip it too.
     if: needs.changes.outputs.code == 'true' && (github.event_name != 'push' || github.ref != 'refs/heads/master')
