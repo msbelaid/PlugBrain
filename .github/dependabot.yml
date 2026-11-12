@@ -38,7 +38,10 @@ updates:
         versions: ["[3.5.0,)"]
 
   - package-ecosystem: "github-actions"
-    directory: "/"
+    # The workflows, and the shared setup steps in .github/actions.
+    directories:
+      - "/"
+      - "/.github/actions/*"
     schedule:
       interval: "weekly"
       day: "thursday"

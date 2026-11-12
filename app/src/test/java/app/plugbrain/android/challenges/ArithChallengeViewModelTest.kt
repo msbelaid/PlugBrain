@@ -126,6 +126,23 @@ class ArithChallengeViewModelTest {
     }
 
     @Test
+    fun aPastedAnswerGetsANewChallengeAtTheSameLevel() {
+        runBlocking {
+            setDifficulty(3)
+            dataStore.setLastChallengeTime(NOW)
+            viewModel.generateChallenge()
+            val first = withTimeout(5_000) { viewModel.challenge.first { it != null } }
+
+            viewModel.replaceChallenge()
+
+            val second = withTimeout(5_000) { viewModel.challenge.first { it !== first } }
+            assertEquals(3, second?.difficultyLevel)
+            // Not a solve, so the difficulty stays.
+            assertEquals(3, dataStore.getProgressiveDifficulty().first())
+        }
+    }
+
+    @Test
     fun theChallengeClosesOnlyOnceTheAppsAreUnblocked() {
         runBlocking {
             val unblockedWhenClosing = CompletableDeferred<Boolean>()

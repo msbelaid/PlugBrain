@@ -11,6 +11,14 @@ module StoreListing
   # F-Droid keeps the plain screenshots in METADATA_DIR.
   PLAY_IMAGES_DIR = File.expand_path("play-images", __dir__)
 
+  # Every Play language gets an icon and a feature graphic. Play keeps an image uploaded earlier for a
+  # language until it is replaced, and that wins over the default-language one, so a language with no
+  # image of its own here gets these instead of keeping a stale one.
+  DEFAULT_IMAGES = {
+    "icon.png" => File.join(METADATA_DIR, "en-US", "images", "icon.png"),
+    "featureGraphic.png" => File.join(PLAY_IMAGES_DIR, "en-US", "featureGraphic.png"),
+  }.freeze
+
   # F-Droid folder => Play language code, where they differ.
   PLAY_CODES = { "hi" => "hi-IN", "ja" => "ja-JP", "nb-NO" => "no-NO" }.freeze
 
@@ -86,18 +94,21 @@ module StoreListing
   end
 
   # A folder Play can read: <dir>/<Play code>/{title,short_description,full_description}.txt, plus
-  # images/featureGraphic.png and images/phoneScreenshots/ from PLAY_IMAGES_DIR where a locale has them.
+  # images/ from PLAY_IMAGES_DIR where a locale has them (featureGraphic.png, phoneScreenshots/), and
+  # icon.png and featureGraphic.png from DEFAULT_IMAGES where it doesn't.
   def play_listing_dir(root)
     locales.each do |locale|
       target = File.join(root, play_code(locale))
       FileUtils.mkdir_p(target)
       LIMITS.each_key { |file| FileUtils.cp(File.join(METADATA_DIR, locale, file), target) }
 
-      images = File.join(PLAY_IMAGES_DIR, locale)
-      next unless File.directory?(images)
-
-      FileUtils.mkdir_p(File.join(target, "images"))
-      FileUtils.cp_r(Dir.glob(File.join(images, "*")), File.join(target, "images"))
+      images = File.join(target, "images")
+      FileUtils.mkdir_p(images)
+      own = File.join(PLAY_IMAGES_DIR, locale)
+      FileUtils.cp_r(Dir.glob(File.join(own, "*")), images) if File.directory?(own)
+      DEFAULT_IMAGES.each do |name, source|
+        FileUtils.cp(source, images) unless File.exist?(File.join(images, name))
+      end
     end
     root
   end

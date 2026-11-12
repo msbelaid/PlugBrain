@@ -1,0 +1,29 @@
+name: actionlint
+
+# Checks the workflow files (syntax, expressions, job needs, and the shell in run steps through
+# shellcheck) when a pull request changes them, so a broken release workflow shows up before a tag.
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+
+permissions:
+  contents: read
+
+jobs:
+  actionlint:
+    name: actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # The official image bundles shellcheck, so run steps are checked too.
+      - name: Run actionlint
+        run: docker run --rm -v "$PWD:/repo" --workdir /repo rhysd/actionlint:1.7.7 -color

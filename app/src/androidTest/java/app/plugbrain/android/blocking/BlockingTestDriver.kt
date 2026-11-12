@@ -119,10 +119,19 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
     /**
      * Finishes challenge screens left open, for example one the service reopened right after a
      * solve. A later test could otherwise see that old screen instead of a new challenge.
+     *
+     * The service can still open another challenge while this runs (it may not have seen yet that
+     * accessibility was turned off), so every check finishes whatever is open again.
      */
     fun closeChallenges() {
-        instrumentation.runOnMainSync { openChallenges().forEach { it.finish() } }
-        assertTrue("A challenge screen didn't close", waitFor { onMainThread { openChallenges().isEmpty() } })
+        val closed =
+            waitFor {
+                onMainThread {
+                    openChallenges().filterNot { it.isFinishing }.forEach { it.finish() }
+                    openChallenges().isEmpty()
+                }
+            }
+        assertTrue("A challenge screen didn't close", closed)
     }
 
     private fun openChallenges(): List<Activity> =
@@ -200,7 +209,8 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         waitUntilShown(question)
         val texts = composeRule.onNode(question).fetchSemanticsNode().config[SemanticsProperties.Text]
         val text = texts.first { CHALLENGE_TEXT.matches(it.text) }.text
-        composeRule.onNode(hasSetTextAction()).performTextInput(answer(text).toString())
+        // One key at a time: text put in all at once counts as pasted and gets a new challenge.
+        answer(text).toString().forEach { composeRule.onNode(hasSetTextAction()).performTextInput(it.toString()) }
         clickWhenEnabled(context.getString(R.string.challenge_check_answer))
         val unlock = context.getString(R.string.challenge_unlock_app, blockInterval)
         waitUntilShown(hasText(unlock) and hasClickAction() and isEnabled())
