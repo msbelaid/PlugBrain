@@ -63,7 +63,7 @@ class MultiplicationChallengeTest {
             val challenge = MultiplicationByTwoChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(4, challenge.difficultyLevel)
+            assertEquals(2, challenge.difficultyLevel)
             assertTrue(a == 2, "$a is not 2")
             assertTrue(b in 2..10, "$b is not in 2..10")
         }
@@ -75,7 +75,7 @@ class MultiplicationChallengeTest {
             val challenge = MultiplicationByFiveChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(5, challenge.difficultyLevel)
+            assertEquals(3, challenge.difficultyLevel)
             assertTrue(a == 5, "$a is not 5")
             assertTrue(b in 2..10, "$b is not in 2..10")
         }

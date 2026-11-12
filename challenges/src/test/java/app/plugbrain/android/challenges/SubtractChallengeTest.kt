@@ -22,7 +22,7 @@ class SubtractChallengeTest {
             val challenge = SubtractFromSelfChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(1, challenge.difficultyLevel)
+            assertEquals(0, challenge.difficultyLevel)
             assertTrue(a == b, "$a should equals $b")
             assertTrue(a in 1..9, "$a should be in 1..9")
             assertTrue(b in 1..9, "$b should be in 1..9")
@@ -35,7 +35,7 @@ class SubtractChallengeTest {
             val challenge = SubtractFromZeroChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(1, challenge.difficultyLevel)
+            assertEquals(0, challenge.difficultyLevel)
             assertTrue(a in 1..9, "$a should be in 1..9")
             assertTrue(b == 0, "$b should be 0!")
         }

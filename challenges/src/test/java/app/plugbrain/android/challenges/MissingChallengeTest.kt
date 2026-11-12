@@ -14,7 +14,7 @@ class MissingChallengeTest {
     fun `test missing addition challenge generation`() {
         repeat(20) {
             val challenge = MissingAdditionChallenge()
-            assertEquals(1, challenge.difficultyLevel)
+            assertEquals(3, challenge.difficultyLevel)
             assertTrue(challenge.operand1 in 1..19, "${challenge.operand1} is not in 1..19")
             assertTrue(challenge.operand2 in 1..19, "${challenge.operand2} is not in 1..19")
             assertEquals(challenge.operand1 + challenge.operand2, challenge.result)
@@ -25,7 +25,7 @@ class MissingChallengeTest {
     fun `test missing subtraction challenge generation`() {
         repeat(20) {
             val challenge = MissingSubtractionChallenge()
-            assertEquals(2, challenge.difficultyLevel)
+            assertEquals(4, challenge.difficultyLevel)
             assertTrue(challenge.result in 0..19, "${challenge.result} is not in 0..19")
             assertTrue(challenge.operand2 in 1..19, "${challenge.operand2} is not in 1..19")
             assertTrue(challenge.operand1 >= challenge.operand2, "operand1 should be >= operand2")
@@ -78,7 +78,7 @@ class MissingChallengeTest {
     fun `test missing multiplication challenge generation`() {
         repeat(20) {
             val challenge = MissingMultiplicationChallenge()
-            assertEquals(3, challenge.difficultyLevel)
+            assertEquals(6, challenge.difficultyLevel)
             assertTrue(challenge.operand1 in 2..11, "${challenge.operand1} is not in 2..11")
             assertTrue(challenge.operand2 in 2..11, "${challenge.operand2} is not in 2..11")
             assertEquals(challenge.operand1 * challenge.operand2, challenge.result)
@@ -130,7 +130,7 @@ class MissingChallengeTest {
     fun `test missing division challenge generation`() {
         repeat(20) {
             val challenge = MissingDivisionChallenge()
-            assertEquals(4, challenge.difficultyLevel)
+            assertEquals(7, challenge.difficultyLevel)
             assertTrue(challenge.operand2 in 2..11, "${challenge.operand2} is not in 2..11")
             assertTrue(challenge.result in 2..11, "${challenge.result} is not in 2..11")
             assertEquals(

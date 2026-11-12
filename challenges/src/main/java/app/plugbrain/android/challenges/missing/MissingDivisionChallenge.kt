@@ -19,5 +19,5 @@ class MissingDivisionChallenge : MissingChallenge() {
   override val operationType: Operator = Operator.DIVISION
   override val missingPosition: MissingPosition = MissingPosition.entries.random()
 
-  override val difficultyLevel: Int = 4
+  override val difficultyLevel: Int = 7
 }

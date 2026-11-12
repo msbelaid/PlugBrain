@@ -19,5 +19,5 @@ class MissingMultiplicationChallenge : MissingChallenge() {
   override val operationType: Operator = Operator.MULTIPLICATION
   override val missingPosition: MissingPosition = MissingPosition.entries.random()
 
-  override val difficultyLevel: Int = 3
+  override val difficultyLevel: Int = 6
 }
