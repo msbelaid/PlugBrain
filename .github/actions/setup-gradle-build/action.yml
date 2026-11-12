@@ -1,0 +1,15 @@
+name: Set up JDK and Gradle
+description: JDK 17 (Temurin) and Gradle with caching, as every Gradle job uses them. Run actions/checkout first.
+
+runs:
+  using: composite
+  steps:
+    - name: Set up JDK 17
+      uses: actions/setup-java@v6
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    # Saves the Gradle cache only on master runs; pull requests read it.
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v6
