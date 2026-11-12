@@ -119,10 +119,19 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
     /**
      * Finishes challenge screens left open, for example one the service reopened right after a
      * solve. A later test could otherwise see that old screen instead of a new challenge.
+     *
+     * The service can still open another challenge while this runs (it may not have seen yet that
+     * accessibility was turned off), so every check finishes whatever is open again.
      */
     fun closeChallenges() {
-        instrumentation.runOnMainSync { openChallenges().forEach { it.finish() } }
-        assertTrue("A challenge screen didn't close", waitFor { onMainThread { openChallenges().isEmpty() } })
+        val closed =
+            waitFor {
+                onMainThread {
+                    openChallenges().filterNot { it.isFinishing }.forEach { it.finish() }
+                    openChallenges().isEmpty()
+                }
+            }
+        assertTrue("A challenge screen didn't close", closed)
     }
 
     private fun openChallenges(): List<Activity> =
