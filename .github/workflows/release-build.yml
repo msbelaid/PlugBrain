@@ -265,6 +265,11 @@ jobs:
           disable_search: true
           fail_ci_if_error: false
 
+      # Lists failed tests in the job summary and as annotations, so nobody has to download the report.
+      - name: Summarize test results
+        if: ${{ !cancelled() }}
+        run: python3 .github/scripts/test-summary.py "Unit Tests" '**/build/test-results/**/*.xml'
+
       - name: Upload Unit Test Results
         uses: actions/upload-artifact@v7
         if: always()
@@ -296,6 +301,11 @@ jobs:
       # picked here; the Unit Tests job runs the rest.
       - name: Verify Paparazzi snapshots
         run: ./gradlew verifyPaparazziDebug --tests 'app.plugbrain.android.screenshots.*'
+
+      # Lists failed tests in the job summary and as annotations, so nobody has to download the report.
+      - name: Summarize test results
+        if: ${{ !cancelled() }}
+        run: python3 .github/scripts/test-summary.py "Screenshot Tests" 'app/build/test-results/**/*.xml' 'designsystem/build/test-results/**/*.xml'
 
       - name: Upload Paparazzi report
         if: always()
@@ -380,6 +390,11 @@ jobs:
       - name: Ensure Emulator is Dead
         if: always()
         run: adb -s emulator-5554 emu kill || pkill -9 -f "emulator" || true
+
+      # Lists failed tests in the job summary and as annotations, so nobody has to download the report.
+      - name: Summarize test results
+        if: ${{ !cancelled() }}
+        run: python3 .github/scripts/test-summary.py "UI Tests (API ${{ matrix.api-level }})" '**/build/outputs/androidTest-results/connected/**/*.xml'
 
       - name: Upload UI Test Results
         uses: actions/upload-artifact@v7
