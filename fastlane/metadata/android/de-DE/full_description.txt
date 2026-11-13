@@ -11,7 +11,7 @@ Warum PlugBrain
 - Ein App-Blocker, der dich zum Nachdenken bringt, kein Timer, den du einfach wegtippst
 - Weniger Bildschirmzeit bei Social Media, Spielen, Videos oder jeder App deiner Wahl
 - Schwierigkeit, die sich deinen Gewohnheiten anpasst
-- Funktioniert offline, helles und dunkles Design, 11 Sprachen
+- Funktioniert offline, helles und dunkles Design, 12 Sprachen
 
 Privatsphäre zuerst
 

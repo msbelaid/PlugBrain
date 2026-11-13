@@ -1,0 +1,24 @@
+¿Atrapado en el scroll? PlugBrain corta el hábito del scroll infinito con un pequeño problema de matemáticas.
+
+Elige las apps que te roban el tiempo y usa tu teléfono como siempre. Cuando toca un descanso, aparece un reto de matemáticas sobre la app. Resuélvelo para seguir, o toca Salir de la app y recupera tu tiempo. ¿Quieres pensarlo dos veces antes de empezar? Activa un reto cada vez que se abra una app que te distrae.
+
+Cuanto más scroll, más difícil
+
+Cada reto que resuelves hace el siguiente un poco más duro. Aléjate un rato y vuelve a bajar, hasta tu nivel inicial: Principiante, Intermedio o Experto. Más de 40 tipos de problemas, desde sumas rápidas hasta multiplicaciones de varias cifras, para mantener tu cerebro encendido.
+
+Por qué PlugBrain
+
+- Un bloqueador de apps que te hace pensar, no un temporizador que saltas con un toque
+- Reduce tu tiempo de pantalla en redes sociales, juegos, videos o cualquier app que elijas
+- Una dificultad que se adapta a tus hábitos
+- Funciona sin conexión, tema claro y oscuro, 12 idiomas
+
+Privado desde el diseño
+
+- Sin anuncios, sin cuenta, sin rastreo
+- Sin permiso de internet: nada sale de tu teléfono
+- Libre y de código abierto (GPL-3.0)
+
+Permisos
+
+PlugBrain usa el acceso a datos de uso, mostrar sobre otras apps y el servicio de accesibilidad para saber qué app está abierta y mostrar el reto encima. Durante un reto también bloquea las calculadoras. Solo lee el nombre de la app abierta, nunca lo que hay en tu pantalla ni lo que escribes.

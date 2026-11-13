@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Neutral Spanish for Spain and Latin America, informal tú, no vosotros. -->
+
+    <!-- Duration formatting strings -->
+    <string name="duration_hours_minutes">%1$s y %2$s</string>
+    <string name="duration_days_hours">%1$s y %2$s</string>
+
+    <plurals name="duration_minutes">
+        <item quantity="one">%d minuto</item>
+        <item quantity="many">%d minutos</item>
+        <item quantity="other">%d minutos</item>
+    </plurals>
+
+    <plurals name="duration_hours">
+        <item quantity="one">%d hora</item>
+        <item quantity="many">%d horas</item>
+        <item quantity="other">%d horas</item>
+    </plurals>
+
+    <plurals name="duration_days">
+        <item quantity="one">%d día</item>
+        <item quantity="many">%d días</item>
+        <item quantity="other">%d días</item>
+    </plurals>
+
+    <string name="usage_short_hours_minutes">%1$d h %2$d min</string>
+    <string name="usage_short_hours">%1$d h</string>
+    <string name="usage_short_minutes">%1$d min</string>
+    <string name="usage_short_less_than_minute">&lt;1 min</string>
+
+    <string name="challenge_title">Vamos más despacio</string>
+    <string name="challenge_answer_placeholder">Escribe tu respuesta</string>
+    <string name="challenge_check_answer">Comprobar</string>
+    <string name="challenge_leave_app">Salir de la app</string>
+    <string name="challenge_paste_warning">No se puede pegar</string>
+    <string name="challenge_correct_answer">¡Correcto!</string>
+    <string name="challenge_stay_focused">Mantener el foco</string>
+    <string name="challenge_unlock_app">Desbloquear %d min</string>
+    <plurals name="challenge_unlock_message">
+        <item quantity="one">Puedes desbloquear la app durante %d minuto, o cerrarla y mantener el foco.</item>
+        <item quantity="many">Puedes desbloquear la app durante %d minutos, o cerrarla y mantener el foco.</item>
+        <item quantity="other">Puedes desbloquear la app durante %d minutos, o cerrarla y mantener el foco.</item>
+    </plurals>
+
+    <string name="welcome_title">Enciende tu cerebro.</string>
+    <string name="welcome_feature_one_title">Recupera tu atención</string>
+    <string name="welcome_feature_one_description">Pasa menos tiempo en las apps que te distraen.</string>
+    <string name="welcome_feature_two_title">Un reto para desbloquear</string>
+    <string name="welcome_feature_two_description">Resuelve un pequeño reto de matemáticas para seguir usando la app.</string>
+    <string name="welcome_feature_three_title">Cuanto más te quedas, más difícil</string>
+    <string name="welcome_feature_three_description">Los retos se vuelven más difíciles cuanto más sigues haciendo scroll.</string>
+    <string name="welcome_cta_title">Empezar</string>
+    <string name="calculator_warning">¡Nada de calculadora!</string>
+
+    <string name="onboarding_skip">Omitir</string>
+    <string name="onboarding_permissions_title">Vamos a configurarlo</string>
+    <string name="onboarding_permissions_subtitle">PlugBrain necesita estos permisos para funcionar bien.</string>
+    <string name="onboarding_permissions_cta">Continuar</string>
+    <string name="onboarding_permissions_helper">Concede los permisos necesarios para continuar.</string>
+    <string name="onboarding_usage_access_title">Acceso a datos de uso</string>
+    <string name="onboarding_usage_access_description">Permite que PlugBrain sepa cuánto usas cada app, para bloquear las que te distraen en el momento justo.</string>
+    <string name="onboarding_overlay_title">Mostrar sobre otras apps</string>
+    <string name="onboarding_overlay_description">Permite que PlugBrain muestre un reto mientras usas una app que te distrae.</string>
+    <string name="onboarding_accessibility_title">Permiso de accesibilidad</string>
+    <string name="onboarding_accessibility_description">Permite que PlugBrain detecte qué app se abre.</string>
+    <string name="onboarding_battery_title">Optimización de batería (opcional)</string>
+    <string name="onboarding_battery_description">Hace que PlugBrain siga funcionando aunque tu teléfono intente ahorrar batería.</string>
+
+    <string name="onboarding_sheet_cta">Entendido</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain usa el servicio de accesibilidad para saber qué app está abierta. Cuando abres una app que elegiste bloquear, o una calculadora durante un reto, PlugBrain te muestra primero un reto de matemáticas.\n\nPlugBrain solo lee el nombre de la app. No lee lo que hay en tu pantalla ni lo que escribes, y nada sale de tu teléfono.</string>
+    <string name="onboarding_accessibility_accept">Aceptar y continuar</string>
+    <string name="onboarding_accessibility_decline">Ahora no</string>
+    <string name="accessibility_service_description">Detecta cuándo abres una app que elegiste bloquear para que PlugBrain pueda mostrarte un reto de matemáticas. Solo se lee el nombre de la app.</string>
+    <string name="onboarding_sheet_find_app">Primero, busca y selecciona PlugBrain en la lista de apps.</string>
+    <string name="onboarding_usage_access_sheet_title">Activa el acceso a datos de uso</string>
+    <string name="onboarding_usage_access_sheet_switch">Permitir acceso a datos de uso</string>
+    <string name="onboarding_usage_access_sheet_toggle">Luego activa el interruptor de acceso a datos de uso.</string>
+    <string name="onboarding_overlay_sheet_title">Activa mostrar sobre otras apps</string>
+    <string name="onboarding_overlay_sheet_switch">Permitir mostrar sobre otras apps</string>
+    <string name="onboarding_overlay_sheet_toggle">Luego activa el interruptor de mostrar sobre otras apps.</string>
+    <string name="onboarding_accessibility_sheet_title">Activa el servicio de accesibilidad</string>
+    <string name="onboarding_accessibility_sheet_switch">Usar PlugBrain</string>
+    <string name="onboarding_accessibility_sheet_toggle">Busca PlugBrain, activa el interruptor y confirma.</string>
+
+    <string name="onboarding_apps_title">¿Qué te distrae?</string>
+    <string name="onboarding_apps_subtitle">No te preocupes, puedes cambiar esta lista más adelante.</string>
+    <string name="onboarding_apps_search">Buscar</string>
+    <string name="onboarding_apps_clear_search">Borrar búsqueda</string>
+    <string name="onboarding_apps_cta">Bloquear apps</string>
+
+    <string name="onboarding_preferences_title">Elige tus preferencias</string>
+    <string name="onboarding_preferences_interval">¿Cada cuánto bloqueamos?</string>
+    <plurals name="onboarding_preferences_interval_option">
+        <item quantity="one">Cada minuto</item>
+        <item quantity="many">Cada %d minutos</item>
+        <item quantity="other">Cada %d minutos</item>
+    </plurals>
+    <string name="onboarding_preferences_difficulty">Dificultad inicial de los retos</string>
+    <string name="onboarding_difficulty_beginner">Principiante</string>
+    <string name="onboarding_difficulty_beginner_description">Sumas y restas sencillas.</string>
+    <string name="onboarding_difficulty_intermediate">Intermedio</string>
+    <string name="onboarding_difficulty_intermediate_description">Multiplicaciones y números que faltan.</string>
+    <string name="onboarding_difficulty_expert">Experto</string>
+    <string name="onboarding_difficulty_expert_description">Multiplicaciones de varias cifras.</string>
+    <string name="onboarding_preferences_cta">Terminar</string>
+    <!-- Main screen (dashboard) -->
+    <string name="dashboard_active">PlugBrain está activado</string>
+    <string name="dashboard_minutes_short">%d min</string>
+    <string name="dashboard_minutes_left">hasta el próximo reto</string>
+    <string name="dashboard_next_challenge_level">Próximo reto: nivel %1$d de %2$d</string>
+    <string name="dashboard_apps_locked">Apps bloqueadas</string>
+    <string name="dashboard_away">Fuera desde hace %s</string>
+    <string name="dashboard_hours_minutes_short">%1$d h %2$d min</string>
+    <!-- %d is a difficulty level, not a count. -->
+    <string name="dashboard_unlock_level" tools:ignore="PluralsCandidate">Resuelve un reto de nivel %d para desbloquear. Cuanto más tiempo estés fuera, más fácil será.</string>
+    <string name="dashboard_paused">PlugBrain está en pausa</string>
+    <string name="dashboard_paused_accessibility">Se desactivó el servicio de accesibilidad, así que PlugBrain no puede bloquear tus apps.</string>
+    <string name="dashboard_paused_usage_access">Se desactivó el acceso a datos de uso, así que PlugBrain no sabe cuándo bloquear tus apps.</string>
+    <string name="dashboard_paused_overlay">Se desactivó mostrar sobre otras apps, así que PlugBrain no puede mostrar retos.</string>
+    <string name="dashboard_turn_back_on">Volver a activar</string>
+    <string name="dashboard_nothing_to_block">Todavía no hay nada que bloquear</string>
+    <plurals name="dashboard_nothing_to_block_description">
+        <item quantity="one">Elige las apps que te atrapan, y PlugBrain te pondrá un reto tras %d minuto en ellas.</item>
+        <item quantity="many">Elige las apps que te atrapan, y PlugBrain te pondrá un reto tras %d minutos en ellas.</item>
+        <item quantity="other">Elige las apps que te atrapan, y PlugBrain te pondrá un reto tras %d minutos en ellas.</item>
+    </plurals>
+    <string name="dashboard_choose_apps">Elegir apps</string>
+    <string name="dashboard_your_setup">Tu configuración</string>
+    <string name="dashboard_blocked_apps_title">Apps bloqueadas</string>
+    <string name="dashboard_blocked_apps_none">Ninguna seleccionada</string>
+    <plurals name="dashboard_blocked_apps_count">
+        <item quantity="one">%d app bloqueada</item>
+        <item quantity="many">%d apps bloqueadas</item>
+        <item quantity="other">%d apps bloqueadas</item>
+    </plurals>
+    <string name="dashboard_challenges">Retos</string>
+    <plurals name="dashboard_challenges_every">
+        <item quantity="one">Cada minuto</item>
+        <item quantity="many">Cada %d min</item>
+        <item quantity="other">Cada %d min</item>
+    </plurals>
+    <plurals name="dashboard_challenges_on_open">
+        <item quantity="one">Al abrir, y luego cada minuto</item>
+        <item quantity="many">Al abrir, y luego cada %d min</item>
+        <item quantity="other">Al abrir, y luego cada %d min</item>
+    </plurals>
+    <string name="dashboard_min_difficulty">Dificultad mínima</string>
+    <string name="dashboard_min_difficulty_preset">%1$s · nivel %2$d</string>
+    <string name="dashboard_min_difficulty_level">Nivel %d</string>
+    <!-- Challenges sheet -->
+    <string name="block_interval_sheet_title">Cuándo ponerte un reto</string>
+    <string name="block_interval_sheet_description">Cuánto tiempo puedes usar tus apps bloqueadas antes de que PlugBrain te ponga un reto.</string>
+    <string name="block_interval_sheet_slider_label">Tiempo entre retos</string>
+    <string name="block_interval_sheet_on_open">También al abrir una app</string>
+    <string name="block_interval_sheet_on_open_description">Resuelve también un reto antes de que se abra una app que te distrae.</string>
+    <plurals name="block_interval_sheet_value">
+        <item quantity="one">%d minuto</item>
+        <item quantity="many">%d minutos</item>
+        <item quantity="other">%d minutos</item>
+    </plurals>
+    <string name="block_interval_sheet_save">Guardar</string>
+    <string name="min_difficulty_sheet_description">Los retos empiezan en este nivel y se vuelven más difíciles cuanto más sigues usando tus apps bloqueadas.</string>
+    <string name="min_difficulty_sheet_example">Por ejemplo</string>
+    <string name="min_difficulty_sheet_save">Guardar</string>
+    <string name="dashboard_battery_title">Funcionar en segundo plano</string>
+    <string name="dashboard_battery_description">Evita que Android cierre PlugBrain para ahorrar batería.</string>
+    <string name="about_open">Acerca de PlugBrain</string>
+    <string name="about_version">Versión %s</string>
+    <string name="about_source_code_title">Código fuente</string>
+    <string name="about_source_code_description">Libre y de código abierto, bajo GPLv3</string>
+    <string name="about_report_bug_title">Reportar un error</string>
+    <string name="about_report_bug_description">Abre un issue en GitHub</string>
+    <string name="about_website_title">Sitio web</string>
+</resources>

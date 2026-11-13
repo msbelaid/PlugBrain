@@ -47,6 +47,19 @@ val playCaptions: Map<String, List<PlayCaption>> =
                 PlayCaption("Kostenlos & Open Source", "Keine Werbung. Kein Tracking. Kein Internet."),
                 PlayCaption("Hell oder dunkel", ""),
             ),
+        "es-ES" to
+            listOf(
+                PlayCaption(
+                    "¿Una app que distrae? No tan rápido.",
+                    "Un poco de matemáticas.\nMucho menos scroll.",
+                ),
+                PlayCaption("Dificultad adaptativa", "Cuanto más scroll,\nmás difícil se pone."),
+                PlayCaption("Un descanso de verdad", "Aléjate un rato, y\nvuelve a ser fácil."),
+                PlayCaption("Tú eliges", "Bloquea las apps que\nte roban el tiempo."),
+                PlayCaption("Tus reglas", "Elige la frecuencia\ny la dificultad."),
+                PlayCaption("Gratis y de código abierto", "Sin anuncios. Sin rastreo.\nSin internet."),
+                PlayCaption("Claro u oscuro", ""),
+            ),
         "fa" to
             listOf(
                 PlayCaption("برنامه‌ی حواس‌پرت‌کن؟ نه به این زودی", "کمی ریاضی، خیلی کمتر اسکرول."),
