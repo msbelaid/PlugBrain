@@ -90,6 +90,7 @@ private val storeLocales =
         "ja" to "ja",
         "nb-NO" to "nb",
         "nl-NL" to "nl",
+        "pt-BR" to "pt-rBR",
         "ru-RU" to "ru",
         "zh-CN" to "zh-rCN",
     )
