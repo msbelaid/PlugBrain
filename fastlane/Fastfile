@@ -26,7 +26,7 @@ platform :android do
     end
   end
 
-  desc "Upload a signed AAB to the internal track as a draft, with the en-US changelog as release notes"
+  desc "Upload a signed AAB to the internal track as a draft, with each language's changelog as release notes"
   lane :internal do |options|
     aab = File.expand_path(options[:aab] || "../app/build/outputs/bundle/release/app-release.aab", __dir__)
     UI.user_error!("AAB not found: #{aab}") unless File.exist?(aab)
@@ -38,6 +38,7 @@ platform :android do
       # R8 mapping, so Play Console shows readable crash stack traces.
       mapping: (mapping if File.exist?(mapping)),
       json_key_data: play_json_key,
+      # Every language that has a changelog for this versionCode; the others get the en-US notes.
       metadata_path: release_notes_dir,
       # Draft until the flow is trusted: press "Review release" in Play Console to roll it out.
       release_status: "draft",
@@ -138,17 +139,11 @@ platform :android do
     UI.user_error!("rollout must be a number like 0.1, got #{value}")
   end
 
-  # Play reads release notes from <dir>/<locale>/changelogs/<versionCode>.txt. The F-Droid metadata folder
-  # has locale codes Play rejects (hi, ja), so only the en-US changelog is copied to a temp folder.
   def release_notes_dir
-    gradle = File.read(File.expand_path("../app/build.gradle.kts", __dir__))
-    version_code = gradle[/versionCode\s*=\s*(\d+)/, 1] || UI.user_error!("versionCode not found in app/build.gradle.kts")
-    source = File.expand_path("metadata/android/en-US/changelogs/#{version_code}.txt", __dir__)
-    UI.user_error!("Missing changelog #{source}") unless File.exist?(source)
-
-    dir = File.join(Dir.mktmpdir("play-notes"), "en-US", "changelogs")
-    FileUtils.mkdir_p(dir)
-    FileUtils.cp(source, dir)
-    File.dirname(dir, 2)
+    missing = StoreListing.missing_changelogs
+    UI.important("No changelog in #{missing.join(', ')}: Play shows them the en-US notes") unless missing.empty?
+    StoreListing.release_notes_dir(Dir.mktmpdir("play-notes"))
+  rescue RuntimeError => e
+    UI.user_error!(e.message)
   end
 end

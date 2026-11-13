@@ -3,7 +3,8 @@
 # fastlane/metadata/android stays in the layout F-Droid and IzzyOnDroid read. Play wants other codes for
 # a few locales, so the listing lane copies the text into a temp folder named the Play way.
 #
-# Run `ruby fastlane/store_listing.rb` to check every locale against Play's limits (CI does on PRs).
+# Run `ruby fastlane/store_listing.rb` to check every locale against Play's limits (CI does on PRs). It also
+# warns about locales with no changelog for the current versionCode: Play shows them the en-US notes.
 module StoreListing
   METADATA_DIR = File.expand_path("metadata/android", __dir__)
   # Google Play only: framed phoneScreenshots/<n>.png and a 1024x500 featureGraphic.png per locale folder.
@@ -24,6 +25,8 @@ module StoreListing
   # Play's character limits.
   LIMITS = { "title.txt" => 30, "short_description.txt" => 80, "full_description.txt" => 4000 }.freeze
   CHANGELOG_LIMIT = 500
+
+  DEFAULT_LOCALE = "en-US"
 
   module_function
 
@@ -60,6 +63,36 @@ module StoreListing
     end
   end
 
+  def version_code
+    gradle = File.read(File.expand_path("../app/build.gradle.kts", __dir__), encoding: "UTF-8")
+    code = gradle[/versionCode\s*=\s*(\d+)/, 1] or raise "versionCode not found in app/build.gradle.kts"
+    Integer(code)
+  end
+
+  def changelog(locale, code = version_code)
+    File.join(METADATA_DIR, locale, "changelogs", "#{code}.txt")
+  end
+
+  # Locales that have no release notes for this version.
+  def missing_changelogs(code = version_code)
+    locales.reject { |locale| File.exist?(changelog(locale, code)) }
+  end
+
+  # Release notes Play can read: <dir>/<Play code>/changelogs/<versionCode>.txt for every locale that has
+  # them. en-US is required, since Play falls back to it for the others.
+  def release_notes_dir(root, code = version_code)
+    unless File.exist?(changelog(DEFAULT_LOCALE, code))
+      raise "Missing #{DEFAULT_LOCALE} changelog: #{changelog(DEFAULT_LOCALE, code)}"
+    end
+
+    (locales - missing_changelogs(code)).each do |locale|
+      target = File.join(root, play_code(locale), "changelogs")
+      FileUtils.mkdir_p(target)
+      FileUtils.cp(changelog(locale, code), target)
+    end
+    root
+  end
+
   # A folder Play can read: <dir>/<Play code>/{title,short_description,full_description}.txt, plus
   # images/ from PLAY_IMAGES_DIR where a locale has them (featureGraphic.png, phoneScreenshots/), and
   # icon.png and featureGraphic.png from DEFAULT_IMAGES where it doesn't.
@@ -83,6 +116,11 @@ end
 
 if $PROGRAM_NAME == __FILE__
   found = StoreListing.problems
+  missing = StoreListing.missing_changelogs
+  unless missing.empty?
+    puts "::warning::No changelog for versionCode #{StoreListing.version_code} in #{missing.join(', ')}: " \
+         "Play shows them the #{StoreListing::DEFAULT_LOCALE} release notes"
+  end
   if found.empty?
     puts "Store listing OK: #{StoreListing.locales.join(', ')}"
   else
