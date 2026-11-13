@@ -11,7 +11,7 @@ Hvorfor PlugBrain
 - En appblokkerer som får deg til å tenke, ikke en timer du bare trykker forbi
 - Mindre skjermtid på sosiale medier, spill, video eller hvilken som helst app du velger
 - Vanskelighetsgrad som tilpasser seg vanene dine
-- Fungerer uten nett, lyst og mørkt tema, 11 språk
+- Fungerer uten nett, lyst og mørkt tema, 12 språk
 
 Personvern først
 
