@@ -1,0 +1,2 @@
+- Abrir um app bloqueado em tela dividida volta a mostrar o desafio em tela cheia
+- As calculadoras só ficam bloqueadas enquanto há um desafio na tela, não o tempo todo

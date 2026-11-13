@@ -1,0 +1,24 @@
+Preso na rolagem infinita? O PlugBrain quebra o hábito de rolar o feed sem parar com uma continha rápida.
+
+Escolha os apps que roubam seu tempo e use o celular como sempre. Quando chega a hora de uma pausa, um desafio de matemática aparece por cima do app. Resolva para continuar, ou toque em Sair do app e recupere seu tempo. Quer pensar duas vezes antes mesmo de começar? Ative um desafio toda vez que um app que distrai for aberto.
+
+Quanto mais você rola, mais difícil fica
+
+Cada desafio resolvido deixa o próximo um pouco mais difícil. Dê um tempo e ele volta a ficar mais fácil, até o seu nível inicial: Iniciante, Intermediário ou Avançado. Mais de 40 tipos de problemas, de somas rápidas a multiplicações com vários dígitos, para manter seu cérebro ligado.
+
+Por que o PlugBrain
+
+- Um bloqueador de apps que faz você pensar, não um timer que você pula com um toque
+- Reduza o tempo de tela em redes sociais, jogos, vídeos ou qualquer app que você escolher
+- Uma dificuldade que se adapta aos seus hábitos
+- Funciona sem internet, tema claro e escuro, 13 idiomas
+
+Privado desde o início
+
+- Sem anúncios, sem conta, sem rastreamento
+- Sem permissão de internet: nada sai do seu celular
+- Livre e de código aberto (GPL-3.0)
+
+Permissões
+
+O PlugBrain usa o acesso ao uso, a sobreposição a outros apps e o serviço de acessibilidade para saber qual app está aberto e mostrar o desafio por cima. Durante um desafio, ele também bloqueia as calculadoras. Ele só lê o nome do app aberto, nunca o que aparece na sua tela nem o que você digita.

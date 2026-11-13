@@ -11,7 +11,7 @@ Pourquoi PlugBrain
 - Un bloqueur d’applis qui te fait réfléchir, pas un minuteur qu’on ignore d’un tap
 - Réduis ton temps d’écran sur les réseaux sociaux, les jeux, les vidéos ou n’importe quelle appli
 - Une difficulté qui s’adapte à tes habitudes
-- Fonctionne hors ligne, thème clair et sombre, 12 langues
+- Fonctionne hors ligne, thème clair et sombre, 13 langues
 
 Respect de ta vie privée
 

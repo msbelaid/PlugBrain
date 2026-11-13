@@ -123,6 +123,19 @@ val playCaptions: Map<String, List<PlayCaption>> =
                 PlayCaption("Gratis en open source", "Geen advertenties. Geen tracking. Geen internet."),
                 PlayCaption("Licht of donker", ""),
             ),
+        "pt-BR" to
+            listOf(
+                PlayCaption(
+                    "App que distrai? Calma lá.",
+                    "Uma continha rápida.\nBem menos rolagem.",
+                ),
+                PlayCaption("Dificuldade adaptativa", "Quanto mais você rola,\nmais difícil fica."),
+                PlayCaption("Uma pausa de verdade", "Dê um tempo, e tudo\nfica fácil de novo."),
+                PlayCaption("Você escolhe", "Bloqueie os apps que\nroubam seu tempo."),
+                PlayCaption("Suas regras", "Escolha a frequência\ne a dificuldade."),
+                PlayCaption("Grátis e de código aberto", "Sem anúncios. Sem rastreio.\nSem internet."),
+                PlayCaption("Claro ou escuro", ""),
+            ),
         "ru-RU" to
             listOf(
                 PlayCaption(
