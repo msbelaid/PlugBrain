@@ -133,7 +133,7 @@ val playCaptions: Map<String, List<PlayCaption>> =
                 PlayCaption("Uma pausa de verdade", "Dê um tempo, e tudo\nfica fácil de novo."),
                 PlayCaption("Você escolhe", "Bloqueie os apps que\nroubam seu tempo."),
                 PlayCaption("Suas regras", "Escolha a frequência\ne a dificuldade."),
-                PlayCaption("Grátis e de código aberto", "Sem anúncios. Sem rastreio.\nSem internet."),
+                PlayCaption("Grátis e de código aberto", "Sem anúncios,\nsem rastreio, offline."),
                 PlayCaption("Claro ou escuro", ""),
             ),
         "ru-RU" to
