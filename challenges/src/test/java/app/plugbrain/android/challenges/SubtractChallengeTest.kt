@@ -43,27 +43,27 @@ class SubtractChallengeTest {
 
     @Test
     fun `test subtract under five`() {
-        repeat(10) {
+        repeat(100) {
             val challenge = SubtractUnderFiveChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
             assertEquals(2, challenge.difficultyLevel)
-            assertTrue(a >= b, "$a greater than $b")
-            assertTrue(a in 1..5, "$a should be in 1..5")
-            assertTrue(b in 1..5, "$b should be in 1..5")
+            assertTrue(a > b, "$a should be greater than $b")
+            assertTrue(a in 2..5, "$a should be in 2..5")
+            assertTrue(b in 1..4, "$b should be in 1..4")
         }
     }
 
     @Test
     fun `test subtract under ten`() {
-        repeat(10) {
+        repeat(100) {
             val challenge = SubtractOneDigitChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
             assertEquals(3, challenge.difficultyLevel)
-            assertTrue(a >= b, "$a greater than $b")
-            assertTrue(a in 1..9, "$a should be in 1..9")
-            assertTrue(b in 1..9, "$b should be in 1..9")
+            assertTrue(a > b, "$a should be greater than $b")
+            assertTrue(a in 4..9, "$a should be in 4..9")
+            assertTrue(b in 3..8, "$b should be in 3..8")
         }
     }
 
