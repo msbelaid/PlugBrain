@@ -3,7 +3,7 @@ package app.plugbrain.android.challenges
 import app.plugbrain.android.challenges.square.SquareChallengeEasyTwoThroughFive
 import app.plugbrain.android.challenges.square.SquareChallengeEndingInFiveFifteenThroughNinetyFive
 import app.plugbrain.android.challenges.square.SquareChallengeFiftyOneThroughNinetyNine
-import app.plugbrain.android.challenges.square.SquareChallengeHardElevenThroughTwenty
+import app.plugbrain.android.challenges.square.SquareChallengeHardElevenThroughNineteen
 import app.plugbrain.android.challenges.square.SquareChallengeMediumSixThroughTen
 import app.plugbrain.android.challenges.square.SquareChallengeMultipleOfTenTwentyThroughNinety
 import app.plugbrain.android.challenges.square.SquareChallengeTwentyOneThroughFifty
@@ -36,10 +36,10 @@ class SquareChallengeTest {
     @Test
     fun `test if operand in hard challenge is correct `() {
         repeat(10) {
-            val challenge = SquareChallengeHardElevenThroughTwenty()
+            val challenge = SquareChallengeHardElevenThroughNineteen()
             val a = challenge.operand
             assertEquals(8, challenge.difficultyLevel)
-            assertTrue(a in 11..20, "$a is not in 11..20")
+            assertTrue(a in 11..19, "$a is not in 11..19")
         }
     }
 
@@ -70,13 +70,21 @@ class SquareChallengeTest {
     @Test
     fun `test if operand and result are correct in hard challenge`() {
         repeat(10) {
-            val challenge = SquareChallengeHardElevenThroughTwenty()
+            val challenge = SquareChallengeHardElevenThroughNineteen()
             val a = challenge.operand
             assertEquals(8, challenge.difficultyLevel)
-            assertTrue(a in 11..20, "$a is not in 11..20")
+            assertTrue(a in 11..19, "$a is not in 11..19")
             assertTrue(challenge.checkAnswer(a * a), "check answer is correct")
             assertFalse(challenge.checkAnswer(a * a - 1), "check answer is not correct")
         }
+    }
+
+    @Test
+    fun `higher square challenges do not repeat round numbers from lower levels`() {
+        assertFalse(20 in SquareChallengeHardElevenThroughNineteen.operands)
+        assertTrue(SquareChallengeTwentyOneThroughFifty.operands.none { it % 5 == 0 })
+        assertTrue(SquareChallengeFiftyOneThroughNinetyNine.operands.none { it % 5 == 0 })
+        assertTrue(15 in SquareChallengeHardElevenThroughNineteen.operands)
     }
 
     @Test
