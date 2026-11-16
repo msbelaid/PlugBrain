@@ -51,8 +51,8 @@ private const val RELAUNCH_EVERY = 3_000L
 // Longer than MathLockService's 700 ms recheck, plus Settings finishing its start-up.
 private const val CHALLENGE_SETTLE = 1_500L
 
-// Every challenge text: "3 + 1", "3 + ? = 4", "3 + 1 = ?" or "4² = ?".
-private val CHALLENGE_TEXT = Regex("""\S+ [-+x/] \S+( = \S+)?|\d+² = \?""")
+// Every challenge text: "3 + 1", "3 + ? = 4", "3 + 1 = ?", "4² = ?" or "avg(46, 72)".
+private val CHALLENGE_TEXT = Regex("""\S+ [-+x/] \S+( = \S+)?|\d+² = \?|avg\(\d+, \d+(?:, \d+)?\)""")
 
 /**
  * Sets up PlugBrain as after onboarding, opens the distracting app and solves challenges, for the
@@ -266,12 +266,21 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         }
 
     private fun hasChallengeText() =
-        SemanticsMatcher("shows a challenge like \"3 + 1\"") { node ->
+        SemanticsMatcher("shows a challenge like \"3 + 1\", \"4² = ?\" or \"avg(46, 72)\"") { node ->
             node.config.getOrNull(SemanticsProperties.Text).orEmpty().any { CHALLENGE_TEXT.matches(it.text) }
         }
 
     /** Works out the answer from the text, for every kind of challenge the levels can give. */
-    private fun answer(challenge: String): Int {
+    private fun answer(challenge: String): Int =
+        if (challenge.startsWith("avg(")) {
+            val numbers = challenge.removePrefix("avg(").removeSuffix(")").split(", ").map { it.toInt() }
+            numbers.sum() / numbers.size
+        } else {
+            answerEquation(challenge)
+        }
+
+    /** "a op b", "? op b = r" and "n² = ?", the shapes without the average. */
+    private fun answerEquation(challenge: String): Int {
         val tokens = challenge.split(" ")
         if (tokens[0].endsWith("²")) {
             val n = tokens[0].removeSuffix("²").toInt()
