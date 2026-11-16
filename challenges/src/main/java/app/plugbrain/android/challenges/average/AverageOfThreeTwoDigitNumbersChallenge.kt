@@ -11,12 +11,11 @@ class AverageOfThreeTwoDigitNumbersChallenge : AverageChallenge() {
   override val difficultyLevel: Int = 11
 
   private fun generate(): List<Int> {
-    // Pick the average first, then fit the three numbers around it, retrying while
-    // the third number falls outside 10..99.
-      val first = (10..99).random()
-      val second = (10..99).random()
-      val average = ((first+second+10)/3..(first+second+99)/3).random()
-      val third = 3 * average - first - second
-    }
+    val first = (10..99).random()
+    val second = (10..99).random()
+    // The range keeps third in 10..99. It adds 12, not 10, because integer division floors.
+    val average = ((first + second + 12) / 3..(first + second + 99) / 3).random()
+    val third = 3 * average - first - second
+    return listOf(first, second, third)
   }
 }
