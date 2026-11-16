@@ -10,6 +10,8 @@ import app.plugbrain.android.challenges.addition.AdditionTwoDigitsCarryFreeChall
 import app.plugbrain.android.challenges.addition.AdditionTwoDigitsWithCarryChallenge
 import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
 import app.plugbrain.android.challenges.addition.AdditionUnderTenChallenge
+import app.plugbrain.android.challenges.average.AverageOfThreeTwoDigitNumbersChallenge
+import app.plugbrain.android.challenges.average.AverageOfTwoTwoDigitNumbersChallenge
 import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.challenges.missing.MissingAdditionChallenge
 import app.plugbrain.android.challenges.missing.MissingDivisionChallenge
@@ -100,6 +102,9 @@ val challengesModule = module {
   factory { SquareChallengeEndingInFiveFifteenThroughNinetyFive() } bind Challenge::class
   factory { SquareChallengeTwentyOneThroughFifty() } bind Challenge::class
   factory { SquareChallengeFiftyOneThroughNinetyNine() } bind Challenge::class
+
+  factory { AverageOfTwoTwoDigitNumbersChallenge() } bind Challenge::class
+  factory { AverageOfThreeTwoDigitNumbersChallenge() } bind Challenge::class
   // New generated challenges will be added here, do not remove
 
   factory {

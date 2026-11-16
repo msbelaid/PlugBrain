@@ -1,5 +1,6 @@
 package app.plugbrain.android.challenges
 
+import app.plugbrain.android.challenges.average.AverageChallenge
 import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.challenges.square.SquareChallenge
 import app.plugbrain.android.di.challengesModule
@@ -109,6 +110,15 @@ class ChallengePropertiesTest {
                 }
             }
             is SquareChallenge -> challenge.operand * challenge.operand
+            is AverageChallenge -> {
+                val sum = challenge.numbers.sum()
+                assertEquals(
+                    "${challenge.string()} should have a whole average",
+                    0,
+                    sum % challenge.numbers.size,
+                )
+                sum / challenge.numbers.size
+            }
             else -> error("No expected answer for ${challenge::class.simpleName}")
         }
 
