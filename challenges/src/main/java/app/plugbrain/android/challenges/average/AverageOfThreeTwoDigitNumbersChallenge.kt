@@ -13,12 +13,10 @@ class AverageOfThreeTwoDigitNumbersChallenge : AverageChallenge() {
   private fun generate(): List<Int> {
     // Pick the average first, then fit the three numbers around it, retrying while
     // the third number falls outside 10..99.
-    while (true) {
-      val average = (10..99).random()
       val first = (10..99).random()
       val second = (10..99).random()
+      val average = ((first+second+10)/3..(first+second+99)/3).random()
       val third = 3 * average - first - second
-      if (third in 10..99) return listOf(first, second, third)
     }
   }
 }
