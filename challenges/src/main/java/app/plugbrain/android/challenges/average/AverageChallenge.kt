@@ -6,7 +6,7 @@ import app.plugbrain.android.challenges.NumericalChallenge
  * Abstract base class for "average of N numbers" challenges.
  * The average is always a whole number, so the answer is a single number.
  *
- * Example: avg(46, 72) (answer: 59)
+ * Example: (46 + 72) ÷ 2 (answer: 59)
  */
 abstract class AverageChallenge : NumericalChallenge {
   /** The numbers to average, in the order they are shown. */
@@ -17,6 +17,6 @@ abstract class AverageChallenge : NumericalChallenge {
   }
 
   override fun string(): String {
-    return "avg(" + numbers.joinToString(", ") + ")"
+    return "(" + numbers.joinToString(" + ") + ") ÷ " + numbers.size
   }
 }

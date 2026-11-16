@@ -27,7 +27,7 @@ class AverageChallengeTest {
             assertTrue(challenge.checkAnswer(average), "should accept $average")
             assertFalse(challenge.checkAnswer(average - 1), "should reject ${average - 1}")
             assertFalse(challenge.checkAnswer(average + 1), "should reject ${average + 1}")
-            assertEquals("avg($first, $second)", challenge.string())
+            assertEquals("($first + $second) ÷ 2", challenge.string())
         }
     }
 
@@ -47,7 +47,7 @@ class AverageChallengeTest {
             assertTrue(challenge.checkAnswer(average), "should accept $average")
             assertFalse(challenge.checkAnswer(average - 1), "should reject ${average - 1}")
             assertFalse(challenge.checkAnswer(average + 1), "should reject ${average + 1}")
-            assertEquals("avg(${numbers.joinToString(", ")})", challenge.string())
+            assertEquals("(${numbers.joinToString(" + ")}) ÷ 3", challenge.string())
         }
     }
 }

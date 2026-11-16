@@ -2,8 +2,8 @@ package app.plugbrain.android.challenges.average
 
 /**
  * Average of two 2-digit numbers. Examples:
- * - avg(46, 72) (answer: 59)
- * - avg(34, 46) (answer: 40)
+ * - (46 + 72) ÷ 2 (answer: 59)
+ * - (34 + 46) ÷ 2 (answer: 40)
  */
 class AverageOfTwoTwoDigitNumbersChallenge : AverageChallenge() {
   override val numbers: List<Int> = generate()
