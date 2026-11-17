@@ -1,0 +1,109 @@
+{
+  "$schema": "https://fundingjson.org/schema/v1.1.0.json",
+  "version": "v1.1.0",
+  "entity": {
+    "type": "individual",
+    "role": "owner",
+    "name": "Mohammed Said Belaid",
+    "email": "belaid.mohammed.said@gmail.com",
+    "description": "Independent Android developer based in Algeria. I build and maintain PlugBrain, a free and open source focus app, together with a community of volunteer contributors and translators.",
+    "webpageUrl": {
+      "url": "https://plugbrain.app",
+      "wellKnown": "https://plugbrain.app/.well-known/funding-manifest-urls"
+    }
+  },
+  "projects": [
+    {
+      "guid": "plugbrain",
+      "name": "PlugBrain",
+      "description": "PlugBrain is a free and open source Android app that reduces screen time. It blocks the apps you choose at regular intervals and asks you to solve a short math challenge to unlock them. The challenges get harder the more often you come back and easier the longer you stay away. The app has no internet permission, no account, no ads and no tracking, and is available on Google Play, F-Droid and IzzyOnDroid in more than ten languages. Funding pays for maintainer time: releases, bug fixes, accessibility, new challenge types, translations and reviewing community contributions.",
+      "webpageUrl": {
+        "url": "https://plugbrain.app",
+        "wellKnown": "https://plugbrain.app/.well-known/funding-manifest-urls"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/msbelaid/PlugBrain"
+      },
+      "licenses": [
+        "spdx:GPL-3.0"
+      ],
+      "tags": [
+        "android",
+        "digital-wellbeing",
+        "screen-time",
+        "focus",
+        "app-blocker",
+        "privacy",
+        "offline",
+        "mental-math",
+        "education",
+        "kotlin"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "bank",
+        "type": "bank",
+        "description": "Direct bank transfer (EUR or USD). Please email me for account details."
+      }
+    ],
+    "plans": [
+      {
+        "guid": "maintainer-time",
+        "status": "active",
+        "name": "Maintainer time",
+        "description": "Covers part of one developer's time for a year: regular releases on Google Play, F-Droid and IzzyOnDroid, bug fixes, Android version updates and reviewing community pull requests.",
+        "amount": 8000,
+        "currency": "USD",
+        "frequency": "yearly",
+        "channels": [
+          "bank"
+        ]
+      },
+      {
+        "guid": "ux-design",
+        "status": "active",
+        "name": "UX design",
+        "description": "Pays a designer for a round of user experience work: user research on intentional friction, a clearer home screen and onboarding, and store graphics. Design has been volunteer work so far.",
+        "amount": 2000,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": [
+          "bank"
+        ]
+      },
+      {
+        "guid": "one-time-support",
+        "status": "active",
+        "name": "One-time support",
+        "description": "Any amount, for a specific feature or simply to support the project.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": [
+          "bank"
+        ]
+      }
+    ],
+    "history": [
+      {
+        "year": 2025,
+        "income": 0,
+        "expenses": 25,
+        "taxes": 0,
+        "currency": "USD",
+        "description": "PlugBrain has had no income. All development, design and translation work has been unpaid. Expenses: Google Play developer registration fee."
+      },
+      {
+        "year": 2026,
+        "income": 0,
+        "expenses": 15,
+        "taxes": 0,
+        "currency": "USD",
+        "description": "No income so far. Expenses: the plugbrain.app domain."
+      }
+    ]
+  }
+}
