@@ -28,10 +28,15 @@ import app.plugbrain.android.challenges.multiplication.MultiplicationSingleByDou
 import app.plugbrain.android.challenges.multiplication.MultiplicationSingleByThreeDigitChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationSingleByThreeMultipleTenDigitChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationSingleDigitByMultipleTenChallenge
+import app.plugbrain.android.challenges.multiplication.MultiplicationSingleDigitByNineChallenge
+import app.plugbrain.android.challenges.multiplication.MultiplicationSingleDigitByNinetyNineChallenge
+import app.plugbrain.android.challenges.multiplication.MultiplicationSingleDigitByNumberEndingInNineChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationSingleDigitChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationThreeByFourDigitChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationThreeByThreeDigitChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationTwoByThreeDigitChallenge
+import app.plugbrain.android.challenges.multiplication.MultiplicationTwoDigitByElevenChallenge
+import app.plugbrain.android.challenges.multiplication.MultiplicationTwoDigitByElevenToNineteenChallenge
 import app.plugbrain.android.challenges.square.SquareChallengeEasyTwoThroughFive
 import app.plugbrain.android.challenges.square.SquareChallengeEndingInFiveFifteenThroughNinetyFive
 import app.plugbrain.android.challenges.square.SquareChallengeFiftyOneThroughNinetyNine
@@ -79,6 +84,11 @@ val challengesModule = module {
   factory { MultiplicationByTwoChallenge() } bind Challenge::class
   factory { MultiplicationByFiveChallenge() } bind Challenge::class
   factory { MultiplicationByElevenChallenge() } bind Challenge::class
+  factory { MultiplicationTwoDigitByElevenChallenge() } bind Challenge::class
+  factory { MultiplicationTwoDigitByElevenToNineteenChallenge() } bind Challenge::class
+  factory { MultiplicationSingleDigitByNineChallenge() } bind Challenge::class
+  factory { MultiplicationSingleDigitByNinetyNineChallenge() } bind Challenge::class
+  factory { MultiplicationSingleDigitByNumberEndingInNineChallenge() } bind Challenge::class
   factory { MultiplicationSingleDigitChallenge() } bind Challenge::class
   factory { MultiplicationSingleDigitByMultipleTenChallenge() } bind Challenge::class
   factory { MultiplicationSingleByDoubleDigitChallenge() } bind Challenge::class
