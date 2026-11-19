@@ -1,0 +1,4 @@
+- Novos desafios: quadrados maiores e médias de números de dois dígitos
+- Níveis rebalanceados para que as perguntas combinem com a dificuldade e as fáceis não se repitam
+- Colar uma resposta agora gera um novo desafio
+- O PlugBrain agora fala espanhol e português do Brasil

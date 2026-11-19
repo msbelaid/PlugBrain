@@ -1,0 +1,4 @@
+- Nuevos retos: cuadrados más grandes y medias de números de dos cifras
+- Niveles reequilibrados para que las preguntas encajen con su dificultad y las fáciles no se repitan
+- Si pegas una respuesta, recibes un reto nuevo
+- PlugBrain ya está en español y portugués de Brasil
