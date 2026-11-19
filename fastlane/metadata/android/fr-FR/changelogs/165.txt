@@ -1,0 +1,4 @@
+- Nouveaux défis : des carrés plus grands et des moyennes de nombres à deux chiffres
+- Niveaux rééquilibrés : chaque question correspond à sa difficulté et les plus faciles ne reviennent plus
+- Si tu colles une réponse, tu reçois maintenant un nouveau défi
+- PlugBrain parle désormais espagnol et portugais du Brésil

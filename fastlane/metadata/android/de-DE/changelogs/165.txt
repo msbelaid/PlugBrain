@@ -1,0 +1,4 @@
+- Neue Aufgaben: größere Quadratzahlen und Durchschnitte zweistelliger Zahlen
+- Stufen neu abgestimmt: Jede Frage passt zu ihrem Schwierigkeitsgrad, leichte wiederholen sich nicht mehr
+- Wenn du eine Antwort einfügst, bekommst du jetzt eine neue Aufgabe
+- PlugBrain gibt es jetzt auf Spanisch und brasilianischem Portugiesisch

@@ -1,0 +1,4 @@
+- Nieuwe uitdagingen: grotere kwadraten en het gemiddelde van getallen van twee cijfers
+- Niveaus opnieuw afgesteld, zodat vragen bij hun moeilijkheid passen en makkelijke niet terugkomen
+- Plak je een antwoord, dan krijg je nu een nieuwe uitdaging
+- PlugBrain is nu ook in het Spaans en Braziliaans Portugees

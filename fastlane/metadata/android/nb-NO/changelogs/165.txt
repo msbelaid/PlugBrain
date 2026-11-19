@@ -1,0 +1,4 @@
+- Nye utfordringer: større kvadrattall og gjennomsnitt av tosifrede tall
+- Nivåene er justert så spørsmålene passer vanskelighetsgraden og de enkle ikke gjentas
+- Limer du inn et svar, får du nå en ny utfordring
+- PlugBrain finnes nå på spansk og brasiliansk portugisisk

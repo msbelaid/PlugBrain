@@ -1,0 +1,4 @@
+- New challenges: bigger squares and averages of two-digit numbers
+- Levels rebalanced so questions match their difficulty and easy ones don't repeat
+- Pasting an answer now gives you a new challenge
+- PlugBrain now speaks Spanish and Brazilian Portuguese

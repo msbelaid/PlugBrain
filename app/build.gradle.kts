@@ -25,8 +25,8 @@ android {
         applicationId = "app.plugbrain.android"
         minSdk = 28
         targetSdk = 36
-        versionCode = 164
-        versionName = "1.6.4"
+        versionCode = 165
+        versionName = "1.6.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Lets ScreenshotOnFailureRule save files that Gradle copies back after the run.
