@@ -83,13 +83,13 @@ class MultiplicationChallengeTest {
 
     @Test
     fun `test multiplication single digit`() {
-        repeat(10) {
+        repeat(100) {
             val challenge = MultiplicationSingleDigitChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
             assertEquals(6, challenge.difficultyLevel)
-            assertTrue(a in setOf(3, 4, 6, 7, 8, 9), "$a is not in 3..10 except 5")
-            assertTrue(b in 2..10, "$b is not in 2..10")
+            assertTrue(a in setOf(3, 4, 6, 7, 8), "$a is not in the generic single-digit range")
+            assertTrue(b in setOf(3, 4, 6, 7, 8), "$b is not in the generic single-digit range")
         }
     }
 
@@ -108,13 +108,13 @@ class MultiplicationChallengeTest {
 
     @Test
     fun `test multiplication single digit by double digit`() {
-        repeat(10) {
+        repeat(100) {
             val challenge = MultiplicationSingleByDoubleDigitChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
             assertEquals(8, challenge.difficultyLevel)
             assertTrue(a in 3..9, "$a is not 3..9")
-            assertTrue(b in 12..99, "$b is not in 12..99")
+            assertTrue(b in 12..99 && b % 10 != 9, "$b includes a shortcut number ending in 9")
         }
     }
 
@@ -145,13 +145,13 @@ class MultiplicationChallengeTest {
 
     @Test
     fun `test multiplication double by double digit`() {
-        repeat(10) {
+        repeat(100) {
             val challenge = MultiplicationDoubleByDoubleDigitChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
             assertEquals(11, challenge.difficultyLevel)
-            assertTrue(a in 11..99, "$a is not in 11..99")
-            assertTrue(b in 11..99, "$b is not in 11..99")
+            assertTrue(a in 20..99, "$a includes an 11-through-19 shortcut factor")
+            assertTrue(b in 20..99, "$b includes an 11-through-19 shortcut factor")
         }
     }
 
