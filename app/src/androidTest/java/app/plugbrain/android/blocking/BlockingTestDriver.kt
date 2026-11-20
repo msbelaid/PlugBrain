@@ -51,8 +51,8 @@ private const val RELAUNCH_EVERY = 3_000L
 // Longer than MathLockService's 700 ms recheck, plus Settings finishing its start-up.
 private const val CHALLENGE_SETTLE = 1_500L
 
-// Every challenge text: "3 + 1", "3 + ? = 4", "3 + 1 = ?", "4² = ?" or "(46 + 72) ÷ 2".
-private val CHALLENGE_TEXT = Regex("""\S+ [-+x/] \S+( = \S+)?|\d+² = \?|\(\d+(?: \+ \d+)+\) ÷ \d+""")
+// Every challenge text: "3 + 1", "3 + ? = 4", "3 + 1 = ?", "4² = ?", "√49 = ?" or "(46 + 72) ÷ 2".
+private val CHALLENGE_TEXT = Regex("""\S+ [-+x/] \S+( = \S+)?|\d+² = \?|√\d+ = \?|\(\d+(?: \+ \d+)+\) ÷ \d+""")
 
 /**
  * Sets up PlugBrain as after onboarding, opens the distracting app and solves challenges, for the
@@ -266,7 +266,7 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         }
 
     private fun hasChallengeText() =
-        SemanticsMatcher("shows a challenge like \"3 + 1\", \"4² = ?\" or \"(46 + 72) ÷ 2\"") { node ->
+        SemanticsMatcher("shows a challenge like \"3 + 1\", \"4² = ?\", \"√49 = ?\" or \"(46 + 72) ÷ 2\"") { node ->
             node.config.getOrNull(SemanticsProperties.Text).orEmpty().any { CHALLENGE_TEXT.matches(it.text) }
         }
 
@@ -275,11 +275,14 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
         if (challenge.startsWith("(")) {
             val numbers = challenge.removePrefix("(").substringBefore(")").split(" + ").map { it.toInt() }
             numbers.sum() / numbers.size
+        } else if (challenge.startsWith("√")) {
+            val radicand = challenge.removePrefix("√").substringBefore(" ").toInt()
+            Math.sqrt(radicand.toDouble()).toInt()
         } else {
             answerEquation(challenge)
         }
 
-    /** "a op b", "? op b = r" and "n² = ?", the shapes without the average. */
+    /** "a op b", "? op b = r", "n² = ?" and "√n = ?", the shapes without the average. */
     private fun answerEquation(challenge: String): Int {
         val tokens = challenge.split(" ")
         if (tokens[0].endsWith("²")) {
