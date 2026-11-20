@@ -39,6 +39,8 @@ import app.plugbrain.android.challenges.square.SquareChallengeHardElevenThroughN
 import app.plugbrain.android.challenges.square.SquareChallengeMediumSixThroughTen
 import app.plugbrain.android.challenges.square.SquareChallengeMultipleOfTenTwentyThroughNinety
 import app.plugbrain.android.challenges.square.SquareChallengeTwentyOneThroughFifty
+import app.plugbrain.android.challenges.square.SquareRootChallengeElevenThroughTwenty
+import app.plugbrain.android.challenges.square.SquareRootChallengeTwoThroughTen
 import app.plugbrain.android.challenges.substraction.SubtractFourDigitsChallenge
 import app.plugbrain.android.challenges.substraction.SubtractFromSelfChallenge
 import app.plugbrain.android.challenges.substraction.SubtractFromZeroChallenge
@@ -102,6 +104,8 @@ val challengesModule = module {
   factory { SquareChallengeEndingInFiveFifteenThroughNinetyFive() } bind Challenge::class
   factory { SquareChallengeTwentyOneThroughFifty() } bind Challenge::class
   factory { SquareChallengeFiftyOneThroughNinetyNine() } bind Challenge::class
+  factory { SquareRootChallengeTwoThroughTen() } bind Challenge::class
+  factory { SquareRootChallengeElevenThroughTwenty() } bind Challenge::class
 
   factory { AverageOfTwoTwoDigitNumbersChallenge() } bind Challenge::class
   factory { AverageOfThreeTwoDigitNumbersChallenge() } bind Challenge::class
