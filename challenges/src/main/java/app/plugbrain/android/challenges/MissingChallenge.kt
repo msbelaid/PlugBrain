@@ -12,13 +12,12 @@ abstract class MissingChallenge : NumericalChallenge {
   abstract val operand2: Int
   abstract val result: Int
   abstract val operationType: Operator
-  abstract val missingPosition: MissingPosition
+  val missingPosition: MissingPosition = MissingPosition.entries.random()
 
   override fun checkAnswer(response: Int): Boolean {
     return when (missingPosition) {
       MissingPosition.FIRST_OPERAND -> response == operand1
       MissingPosition.SECOND_OPERAND -> response == operand2
-      MissingPosition.RESULT -> response == result
     }
   }
 
@@ -26,7 +25,6 @@ abstract class MissingChallenge : NumericalChallenge {
     return when (missingPosition) {
       MissingPosition.FIRST_OPERAND -> "? ${operationType.symbol} $operand2 = $result"
       MissingPosition.SECOND_OPERAND -> "$operand1 ${operationType.symbol} ? = $result"
-      MissingPosition.RESULT -> "$operand1 ${operationType.symbol} $operand2 = ?"
     }
   }
 }
@@ -34,5 +32,4 @@ abstract class MissingChallenge : NumericalChallenge {
 enum class MissingPosition {
   FIRST_OPERAND,
   SECOND_OPERAND,
-  RESULT,
 }
