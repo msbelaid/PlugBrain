@@ -57,4 +57,4 @@ Users will be notified through an app update if significant changes are made.
 ## 7. Contact
 
 For any questions regarding this privacy policy, feel free to contact us:
-belaid.mohammed.said@gmail.com
+contact@plugbrain.app
