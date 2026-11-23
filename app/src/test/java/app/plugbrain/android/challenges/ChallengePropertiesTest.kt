@@ -3,6 +3,7 @@ package app.plugbrain.android.challenges
 import app.plugbrain.android.challenges.average.AverageChallenge
 import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.challenges.square.SquareChallenge
+import app.plugbrain.android.challenges.square.SquareRootChallenge
 import app.plugbrain.android.di.challengesModule
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 import org.junit.Assert.assertEquals
@@ -110,6 +111,7 @@ class ChallengePropertiesTest {
                 }
             }
             is SquareChallenge -> challenge.operand * challenge.operand
+            is SquareRootChallenge -> challenge.answer
             is AverageChallenge -> {
                 val sum = challenge.numbers.sum()
                 assertEquals(
