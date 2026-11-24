@@ -13,12 +13,13 @@ class MissingChallengeTest {
     @Test
     fun `missing-number challenges display the result and hide one operand`() {
         repeat(30) {
-            val challenges = listOf(
-                MissingAdditionChallenge(),
-                MissingSubtractionChallenge(),
-                MissingMultiplicationChallenge(),
-                MissingDivisionChallenge(),
-            )
+            val challenges =
+                listOf(
+                    MissingAdditionChallenge(),
+                    MissingSubtractionChallenge(),
+                    MissingMultiplicationChallenge(),
+                    MissingDivisionChallenge(),
+                )
             for (challenge in challenges) {
                 val equation = challenge.string()
                 val parts = equation.split(" ")
