@@ -284,6 +284,11 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
 
     /** "a op b", "? op b = r", "n² = ?" and "√n = ?", the shapes without the average. */
     private fun answerEquation(challenge: String): Int {
+        if (challenge.contains("% x ")) {
+            val (percent, base) = challenge.split("% x ")
+            return percent.toInt() * base.toInt() / 100
+        }
+
         val tokens = challenge.split(" ")
         if (tokens[0].endsWith("²")) {
             val n = tokens[0].removeSuffix("²").toInt()
