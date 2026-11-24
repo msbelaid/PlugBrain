@@ -284,22 +284,25 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
 
     /** "a op b", "? op b = r", "n² = ?" and "√n = ?", the shapes without the average. */
     private fun answerEquation(challenge: String): Int {
-        if (challenge.contains("% x ")) {
-            val (percent, base) = challenge.split("% x ")
-            return percent.toInt() * base.toInt() / 100
-        }
-
         val tokens = challenge.split(" ")
-        if (tokens[0].endsWith("²")) {
-            val n = tokens[0].removeSuffix("²").toInt()
-            return n * n
-        }
-        val (left, operator, right) = tokens
-        val result = tokens.getOrElse(4) { "?" }
         return when {
-            left == "?" -> missingLeft(operator, right.toInt(), result.toInt())
-            right == "?" -> missingRight(left.toInt(), operator, result.toInt())
-            else -> compute(left.toInt(), operator, right.toInt())
+            challenge.contains("% x ") -> {
+                val (percent, base) = challenge.split("% x ")
+                percent.toInt() * base.toInt() / 100
+            }
+            tokens[0].endsWith("²") -> {
+                val n = tokens[0].removeSuffix("²").toInt()
+                n * n
+            }
+            else -> {
+                val (left, operator, right) = tokens
+                val result = tokens.getOrElse(4) { "?" }
+                when {
+                    left == "?" -> missingLeft(operator, right.toInt(), result.toInt())
+                    right == "?" -> missingRight(left.toInt(), operator, result.toInt())
+                    else -> compute(left.toInt(), operator, right.toInt())
+                }
+            }
         }
     }
 
