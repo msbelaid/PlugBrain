@@ -37,6 +37,10 @@ import app.plugbrain.android.challenges.multiplication.MultiplicationThreeByThre
 import app.plugbrain.android.challenges.multiplication.MultiplicationTwoByThreeDigitChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationTwoDigitByElevenChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationTwoDigitByElevenToNineteenChallenge
+import app.plugbrain.android.challenges.percentage.PercentageFifteenOfMultipleOfTwentyChallenge
+import app.plugbrain.android.challenges.percentage.PercentageQuarterOfMultipleOfFourChallenge
+import app.plugbrain.android.challenges.percentage.PercentageTenOrFiftyOfMultipleOfTenChallenge
+import app.plugbrain.android.challenges.percentage.PercentageTwentyOrFiveOfMultipleOfTwentyChallenge
 import app.plugbrain.android.challenges.square.SquareChallengeEasyTwoThroughFive
 import app.plugbrain.android.challenges.square.SquareChallengeEndingInFiveFifteenThroughNinetyFive
 import app.plugbrain.android.challenges.square.SquareChallengeFiftyOneThroughNinetyNine
@@ -119,6 +123,11 @@ val challengesModule = module {
 
   factory { AverageOfTwoTwoDigitNumbersChallenge() } bind Challenge::class
   factory { AverageOfThreeTwoDigitNumbersChallenge() } bind Challenge::class
+
+  factory { PercentageTenOrFiftyOfMultipleOfTenChallenge() } bind Challenge::class
+  factory { PercentageQuarterOfMultipleOfFourChallenge() } bind Challenge::class
+  factory { PercentageTwentyOrFiveOfMultipleOfTwentyChallenge() } bind Challenge::class
+  factory { PercentageFifteenOfMultipleOfTwentyChallenge() } bind Challenge::class
   // New generated challenges will be added here, do not remove
 
   factory {
