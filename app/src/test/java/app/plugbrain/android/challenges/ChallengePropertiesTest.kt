@@ -107,7 +107,6 @@ class ChallengePropertiesTest {
                 when (challenge.missingPosition) {
                     MissingPosition.FIRST_OPERAND -> challenge.operand1
                     MissingPosition.SECOND_OPERAND -> challenge.operand2
-                    MissingPosition.RESULT -> challenge.result
                 }
             }
             is SquareChallenge -> challenge.operand * challenge.operand

@@ -11,6 +11,28 @@ import kotlin.test.assertTrue
 
 class MissingChallengeTest {
     @Test
+    fun `missing-number challenges display the result and hide one operand`() {
+        repeat(30) {
+            val challenges =
+                listOf(
+                    MissingAdditionChallenge(),
+                    MissingSubtractionChallenge(),
+                    MissingMultiplicationChallenge(),
+                    MissingDivisionChallenge(),
+                )
+            for (challenge in challenges) {
+                val equation = challenge.string()
+                val parts = equation.split(" ")
+                assertEquals(challenge.result.toString(), parts.last(), equation)
+                assertEquals(1, parts.count { it == "?" }, equation)
+                val answer = if (parts.first() == "?") challenge.operand1 else challenge.operand2
+                assertTrue(challenge.checkAnswer(answer), equation)
+                assertFalse(challenge.checkAnswer(answer + 1), equation)
+            }
+        }
+    }
+
+    @Test
     fun `test missing addition challenge generation`() {
         repeat(20) {
             val challenge = MissingAdditionChallenge()
@@ -59,17 +81,6 @@ class MissingChallengeTest {
                         "Should reject incorrect answer",
                     )
                 }
-
-                MissingPosition.RESULT -> {
-                    assertTrue(
-                        challenge.checkAnswer(challenge.result),
-                        "Should accept correct answer for result",
-                    )
-                    assertFalse(
-                        challenge.checkAnswer(challenge.result + 1),
-                        "Should reject incorrect answer",
-                    )
-                }
             }
         }
     }
@@ -108,17 +119,6 @@ class MissingChallengeTest {
                     )
                     assertFalse(
                         challenge.checkAnswer(challenge.operand2 + 1),
-                        "Should reject incorrect answer",
-                    )
-                }
-
-                MissingPosition.RESULT -> {
-                    assertTrue(
-                        challenge.checkAnswer(challenge.result),
-                        "Should accept correct answer for result",
-                    )
-                    assertFalse(
-                        challenge.checkAnswer(challenge.result + 1),
                         "Should reject incorrect answer",
                     )
                 }
@@ -168,17 +168,6 @@ class MissingChallengeTest {
                         "Should reject incorrect answer",
                     )
                 }
-
-                MissingPosition.RESULT -> {
-                    assertTrue(
-                        challenge.checkAnswer(challenge.result),
-                        "Should accept correct answer for result",
-                    )
-                    assertFalse(
-                        challenge.checkAnswer(challenge.result + 1),
-                        "Should reject incorrect answer",
-                    )
-                }
             }
         }
     }
@@ -219,18 +208,6 @@ class MissingChallengeTest {
                         challengeString.endsWith("= ${challenge.result}"),
                         "Should end with result",
                     )
-                }
-
-                MissingPosition.RESULT -> {
-                    assertTrue(
-                        challengeString.startsWith("${challenge.operand1}"),
-                        "Should start with first operand",
-                    )
-                    assertTrue(
-                        challengeString.contains("+ ${challenge.operand2}"),
-                        "Should contain second operand",
-                    )
-                    assertTrue(challengeString.endsWith("= ?"), "Should end with '?' for result")
                 }
             }
         }
