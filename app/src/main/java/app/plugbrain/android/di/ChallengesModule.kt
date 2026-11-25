@@ -60,6 +60,9 @@ import app.plugbrain.android.challenges.substraction.SubtractTwoDigitsChallenge
 import app.plugbrain.android.challenges.substraction.SubtractTwoDigitsNoBorrowChallenge
 import app.plugbrain.android.challenges.substraction.SubtractTwoFromOneDigitChallenge
 import app.plugbrain.android.challenges.substraction.SubtractUnderFiveChallenge
+import app.plugbrain.android.challenges.threenumbers.ThreeSingleDigitsPlusChallenge
+import app.plugbrain.android.challenges.threenumbers.ThreeSingleDigitsPlusMinusChallenge
+import app.plugbrain.android.challenges.threenumbers.ThreeTwoDigitsPlusMinusChallenge
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
@@ -128,6 +131,10 @@ val challengesModule = module {
   factory { PercentageQuarterOfMultipleOfFourChallenge() } bind Challenge::class
   factory { PercentageTwentyOrFiveOfMultipleOfTwentyChallenge() } bind Challenge::class
   factory { PercentageFifteenOfMultipleOfTwentyChallenge() } bind Challenge::class
+
+  factory { ThreeSingleDigitsPlusMinusChallenge() } bind Challenge::class
+  factory { ThreeSingleDigitsPlusChallenge() } bind Challenge::class
+  factory { ThreeTwoDigitsPlusMinusChallenge() } bind Challenge::class
   // New generated challenges will be added here, do not remove
 
   factory {
