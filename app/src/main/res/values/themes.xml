@@ -2,4 +2,11 @@
 <resources>
 
     <style name="Theme.PlugBrain" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- See-through window, so the calculator stays visible behind the calculator dialog. -->
+    <style name="Theme.PlugBrain.Translucent" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 </resources>

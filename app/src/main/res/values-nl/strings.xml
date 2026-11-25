@@ -46,6 +46,9 @@
     </plurals>
 
     <string name="calculator_warning">Geen rekenmachine gebruiken, alsjeblieft!</string>
+    <string name="calculator_dialog_title">Zonder rekenmachine oplossen?</string>
+    <string name="calculator_dialog_back_to_challenge">Terug naar de uitdaging</string>
+    <string name="calculator_dialog_use_calculator">Rekenmachine gebruiken</string>
     <string name="onboarding_skip">Overslaan</string>
     <string name="onboarding_permissions_title">Laten we alles instellen</string>
     <string name="onboarding_permissions_subtitle">PlugBrain heeft de volgende rechten nodig om goed te werken.</string>
@@ -60,7 +63,7 @@
     <string name="onboarding_battery_title">Batterijoptimalisatie (optioneel)</string>
     <string name="onboarding_battery_description">Zorgt ervoor dat PlugBrain betrouwbaar blijft werken, ook als je apparaat batterij probeert te besparen.</string>
     <string name="onboarding_sheet_cta">Begrepen</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain gebruikt de toegankelijkheidsservice om te zien welke app open is. Als je een app opent die je hebt gekozen om te blokkeren, of een rekenmachine tijdens een uitdaging, toont PlugBrain eerst een rekenuitdaging.\n\nPlugBrain leest alleen de naam van de app. Het leest niet wat er op je scherm staat of wat je typt, en er gaan geen gegevens van je telefoon af.</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain gebruikt de toegankelijkheidsservice om te zien welke app open is. Als je een app opent die je hebt gekozen om te blokkeren, toont PlugBrain eerst een rekenuitdaging. Open je tijdens een uitdaging een rekenmachine, dan herinnert PlugBrain je er misschien aan om die zelf op te lossen.\n\nPlugBrain leest alleen de naam van de app. Het leest niet wat er op je scherm staat of wat je typt, en er gaan geen gegevens van je telefoon af.</string>
     <string name="onboarding_accessibility_accept">Akkoord en doorgaan</string>
     <string name="onboarding_accessibility_decline">Niet nu</string>
     <string name="accessibility_service_description">Ziet wanneer je een app opent die je hebt gekozen om te blokkeren, zodat PlugBrain een rekenuitdaging kan tonen. Alleen de naam van de app wordt gelezen.</string>

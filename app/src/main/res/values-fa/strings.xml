@@ -46,6 +46,9 @@
     <string name="welcome_feature_three_description">هرچه بیشتر اسکرول کنی، چالش‌ها سخت‌تر می‌شوند.</string>
     <string name="welcome_cta_title">شروع کنیم</string>
     <string name="calculator_warning">بدون ماشین‌حساب، لطفاً!</string>
+    <string name="calculator_dialog_title">بدون ماشین‌حساب حلش می‌کنی؟</string>
+    <string name="calculator_dialog_back_to_challenge">برگشت به چالش</string>
+    <string name="calculator_dialog_use_calculator">استفاده از ماشین‌حساب</string>
     <string name="onboarding_skip">رد کردن</string>
     <string name="onboarding_permissions_title">بیا راه‌اندازی کنیم</string>
     <string name="onboarding_permissions_subtitle">PlugBrain برای اینکه درست کار کند، به مجوزهای زیر نیاز دارد.</string>
@@ -60,7 +63,7 @@
     <string name="onboarding_battery_title">بهینه‌سازی باتری (اختیاری)</string>
     <string name="onboarding_battery_description">کمک می‌کند PlugBrain حتی وقتی دستگاهت در حال صرفه‌جویی در باتری است، بی‌وقفه کار کند.</string>
     <string name="onboarding_sheet_cta">متوجه شدم</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain از سرویس دسترس‌پذیری استفاده می‌کند تا ببیند کدام برنامه باز است. وقتی برنامه‌ای را باز می‌کنی که برای مسدود شدن انتخاب کرده‌ای، یا در طول یک چالش ماشین‌حساب را باز می‌کنی، PlugBrain اول یک چالش ریاضی نشان می‌دهد.\n\nPlugBrain فقط نام برنامه را می‌خواند. محتوای صفحه یا چیزی را که تایپ می‌کنی نمی‌خواند و هیچ داده‌ای از گوشی‌ات خارج نمی‌شود.</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain از سرویس دسترس‌پذیری استفاده می‌کند تا ببیند کدام برنامه باز است. وقتی برنامه‌ای را باز می‌کنی که برای مسدود شدن انتخاب کرده‌ای، PlugBrain اول یک چالش ریاضی نشان می‌دهد. اگر در طول یک چالش ماشین‌حساب را باز کنی، شاید PlugBrain یادت بیندازد که خودت حلش کنی.\n\nPlugBrain فقط نام برنامه را می‌خواند. محتوای صفحه یا چیزی را که تایپ می‌کنی نمی‌خواند و هیچ داده‌ای از گوشی‌ات خارج نمی‌شود.</string>
     <string name="onboarding_accessibility_accept">قبول و ادامه</string>
     <string name="onboarding_accessibility_decline">الان نه</string>
     <string name="accessibility_service_description">تشخیص می‌دهد چه زمانی برنامه‌ای را که برای مسدود شدن انتخاب کرده‌ای باز می‌کنی تا PlugBrain بتواند یک چالش ریاضی نشان دهد. فقط نام برنامه خوانده می‌شود.</string>

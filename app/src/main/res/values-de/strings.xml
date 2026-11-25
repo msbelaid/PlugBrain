@@ -45,6 +45,9 @@
     <string name="welcome_feature_three_description">Die Aufgaben werden schwieriger, je länger du weiterscrollst.</string>
     <string name="welcome_cta_title">Los geht\'s</string>
     <string name="calculator_warning">Bitte keinen Taschenrechner benutzen!</string>
+    <string name="calculator_dialog_title">Ohne Taschenrechner lösen?</string>
+    <string name="calculator_dialog_back_to_challenge">Zurück zur Aufgabe</string>
+    <string name="calculator_dialog_use_calculator">Taschenrechner nutzen</string>
     <string name="onboarding_skip">Überspringen</string>
     <string name="onboarding_permissions_title">Richten wir alles ein</string>
     <string name="onboarding_permissions_subtitle">PlugBrain benötigt die folgenden Berechtigungen, um richtig zu funktionieren.</string>
@@ -59,7 +62,7 @@
     <string name="onboarding_battery_title">Akkuoptimierung (optional)</string>
     <string name="onboarding_battery_description">Sorgt dafür, dass PlugBrain zuverlässig weiterläuft, auch wenn dein Gerät versucht, Akku zu sparen.</string>
     <string name="onboarding_sheet_cta">Verstanden</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain nutzt den Bedienungshilfen-Dienst, um zu sehen, welche App geöffnet ist. Wenn du eine App öffnest, die du zum Blockieren ausgewählt hast, oder während einer Aufgabe einen Taschenrechner, zeigt PlugBrain zuerst eine Matheaufgabe an.\n\nPlugBrain liest nur den Namen der App. Es liest weder deinen Bildschirminhalt noch das, was du tippst, und keine Daten verlassen dein Handy.</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain nutzt den Bedienungshilfen-Dienst, um zu sehen, welche App geöffnet ist. Wenn du eine App öffnest, die du zum Blockieren ausgewählt hast, zeigt PlugBrain zuerst eine Matheaufgabe an. Wenn du während einer Aufgabe einen Taschenrechner öffnest, erinnert dich PlugBrain vielleicht daran, sie selbst zu lösen.\n\nPlugBrain liest nur den Namen der App. Es liest weder deinen Bildschirminhalt noch das, was du tippst, und keine Daten verlassen dein Handy.</string>
     <string name="onboarding_accessibility_accept">Zustimmen und fortfahren</string>
     <string name="onboarding_accessibility_decline">Nicht jetzt</string>
     <string name="accessibility_service_description">Erkennt, wenn du eine App öffnest, die du zum Blockieren ausgewählt hast, damit PlugBrain eine Matheaufgabe anzeigen kann. Es wird nur der Name der App gelesen.</string>

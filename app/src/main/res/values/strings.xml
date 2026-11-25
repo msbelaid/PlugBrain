@@ -46,6 +46,9 @@
     <string name="welcome_feature_three_description">Challenges increase in difficulty the longer you keep scrolling.</string>
     <string name="welcome_cta_title">Get started</string>
     <string name="calculator_warning">Please, don\'t use the calculator!</string>
+    <string name="calculator_dialog_title">Solve it without a calculator?</string>
+    <string name="calculator_dialog_back_to_challenge">Back to challenge</string>
+    <string name="calculator_dialog_use_calculator">Use calculator</string>
 
     <string name="onboarding_skip">Skip</string>
     <string name="onboarding_permissions_title">Let\'s get set up</string>
@@ -62,7 +65,7 @@
     <string name="onboarding_battery_description">Ensures that PlugBrain keeps running reliably even when your device tries to save battery.</string>
 
     <string name="onboarding_sheet_cta">Understood</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain uses the Accessibility service to see which app is open. When you open an app you chose to block, or a calculator during a challenge, PlugBrain shows a math challenge first.\n\nPlugBrain only reads the app\'s name. It doesn\'t read what\'s on your screen or what you type, and nothing leaves your phone.</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain uses the Accessibility service to see which app is open. When you open an app you chose to block, PlugBrain shows a math challenge first. If you open a calculator during a challenge, PlugBrain may remind you to solve it yourself.\n\nPlugBrain only reads the app\'s name. It doesn\'t read what\'s on your screen or what you type, and nothing leaves your phone.</string>
     <string name="onboarding_accessibility_accept">Agree and continue</string>
     <string name="onboarding_accessibility_decline">Not now</string>
     <string name="accessibility_service_description">Detects when you open an app you chose to block so PlugBrain can show a math challenge. Only the app\'s name is read.</string>

@@ -46,6 +46,9 @@
     <string name="welcome_feature_three_description">आप जितनी देर स्क्रॉल करते रहेंगे, चुनौतियां उतनी मुश्किल होती जाएंगी।</string>
     <string name="welcome_cta_title">शुरू करें</string>
     <string name="calculator_warning">कृपया कैलकुलेटर का इस्तेमाल न करें!</string>
+    <string name="calculator_dialog_title">क्या आप इसे बिना कैलकुलेटर के हल करेंगे?</string>
+    <string name="calculator_dialog_back_to_challenge">चुनौती पर वापस जाएँ</string>
+    <string name="calculator_dialog_use_calculator">कैलकुलेटर इस्तेमाल करें</string>
     <string name="onboarding_skip">छोड़ें</string>
     <string name="onboarding_permissions_title">चलिए सेट अप करते हैं</string>
     <string name="onboarding_permissions_subtitle">सही तरह से काम करने के लिए PlugBrain को इन अनुमतियों की ज़रूरत है।</string>
@@ -60,7 +63,7 @@
     <string name="onboarding_battery_title">बैटरी ऑप्टिमाइज़ेशन (वैकल्पिक)</string>
     <string name="onboarding_battery_description">यह पक्का करता है कि जब आपका डिवाइस बैटरी बचाने की कोशिश करे, तब भी PlugBrain ठीक से चलता रहे।</string>
     <string name="onboarding_sheet_cta">ठीक है</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain सुलभता सेवा का इस्तेमाल यह देखने के लिए करता है कि कौन-सा ऐप खुला है। जब आप ऐसा ऐप खोलते हैं जिसे आपने ब्लॉक करने के लिए चुना है, या चुनौती के दौरान कैलकुलेटर खोलते हैं, तो PlugBrain पहले गणित की चुनौती दिखाता है।\n\nPlugBrain सिर्फ़ ऐप का नाम पढ़ता है। यह आपकी स्क्रीन पर दिख रही चीज़ें या आपका टाइप किया हुआ नहीं पढ़ता, और कोई भी जानकारी आपके फ़ोन से बाहर नहीं जाती।</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain सुलभता सेवा का इस्तेमाल यह देखने के लिए करता है कि कौन-सा ऐप खुला है। जब आप ऐसा ऐप खोलते हैं जिसे आपने ब्लॉक करने के लिए चुना है, तो PlugBrain पहले गणित की चुनौती दिखाता है। अगर आप चुनौती के दौरान कैलकुलेटर खोलते हैं, तो PlugBrain आपको इसे ख़ुद हल करने की याद दिला सकता है।\n\nPlugBrain सिर्फ़ ऐप का नाम पढ़ता है। यह आपकी स्क्रीन पर दिख रही चीज़ें या आपका टाइप किया हुआ नहीं पढ़ता, और कोई भी जानकारी आपके फ़ोन से बाहर नहीं जाती।</string>
     <string name="onboarding_accessibility_accept">सहमत हूं और जारी रखें</string>
     <string name="onboarding_accessibility_decline">अभी नहीं</string>
     <string name="accessibility_service_description">पता लगाता है कि आपने ब्लॉक करने के लिए चुना गया ऐप कब खोला, ताकि PlugBrain गणित की चुनौती दिखा सके। सिर्फ़ ऐप का नाम पढ़ा जाता है।</string>

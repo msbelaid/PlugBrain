@@ -51,6 +51,9 @@
     <string name="welcome_feature_three_description">Les défis deviennent plus difficiles à mesure que tu continues à scroller.</string>
     <string name="welcome_cta_title">Commencer</string>
     <string name="calculator_warning">Pas de calculatrice, s\'il te plaît !</string>
+    <string name="calculator_dialog_title">Tu le résous sans calculatrice ?</string>
+    <string name="calculator_dialog_back_to_challenge">Retour au défi</string>
+    <string name="calculator_dialog_use_calculator">Utiliser la calculatrice</string>
     <string name="onboarding_skip">Passer</string>
     <string name="onboarding_permissions_title">Passons à la configuration</string>
     <string name="onboarding_permissions_subtitle">PlugBrain a besoin des autorisations suivantes pour fonctionner correctement.</string>
@@ -65,7 +68,7 @@
     <string name="onboarding_battery_title">Optimisation de la batterie (facultatif)</string>
     <string name="onboarding_battery_description">Permet à PlugBrain de fonctionner sans interruption, même quand ton appareil essaie d\'économiser la batterie.</string>
     <string name="onboarding_sheet_cta">Compris</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain utilise le service d\'accessibilité pour savoir quelle appli est ouverte. Quand tu ouvres une appli que tu as choisi de bloquer, ou une calculatrice pendant un défi, PlugBrain affiche d\'abord un défi de maths.\n\nPlugBrain lit uniquement le nom de l\'appli. Il ne lit ni le contenu de ton écran ni ce que tu tapes, et aucune donnée ne quitte ton téléphone.</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain utilise le service d\'accessibilité pour savoir quelle appli est ouverte. Quand tu ouvres une appli que tu as choisi de bloquer, PlugBrain affiche d\'abord un défi de maths. Si tu ouvres une calculatrice pendant un défi, PlugBrain peut te rappeler de le résoudre toi-même.\n\nPlugBrain lit uniquement le nom de l\'appli. Il ne lit ni le contenu de ton écran ni ce que tu tapes, et aucune donnée ne quitte ton téléphone.</string>
     <string name="onboarding_accessibility_accept">Accepter et continuer</string>
     <string name="onboarding_accessibility_decline">Pas maintenant</string>
     <string name="accessibility_service_description">Détecte quand tu ouvres une appli que tu as choisi de bloquer, pour que PlugBrain puisse afficher un défi de maths. Seul le nom de l\'appli est lu.</string>

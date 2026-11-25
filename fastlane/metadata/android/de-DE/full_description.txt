@@ -21,4 +21,4 @@ Privatsphäre zuerst
 
 Berechtigungen
 
-PlugBrain nutzt den Zugriff auf Nutzungsdaten, das Einblenden über anderen Apps und die Bedienungshilfen, um zu sehen, welche App offen ist, und die Aufgabe darüber anzuzeigen. Während einer Aufgabe sperrt es auch Taschenrechner. Es liest nur den Namen der offenen App, nie was auf dem Bildschirm steht oder was du tippst.
+PlugBrain nutzt den Zugriff auf Nutzungsdaten, das Einblenden über anderen Apps und die Bedienungshilfen, um zu sehen, welche App offen ist, und die Aufgabe darüber anzuzeigen. Wenn du während einer Aufgabe einen Taschenrechner öffnest, erinnert es dich vielleicht daran, sie selbst zu lösen. Es liest nur den Namen der offenen App, nie was auf dem Bildschirm steht oder was du tippst.

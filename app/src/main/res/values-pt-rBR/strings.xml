@@ -52,6 +52,9 @@
     <string name="welcome_feature_three_description">Os desafios ficam mais difíceis quanto mais você continua rolando a tela.</string>
     <string name="welcome_cta_title">Começar</string>
     <string name="calculator_warning">Nada de calculadora!</string>
+    <string name="calculator_dialog_title">Resolver sem calculadora?</string>
+    <string name="calculator_dialog_back_to_challenge">Voltar ao desafio</string>
+    <string name="calculator_dialog_use_calculator">Usar calculadora</string>
 
     <string name="onboarding_skip">Pular</string>
     <string name="onboarding_permissions_title">Vamos configurar</string>
@@ -68,7 +71,7 @@
     <string name="onboarding_battery_description">Mantém o PlugBrain funcionando mesmo quando o celular tenta economizar bateria.</string>
 
     <string name="onboarding_sheet_cta">Entendi</string>
-    <string name="onboarding_accessibility_disclosure">O PlugBrain usa o serviço de acessibilidade para saber qual app está aberto. Quando você abre um app que escolheu bloquear, ou uma calculadora durante um desafio, o PlugBrain mostra primeiro um desafio de matemática.\n\nO PlugBrain só lê o nome do app. Ele não lê o que aparece na sua tela nem o que você digita, e nada sai do seu celular.</string>
+    <string name="onboarding_accessibility_disclosure">O PlugBrain usa o serviço de acessibilidade para saber qual app está aberto. Quando você abre um app que escolheu bloquear, o PlugBrain mostra primeiro um desafio de matemática. Se você abrir uma calculadora durante um desafio, o PlugBrain pode lembrar você de resolvê-lo sozinho.\n\nO PlugBrain só lê o nome do app. Ele não lê o que aparece na sua tela nem o que você digita, e nada sai do seu celular.</string>
     <string name="onboarding_accessibility_accept">Aceitar e continuar</string>
     <string name="onboarding_accessibility_decline">Agora não</string>
     <string name="accessibility_service_description">Detecta quando você abre um app que escolheu bloquear, para que o PlugBrain possa mostrar um desafio de matemática. Só o nome do app é lido.</string>
