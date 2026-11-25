@@ -362,16 +362,4 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
             else -> a / r
         }
 
-    /** "a op b" */
-    private fun compute(
-        a: Int,
-        operator: String,
-        b: Int,
-    ): Int =
-        when (operator) {
-            "+" -> a + b
-            "-" -> a - b
-            "x" -> a * b
-            else -> a / b
-        }
 }

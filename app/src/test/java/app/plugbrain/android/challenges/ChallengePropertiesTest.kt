@@ -134,13 +134,19 @@ class ChallengePropertiesTest {
                 )
                 challenge.percent * challenge.base / 100
             }
+            else -> expectedMixedAnswer(challenge)
+                ?: error("No expected answer for ${challenge::class.simpleName}")
+        }
+
+    private fun expectedMixedAnswer(challenge: NumericalChallenge): Int? =
+        when (challenge) {
             is MixedProductPlusSingleDigitChallenge -> challenge.factor1 * challenge.factor2 + challenge.addend
             is MixedProductMinusSingleDigitChallenge -> challenge.factor1 * challenge.factor2 - challenge.subtrahend
             is MixedSumInBracketsTimesSingleDigitChallenge -> (challenge.addend1 + challenge.addend2) * challenge.factor
             is MixedSumInBracketsTimesTwoDigitChallenge -> (challenge.addend1 + challenge.addend2) * challenge.factor
             is MixedTwoProductsAddedChallenge ->
                 challenge.first1 * challenge.first2 + challenge.second1 * challenge.second2
-            else -> error("No expected answer for ${challenge::class.simpleName}")
+            else -> null
         }
 
     private fun compute(
