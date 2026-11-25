@@ -90,9 +90,9 @@ class BlockingEngine(
    * stays on screen, counts at most once per [CHALLENGE_SWITCH_GRACE_MILLIS].
    */
   private fun isNewCalculatorUse(state: BlockingState, now: Long): Boolean {
-    if (state.challengeOnScreenAt == countedCalculatorVisit) return false
-    val lastUseAt = countedCalculatorUseAt ?: return true
-    return now - lastUseAt > CHALLENGE_SWITCH_GRACE_MILLIS
+    val lastUseAt = countedCalculatorUseAt
+    return state.challengeOnScreenAt != countedCalculatorVisit &&
+      (lastUseAt == null || now - lastUseAt > CHALLENGE_SWITCH_GRACE_MILLIS)
   }
 
   /**
