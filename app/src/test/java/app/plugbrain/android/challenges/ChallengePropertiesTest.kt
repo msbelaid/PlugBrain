@@ -2,6 +2,7 @@ package app.plugbrain.android.challenges
 
 import app.plugbrain.android.challenges.average.AverageChallenge
 import app.plugbrain.android.challenges.factory.ChallengeFactory
+import app.plugbrain.android.challenges.percentage.PercentageChallenge
 import app.plugbrain.android.challenges.square.SquareChallenge
 import app.plugbrain.android.challenges.square.SquareRootChallenge
 import app.plugbrain.android.di.challengesModule
@@ -119,6 +120,14 @@ class ChallengePropertiesTest {
                     sum % challenge.numbers.size,
                 )
                 sum / challenge.numbers.size
+            }
+            is PercentageChallenge -> {
+                assertEquals(
+                    "${challenge.string()} should have a whole answer",
+                    0,
+                    challenge.percent * challenge.base % 100,
+                )
+                challenge.percent * challenge.base / 100
             }
             else -> error("No expected answer for ${challenge::class.simpleName}")
         }
