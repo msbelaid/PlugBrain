@@ -45,7 +45,6 @@
     <string name="welcome_feature_three_title">هرچه بیشتر بمانی، سخت‌تر می‌شود</string>
     <string name="welcome_feature_three_description">هرچه بیشتر اسکرول کنی، چالش‌ها سخت‌تر می‌شوند.</string>
     <string name="welcome_cta_title">شروع کنیم</string>
-    <string name="calculator_warning">بدون ماشین‌حساب، لطفاً!</string>
     <string name="calculator_dialog_title">بدون ماشین‌حساب حلش می‌کنی؟</string>
     <string name="calculator_dialog_back_to_challenge">برگشت به چالش</string>
     <string name="calculator_dialog_use_calculator">استفاده از ماشین‌حساب</string>

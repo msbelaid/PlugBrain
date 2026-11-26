@@ -4,17 +4,14 @@ import android.accessibilityservice.AccessibilityService
 import android.content.Intent
 import android.provider.Settings
 import android.view.accessibility.AccessibilityEvent
-import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.plugbrain.android.R
 import app.plugbrain.android.blocking.BlockingEngine
 import app.plugbrain.android.blocking.BlockingState
-import app.plugbrain.android.blocking.CalculatorNudge
 import app.plugbrain.android.blocking.Decision
 import app.plugbrain.android.blocking.UsageDecision
 import app.plugbrain.android.blocking.UsageLimit
-import app.plugbrain.android.datastore.addCalculatorUse
 import app.plugbrain.android.datastore.getBlockAppsToggle
 import app.plugbrain.android.datastore.getTimestamps
 import app.plugbrain.android.datastore.getUserSettings
@@ -49,8 +46,8 @@ private const val SPLIT_SCREEN_EXIT_DELAY = 500L
 
 /**
  * The Android side of blocking: turns window events into [BlockingEngine] calls and carries out its
- * decisions (show the challenge, nudge a calculator user, save timestamps, schedule the next usage
- * check). The rules themselves live in the :blocking module.
+ * decisions (show the challenge, ask a calculator user to go back to it, save timestamps, schedule
+ * the next usage check). The rules themselves live in the :blocking module.
  */
 // Keeps its old name: Android remembers an enabled accessibility service by its class name, so a
 // rename would turn the service off for everyone who updates.
@@ -138,7 +135,7 @@ class MathLockService : AccessibilityService() {
     when (val decision = engine.onWindowChanged(eventPackageName, blockingState(), clock.now())) {
       Decision.Ignore -> Unit
       Decision.ShowChallenge -> launchChallenge()
-      Decision.CalculatorUsed -> nudgeCalculatorUse()
+      Decision.CalculatorUsed -> showCalculatorDialog()
       is Decision.InUse -> {
         serviceScope.launch { dataStore.setLastUsageTime(decision.at) }
         applyUsage(decision.usage)
@@ -146,22 +143,7 @@ class MathLockService : AccessibilityService() {
     }
   }
 
-  /** Counts the calculator use, then answers with its nudge; the calculator itself stays usable. */
-  private fun nudgeCalculatorUse() {
-    serviceScope.launch {
-      val nudge = CalculatorNudge.forUse(dataStore.addCalculatorUse())
-      Timber.tag(TAG).i("Calculator used during a challenge: $nudge")
-      launch(Dispatchers.Main) {
-        when (nudge) {
-          CalculatorNudge.None -> Unit
-          CalculatorNudge.Toast ->
-            Toast.makeText(this@MathLockService, R.string.calculator_warning, Toast.LENGTH_LONG).show()
-          CalculatorNudge.Dialog -> showCalculatorDialog()
-        }
-      }
-    }
-  }
-
+  /** Asks whether to go back to the challenge; the calculator itself stays usable (#236). */
   private fun showCalculatorDialog() {
     val intent = Intent(this, CalculatorDialogActivity::class.java)
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

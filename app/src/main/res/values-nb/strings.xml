@@ -44,7 +44,6 @@
     <string name="welcome_feature_three_title">Vanskeligere jo lenger du blir</string>
     <string name="welcome_feature_three_description">Utfordringene blir vanskeligere jo lenger du fortsetter å skrolle.</string>
     <string name="welcome_cta_title">Kom i gang</string>
-    <string name="calculator_warning">Ingen kalkulator, takk!</string>
     <string name="calculator_dialog_title">Løse den uten kalkulator?</string>
     <string name="calculator_dialog_back_to_challenge">Tilbake til utfordringen</string>
     <string name="calculator_dialog_use_calculator">Bruk kalkulator</string>

@@ -50,7 +50,6 @@
     <string name="welcome_feature_three_title">Plus tu restes, plus c\'est dur</string>
     <string name="welcome_feature_three_description">Les défis deviennent plus difficiles à mesure que tu continues à scroller.</string>
     <string name="welcome_cta_title">Commencer</string>
-    <string name="calculator_warning">Pas de calculatrice, s\'il te plaît !</string>
     <string name="calculator_dialog_title">Tu le résous sans calculatrice ?</string>
     <string name="calculator_dialog_back_to_challenge">Retour au défi</string>
     <string name="calculator_dialog_use_calculator">Utiliser la calculatrice</string>

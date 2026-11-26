@@ -45,7 +45,6 @@
     <string name="welcome_feature_three_title">जितनी देर टिकेंगे, उतनी मुश्किल चुनौती</string>
     <string name="welcome_feature_three_description">आप जितनी देर स्क्रॉल करते रहेंगे, चुनौतियां उतनी मुश्किल होती जाएंगी।</string>
     <string name="welcome_cta_title">शुरू करें</string>
-    <string name="calculator_warning">कृपया कैलकुलेटर का इस्तेमाल न करें!</string>
     <string name="calculator_dialog_title">क्या आप इसे बिना कैलकुलेटर के हल करेंगे?</string>
     <string name="calculator_dialog_back_to_challenge">चुनौती पर वापस जाएँ</string>
     <string name="calculator_dialog_use_calculator">कैलकुलेटर इस्तेमाल करें</string>

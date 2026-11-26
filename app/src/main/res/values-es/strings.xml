@@ -51,7 +51,6 @@
     <string name="welcome_feature_three_title">Cuanto más te quedas, más difícil</string>
     <string name="welcome_feature_three_description">Los retos se vuelven más difíciles cuanto más sigues haciendo scroll.</string>
     <string name="welcome_cta_title">Empezar</string>
-    <string name="calculator_warning">¡Nada de calculadora!</string>
     <string name="calculator_dialog_title">¿Lo resuelves sin calculadora?</string>
     <string name="calculator_dialog_back_to_challenge">Volver al reto</string>
     <string name="calculator_dialog_use_calculator">Usar calculadora</string>

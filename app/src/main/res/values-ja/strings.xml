@@ -41,7 +41,6 @@
     <string name="welcome_feature_three_title">使うほど難しくなる</string>
     <string name="welcome_feature_three_description">スクロールを続けるほど、問題が難しくなります。</string>
     <string name="welcome_cta_title">はじめる</string>
-    <string name="calculator_warning">電卓は使わずに解きましょう！</string>
     <string name="calculator_dialog_title">電卓なしで解いてみませんか？</string>
     <string name="calculator_dialog_back_to_challenge">チャレンジに戻る</string>
     <string name="calculator_dialog_use_calculator">電卓を使う</string>

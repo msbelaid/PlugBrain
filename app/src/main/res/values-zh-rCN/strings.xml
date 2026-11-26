@@ -41,7 +41,6 @@
     <string name="welcome_feature_three_title">停留越久，难度越高</string>
     <string name="welcome_feature_three_description">你刷得越久，挑战就越难。</string>
     <string name="welcome_cta_title">开始使用</string>
-    <string name="calculator_warning">别用计算器哦！</string>
     <string name="calculator_dialog_title">不用计算器试试？</string>
     <string name="calculator_dialog_back_to_challenge">返回挑战</string>
     <string name="calculator_dialog_use_calculator">使用计算器</string>

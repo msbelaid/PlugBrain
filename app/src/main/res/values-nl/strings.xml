@@ -45,7 +45,6 @@
         <item quantity="other">Je kunt de app %d minuten ontgrendelen, of hem sluiten en gefocust blijven.</item>
     </plurals>
 
-    <string name="calculator_warning">Geen rekenmachine gebruiken, alsjeblieft!</string>
     <string name="calculator_dialog_title">Zonder rekenmachine oplossen?</string>
     <string name="calculator_dialog_back_to_challenge">Terug naar de uitdaging</string>
     <string name="calculator_dialog_use_calculator">Rekenmachine gebruiken</string>

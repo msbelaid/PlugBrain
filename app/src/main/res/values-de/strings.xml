@@ -44,7 +44,6 @@
     <string name="welcome_feature_three_title">Je länger du bleibst, desto schwerer</string>
     <string name="welcome_feature_three_description">Die Aufgaben werden schwieriger, je länger du weiterscrollst.</string>
     <string name="welcome_cta_title">Los geht\'s</string>
-    <string name="calculator_warning">Bitte keinen Taschenrechner benutzen!</string>
     <string name="calculator_dialog_title">Ohne Taschenrechner lösen?</string>
     <string name="calculator_dialog_back_to_challenge">Zurück zur Aufgabe</string>
     <string name="calculator_dialog_use_calculator">Taschenrechner nutzen</string>

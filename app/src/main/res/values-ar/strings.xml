@@ -62,7 +62,6 @@
     <string name="welcome_feature_three_title">كلما أطلت البقاء، زادت الصعوبة</string>
     <string name="welcome_feature_three_description">تزداد صعوبة التحديات كلما واصلت التمرير.</string>
     <string name="welcome_cta_title">لنبدأ</string>
-    <string name="calculator_warning">من فضلك، لا تستخدم الآلة الحاسبة!</string>
     <string name="calculator_dialog_title">هل تحلّها بدون آلة حاسبة؟</string>
     <string name="calculator_dialog_back_to_challenge">العودة إلى التحدي</string>
     <string name="calculator_dialog_use_calculator">استخدام الآلة الحاسبة</string>

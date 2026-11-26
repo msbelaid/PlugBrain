@@ -52,7 +52,6 @@
     <string name="welcome_feature_three_title">Чем дольше, тем сложнее</string>
     <string name="welcome_feature_three_description">Чем дольше ты листаешь ленту, тем сложнее задачи.</string>
     <string name="welcome_cta_title">Начать</string>
-    <string name="calculator_warning">Только без калькулятора!</string>
     <string name="calculator_dialog_title">Решишь без калькулятора?</string>
     <string name="calculator_dialog_back_to_challenge">Вернуться к задаче</string>
     <string name="calculator_dialog_use_calculator">Открыть калькулятор</string>

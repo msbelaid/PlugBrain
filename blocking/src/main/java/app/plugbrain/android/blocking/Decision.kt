@@ -8,7 +8,7 @@ sealed interface Decision {
   /** Show the challenge now. */
   data object ShowChallenge : Decision
 
-  /** A calculator was opened during a challenge: count the use and answer with its [CalculatorNudge]. */
+  /** A calculator was opened during a challenge: ask whether to go back to the challenge. */
   data object CalculatorUsed : Decision
 
   /** A distractive app is in use and allowed for now: save [at] as its last use, then apply [usage]. */
