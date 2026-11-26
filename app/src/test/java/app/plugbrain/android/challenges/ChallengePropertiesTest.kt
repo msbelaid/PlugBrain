@@ -134,8 +134,8 @@ class ChallengePropertiesTest {
                 )
                 challenge.percent * challenge.base / 100
             }
-            else -> expectedMixedAnswer(challenge)
-                ?: error("No expected answer for ${challenge::class.simpleName}")
+            else ->
+                expectedMixedAnswer(challenge) ?: error("No expected answer for ${challenge::class.simpleName}")
         }
 
     private fun expectedMixedAnswer(challenge: NumericalChallenge): Int? =
