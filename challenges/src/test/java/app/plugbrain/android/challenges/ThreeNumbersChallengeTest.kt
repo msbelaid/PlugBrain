@@ -14,7 +14,7 @@ class ThreeNumbersChallengeTest {
         repeat(50) {
             val challenge = ThreeSingleDigitsPlusMinusChallenge()
             val (first, second, third) = challenge.numbers
-            assertEquals(2, challenge.difficultyLevel)
+            assertEquals(4, challenge.difficultyLevel)
             listOf(first, second, third).forEach { assertTrue(it in 1..9, "$it is not a single digit") }
             val total = first + second - third
             assertTrue(total >= 0, "${challenge.string()} goes below zero")
@@ -30,7 +30,7 @@ class ThreeNumbersChallengeTest {
         repeat(50) {
             val challenge = ThreeSingleDigitsPlusChallenge()
             val (first, second, third) = challenge.numbers
-            assertEquals(3, challenge.difficultyLevel)
+            assertEquals(4, challenge.difficultyLevel)
             listOf(first, second, third).forEach { assertTrue(it in 1..9, "$it is not a single digit") }
             val total = first + second + third
             assertTrue(challenge.checkAnswer(total), "should accept $total")
@@ -45,7 +45,7 @@ class ThreeNumbersChallengeTest {
         repeat(50) {
             val challenge = ThreeTwoDigitsPlusMinusChallenge()
             val (first, second, third) = challenge.numbers
-            assertEquals(7, challenge.difficultyLevel)
+            assertEquals(8, challenge.difficultyLevel)
             listOf(first, second, third).forEach { assertTrue(it in 10..99, "$it is not in 10..99") }
             val total = first + second - third
             assertTrue(total >= 0, "$first + $second - $third goes below zero")

@@ -87,7 +87,7 @@ class MultiplicationChallengeTest {
             val challenge = MultiplicationSingleDigitChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(6, challenge.difficultyLevel)
+            assertEquals(5, challenge.difficultyLevel)
             assertTrue(a in setOf(3, 4, 6, 7, 8), "$a is not in the generic single-digit range")
             assertTrue(b in setOf(3, 4, 6, 7, 8), "$b is not in the generic single-digit range")
         }
@@ -149,7 +149,7 @@ class MultiplicationChallengeTest {
             val challenge = MultiplicationDoubleByDoubleDigitChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(11, challenge.difficultyLevel)
+            assertEquals(12, challenge.difficultyLevel)
             assertTrue(a in 20..99, "$a includes an 11-through-19 shortcut factor")
             assertTrue(b in 20..99, "$b includes an 11-through-19 shortcut factor")
         }
@@ -161,7 +161,7 @@ class MultiplicationChallengeTest {
             val challenge = MultiplicationTwoByThreeDigitChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(12, challenge.difficultyLevel)
+            assertEquals(14, challenge.difficultyLevel)
             assertTrue(a in 11..99, "$a is not in 11..99")
             assertTrue(b in 101..999, "$b is not in 101..999")
         }
@@ -173,7 +173,7 @@ class MultiplicationChallengeTest {
             val challenge = MultiplicationThreeByThreeDigitChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(13, challenge.difficultyLevel)
+            assertEquals(14, challenge.difficultyLevel)
             assertTrue(a in 101..999, "$a is not in 101..999")
             assertTrue(b in 101..999, "$b is not in 101..999")
         }
@@ -185,7 +185,7 @@ class MultiplicationChallengeTest {
             val challenge = MultiplicationThreeByFourDigitChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(14, challenge.difficultyLevel)
+            assertEquals(15, challenge.difficultyLevel)
             assertTrue(a in 101..999, "$a is not in 101..999")
             assertTrue(b in 1001..9999, "$b is not in 1001..9999")
         }

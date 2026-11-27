@@ -8,7 +8,7 @@ import app.plugbrain.android.challenges.Operator
 class ThreeTwoDigitsPlusMinusChallenge : ThreeNumbersChallenge() {
   override val numbers: List<Int> = generate()
   override val operators: List<Operator> = listOf(Operator.ADDITION, Operator.SUBTRACTION)
-  override val difficultyLevel: Int = 7
+  override val difficultyLevel: Int = 8
 
   private fun generate(): List<Int> {
     val first = (10..99).random()

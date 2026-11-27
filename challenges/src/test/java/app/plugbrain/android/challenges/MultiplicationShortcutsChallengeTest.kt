@@ -25,7 +25,7 @@ class MultiplicationShortcutsChallengeTest {
     fun `test two digit by eleven`() {
         repeat(10) {
             val challenge = MultiplicationTwoDigitByElevenChallenge()
-            assertEquals(7, challenge.difficultyLevel)
+            assertEquals(8, challenge.difficultyLevel)
             assertEquals(11, challenge.operand1)
             assertTrue(challenge.operand2 in 10..99, "${challenge.operand2} is not in 10..99")
             assertTrue(challenge.checkAnswer(challenge.operand1 * challenge.operand2))
@@ -36,7 +36,7 @@ class MultiplicationShortcutsChallengeTest {
     fun `test single digit by ninety nine`() {
         repeat(10) {
             val challenge = MultiplicationSingleDigitByNinetyNineChallenge()
-            assertEquals(7, challenge.difficultyLevel)
+            assertEquals(8, challenge.difficultyLevel)
             assertEquals(99, challenge.operand2)
             assertTrue(challenge.operand1 in 2..9, "${challenge.operand1} is not in 2..9")
             assertTrue(challenge.checkAnswer(challenge.operand1 * challenge.operand2))

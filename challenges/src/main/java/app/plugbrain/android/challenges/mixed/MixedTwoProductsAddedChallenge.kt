@@ -8,7 +8,7 @@ class MixedTwoProductsAddedChallenge : NumericalChallenge {
   val first2: Int = (2..9).random()
   val second1: Int = (2..9).random()
   val second2: Int = (2..9).random()
-  override val difficultyLevel: Int = 12
+  override val difficultyLevel: Int = 8
 
   override fun checkAnswer(response: Int): Boolean {
     return response == first1 * first2 + second1 * second2

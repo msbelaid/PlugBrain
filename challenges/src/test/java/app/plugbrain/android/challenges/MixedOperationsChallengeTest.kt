@@ -30,7 +30,7 @@ class MixedOperationsChallengeTest {
         repeat(100) {
             val challenge = MixedProductMinusSingleDigitChallenge()
             val product = challenge.factor1 * challenge.factor2
-            assertEquals(8, challenge.difficultyLevel)
+            assertEquals(7, challenge.difficultyLevel)
             assertTrue(challenge.subtrahend in 1..9)
             assertTrue(challenge.subtrahend <= product, "${challenge.subtrahend} is larger than $product")
             assertTrue(challenge.checkAnswer(product - challenge.subtrahend))
@@ -42,7 +42,7 @@ class MixedOperationsChallengeTest {
     fun `test sum in brackets times single digit`() {
         repeat(100) {
             val challenge = MixedSumInBracketsTimesSingleDigitChallenge()
-            assertEquals(10, challenge.difficultyLevel)
+            assertEquals(9, challenge.difficultyLevel)
             assertTrue(challenge.addend1 in 10..19)
             assertTrue(challenge.addend2 in 2..9)
             assertTrue(challenge.factor in 2..9)
@@ -55,7 +55,7 @@ class MixedOperationsChallengeTest {
     fun `test two products added`() {
         repeat(100) {
             val challenge = MixedTwoProductsAddedChallenge()
-            assertEquals(12, challenge.difficultyLevel)
+            assertEquals(8, challenge.difficultyLevel)
             assertTrue(challenge.checkAnswer(challenge.first1 * challenge.first2 + challenge.second1 * challenge.second2))
             assertFalse(challenge.checkAnswer(challenge.first1 * challenge.first2 * challenge.second1 * challenge.second2))
         }
@@ -65,7 +65,7 @@ class MixedOperationsChallengeTest {
     fun `test sum in brackets times two digit number`() {
         repeat(100) {
             val challenge = MixedSumInBracketsTimesTwoDigitChallenge()
-            assertEquals(14, challenge.difficultyLevel)
+            assertEquals(13, challenge.difficultyLevel)
             assertTrue(challenge.addend1 in 10..99)
             assertTrue(challenge.addend2 in 10..99)
             assertTrue(challenge.factor in 10..99)
