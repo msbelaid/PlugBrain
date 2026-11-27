@@ -10,6 +10,7 @@ import app.plugbrain.android.challenges.mixed.MixedTwoProductsAddedChallenge
 import app.plugbrain.android.challenges.percentage.PercentageChallenge
 import app.plugbrain.android.challenges.square.SquareChallenge
 import app.plugbrain.android.challenges.square.SquareRootChallenge
+import app.plugbrain.android.challenges.threenumbers.ThreeNumbersChallenge
 import app.plugbrain.android.di.challengesModule
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 import org.junit.Assert.assertEquals
@@ -134,6 +135,10 @@ class ChallengePropertiesTest {
                 )
                 challenge.percent * challenge.base / 100
             }
+            is ThreeNumbersChallenge ->
+                challenge.numbers.drop(1).zip(challenge.operators).fold(challenge.numbers.first()) { total, (number, operator) ->
+                    compute(total, operator, number)
+                }
             else ->
                 expectedMixedAnswer(challenge) ?: error("No expected answer for ${challenge::class.simpleName}")
         }
