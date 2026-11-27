@@ -12,7 +12,10 @@ import app.plugbrain.android.challenges.addition.AdditionUnderFiveChallenge
 import app.plugbrain.android.challenges.addition.AdditionUnderTenChallenge
 import app.plugbrain.android.challenges.average.AverageOfThreeTwoDigitNumbersChallenge
 import app.plugbrain.android.challenges.average.AverageOfTwoTwoDigitNumbersChallenge
+import app.plugbrain.android.challenges.doubles.DoubleOfTwoDigitChallenge
 import app.plugbrain.android.challenges.factory.ChallengeFactory
+import app.plugbrain.android.challenges.halves.HalfOfEvenThreeDigitChallenge
+import app.plugbrain.android.challenges.halves.HalfOfEvenTwoDigitChallenge
 import app.plugbrain.android.challenges.missing.MissingAdditionChallenge
 import app.plugbrain.android.challenges.missing.MissingDivisionChallenge
 import app.plugbrain.android.challenges.missing.MissingMultiplicationChallenge
@@ -146,6 +149,10 @@ val challengesModule = module {
   factory { ThreeSingleDigitsPlusMinusChallenge() } bind Challenge::class
   factory { ThreeSingleDigitsPlusChallenge() } bind Challenge::class
   factory { ThreeTwoDigitsPlusMinusChallenge() } bind Challenge::class
+
+  factory { HalfOfEvenTwoDigitChallenge() } bind Challenge::class
+  factory { DoubleOfTwoDigitChallenge() } bind Challenge::class
+  factory { HalfOfEvenThreeDigitChallenge() } bind Challenge::class
   // New generated challenges will be added here, do not remove
 
   factory {
