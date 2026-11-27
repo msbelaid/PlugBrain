@@ -52,7 +52,7 @@ private const val RELAUNCH_EVERY = 3_000L
 private const val CHALLENGE_SETTLE = 1_500L
 
 // Every challenge text: "3 + 1", "3 + ? = 4", "3 + 1 = ?", "4² = ?", "√49 = ?" or "(46 + 72) ÷ 2".
-private val CHALLENGE_TEXT = Regex("""\S+ [-+x/] \S+( = \S+)?|\d+² = \?|√\d+ = \?|\(\d+(?: \+ \d+)+\) ÷ \d+""")
+private val CHALLENGE_TEXT = Regex("""\S+ [-+x/] \S+(?: [-+x/] \S+)*(?: = \S+)?|\d+² = \?|√\d+ = \?|\(\d+(?: \+ \d+)+\) (?:÷|x) \d+""")
 
 /**
  * Sets up PlugBrain as after onboarding, opens the distracting app and solves challenges, for the
@@ -274,7 +274,12 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
     private fun answer(challenge: String): Int =
         if (challenge.startsWith("(")) {
             val numbers = challenge.removePrefix("(").substringBefore(")").split(" + ").map { it.toInt() }
-            numbers.sum() / numbers.size
+            val (operator, operand) = challenge.substringAfter(") ").split(" ")
+            when (operator) {
+                "÷" -> numbers.sum() / operand.toInt()
+                "x" -> numbers.sum() * operand.toInt()
+                else -> error("Unexpected operator $operator in $challenge")
+            }
         } else if (challenge.startsWith("√")) {
             val radicand = challenge.removePrefix("√").substringBefore(" ").toInt()
             Math.sqrt(radicand.toDouble()).toInt()
@@ -285,6 +290,15 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
     /** "a op b", "? op b = r", "n² = ?" and "√n = ?", the shapes without the average. */
     private fun answerEquation(challenge: String): Int {
         val tokens = challenge.split(" ")
+        if (tokens.getOrNull(3) == "=") {
+            val (left, operator, right) = tokens
+            val result = tokens[4].toInt()
+            return when {
+                left == "?" -> missingLeft(operator, right.toInt(), result)
+                right == "?" -> missingRight(left.toInt(), operator, result)
+                else -> error("Unexpected missing-value challenge $challenge")
+            }
+        }
         return when {
             challenge.contains("% x ") -> {
                 val (percent, base) = challenge.split("% x ")
@@ -295,13 +309,29 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
                 n * n
             }
             else -> {
-                val (left, operator, right) = tokens
-                val result = tokens.getOrElse(4) { "?" }
-                when {
-                    left == "?" -> missingLeft(operator, right.toInt(), result.toInt())
-                    right == "?" -> missingRight(left.toInt(), operator, result.toInt())
-                    else -> compute(left.toInt(), operator, right.toInt())
+                var total = 0
+                var term = tokens[0].toInt()
+                var sign = 1
+                for (index in 1 until tokens.size step 2) {
+                    val operator = tokens[index]
+                    val operand = tokens[index + 1].toInt()
+                    when (operator) {
+                        "x" -> term *= operand
+                        "/" -> term /= operand
+                        "+" -> {
+                            total += sign * term
+                            term = operand
+                            sign = 1
+                        }
+                        "-" -> {
+                            total += sign * term
+                            term = operand
+                            sign = -1
+                        }
+                        else -> error("Unexpected operator $operator in $challenge")
+                    }
                 }
+                total + sign * term
             }
         }
     }
@@ -330,18 +360,5 @@ class BlockingTestDriver(private val composeRule: ComposeTestRule) {
             "-" -> a - r
             "x" -> r / a
             else -> a / r
-        }
-
-    /** "a op b" */
-    private fun compute(
-        a: Int,
-        operator: String,
-        b: Int,
-    ): Int =
-        when (operator) {
-            "+" -> a + b
-            "-" -> a - b
-            "x" -> a * b
-            else -> a / b
         }
 }
