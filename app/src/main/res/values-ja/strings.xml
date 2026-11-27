@@ -41,7 +41,9 @@
     <string name="welcome_feature_three_title">使うほど難しくなる</string>
     <string name="welcome_feature_three_description">スクロールを続けるほど、問題が難しくなります。</string>
     <string name="welcome_cta_title">はじめる</string>
-    <string name="calculator_warning">電卓は使わずに解きましょう！</string>
+    <string name="calculator_dialog_title">電卓なしで解いてみませんか？</string>
+    <string name="calculator_dialog_back_to_challenge">チャレンジに戻る</string>
+    <string name="calculator_dialog_use_calculator">電卓を使う</string>
     <string name="onboarding_skip">スキップ</string>
     <string name="onboarding_permissions_title">セットアップしましょう</string>
     <string name="onboarding_permissions_subtitle">PlugBrain が正しく動作するには、次の権限が必要です。</string>
@@ -56,7 +58,7 @@
     <string name="onboarding_battery_title">電池の最適化（任意）</string>
     <string name="onboarding_battery_description">端末が電池を節約しようとしても、PlugBrain が安定して動作し続けるようにします。</string>
     <string name="onboarding_sheet_cta">わかりました</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain はユーザー補助サービスを使って、どのアプリが開いているかを確認します。ブロックすると決めたアプリや、チャレンジ中に電卓を開くと、PlugBrain が先に計算問題を表示します。\n\nPlugBrain が読み取るのはアプリの名前だけです。画面の内容や入力した文字は読み取らず、データが端末の外に送られることはありません。</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain はユーザー補助サービスを使って、どのアプリが開いているかを確認します。ブロックすると決めたアプリを開くと、PlugBrain が先に計算問題を表示します。チャレンジ中に電卓を開くと、自分で解くよう PlugBrain がお知らせすることがあります。\n\nPlugBrain が読み取るのはアプリの名前だけです。画面の内容や入力した文字は読み取らず、データが端末の外に送られることはありません。</string>
     <string name="onboarding_accessibility_accept">同意して続行</string>
     <string name="onboarding_accessibility_decline">後で</string>
     <string name="accessibility_service_description">ブロックすると決めたアプリを開いたことを検出し、PlugBrain が計算問題を表示できるようにします。読み取るのはアプリの名前だけです。</string>

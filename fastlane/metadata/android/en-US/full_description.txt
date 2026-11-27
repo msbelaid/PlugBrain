@@ -21,4 +21,4 @@ Private by design
 
 Permissions
 
-PlugBrain uses usage access, display over other apps and the Accessibility service to see which app is open and show the challenge on top. During a challenge it also blocks calculators. It only reads the name of the open app, never what is on your screen or what you type.
+PlugBrain uses usage access, display over other apps and the Accessibility service to see which app is open and show the challenge on top. If you open a calculator during a challenge, it may remind you to solve it yourself. It only reads the name of the open app, never what is on your screen or what you type.

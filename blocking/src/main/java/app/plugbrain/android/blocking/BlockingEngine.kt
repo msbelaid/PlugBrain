@@ -4,7 +4,7 @@ package app.plugbrain.android.blocking
  * Decides when to challenge the user, from window changes and the usage limit. It knows nothing
  * about Android: the accessibility service feeds it package names, the saved [BlockingState] and
  * the time, then carries out the [Decision]. It keeps only the little memory the rules need: which
- * app is in front, and when the last open challenge was shown.
+ * app is in front, when the last open challenge was shown, and which calculator use was last counted.
  *
  * @param calculatorPackages known calculator apps. Only these count: matching "calc" in any package
  *   name also caught calorie counters, loan calculators and unit converters (#236).
@@ -21,20 +21,26 @@ class BlockingEngine(
   // brings it back, so leaving it through recents doesn't skip it.
   private var openChallengeShownAt: Long? = null
 
+  // The challenge visit (its challengeOnScreenAt) and the time of the last counted calculator use.
+  private var countedCalculatorVisit: Long? = null
+  private var countedCalculatorUseAt: Long? = null
+
   fun onWindowChanged(packageName: String, state: BlockingState, now: Long): Decision {
     val isAppOpening = appOpenDetector.isAppOpening(packageName, state.distractiveApps)
     return when {
       packageName in state.distractiveApps -> when {
-        state.isBlocked == true -> Decision.ShowChallenge()
+        state.isBlocked == true -> Decision.ShowChallenge
         (isAppOpening || isOpenChallengeUnsolved(state)) && shouldChallengeOnOpen(state, now) -> {
           openChallengeShownAt = now
-          Decision.ShowChallenge()
+          Decision.ShowChallenge
         }
         else -> Decision.InUse(at = now, usage = checkUsage(state, now))
       }
-      // Showing a warning alone left the calculator usable; cover it with the challenge.
-      packageName in calculatorPackages && isChallengeOnScreen(state, now) ->
-        Decision.ShowChallenge(calculatorWarning = true)
+      packageName in calculatorPackages && isChallengeOnScreen(state, now) && isNewCalculatorUse(state, now) -> {
+        countedCalculatorVisit = state.challengeOnScreenAt
+        countedCalculatorUseAt = now
+        Decision.CalculatorUsed
+      }
       else -> Decision.Ignore
     }
   }
@@ -78,7 +84,19 @@ class BlockingEngine(
   }
 
   /**
-   * A calculator only helps while a challenge is on screen. Blocking it any other time got in the
+   * One trip from the challenge to a calculator is one use, however many windows the calculator
+   * opens, and coming back to it from PlugBrain's own dialog doesn't count again. A trip is told
+   * apart by when the challenge left the screen; a calculator floating over the challenge, which
+   * stays on screen, counts at most once per [CHALLENGE_SWITCH_GRACE_MILLIS].
+   */
+  private fun isNewCalculatorUse(state: BlockingState, now: Long): Boolean {
+    val lastUseAt = countedCalculatorUseAt
+    return state.challengeOnScreenAt != countedCalculatorVisit &&
+      (lastUseAt == null || now - lastUseAt > CHALLENGE_SWITCH_GRACE_MILLIS)
+  }
+
+  /**
+   * A calculator only helps while a challenge is on screen. Nudging it any other time got in the
    * way of everyday use, such as adding up prices while shopping hours after a block (#236).
    * Switching from the challenge to a calculator goes through recents or Home first, so a challenge
    * that left the screen moments ago still counts.
@@ -89,7 +107,7 @@ class BlockingEngine(
   }
 
   companion object {
-    /** How long after the challenge leaves the screen a calculator opening still counts as cheating. */
+    /** How long after the challenge leaves the screen a calculator opening still counts as a use. */
     const val CHALLENGE_SWITCH_GRACE_MILLIS = 5_000L
   }
 }

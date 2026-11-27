@@ -44,7 +44,9 @@
     <string name="welcome_feature_three_title">Vanskeligere jo lenger du blir</string>
     <string name="welcome_feature_three_description">Utfordringene blir vanskeligere jo lenger du fortsetter å skrolle.</string>
     <string name="welcome_cta_title">Kom i gang</string>
-    <string name="calculator_warning">Ingen kalkulator, takk!</string>
+    <string name="calculator_dialog_title">Løse den uten kalkulator?</string>
+    <string name="calculator_dialog_back_to_challenge">Tilbake til utfordringen</string>
+    <string name="calculator_dialog_use_calculator">Bruk kalkulator</string>
 
     <string name="onboarding_skip">Hopp over</string>
     <string name="onboarding_permissions_title">La oss gjøre alt klart</string>
@@ -61,7 +63,7 @@
     <string name="onboarding_battery_description">Sørger for at PlugBrain kjører stabilt, selv når enheten prøver å spare batteri.</string>
 
     <string name="onboarding_sheet_cta">Skjønner</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain bruker tilgjengelighetstjenesten for å se hvilken app som er åpen. Når du åpner en app du har valgt å blokkere, eller en kalkulator under en utfordring, viser PlugBrain en regneoppgave først.\n\nPlugBrain leser bare navnet på appen. Den leser ikke det som står på skjermen eller det du skriver, og ingenting forlater telefonen din.</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain bruker tilgjengelighetstjenesten for å se hvilken app som er åpen. Når du åpner en app du har valgt å blokkere, viser PlugBrain en regneoppgave først. Hvis du åpner en kalkulator under en utfordring, kan PlugBrain minne deg på å løse den selv.\n\nPlugBrain leser bare navnet på appen. Den leser ikke det som står på skjermen eller det du skriver, og ingenting forlater telefonen din.</string>
     <string name="onboarding_accessibility_accept">Godta og fortsett</string>
     <string name="onboarding_accessibility_decline">Ikke nå</string>
     <string name="accessibility_service_description">Ser når du åpner en app du har valgt å blokkere, slik at PlugBrain kan vise en regneoppgave. Bare navnet på appen leses.</string>

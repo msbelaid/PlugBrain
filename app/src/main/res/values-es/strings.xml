@@ -51,7 +51,9 @@
     <string name="welcome_feature_three_title">Cuanto más te quedas, más difícil</string>
     <string name="welcome_feature_three_description">Los retos se vuelven más difíciles cuanto más sigues haciendo scroll.</string>
     <string name="welcome_cta_title">Empezar</string>
-    <string name="calculator_warning">¡Nada de calculadora!</string>
+    <string name="calculator_dialog_title">¿Lo resuelves sin calculadora?</string>
+    <string name="calculator_dialog_back_to_challenge">Volver al reto</string>
+    <string name="calculator_dialog_use_calculator">Usar calculadora</string>
 
     <string name="onboarding_skip">Omitir</string>
     <string name="onboarding_permissions_title">Vamos a configurarlo</string>
@@ -68,7 +70,7 @@
     <string name="onboarding_battery_description">Hace que PlugBrain siga funcionando aunque tu teléfono intente ahorrar batería.</string>
 
     <string name="onboarding_sheet_cta">Entendido</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain usa el servicio de accesibilidad para saber qué app está abierta. Cuando abres una app que elegiste bloquear, o una calculadora durante un reto, PlugBrain te muestra primero un reto de matemáticas.\n\nPlugBrain solo lee el nombre de la app. No lee lo que hay en tu pantalla ni lo que escribes, y nada sale de tu teléfono.</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain usa el servicio de accesibilidad para saber qué app está abierta. Cuando abres una app que elegiste bloquear, PlugBrain te muestra primero un reto de matemáticas. Si abres una calculadora durante un reto, PlugBrain puede recordarte que lo resuelvas tú.\n\nPlugBrain solo lee el nombre de la app. No lee lo que hay en tu pantalla ni lo que escribes, y nada sale de tu teléfono.</string>
     <string name="onboarding_accessibility_accept">Aceptar y continuar</string>
     <string name="onboarding_accessibility_decline">Ahora no</string>
     <string name="accessibility_service_description">Detecta cuándo abres una app que elegiste bloquear para que PlugBrain pueda mostrarte un reto de matemáticas. Solo se lee el nombre de la app.</string>

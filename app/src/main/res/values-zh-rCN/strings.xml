@@ -41,7 +41,9 @@
     <string name="welcome_feature_three_title">停留越久，难度越高</string>
     <string name="welcome_feature_three_description">你刷得越久，挑战就越难。</string>
     <string name="welcome_cta_title">开始使用</string>
-    <string name="calculator_warning">别用计算器哦！</string>
+    <string name="calculator_dialog_title">不用计算器试试？</string>
+    <string name="calculator_dialog_back_to_challenge">返回挑战</string>
+    <string name="calculator_dialog_use_calculator">使用计算器</string>
     <string name="onboarding_skip">跳过</string>
     <string name="onboarding_permissions_title">开始设置吧</string>
     <string name="onboarding_permissions_subtitle">PlugBrain 需要以下权限才能正常运行。</string>
@@ -56,7 +58,7 @@
     <string name="onboarding_battery_title">电池优化（可选）</string>
     <string name="onboarding_battery_description">确保 PlugBrain 在设备尝试省电时也能稳定运行。</string>
     <string name="onboarding_sheet_cta">知道了</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain 使用无障碍服务来查看当前打开的是哪个应用。当你打开已选择屏蔽的应用，或在挑战期间打开计算器时，PlugBrain 会先显示一道数学挑战。\n\nPlugBrain 只读取应用名称。它不会读取屏幕上的内容或你输入的内容，任何数据都不会离开你的手机。</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain 使用无障碍服务来查看当前打开的是哪个应用。当你打开已选择屏蔽的应用时，PlugBrain 会先显示一道数学挑战。如果你在挑战期间打开计算器，PlugBrain 可能会提醒你自己动脑解题。\n\nPlugBrain 只读取应用名称。它不会读取屏幕上的内容或你输入的内容，任何数据都不会离开你的手机。</string>
     <string name="onboarding_accessibility_accept">同意并继续</string>
     <string name="onboarding_accessibility_decline">暂不</string>
     <string name="accessibility_service_description">检测你何时打开了已选择屏蔽的应用，以便 PlugBrain 显示数学挑战。仅读取应用名称。</string>

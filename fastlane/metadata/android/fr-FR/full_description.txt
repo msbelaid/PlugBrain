@@ -21,4 +21,4 @@ Respect de ta vie privée
 
 Autorisations
 
-PlugBrain utilise l’accès aux données d’utilisation, la superposition aux autres applis et le service d’accessibilité pour savoir quelle appli est ouverte et afficher le défi par-dessus. Pendant un défi, il bloque aussi les calculatrices. Il lit seulement le nom de l’appli ouverte, jamais ce qui est à l’écran ni ce que tu tapes.
+PlugBrain utilise l’accès aux données d’utilisation, la superposition aux autres applis et le service d’accessibilité pour savoir quelle appli est ouverte et afficher le défi par-dessus. Si tu ouvres une calculatrice pendant un défi, il peut te rappeler de le résoudre toi-même. Il lit seulement le nom de l’appli ouverte, jamais ce qui est à l’écran ni ce que tu tapes.

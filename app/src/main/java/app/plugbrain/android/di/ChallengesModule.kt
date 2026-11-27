@@ -17,6 +17,11 @@ import app.plugbrain.android.challenges.missing.MissingAdditionChallenge
 import app.plugbrain.android.challenges.missing.MissingDivisionChallenge
 import app.plugbrain.android.challenges.missing.MissingMultiplicationChallenge
 import app.plugbrain.android.challenges.missing.MissingSubtractionChallenge
+import app.plugbrain.android.challenges.mixed.MixedProductMinusSingleDigitChallenge
+import app.plugbrain.android.challenges.mixed.MixedProductPlusSingleDigitChallenge
+import app.plugbrain.android.challenges.mixed.MixedSumInBracketsTimesSingleDigitChallenge
+import app.plugbrain.android.challenges.mixed.MixedSumInBracketsTimesTwoDigitChallenge
+import app.plugbrain.android.challenges.mixed.MixedTwoProductsAddedChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByElevenChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByFiveChallenge
 import app.plugbrain.android.challenges.multiplication.MultiplicationByTenChallenge
@@ -108,6 +113,12 @@ val challengesModule = module {
   factory { MultiplicationThreeByThreeDigitChallenge() } bind Challenge::class
   factory { MultiplicationThreeByFourDigitChallenge() } bind Challenge::class
   factory { MultiplicationFourByFourDigitChallenge() } bind Challenge::class
+
+  factory { MixedProductPlusSingleDigitChallenge() } bind Challenge::class
+  factory { MixedProductMinusSingleDigitChallenge() } bind Challenge::class
+  factory { MixedSumInBracketsTimesSingleDigitChallenge() } bind Challenge::class
+  factory { MixedTwoProductsAddedChallenge() } bind Challenge::class
+  factory { MixedSumInBracketsTimesTwoDigitChallenge() } bind Challenge::class
 
   factory { MissingAdditionChallenge() } bind Challenge::class
   factory { MissingSubtractionChallenge() } bind Challenge::class
