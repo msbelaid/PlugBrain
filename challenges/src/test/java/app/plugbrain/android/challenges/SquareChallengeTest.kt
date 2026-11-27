@@ -91,7 +91,7 @@ class SquareChallengeTest {
     fun `test operands and levels of the bigger square challenges`() {
         repeat(50) {
             val multipleOfTen = SquareChallengeMultipleOfTenTwentyThroughNinety()
-            assertEquals(7, multipleOfTen.difficultyLevel)
+            assertEquals(6, multipleOfTen.difficultyLevel)
             assertTrue(multipleOfTen.operand in 20..90 && multipleOfTen.operand % 10 == 0, "${multipleOfTen.operand}")
 
             val endingInFive = SquareChallengeEndingInFiveFifteenThroughNinetyFive()

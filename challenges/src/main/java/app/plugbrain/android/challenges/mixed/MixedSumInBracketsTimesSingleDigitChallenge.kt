@@ -7,7 +7,7 @@ class MixedSumInBracketsTimesSingleDigitChallenge : NumericalChallenge {
   val addend1: Int = (10..19).random()
   val addend2: Int = (2..9).random()
   val factor: Int = (2..9).random()
-  override val difficultyLevel: Int = 10
+  override val difficultyLevel: Int = 9
 
   override fun checkAnswer(response: Int): Boolean {
     return response == (addend1 + addend2) * factor

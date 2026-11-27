@@ -36,7 +36,7 @@ class MissingChallengeTest {
     fun `test missing addition challenge generation`() {
         repeat(20) {
             val challenge = MissingAdditionChallenge()
-            assertEquals(3, challenge.difficultyLevel)
+            assertEquals(5, challenge.difficultyLevel)
             assertTrue(challenge.operand1 in 1..19, "${challenge.operand1} is not in 1..19")
             assertTrue(challenge.operand2 in 1..19, "${challenge.operand2} is not in 1..19")
             assertEquals(challenge.operand1 + challenge.operand2, challenge.result)
@@ -47,7 +47,7 @@ class MissingChallengeTest {
     fun `test missing subtraction challenge generation`() {
         repeat(20) {
             val challenge = MissingSubtractionChallenge()
-            assertEquals(4, challenge.difficultyLevel)
+            assertEquals(5, challenge.difficultyLevel)
             assertTrue(challenge.result in 0..19, "${challenge.result} is not in 0..19")
             assertTrue(challenge.operand2 in 1..19, "${challenge.operand2} is not in 1..19")
             assertTrue(challenge.operand1 >= challenge.operand2, "operand1 should be >= operand2")

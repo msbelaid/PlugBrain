@@ -126,7 +126,7 @@ class SubtractChallengeTest {
             val challenge = SubtractThreeDigitsChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(8, challenge.difficultyLevel)
+            assertEquals(9, challenge.difficultyLevel)
             assertTrue(a >= b, "$a is not greater than $b")
             assertTrue(a in 100..1000, "$a is not in 10..100")
             assertTrue(b in 100..1000, "$b is not in 10..99")
@@ -139,7 +139,7 @@ class SubtractChallengeTest {
             val challenge = SubtractFourDigitsChallenge()
             val a = challenge.operand1
             val b = challenge.operand2
-            assertEquals(9, challenge.difficultyLevel)
+            assertEquals(11, challenge.difficultyLevel)
             assertTrue(a >= b, "$a is not greater than $b")
             assertTrue(a in 1000..10000, "$a is not in 10..100")
             assertTrue(b in 1000..10000, "$b is not in 10..99")
