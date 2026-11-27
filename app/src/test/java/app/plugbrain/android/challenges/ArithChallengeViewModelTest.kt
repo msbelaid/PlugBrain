@@ -3,8 +3,8 @@ package app.plugbrain.android.challenges
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.blocking.UsageSource
+import app.plugbrain.android.challenges.factory.ChallengeFactory
 import app.plugbrain.android.datastore.BLOCKED_APPS_KEY
 import app.plugbrain.android.datastore.BLOCK_APPS_TOGGLE_KEY
 import app.plugbrain.android.datastore.BLOCK_INTERVAL_KEY
