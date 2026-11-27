@@ -17,6 +17,7 @@ import app.plugbrain.android.datastore.setLastUnblockTime
 import app.plugbrain.android.datastore.updateBlockAppsToggle
 import app.plugbrain.android.repository.MathChallengeRepository
 import app.plugbrain.android.util.Clock
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -25,6 +26,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ArithChallengeViewModel(
   private val dataStore: DataStore<Preferences>,
@@ -67,8 +69,11 @@ class ArithChallengeViewModel(
 
     val now = clock.now()
     // Time spent in blocked apps is not time away, so it must not lower the level (#314).
+    // Usage stats are read from the system, so keep that off the main thread.
     val minutesInBlockedApps = timestamps.lastChallenge?.let { lastChallenge ->
-      usageSource.minutesUsed(settings.distractiveApps, from = lastChallenge, to = now)
+      withContext(Dispatchers.IO) {
+        usageSource.minutesUsed(settings.distractiveApps, from = lastChallenge, to = now)
+      }
     } ?: 0L
     val levels = DifficultyDecay.levelsToDrop(
       lastChallenge = timestamps.lastChallenge,
