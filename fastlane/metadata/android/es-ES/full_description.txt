@@ -21,4 +21,4 @@ Privado desde el diseño
 
 Permisos
 
-PlugBrain usa el acceso a datos de uso, mostrar sobre otras apps y el servicio de accesibilidad para saber qué app está abierta y mostrar el reto encima. Durante un reto también bloquea las calculadoras. Solo lee el nombre de la app abierta, nunca lo que hay en tu pantalla ni lo que escribes.
+PlugBrain usa el acceso a datos de uso, mostrar sobre otras apps y el servicio de accesibilidad para saber qué app está abierta y mostrar el reto encima. Si abres una calculadora durante un reto, puede recordarte que lo resuelvas tú. Solo lee el nombre de la app abierta, nunca lo que hay en tu pantalla ni lo que escribes.

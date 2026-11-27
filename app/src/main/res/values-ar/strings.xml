@@ -62,7 +62,9 @@
     <string name="welcome_feature_three_title">كلما أطلت البقاء، زادت الصعوبة</string>
     <string name="welcome_feature_three_description">تزداد صعوبة التحديات كلما واصلت التمرير.</string>
     <string name="welcome_cta_title">لنبدأ</string>
-    <string name="calculator_warning">من فضلك، لا تستخدم الآلة الحاسبة!</string>
+    <string name="calculator_dialog_title">هل تحلّها بدون آلة حاسبة؟</string>
+    <string name="calculator_dialog_back_to_challenge">العودة إلى التحدي</string>
+    <string name="calculator_dialog_use_calculator">استخدام الآلة الحاسبة</string>
     <string name="onboarding_skip">تخطٍّ</string>
     <string name="onboarding_permissions_title">لنُجهّز كل شيء</string>
     <string name="onboarding_permissions_subtitle">يحتاج PlugBrain إلى الأذونات التالية ليعمل بشكل صحيح.</string>
@@ -77,7 +79,7 @@
     <string name="onboarding_battery_title">تحسين البطارية (اختياري)</string>
     <string name="onboarding_battery_description">يضمن بقاء PlugBrain قيد التشغيل دون انقطاع، حتى عندما يحاول جهازك توفير البطارية.</string>
     <string name="onboarding_sheet_cta">فهمت</string>
-    <string name="onboarding_accessibility_disclosure">يستخدم PlugBrain خدمة تسهيل الاستخدام لمعرفة التطبيق المفتوح. عندما تفتح تطبيقًا اخترت حظره، أو آلة حاسبة أثناء تحدٍّ، يعرض PlugBrain تحديًا رياضيًا أولًا.\n\nيقرأ PlugBrain اسم التطبيق فقط. لا يقرأ ما يظهر على شاشتك ولا ما تكتبه، ولا تخرج أي بيانات من هاتفك.</string>
+    <string name="onboarding_accessibility_disclosure">يستخدم PlugBrain خدمة تسهيل الاستخدام لمعرفة التطبيق المفتوح. عندما تفتح تطبيقًا اخترت حظره، يعرض PlugBrain تحديًا رياضيًا أولًا. وإذا فتحت آلة حاسبة أثناء تحدٍّ، قد يذكّرك PlugBrain بحلّه بنفسك.\n\nيقرأ PlugBrain اسم التطبيق فقط. لا يقرأ ما يظهر على شاشتك ولا ما تكتبه، ولا تخرج أي بيانات من هاتفك.</string>
     <string name="onboarding_accessibility_accept">قبول ومتابعة</string>
     <string name="onboarding_accessibility_decline">ليس الآن</string>
     <string name="accessibility_service_description">يكتشف متى تفتح تطبيقًا اخترت حظره حتى يتمكن PlugBrain من عرض تحدٍّ رياضي. لا يُقرأ سوى اسم التطبيق.</string>

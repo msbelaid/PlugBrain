@@ -21,4 +21,4 @@ Privado desde o início
 
 Permissões
 
-O PlugBrain usa o acesso ao uso, a sobreposição a outros apps e o serviço de acessibilidade para saber qual app está aberto e mostrar o desafio por cima. Durante um desafio, ele também bloqueia as calculadoras. Ele só lê o nome do app aberto, nunca o que aparece na sua tela nem o que você digita.
+O PlugBrain usa o acesso ao uso, a sobreposição a outros apps e o serviço de acessibilidade para saber qual app está aberto e mostrar o desafio por cima. Se você abrir uma calculadora durante um desafio, ele pode lembrar você de resolvê-lo sozinho. Ele só lê o nome do app aberto, nunca o que aparece na sua tela nem o que você digita.

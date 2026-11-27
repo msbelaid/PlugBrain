@@ -4,7 +4,6 @@ import android.accessibilityservice.AccessibilityService
 import android.content.Intent
 import android.provider.Settings
 import android.view.accessibility.AccessibilityEvent
-import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.plugbrain.android.R
@@ -21,6 +20,7 @@ import app.plugbrain.android.datastore.model.UserSettings
 import app.plugbrain.android.datastore.setLastBlockTime
 import app.plugbrain.android.datastore.setLastUsageTime
 import app.plugbrain.android.datastore.updateBlockAppsToggle
+import app.plugbrain.android.ui.calculator.CalculatorDialogActivity
 import app.plugbrain.android.ui.challenges.ChallengeActivity
 import app.plugbrain.android.util.Clock
 import kotlinx.coroutines.CoroutineScope
@@ -46,8 +46,8 @@ private const val SPLIT_SCREEN_EXIT_DELAY = 500L
 
 /**
  * The Android side of blocking: turns window events into [BlockingEngine] calls and carries out its
- * decisions (show the challenge, save timestamps, schedule the next usage check). The rules
- * themselves live in the :blocking module.
+ * decisions (show the challenge, ask a calculator user to go back to it, save timestamps, schedule
+ * the next usage check). The rules themselves live in the :blocking module.
  */
 // Keeps its old name: Android remembers an enabled accessibility service by its class name, so a
 // rename would turn the service off for everyone who updates.
@@ -134,17 +134,20 @@ class MathLockService : AccessibilityService() {
     Timber.tag(TAG).i("Event: $eventPackageName state changed")
     when (val decision = engine.onWindowChanged(eventPackageName, blockingState(), clock.now())) {
       Decision.Ignore -> Unit
-      is Decision.ShowChallenge -> {
-        if (decision.calculatorWarning) {
-          Toast.makeText(this, R.string.calculator_warning, Toast.LENGTH_LONG).show()
-        }
-        launchChallenge()
-      }
+      Decision.ShowChallenge -> launchChallenge()
+      Decision.CalculatorUsed -> showCalculatorDialog()
       is Decision.InUse -> {
         serviceScope.launch { dataStore.setLastUsageTime(decision.at) }
         applyUsage(decision.usage)
       }
     }
+  }
+
+  /** Asks whether to go back to the challenge; the calculator itself stays usable (#236). */
+  private fun showCalculatorDialog() {
+    val intent = Intent(this, CalculatorDialogActivity::class.java)
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+    startActivity(intent)
   }
 
   private fun applyUsage(usage: UsageDecision) {
