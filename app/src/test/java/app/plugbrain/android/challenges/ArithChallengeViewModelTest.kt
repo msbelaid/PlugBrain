@@ -3,7 +3,9 @@ package app.plugbrain.android.challenges
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import app.plugbrain.android.blocking.UsageSource
 import app.plugbrain.android.challenges.factory.ChallengeFactory
+import app.plugbrain.android.datastore.BLOCKED_APPS_KEY
 import app.plugbrain.android.datastore.BLOCK_APPS_TOGGLE_KEY
 import app.plugbrain.android.datastore.BLOCK_INTERVAL_KEY
 import app.plugbrain.android.datastore.MINIMAL_DIFFICULTY_KEY
@@ -31,6 +33,7 @@ private const val ONE_MINUTE = 60_000L
 private const val NOW = 1_000 * ONE_MINUTE
 private const val BLOCK_INTERVAL = 5
 private const val MAX_DIFFICULTY = 5
+private const val BLOCKED_APP = "com.example.blocked"
 
 /** Difficulty goes up with each solved challenge and back down after long breaks. */
 class ArithChallengeViewModelTest {
@@ -39,18 +42,24 @@ class ArithChallengeViewModelTest {
 
     private lateinit var dataStore: DataStore<Preferences>
     private lateinit var viewModel: ArithChallengeViewModel
+    private var now = NOW
+
+    // Minutes the blocked app was used in any asked window, or 0 when another app is asked about.
+    private var minutesInBlockedApp = 0L
+    private val usageSource = UsageSource { packages, _, _ -> if (BLOCKED_APP in packages) minutesInBlockedApp else 0L }
 
     @Before
     fun setup() {
         dataStore = rule.dataStore
         val factory = ChallengeFactory((0..MAX_DIFFICULTY).map { level -> { LevelChallenge(level) } })
         val repository = MathChallengeRepository(dataStore, factory)
-        viewModel = rule.cleared(ArithChallengeViewModel(dataStore, repository) { NOW })
+        viewModel = rule.cleared(ArithChallengeViewModel(dataStore, repository, { now }, usageSource))
         runBlocking<Unit> {
             dataStore.edit {
                 it[BLOCK_INTERVAL_KEY] = BLOCK_INTERVAL
                 it[MINIMAL_DIFFICULTY_KEY] = 0
                 it[BLOCK_APPS_TOGGLE_KEY] = true
+                it[BLOCKED_APPS_KEY] = setOf(BLOCKED_APP)
             }
         }
     }
@@ -92,6 +101,41 @@ class ArithChallengeViewModelTest {
 
             assertEquals(1, dataStore.getProgressiveDifficulty().first())
             assertEquals(NOW, dataStore.getTimestamps().first().lastChallenge)
+        }
+    }
+
+    @Test
+    fun timeSpentInBlockedAppsDoesNotLowerTheDifficulty() {
+        runBlocking {
+            setDifficulty(3)
+            dataStore.setLastChallengeTime(NOW - 2 * (2 * BLOCK_INTERVAL) * ONE_MINUTE)
+            minutesInBlockedApp = 2L * (2 * BLOCK_INTERVAL)
+
+            viewModel.decreaseDifficulty()
+
+            assertEquals(3, dataStore.getProgressiveDifficulty().first())
+        }
+    }
+
+    /**
+     * #314: with a 1 minute interval, whole-minute usage checks put the next block about 2 minutes
+     * after the solve, which is two intervals. Used continuously, the solve's level must stay.
+     */
+    @Test
+    fun continuousUseKeepsTheLevelOfTheLastSolve() {
+        runBlocking {
+            dataStore.edit { it[BLOCK_INTERVAL_KEY] = 1 }
+            setDifficulty(0)
+            val solved = CompletableDeferred<Unit>()
+            viewModel.unblockApps { solved.complete(Unit) }
+            withTimeout(5_000) { solved.await() }
+
+            now = NOW + 2 * ONE_MINUTE
+            minutesInBlockedApp = 2
+            viewModel.generateChallenge()
+
+            val challenge = withTimeout(5_000) { viewModel.challenge.first { it != null } }
+            assertEquals(1, challenge?.difficultyLevel)
         }
     }
 
