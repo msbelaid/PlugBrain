@@ -10,8 +10,11 @@ object DifficultyDecay {
   /**
    * @return how many difficulty levels to drop at [now]: one per two block intervals since
    * [lastChallenge] (all of time when there was none). Zero means keep the current level.
+   * [minutesInBlockedApps] is the blocked-app use in that time (#314).
    */
-  fun levelsToDrop(lastChallenge: Long?, blockIntervalMinutes: Int, now: Long): Int {
+  // TODO(#314): not used yet, the tests for it fail until the fix.
+  @Suppress("UnusedParameter")
+  fun levelsToDrop(lastChallenge: Long?, blockIntervalMinutes: Int, now: Long, minutesInBlockedApps: Long): Int {
     val minutesSince = (now - (lastChallenge ?: 0L)) / MILLIS_PER_MINUTE
     return (minutesSince / (blockIntervalMinutes * INTERVALS_PER_LEVEL)).toInt()
   }

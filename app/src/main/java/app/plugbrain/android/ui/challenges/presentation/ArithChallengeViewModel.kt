@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.plugbrain.android.blocking.DifficultyDecay
+import app.plugbrain.android.blocking.UsageSource
 import app.plugbrain.android.challenges.Challenge
 import app.plugbrain.android.datastore.DEFAULT_BLOCK_INTERVAL
 import app.plugbrain.android.datastore.decrementProgressiveDifficulty
@@ -29,6 +30,7 @@ class ArithChallengeViewModel(
   private val dataStore: DataStore<Preferences>,
   private val mathChallengeRepository: MathChallengeRepository,
   private val clock: Clock,
+  private val usageSource: UsageSource,
 ) : ViewModel() {
   private val _challenge: MutableStateFlow<Challenge?> = MutableStateFlow(null)
   val challenge: StateFlow<Challenge?> = _challenge
@@ -64,7 +66,16 @@ class ArithChallengeViewModel(
     }.first()
 
     val now = clock.now()
-    val levels = DifficultyDecay.levelsToDrop(timestamps.lastChallenge, settings.blockInterval, now)
+    // Time spent in blocked apps is not time away, so it must not lower the level (#314).
+    val minutesInBlockedApps = timestamps.lastChallenge?.let { lastChallenge ->
+      usageSource.minutesUsed(settings.distractiveApps, from = lastChallenge, to = now)
+    } ?: 0L
+    val levels = DifficultyDecay.levelsToDrop(
+      lastChallenge = timestamps.lastChallenge,
+      blockIntervalMinutes = settings.blockInterval,
+      now = now,
+      minutesInBlockedApps = minutesInBlockedApps,
+    )
     if (levels > 0) {
       // The floor (the chosen minimal difficulty) is applied inside the DataStore edit.
       dataStore.decrementProgressiveDifficulty(levels)
