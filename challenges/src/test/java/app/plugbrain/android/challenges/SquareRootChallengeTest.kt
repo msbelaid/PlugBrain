@@ -13,7 +13,7 @@ class SquareRootChallengeTest {
         repeat(50) {
             val challenge = SquareRootChallengeTwoThroughTen()
             val answer = challenge.answer
-            assertEquals(3, challenge.difficultyLevel)
+            assertEquals(6, challenge.difficultyLevel)
             assertTrue(answer in 2..10, "$answer is not in 2..10")
             val radicand = answer * answer
             assertTrue(radicand in 4..100, "$radicand is not in 4..100")
@@ -29,7 +29,7 @@ class SquareRootChallengeTest {
         repeat(50) {
             val challenge = SquareRootChallengeElevenThroughTwenty()
             val answer = challenge.answer
-            assertEquals(7, challenge.difficultyLevel)
+            assertEquals(11, challenge.difficultyLevel)
             assertTrue(answer in 11..20, "$answer is not in 11..20")
             val radicand = answer * answer
             assertTrue(radicand in 121..400, "$radicand is not in 121..400")

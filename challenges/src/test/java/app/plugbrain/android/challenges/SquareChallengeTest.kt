@@ -18,7 +18,7 @@ class SquareChallengeTest {
         repeat(10) {
             val challenge = SquareChallengeEasyTwoThroughFive()
             val a = challenge.operand
-            assertEquals(2, challenge.difficultyLevel)
+            assertEquals(4, challenge.difficultyLevel)
             assertTrue(a in 2..5, "$a is in 2..5")
         }
     }
@@ -28,7 +28,7 @@ class SquareChallengeTest {
         repeat(10) {
             val challenge = SquareChallengeMediumSixThroughTen()
             val a = challenge.operand
-            assertEquals(4, challenge.difficultyLevel)
+            assertEquals(6, challenge.difficultyLevel)
             assertTrue(a in 6..10, "$a is in 6..10")
         }
     }
@@ -38,7 +38,7 @@ class SquareChallengeTest {
         repeat(10) {
             val challenge = SquareChallengeHardElevenThroughNineteen()
             val a = challenge.operand
-            assertEquals(8, challenge.difficultyLevel)
+            assertEquals(10, challenge.difficultyLevel)
             assertTrue(a in 11..19, "$a is not in 11..19")
         }
     }
@@ -48,7 +48,7 @@ class SquareChallengeTest {
         repeat(10) {
             val challenge = SquareChallengeEasyTwoThroughFive()
             val a = challenge.operand
-            assertEquals(2, challenge.difficultyLevel)
+            assertEquals(4, challenge.difficultyLevel)
             assertTrue(a in 2..5, "$a is not in 2..5")
             assertTrue(challenge.checkAnswer(a * a), "check answer is correct")
             assertFalse(challenge.checkAnswer(a * a - 1), "check answer is not correct")
@@ -60,7 +60,7 @@ class SquareChallengeTest {
         repeat(10) {
             val challenge = SquareChallengeMediumSixThroughTen()
             val a = challenge.operand
-            assertEquals(4, challenge.difficultyLevel)
+            assertEquals(6, challenge.difficultyLevel)
             assertTrue(a in 6..10, "$a is not in 6..10")
             assertTrue(challenge.checkAnswer(a * a), "check answer is correct")
             assertFalse(challenge.checkAnswer(a * a - 1), "check answer is not correct")
@@ -72,7 +72,7 @@ class SquareChallengeTest {
         repeat(10) {
             val challenge = SquareChallengeHardElevenThroughNineteen()
             val a = challenge.operand
-            assertEquals(8, challenge.difficultyLevel)
+            assertEquals(10, challenge.difficultyLevel)
             assertTrue(a in 11..19, "$a is not in 11..19")
             assertTrue(challenge.checkAnswer(a * a), "check answer is correct")
             assertFalse(challenge.checkAnswer(a * a - 1), "check answer is not correct")
@@ -91,11 +91,11 @@ class SquareChallengeTest {
     fun `test operands and levels of the bigger square challenges`() {
         repeat(50) {
             val multipleOfTen = SquareChallengeMultipleOfTenTwentyThroughNinety()
-            assertEquals(5, multipleOfTen.difficultyLevel)
+            assertEquals(7, multipleOfTen.difficultyLevel)
             assertTrue(multipleOfTen.operand in 20..90 && multipleOfTen.operand % 10 == 0, "${multipleOfTen.operand}")
 
             val endingInFive = SquareChallengeEndingInFiveFifteenThroughNinetyFive()
-            assertEquals(9, endingInFive.difficultyLevel)
+            assertEquals(11, endingInFive.difficultyLevel)
             assertTrue(endingInFive.operand in 15..95 && endingInFive.operand % 10 == 5, "${endingInFive.operand}")
 
             val twentyOne = SquareChallengeTwentyOneThroughFifty()
