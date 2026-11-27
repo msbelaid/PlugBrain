@@ -52,7 +52,9 @@
     <string name="welcome_feature_three_title">Чем дольше, тем сложнее</string>
     <string name="welcome_feature_three_description">Чем дольше ты листаешь ленту, тем сложнее задачи.</string>
     <string name="welcome_cta_title">Начать</string>
-    <string name="calculator_warning">Только без калькулятора!</string>
+    <string name="calculator_dialog_title">Решишь без калькулятора?</string>
+    <string name="calculator_dialog_back_to_challenge">Вернуться к задаче</string>
+    <string name="calculator_dialog_use_calculator">Открыть калькулятор</string>
     <string name="onboarding_skip">Пропустить</string>
     <string name="onboarding_permissions_title">Давай всё настроим</string>
     <string name="onboarding_permissions_subtitle">Для правильной работы PlugBrain нужны следующие разрешения.</string>
@@ -67,7 +69,7 @@
     <string name="onboarding_battery_title">Оптимизация батареи (необязательно)</string>
     <string name="onboarding_battery_description">Помогает PlugBrain стабильно работать, даже когда устройство пытается экономить заряд.</string>
     <string name="onboarding_sheet_cta">Понятно</string>
-    <string name="onboarding_accessibility_disclosure">PlugBrain использует сервис специальных возможностей, чтобы видеть, какое приложение открыто. Когда ты открываешь приложение из списка блокировки или калькулятор во время задачи, PlugBrain сначала предлагает решить пример.\n\nPlugBrain считывает только название приложения. Он не читает содержимое экрана и то, что ты вводишь, и никакие данные не покидают твой телефон.</string>
+    <string name="onboarding_accessibility_disclosure">PlugBrain использует сервис специальных возможностей, чтобы видеть, какое приложение открыто. Когда ты открываешь приложение из списка блокировки, PlugBrain сначала предлагает решить пример. Если ты откроешь калькулятор во время задачи, PlugBrain может напомнить, что решать нужно самому.\n\nPlugBrain считывает только название приложения. Он не читает содержимое экрана и то, что ты вводишь, и никакие данные не покидают твой телефон.</string>
     <string name="onboarding_accessibility_accept">Принять и продолжить</string>
     <string name="onboarding_accessibility_decline">Не сейчас</string>
     <string name="accessibility_service_description">Определяет, когда ты открываешь приложение из списка блокировки, чтобы PlugBrain мог предложить решить пример. Считывается только название приложения.</string>

@@ -21,4 +21,4 @@ Privacy voorop
 
 Toestemmingen
 
-PlugBrain gebruikt toegang tot gebruiksgegevens, weergeven over andere apps en de toegankelijkheidsservice om te zien welke app open is en de uitdaging erover te tonen. Tijdens een uitdaging blokkeert het ook rekenmachines. Het leest alleen de naam van de geopende app, nooit wat er op je scherm staat of wat je typt.
+PlugBrain gebruikt toegang tot gebruiksgegevens, weergeven over andere apps en de toegankelijkheidsservice om te zien welke app open is en de uitdaging erover te tonen. Open je tijdens een uitdaging een rekenmachine, dan herinnert het je er misschien aan om die zelf op te lossen. Het leest alleen de naam van de geopende app, nooit wat er op je scherm staat of wat je typt.

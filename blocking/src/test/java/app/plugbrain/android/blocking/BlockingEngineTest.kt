@@ -1,5 +1,6 @@
 package app.plugbrain.android.blocking
 
+import app.plugbrain.android.blocking.Decision.CalculatorUsed
 import app.plugbrain.android.blocking.Decision.Ignore
 import app.plugbrain.android.blocking.Decision.InUse
 import app.plugbrain.android.blocking.Decision.ShowChallenge
@@ -65,22 +66,64 @@ class BlockingEngineTest {
     fun `a blocked app shows the challenge on every window change`() {
         val blocked = state(isBlocked = true)
 
-        assertEquals(ShowChallenge(), window(VIDEO, blocked))
-        assertEquals(ShowChallenge(), window(VIDEO, blocked, NOW + 1))
+        assertEquals(ShowChallenge, window(VIDEO, blocked))
+        assertEquals(ShowChallenge, window(VIDEO, blocked, NOW + 1))
     }
 
     @Test
-    fun `a calculator opened from the challenge is covered by it with a warning`() {
+    fun `a calculator opened from the challenge counts as a use`() {
         val onScreen = state(isBlocked = true, challengeOnScreenAt = NOW)
 
-        assertEquals(ShowChallenge(calculatorWarning = true), window(CALCULATOR, onScreen))
+        assertEquals(CalculatorUsed, window(CALCULATOR, onScreen))
     }
 
     @Test
-    fun `a calculator opened moments after leaving the challenge is still covered`() {
+    fun `a calculator opened moments after leaving the challenge still counts`() {
         val justLeft = state(isBlocked = true, challengeOnScreenAt = NOW - GRACE)
 
-        assertEquals(ShowChallenge(calculatorWarning = true), window(CALCULATOR, justLeft))
+        assertEquals(CalculatorUsed, window(CALCULATOR, justLeft))
+    }
+
+    @Test
+    fun `more calculator windows in the same trip from the challenge count once`() {
+        val left = state(isBlocked = true, challengeOnScreenAt = NOW - 1_000)
+
+        assertEquals(CalculatorUsed, window(CALCULATOR, left))
+        assertEquals(Ignore, window(CALCULATOR, left, NOW + 1_000))
+    }
+
+    @Test
+    fun `coming back to the calculator from the PlugBrain dialog doesn't count again`() {
+        val left = state(isBlocked = true, challengeOnScreenAt = NOW - 1_000)
+        assertEquals(CalculatorUsed, window(CALCULATOR, left))
+
+        assertEquals(Ignore, window(PLUGBRAIN, left, NOW + 500))
+        assertEquals(Ignore, window(CALCULATOR, left, NOW + 2_000))
+    }
+
+    @Test
+    fun `going back to the challenge and to the calculator again is a new use`() {
+        assertEquals(CalculatorUsed, window(CALCULATOR, state(isBlocked = true, challengeOnScreenAt = NOW)))
+
+        val secondTrip = NOW + 10_000
+        assertEquals(
+            CalculatorUsed,
+            window(CALCULATOR, state(isBlocked = true, challengeOnScreenAt = secondTrip - 1_000), secondTrip),
+        )
+    }
+
+    @Test
+    fun `a calculator floating over the challenge counts at most once per grace period`() {
+        // The challenge stays on screen, so every event brings a new on screen time.
+        assertEquals(CalculatorUsed, window(CALCULATOR, state(isBlocked = true, challengeOnScreenAt = NOW)))
+        assertEquals(
+            Ignore,
+            window(CALCULATOR, state(isBlocked = true, challengeOnScreenAt = NOW + GRACE), NOW + GRACE),
+        )
+        assertEquals(
+            CalculatorUsed,
+            window(CALCULATOR, state(isBlocked = true, challengeOnScreenAt = NOW + GRACE + 1), NOW + GRACE + 1),
+        )
     }
 
     @Test
@@ -101,14 +144,11 @@ class BlockingEngineTest {
     }
 
     @Test
-    fun `a calculator opened from an unsolved open challenge is covered`() {
+    fun `a calculator opened from an unsolved open challenge counts as a use`() {
         val openChallenge = state(challengeOnAppOpen = true, lastUnblock = NOW - INTERVAL * MINUTE)
-        assertEquals(ShowChallenge(), window(VIDEO, openChallenge))
+        assertEquals(ShowChallenge, window(VIDEO, openChallenge))
 
-        assertEquals(
-            ShowChallenge(calculatorWarning = true),
-            window(CALCULATOR, openChallenge.copy(challengeOnScreenAt = NOW + 1), NOW + 1),
-        )
+        assertEquals(CalculatorUsed, window(CALCULATOR, openChallenge.copy(challengeOnScreenAt = NOW + 1), NOW + 1))
     }
 
     @Test
@@ -140,7 +180,7 @@ class BlockingEngineTest {
 
     @Test
     fun `opening an app is challenged when the on open switch is on`() {
-        assertEquals(ShowChallenge(), window(VIDEO, state(challengeOnAppOpen = true)))
+        assertEquals(ShowChallenge, window(VIDEO, state(challengeOnAppOpen = true)))
     }
 
     @Test
@@ -150,7 +190,7 @@ class BlockingEngineTest {
 
         assertTrue(window(VIDEO, justSolved) is InUse)
         window(LAUNCHER)
-        assertEquals(ShowChallenge(), window(VIDEO, solvedLongAgo))
+        assertEquals(ShowChallenge, window(VIDEO, solvedLongAgo))
     }
 
     @Test
@@ -159,7 +199,7 @@ class BlockingEngineTest {
         window(VIDEO, unsolved)
 
         // Same app again, so not a new open: the challenge is still owed.
-        assertEquals(ShowChallenge(), window(VIDEO, unsolved, NOW + 1))
+        assertEquals(ShowChallenge, window(VIDEO, unsolved, NOW + 1))
     }
 
     @Test

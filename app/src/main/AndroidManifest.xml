@@ -45,6 +45,15 @@
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/Theme.PlugBrain" />
+        <!-- Shown over the calculator, in its own task: in the challenge's or the dashboard's task it
+             would bring that task to the front and hide the calculator. -->
+        <activity
+            android:name=".ui.calculator.CalculatorDialogActivity"
+            android:taskAffinity="app.plugbrain.android.calculator"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:exported="false"
+            android:theme="@style/Theme.PlugBrain.Translucent" />
         <activity
             android:name=".ui.onboarding.OnboardingActivity"
             android:exported="false"

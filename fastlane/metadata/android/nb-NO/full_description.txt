@@ -21,4 +21,4 @@ Personvern først
 
 Tillatelser
 
-PlugBrain bruker tilgang til appbruk, visning over andre apper og tilgjengelighetstjenesten for å se hvilken app som er åpen og vise utfordringen over den. Under en utfordring blokkerer den også kalkulatorer. Den leser bare navnet på appen som er åpen, aldri det som står på skjermen eller det du skriver.
+PlugBrain bruker tilgang til appbruk, visning over andre apper og tilgjengelighetstjenesten for å se hvilken app som er åpen og vise utfordringen over den. Hvis du åpner en kalkulator under en utfordring, kan den minne deg på å løse den selv. Den leser bare navnet på appen som er åpen, aldri det som står på skjermen eller det du skriver.

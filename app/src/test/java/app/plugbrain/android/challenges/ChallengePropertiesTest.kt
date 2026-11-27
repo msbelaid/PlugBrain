@@ -2,9 +2,15 @@ package app.plugbrain.android.challenges
 
 import app.plugbrain.android.challenges.average.AverageChallenge
 import app.plugbrain.android.challenges.factory.ChallengeFactory
+import app.plugbrain.android.challenges.mixed.MixedProductMinusSingleDigitChallenge
+import app.plugbrain.android.challenges.mixed.MixedProductPlusSingleDigitChallenge
+import app.plugbrain.android.challenges.mixed.MixedSumInBracketsTimesSingleDigitChallenge
+import app.plugbrain.android.challenges.mixed.MixedSumInBracketsTimesTwoDigitChallenge
+import app.plugbrain.android.challenges.mixed.MixedTwoProductsAddedChallenge
 import app.plugbrain.android.challenges.percentage.PercentageChallenge
 import app.plugbrain.android.challenges.square.SquareChallenge
 import app.plugbrain.android.challenges.square.SquareRootChallenge
+import app.plugbrain.android.challenges.threenumbers.ThreeNumbersChallenge
 import app.plugbrain.android.di.challengesModule
 import app.plugbrain.android.ui.onboarding.presentation.DifficultyPreset
 import org.junit.Assert.assertEquals
@@ -129,7 +135,23 @@ class ChallengePropertiesTest {
                 )
                 challenge.percent * challenge.base / 100
             }
-            else -> error("No expected answer for ${challenge::class.simpleName}")
+            is ThreeNumbersChallenge ->
+                challenge.numbers.drop(1).zip(challenge.operators).fold(challenge.numbers.first()) { total, (number, operator) ->
+                    compute(total, operator, number)
+                }
+            else ->
+                expectedMixedAnswer(challenge) ?: error("No expected answer for ${challenge::class.simpleName}")
+        }
+
+    private fun expectedMixedAnswer(challenge: NumericalChallenge): Int? =
+        when (challenge) {
+            is MixedProductPlusSingleDigitChallenge -> challenge.factor1 * challenge.factor2 + challenge.addend
+            is MixedProductMinusSingleDigitChallenge -> challenge.factor1 * challenge.factor2 - challenge.subtrahend
+            is MixedSumInBracketsTimesSingleDigitChallenge -> (challenge.addend1 + challenge.addend2) * challenge.factor
+            is MixedSumInBracketsTimesTwoDigitChallenge -> (challenge.addend1 + challenge.addend2) * challenge.factor
+            is MixedTwoProductsAddedChallenge ->
+                challenge.first1 * challenge.first2 + challenge.second1 * challenge.second2
+            else -> null
         }
 
     private fun compute(
